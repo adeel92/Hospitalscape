@@ -1,0 +1,297 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e3a667232611ac40aeff12aca798824, type: 3}
+  m_Name: DataMap-1-AchievementUpdate
+  m_EditorClassIdentifier: 
+  m_CustomerLeftPage: {fileID: 5003291662781457863, guid: dfc14bb56069c4c4ca43f74d64b07387, type: 3}
+  m_CustomerRightPage: {fileID: 2566218785004311881, guid: c3a324f30227e76469719d2c806fe97f, type: 3}
+  m_CustomersAchievementInfo:
+  - CustomerId: 0
+    UnlockAtLevel: 3
+    HasCoinReward: 1
+    CoinReward: 200
+    HasGemReward: 0
+    GemReward: 0
+    CustomerName: Juliana
+    HeaderSprite: {fileID: 21300000, guid: d0c85578d56ec4c4d8a8dc7148c6e741, type: 3}
+    HeartSprite: {fileID: 21300000, guid: 65940672e0bb82b479d06846372f5da1, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: 661eb7de0f8fd5f42938473a2a46694f, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: ddf838e7b0c93724fa3e93837d7fbfd8, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_0
+  - CustomerId: 1
+    UnlockAtLevel: 3
+    HasCoinReward: 1
+    CoinReward: 200
+    HasGemReward: 1
+    GemReward: 7
+    CustomerName: James
+    HeaderSprite: {fileID: 21300000, guid: d0c85578d56ec4c4d8a8dc7148c6e741, type: 3}
+    HeartSprite: {fileID: 21300000, guid: 860d2b356e338b5448a9be0e2163e2c6, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: bffb7cca2ca0c734b9a78912d37ef905, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: 2684a0454f459c14fbfdebb62773d8f9, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_1
+  - CustomerId: 2
+    UnlockAtLevel: 3
+    HasCoinReward: 1
+    CoinReward: 300
+    HasGemReward: 0
+    GemReward: 0
+    CustomerName: Immily
+    HeaderSprite: {fileID: 21300000, guid: 437b5c8ac2993e244ab564f050e64960, type: 3}
+    HeartSprite: {fileID: 21300000, guid: fc7d4e6439f1b4c43b4764f4f9fadbc3, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: 89612502ced38f24e8a6a85403b908bf, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: cd3efa4f24a33e541a11ab9278bf75a7, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_2
+  - CustomerId: 3
+    UnlockAtLevel: 4
+    HasCoinReward: 1
+    CoinReward: 20
+    HasGemReward: 1
+    GemReward: 4
+    CustomerName: Cora
+    HeaderSprite: {fileID: 21300000, guid: d0c85578d56ec4c4d8a8dc7148c6e741, type: 3}
+    HeartSprite: {fileID: 21300000, guid: fa4725a6ddbb91549aafd221659f6957, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: 2518103da57eb97438cb43cff41879ae, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: b0ac011eb3f7bbf47b3a885eaee7e188, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_3
+  - CustomerId: 5
+    UnlockAtLevel: 11
+    HasCoinReward: 1
+    CoinReward: 100
+    HasGemReward: 1
+    GemReward: 7
+    CustomerName: Frank
+    HeaderSprite: {fileID: 21300000, guid: 84a536b8520ecdd41bbb8617d2b4d9ea, type: 3}
+    HeartSprite: {fileID: 21300000, guid: fa49405e2de6d4f4e9aa55f4aba35d05, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: 6cf824da3bc72b74e86dd3f403aa4b63, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: 40b97cb7d5c5ce14cac59a761c58dcc9, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_4
+  - CustomerId: 4
+    UnlockAtLevel: 15
+    HasCoinReward: 1
+    CoinReward: 100
+    HasGemReward: 1
+    GemReward: 4
+    CustomerName: Henry
+    HeaderSprite: {fileID: 21300000, guid: ecac35c4976defb4f9eff3df1e1f25ef, type: 3}
+    HeartSprite: {fileID: 21300000, guid: 795103c7e1b659844a2ae2a1a0a94a42, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: 0887da4e44890964b9645df0fd85072d, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: 99cd192fc57e9d04ebdbe7b1e669ccdf, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_5
+  - CustomerId: 6
+    UnlockAtLevel: 22
+    HasCoinReward: 1
+    CoinReward: 200
+    HasGemReward: 1
+    GemReward: 4
+    CustomerName: Dike
+    HeaderSprite: {fileID: 21300000, guid: 437b5c8ac2993e244ab564f050e64960, type: 3}
+    HeartSprite: {fileID: 21300000, guid: fc7d4e6439f1b4c43b4764f4f9fadbc3, type: 3}
+    CustomerLockedSprite: {fileID: 21300000, guid: c18d67364d258ee45a50bd92e0f52b0f, type: 3}
+    CustomerUnlockedSprite: {fileID: 21300000, guid: cf183a1bd8886f84484bc73b3deb286e, type: 3}
+    NotifationSeenKey: Notification_Achievement_Customer_6
+  m_AchievementLeftPage: {fileID: 5676793008493371914, guid: f591fda41f088ac48bd0fdba35461c0e, type: 3}
+  m_AchievementRightPage: {fileID: 4441200811528474888, guid: 68e927c396ba4ac4cbf053a20d7cf314, type: 3}
+  m_AchievementPanel: {fileID: 4392697669999185708, guid: 02175ef9b70bc1941b9796940a248108, type: 3}
+  m_AchievementsInfo:
+  - Achievement: 0
+    CollectionRecordKey: Map1-Achievement1RecordKey
+    CollectionKey: Map1-Achievement1CollectionKey
+    Target: 7
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 20
+    PreviewSprite: {fileID: 21300000, guid: 19a08dec1ec30814394f40aac48b129e, type: 3}
+    DiscriptionText: "Unlock all customer \nof the Garden House \nRestaurant "
+    NotificationText: 'Unlock all customer of the Garden House Restaurant '
+    NotifationSeenKey: Notification_Achievement_0
+  - Achievement: 1
+    CollectionRecordKey: Map1-Achievement2RecordKey
+    CollectionKey: Map1-Achievement2CollectionKey
+    Target: 60
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 10
+    PreviewSprite: {fileID: 21300000, guid: 277856bea24d70a40a88bc6b1744763d, type: 3}
+    DiscriptionText: "Complete all the\nLevels of Garden \nHouse Restaurant "
+    NotificationText: 'Complete all the Levels of Garden House Restaurant '
+    NotifationSeenKey: Notification_Achievement_1
+  - Achievement: 2
+    CollectionRecordKey: Map1-Achievement3RecordKey
+    CollectionKey: Map1-Achievement3CollectionKey
+    Target: 25
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: dffd0da1ce7a56048ad251ce26249424, type: 3}
+    DiscriptionText: Collect 25 keys
+    NotificationText: Collect 25 keys
+    NotifationSeenKey: Notification_Achievement_2
+  - Achievement: 3
+    CollectionRecordKey: Map1-Achievement4RecordKey
+    CollectionKey: Map1-Achievement4CollectionKey
+    Target: 30000
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 237047e97c6ec06428f74eef2a53be4c, type: 3}
+    DiscriptionText: "The waitress walks \n30,000 meters "
+    NotificationText: 'The waitress walks 30,000 meters '
+    NotifationSeenKey: Notification_Achievement_3
+  - Achievement: 4
+    CollectionRecordKey: Map1-Achievement5RecordKey
+    CollectionKey: Map1-Achievement5CollectionKey
+    Target: 10
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: ef693693adb655f40a114bbeb254e41d, type: 3}
+    DiscriptionText: "Complete 10 levels \nwithout losing a customer"
+    NotificationText: Complete 10 levels without losing a customer
+    NotifationSeenKey: Notification_Achievement_4
+  - Achievement: 5
+    CollectionRecordKey: Map1-Achievement6RecordKey
+    CollectionKey: Map1-Achievement6CollectionKey
+    Target: 200
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 8926bfd84afbfaf40a66865cad506185, type: 3}
+    DiscriptionText: "Complete serving \n200 customers"
+    NotificationText: Complete serving 200 customers
+    NotifationSeenKey: Notification_Achievement_5
+  - Achievement: 6
+    CollectionRecordKey: Map1-Achievement7RecordKey
+    CollectionKey: Map1-Achievement7CollectionKey
+    Target: 100
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 0fdcf54bae806b4418f10db764b9f2f0, type: 3}
+    DiscriptionText: "Serve 100 customers \nin happy state"
+    NotificationText: Serve 100 customers in happy state
+    NotifationSeenKey: Notification_Achievement_6
+  - Achievement: 7
+    CollectionRecordKey: Map1-Achievement8RecordKey
+    CollectionKey: Map1-Achievement8CollectionKey
+    Target: 600
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 100b1935f38eb9743bf1748e5593c00e, type: 3}
+    DiscriptionText: "Complete 600 \norders"
+    NotificationText: Complete 600 orders
+    NotifationSeenKey: Notification_Achievement_7
+  - Achievement: 8
+    CollectionRecordKey: Map1-Achievement9RecordKey
+    CollectionKey: Map1-Achievement9CollectionKey
+    Target: 10000
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 19fdaa80384903b418d52859a8937344, type: 3}
+    DiscriptionText: Earn 10000 Coins
+    NotificationText: Earn 10000 Coins
+    NotifationSeenKey: Notification_Achievement_8
+  - Achievement: 9
+    CollectionRecordKey: Map1-Achievement10RecordKey
+    CollectionKey: Map1-Achievement10CollectionKey
+    Target: 10
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 1e73fdadf30245a408a92ac3163d0edc, type: 3}
+    DiscriptionText: Complete 10 Levels
+    NotificationText: Complete 10 Levels
+    NotifationSeenKey: Notification_Achievement_9
+  - Achievement: 10
+    CollectionRecordKey: Map1-Achievement11RecordKey
+    CollectionKey: Map1-Achievement11CollectionKey
+    Target: 5000
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: fda0f80a81073434995eb706e47a642d, type: 3}
+    DiscriptionText: "Spend 5000 coins \non upgrades"
+    NotificationText: Spend 5000 coins on upgrades
+    NotifationSeenKey: Notification_Achievement_10
+  - Achievement: 11
+    CollectionRecordKey: Map1-Achievement12RecordKey
+    CollectionKey: Map1-Achievement12CollectionKey
+    Target: 1
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: a631b9f14cc10ed419a4d042d0bc4ce8, type: 3}
+    DiscriptionText: Play for 1 Hour
+    NotificationText: Play for 1 Hour
+    NotifationSeenKey: Notification_Achievement_11
+  - Achievement: 12
+    CollectionRecordKey: Map1-Achievement13RecordKey
+    CollectionKey: Map1-Achievement13CollectionKey
+    Target: 60
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 43fb349032810e44e90eb11cafc61c6b, type: 3}
+    DiscriptionText: "Do not let the waitress \nstop for 60 seconds "
+    NotificationText: 'Do not let the waitress stop for 60 seconds '
+    NotifationSeenKey: Notification_Achievement_12
+  - Achievement: 13
+    CollectionRecordKey: Map1-Achievement14RecordKey
+    CollectionKey: Map1-Achievement14CollectionKey
+    Target: 3
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 3824dd27584c63d49b88698f11480a18, type: 3}
+    DiscriptionText: "Complete 3 orders \nusing Fast Booster"
+    NotificationText: Complete 3 orders using Fast Booster
+    NotifationSeenKey: Notification_Achievement_13
+  - Achievement: 14
+    CollectionRecordKey: Map1-Achievement15RecordKey
+    CollectionKey: Map1-Achievement15CollectionKey
+    Target: 20
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 100b1935f38eb9743bf1748e5593c00e, type: 3}
+    DiscriptionText: "The chefs servers \n20 customers"
+    NotificationText: The chefs servers 20 customers
+    NotifationSeenKey: Notification_Achievement_14
+  - Achievement: 15
+    CollectionRecordKey: Map1-Achievement16RecordKey
+    CollectionKey: Map1-Achievement16CollectionKey
+    Target: 6
+    HasCoinReward: 0
+    CoinReward: 0
+    HasGemReward: 1
+    GemReward: 2
+    PreviewSprite: {fileID: 21300000, guid: 3a4e359770078094e9e9979a7313dd96, type: 3}
+    DiscriptionText: "Freeze the wait \nof 6 customers"
+    NotificationText: Freeze the wait of 6 customers
+    NotifationSeenKey: Notification_Achievement_15

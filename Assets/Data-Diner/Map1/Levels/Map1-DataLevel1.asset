@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf04eab851616641b73b8c4d6eb9849, type: 3}
+  m_Name: Map1-DataLevel1
+  m_EditorClassIdentifier: 
+  m_EditComment: 0
+  m_Comment: TutorialPart2 Dependent
+  m_LevelGoal:
+    GoalType: 0
+    NumberCoinsToCollect: 40
+    NumberOfCustomersToServe: 0
+  m_Key1TargetValue: 60
+  m_Key2TargetValue: 80
+  m_LevelConstraintInfos:
+  - ConstraintType: 1
+    TimeConstraints: 90
+    NumberOfCustomers: 3
+  m_LevelDifficulty: 1
+  m_HasNewCustomer: 0
+  m_NewCustomersInfo:
+    NewCustomersInfo: 000000000100000002000000
+  m_CustomerDinerSequence: 0
+  m_CustomerDinerSequencesInfo:
+    CustomerDinerSequences:
+    - UseQueueSpawnDelay: 1
+      SequenceIndexInfo:
+      - SequenceIndex: 0
+        QueueSpawnDelay: 0
+      - SequenceIndex: 1
+        QueueSpawnDelay: 8
+      - SequenceIndex: 2
+        QueueSpawnDelay: 15
+  m_CustomersDinerData:
+  - CustomerPrefabs:
+    - {fileID: 4278666110280084321, guid: 4934feaa6f3fc2b4bacf0e48658dd176, type: 3}
+    CustomerCommonSettings: {fileID: 11400000, guid: 4ea554768a1ca86438a9118d4bfd60cd, type: 2}
+    QueueSpawnDelay: 0
+    IsCustomerVIP: 0
+    CustomerFirstOrdersInfo:
+    - OrderConsumable: {fileID: 11400000, guid: f3a661e3c5cdf634dad70cf55959dd46, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 13afd768ab90b8e4e88c1968a1c23414, type: 2}
+  - CustomerPrefabs:
+    - {fileID: 3382047047905930925, guid: 3f5e502f9f4bbe944bb007d61e683b84, type: 3}
+    CustomerCommonSettings: {fileID: 11400000, guid: 4ea554768a1ca86438a9118d4bfd60cd, type: 2}
+    QueueSpawnDelay: 8
+    IsCustomerVIP: 0
+    CustomerFirstOrdersInfo:
+    - OrderConsumable: {fileID: 11400000, guid: 288e7ab3e0a09464babf0560752c5bbc, type: 2}
+    CustomerOrderBundles: []
+  - CustomerPrefabs:
+    - {fileID: 8944868814445965725, guid: d210afda4883c2c4685555c663ccb306, type: 3}
+    CustomerCommonSettings: {fileID: 11400000, guid: 4ea554768a1ca86438a9118d4bfd60cd, type: 2}
+    QueueSpawnDelay: 15
+    IsCustomerVIP: 0
+    CustomerFirstOrdersInfo:
+    - OrderConsumable: {fileID: 11400000, guid: f3a661e3c5cdf634dad70cf55959dd46, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 13afd768ab90b8e4e88c1968a1c23414, type: 2}
+  m_IsUsingCustomerPercelSequence: 0
+  m_CustomerPercelSequencesInfo:
+    CustomerDinerSequences: []
+  m_CustomersParcelData: []
+  m_PatienceSunRaysData: []

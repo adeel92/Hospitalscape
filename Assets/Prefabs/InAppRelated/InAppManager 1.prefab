@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6165482557726446098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2384940167858175087}
+  - component: {fileID: 1114319102579326703}
+  m_Layer: 0
+  m_Name: InAppManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2384940167858175087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165482557726446098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1114319102579326703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165482557726446098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63ad5aeddd851b4c942afa25b988550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PurchasingPackages:
+  - PurchasingPackageType: 0
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.base.restaurant.pack
+    ProductType: 0
+  - PurchasingPackageType: 1
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.portable.restaurant.pack
+    ProductType: 0
+  - PurchasingPackageType: 2
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.efficient.restaurant.pack
+    ProductType: 0
+  - PurchasingPackageType: 3
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.versatile.restaurant.pack
+    ProductType: 0
+  - PurchasingPackageType: 4
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack1
+    ProductType: 0
+  - PurchasingPackageType: 5
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack2
+    ProductType: 0
+  - PurchasingPackageType: 6
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack3
+    ProductType: 0
+  - PurchasingPackageType: 7
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack4
+    ProductType: 0
+  - PurchasingPackageType: 8
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack5
+    ProductType: 0
+  - PurchasingPackageType: 9
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.gem.pack6
+    ProductType: 0
+  - PurchasingPackageType: 10
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.noads.pack
+    ProductType: 1
+  - PurchasingPackageType: 11
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.special.coin.offer.upgrade.pack
+    ProductType: 0
+  - PurchasingPackageType: 12
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.revive.pack
+    ProductType: 0
+  - PurchasingPackageType: 13
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.daily.purchase.pack
+    ProductType: 0
+  - PurchasingPackageType: 14
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.starter.pack
+    ProductType: 0
+  - PurchasingPackageType: 15
+    PackageID: com.fizzyplay.restaurant.diner.happy.cooking.dash.story.master.limited.time.offer.pack
+    ProductType: 0

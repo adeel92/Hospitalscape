@@ -1,0 +1,200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4033797255756038510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5644175208858228985}
+  - component: {fileID: 2809162283317772342}
+  m_Layer: 0
+  m_Name: SalonEconomyLevelImporter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5644175208858228985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033797255756038510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1393223, y: -0.41002327, z: -9.911697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2809162283317772342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033797255756038510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0a25bdb623c0a44957d918f09b1013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WorkbookAsset: {fileID: 102900000, guid: fefa785a30703be4ca9e660ae87e2a0d, type: 3}
+  m_LevelSheetName: salon_game_levels_tidy
+  m_MinLevelToImport: 1
+  m_MaxLevelToImport: 60
+  m_OutputFolderAsset: {fileID: 102900000, guid: 122f806b0a633584990878c852c8b2f2, type: 3}
+  m_AssetNamePrefix: Map1-DataLevel-
+  m_CustomerPrefabMappings:
+  - UseFromLevel: 1
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 0
+    SalonPrefab: {fileID: 7288733485585387010, guid: 467e60189a08c4c44a73e2498b4bd490, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: 41fd0e1fd86725449acead2cb38f9575, type: 3}
+  - UseFromLevel: 1
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 1
+    SalonPrefab: {fileID: 7288733485585387010, guid: c673d463e587c9d42809e15aa990fa48, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: b39a188b91796d649bed496d01b1e054, type: 3}
+  - UseFromLevel: 1
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 2
+    SalonPrefab: {fileID: 7288733485585387010, guid: a9f3213bdaef50e4ba9cf05d4a1135ad, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: 0b8ce6d8ef7253d4892a0dfa07473138, type: 3}
+  - UseFromLevel: 1
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 2
+    SalonPrefab: {fileID: 7288733485585387010, guid: a9f3213bdaef50e4ba9cf05d4a1135ad, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: 0b8ce6d8ef7253d4892a0dfa07473138, type: 3}
+  - UseFromLevel: 4
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 3
+    SalonPrefab: {fileID: 7288733485585387010, guid: d2a31a462bc4cfa4bb58ca4f9c2d89cf, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: dc326b5cae0b34746bc90f38ad8e5ee6, type: 3}
+  - UseFromLevel: 11
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 4
+    SalonPrefab: {fileID: 7288733485585387010, guid: c1e9e13cb7e21f04fb132e8dfade7272, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: f096feca52e9ebd4b9e07d3ba5c05878, type: 3}
+  - UseFromLevel: 15
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 5
+    SalonPrefab: {fileID: 7288733485585387010, guid: 4b95e0fd20c2e634ca0ab30eb38d04bf, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: 8dcc2acf4bce7b84d9093a154a9819ce, type: 3}
+  - UseFromLevel: 22
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 6
+    SalonPrefab: {fileID: 7288733485585387010, guid: 842f652c6bc85f7448c53ad3652fc01d, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: ef27d43275da8284e8ecd932a2794f80, type: 3}
+  - UseFromLevel: 29
+    RegisterAsNewCustomerUnlock: 1
+    CustomerId: 7
+    SalonPrefab: {fileID: 7288733485585387010, guid: e4f0ec07190776d4da1d03561c8bf8d6, type: 3}
+    CafePrefab: {fileID: 68357221891609156, guid: 9ecc5e3e912f67246ac1d75cdb200da2, type: 3}
+  m_DefaultSalonCommonSetting: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+  m_DefaultCafeCommonSetting: {fileID: 11400000, guid: b44c2d093a1df7c4d8354887fc4c231f, type: 2}
+  m_DefaultCustomerSequence: 0
+  m_DefaultKey1TargetValue: 3
+  m_DefaultKey2TargetValue: 3
+  m_DifficultyMappings:
+  - UseFromLevel: 1
+    UseToLevel: 5
+    Value: 1
+  - UseFromLevel: 5
+    UseToLevel: 9
+    Value: 2
+  - UseFromLevel: 10
+    UseToLevel: 15
+    Value: 3
+  - UseFromLevel: 16
+    UseToLevel: 19
+    Value: 4
+  - UseFromLevel: 20
+    UseToLevel: 24
+    Value: 5
+  - UseFromLevel: 25
+    UseToLevel: 29
+    Value: 6
+  - UseFromLevel: 30
+    UseToLevel: 34
+    Value: 7
+  - UseFromLevel: 35
+    UseToLevel: 39
+    Value: 8
+  - UseFromLevel: 40
+    UseToLevel: 44
+    Value: 9
+  - UseFromLevel: 45
+    UseToLevel: 49
+    Value: 10
+  - UseFromLevel: 50
+    UseToLevel: 55
+    Value: 11
+  - UseFromLevel: 56
+    UseToLevel: 59
+    Value: 12
+  - UseFromLevel: 60
+    UseToLevel: 60
+    Value: 13
+  m_FirstOrderMappings:
+  - Label: purple
+    CustomerType: 0
+    FirstOrderConsumable: {fileID: 11400000, guid: 173aab93a95b1864fb02690b7585e14f, type: 2}
+  - Label: blue
+    CustomerType: 0
+    FirstOrderConsumable: {fileID: 11400000, guid: e6e392a2d4b31f14dbe66a2af0df92f0, type: 2}
+  - Label: red
+    CustomerType: 0
+    FirstOrderConsumable: {fileID: 11400000, guid: 9d14e555fd4f9624593c29db0ae83109, type: 2}
+  - Label: green
+    CustomerType: 0
+    FirstOrderConsumable: {fileID: 11400000, guid: 907a13b6cf633e740924af9d1e10fcad, type: 2}
+  - Label: yellow
+    CustomerType: 0
+    FirstOrderConsumable: {fileID: 11400000, guid: d0edf2889700c0349975e78185ecaeec, type: 2}
+  - Label: Cafe
+    CustomerType: 1
+    FirstOrderConsumable: {fileID: 0}
+  m_OrderMappings:
+  - Label: Lipstick
+    Consumable: {fileID: 11400000, guid: 254441ce31666fd41b8b484b2acc9463, type: 2}
+  - Label: Eyeshadow
+    Consumable: {fileID: 11400000, guid: 0e4e3e9ecec9cef408e9a0786f35c43c, type: 2}
+  - Label: Massage Booth
+    Consumable: {fileID: 11400000, guid: b138261af5b4b6044ba096413551b15f, type: 2}
+  - Label: Coffee Machine
+    Consumable: {fileID: 11400000, guid: 3409e5fdd4fb12b48b6ee37f54907b3d, type: 2}
+  - Label: Tattoo Booth
+    Consumable: {fileID: 11400000, guid: 868154266da7adc43bd8a464a4eb448e, type: 2}
+  - Label: Cake Basket
+    Consumable: {fileID: 11400000, guid: 83bb961804d4104488e206b14e729cc6, type: 2}
+  - Label: Grape Basket
+    Consumable: {fileID: 11400000, guid: d0c584c31688be149a2983c5146507da, type: 2}
+  - Label: Steamer Spa
+    Consumable: {fileID: 11400000, guid: 4d020866bfb902a49a1b3a7b810b34cb, type: 2}
+  - Label: Nail Polish
+    Consumable: {fileID: 11400000, guid: 0e8c9b040e8481c4d9b7582431bbe3fc, type: 2}
+  - Label: Facewash
+    Consumable: {fileID: 11400000, guid: 7f7768abed889444faa6b06c1071ab83, type: 2}
+  - Label: FaceCream
+    Consumable: {fileID: 11400000, guid: 95c03ace0dacaf94bb7103ae86057387, type: 2}
+  - Label: Juice Bar
+    Consumable: {fileID: 11400000, guid: 8da10b887101f4445bdc5f275942fcbc, type: 2}
+  - Label: Juice Dispenser
+    Consumable: {fileID: 11400000, guid: cc09a1cd025b5f34a98b61e2480c0ab3, type: 2}
+  - Label: Music Stage
+    Consumable: {fileID: 11400000, guid: 0912554eaa910374fab73ad634fb328d, type: 2}
+  m_EnableRandomOrderBundling: 1
+  m_MinOrdersPerBundle: 1
+  m_MaxOrdersPerBundle: 3
+  m_OrderBundlingSeed: 78498
+  m_OrdersThatCannotBeBundled:
+  - {fileID: 11400000, guid: 4d020866bfb902a49a1b3a7b810b34cb, type: 2}
+  - {fileID: 11400000, guid: 868154266da7adc43bd8a464a4eb448e, type: 2}
+  - {fileID: 11400000, guid: 0912554eaa910374fab73ad634fb328d, type: 2}
+  - {fileID: 11400000, guid: b138261af5b4b6044ba096413551b15f, type: 2}
