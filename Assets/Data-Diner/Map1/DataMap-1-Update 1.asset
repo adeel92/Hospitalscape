@@ -1,0 +1,903 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ec2c00ceef71a4a9952fc5d63bdef7, type: 3}
+  m_Name: DataMap-1-Update 1
+  m_EditorClassIdentifier: 
+  m_PlayerUpdateInfo:
+    Data: {fileID: 11400000, guid: 07dfdb0dff14dc940bb791dce560399e, type: 2}
+    PlayerUpgradesInfo:
+    - UpgradeType: 0
+      PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 4f816a4674e7fbf4cb5076e3bee7a628, type: 3}
+      HeaderText: Tray
+      UpgradeNameText: Tray Size
+      BasePreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      InfoDiscriptionText: Upgrade your tray size to carry more food
+      NotifationSeenKey: Notification_Upgrade_Player_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1600
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+    - UpgradeType: 1
+      PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 669e3b29d4555124e91c36a4e82c8ec6, type: 3}
+      HeaderText: Walk Speed
+      UpgradeNameText: Walk Speed
+      BasePreviewSprite: {fileID: 21300000, guid: d7b198cff2d713c419a448debe683b9e, type: 3}
+      InfoDiscriptionText: Train you waitress to move faster
+      NotifationSeenKey: Notification_Upgrade_Player_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  m_ChairsUpdateInfo: []
+  m_WorkerUpdateInfo:
+    WorkersUnlockingInfo: []
+    WorkersUpgradeQuantityInfo: []
+  m_StationsUpdateInfo:
+  - Data: {fileID: 11400000, guid: e6ead84c01fc0784180f414b7e8e901e, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 1
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: d8b2241985e38a34aa70196d97920f0d, type: 3}
+    NameDiscption: Salad
+    Discription: Salad can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 0
+    StationUpgradeInfo:
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Basket
+      BasePreviewSprite: {fileID: 21300000, guid: d8b2241985e38a34aa70196d97920f0d, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Salad Basket to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_Salad_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: ffaacf8455f55c04eb09bd45b372d8d3, type: 2}
+    DependentsUpgradableData:
+    - {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    - {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    UnlockingOrder: 2
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 14e9623077c53164f86ffa4a50b043c0, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 22
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Snacks
+      BasePreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Snack Counter"
+      NotifationSeenKey: Notification_Upgrade_Station_Snacks_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 400
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 0ecc09ad1a813b14dbd28f63d27fb613, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1600
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Snacks
+      BasePreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Snack Counter to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_Snacks_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 4000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    DependentsUpgradableData:
+    - {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    - {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    UnlockingOrder: 3
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: c4c65014c4f1e6444a944ba119f68c59, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 7
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: e417afa0df237f94e993afc6d3599e51, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 5
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+    NameDiscption: Salad Bar
+    Discription: Salad Bar can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Bar
+      BasePreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Salad Bar"
+      NotifationSeenKey: Notification_Upgrade_Station_SaladBar_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 446daccc9c0b6124d9199c659d196b91, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Bar
+      BasePreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Salad Bar to earn more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_SaladBar_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 33e01d8a1e811084a8476a687b15109e, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 7
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+    NameDiscption: Bbq Kitchen
+    Discription: Bbq Kitchen can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Fish BBQ
+      BasePreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Fish BBQ Counter!"
+      NotifationSeenKey: Notification_Upgrade_Station_FishBBQ_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 2941f9378cf1d48438664254f3b4a5d1, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+      - UpdateType: 3
+        RequiredCoins: 1100
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Fish BBQ
+      BasePreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Fish BBQ Counter to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_FishBBQ_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 794a4e76961f71a49adeec118da9e742, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 9
+    RequiredStars: 4
+    Preview: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+    NameDiscption: Ice Cream
+    Discription: Ice Cream can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Ice Cream
+      BasePreviewSprite: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+      InfoDiscriptionText: "Increase the refilling \nspeed of the Ice Cream Machines!"
+      NotifationSeenKey: Notification_Upgrade_Station_IceCream_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1200
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 3
+        RequiredCoins: 2500
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Ice Cream
+      BasePreviewSprite: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Ice Cream Station to earn
+        more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_IceCream_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 79f665b3d70a1a54b8a834e0407ac9c1, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 12
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 38f94c7c5aba8d54e9da3fe1943cf586, type: 3}
+    NameDiscption: Counter Table
+    Discription: Counter Table can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: fd5e99becc633d74f9354ea8c77bc4a8, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 13
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+    NameDiscption: Soda
+    Discription: Soda can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Soda
+      BasePreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      InfoDiscriptionText: "Increase the refilling \nspeed of the Soda Machines!"
+      NotifationSeenKey: Notification_Upgrade_Station_Soda_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 595fc4afa5f09504187a99a2a37dc542, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+      - UpdateType: 3
+        RequiredCoins: 1100
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Soda
+      BasePreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      InfoDiscriptionText: "Increase the revenue of the \nSoda Station to earn more
+        coins!"
+      NotifationSeenKey: Notification_Upgrade_Station_Soda_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 14
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 1c436e2db29790749be1d13660a2f7e1, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 0
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: f638f203dccfcc24596d1b6e55980563, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 16
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 3d210b490ad865048b23ecaec920f5af, type: 3}
+    NameDiscption: Air Conditioner
+    Discription: Air Conditioner can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: 5131694993d126a4e9c8c4a99e133f22, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 20
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+    NameDiscption: Music Stage
+    Discription: Music Stage can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Music Stage
+      BasePreviewSprite: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+      InfoDiscriptionText: Decrase the performance duration time of the Music Stage!
+      NotifationSeenKey: Notification_Upgrade_Station_Performance_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1200
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 3
+        RequiredCoins: 2500
+        RequiredGems: 2000
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Music Stage
+      BasePreviewSprite: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+      InfoDiscriptionText: "Increase the revenue of the \nMusic Stage to earn more
+        coins!"
+      NotifationSeenKey: Notification_Upgrade_Station_Performance_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  m_DecorationsUpdateInfo:
+  - Data: {fileID: 11400000, guid: e30730ea90f518141b74ae9d6ac937b3, type: 2}
+    UnlockingOrder: 4
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 7e382a355423a5d4c83746eb00cb0e9e, type: 3}
+    NameDiscption: Sitting Area
+    Discription: Sitting Area can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: dd543134759f0cb4d996a93111f5f1f9, type: 2}
+    UnlockingOrder: 6
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: d31e74020b8162c4b9375f3f32e1a643, type: 3}
+    NameDiscption: Bench Garden
+    Discription: Bench Garden can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: a3d2c0679c9c4274994c925dab7007da, type: 2}
+    UnlockingOrder: 8
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: a352834a7f13a3f40819b4558beae603, type: 3}
+    NameDiscption: Fish Aquarium
+    Discription: Fish Aquarium can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: 6ed60cff73dbe844c882a56378399c22, type: 2}
+    UnlockingOrder: 10
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: ed5c47a0b52bcc640a1f2ec445589e16, type: 3}
+    NameDiscption: Front Garden
+    Discription: Front Garden can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+  - Data: {fileID: 11400000, guid: 9b03eda1fa99a64429b34b1dcd97b82a, type: 2}
+    UnlockingOrder: 11
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 147dc25bb84bffc4fa8ba6cd9610693c, type: 3}
+    NameDiscption: Fountain Back
+    Discription: Fountain Back can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: 15fcd972b0b30cf49a798b9ece416cb3, type: 2}
+    UnlockingOrder: 15
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 855cceb6ece0a9a47be7cdac9d2473a3, type: 3}
+    NameDiscption: Ice Cream Bus
+    Discription: Ice Cream Bus can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: a3f3e87c6934167468e046ac1a2906e1, type: 2}
+    UnlockingOrder: 17
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 3afe4efd5197712479908b9c41ae8b14, type: 3}
+    NameDiscption: Picnic Carpet
+    Discription: Picnic Carpet can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: b14cf1b20d22ed14386e6ecc50ef9e54, type: 2}
+    UnlockingOrder: 18
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 708da3f45e90afd44bfb812864e46349, type: 3}
+    NameDiscption: Side Mountain
+    Discription: Side Mountain can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+  - Data: {fileID: 11400000, guid: ec829440d22eea54598bb5e8242f06bb, type: 2}
+    UnlockingOrder: 19
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 92a93fa091d466b4cabd07b76f6445d6, type: 3}
+    NameDiscption: Road Flower
+    Discription: Road Flower can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: ff4bec38e3cd327409558c5299217164, type: 2}
+    UnlockingOrder: 21
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 5a7672ea75466614c859f90d5b97525d, type: 3}
+    NameDiscption: Small Pond
+    Discription: Small Pond can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: fdd98e666048a794ebf5db444e174b7e, type: 2}
+    UnlockingOrder: 22
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: cb0ed8e658376d54697faf886d2e293d, type: 3}
+    NameDiscption: Umbrella Chair
+    Discription: Umbrella Chair can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: 4d62f71a40a549b4b81cc52233bc3dc9, type: 2}
+    UnlockingOrder: 23
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 141033a7882a99d41b23cddcc2e0c2c8, type: 3}
+    NameDiscption: Waterfall
+    Discription: Waterfall can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: ad2c8dc1d77f3714a9bf09aabdf5ab5d, type: 2}
+    UnlockingOrder: 24
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 5f1b2d82496a4274aae0f627167a513b, type: 3}
+    NameDiscption: Candle Table
+    Discription: Candle Table can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: ae80c09928288c74c95fe6335246fc3e, type: 2}
+    UnlockingOrder: 25
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 3851cc09307029b4895aa019f70e024c, type: 3}
+    NameDiscption: Cycle can
+    Discription: Cycle can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  m_DataMapPatienceUpdate: {fileID: 11400000, guid: 1b2414756d3ba7744a8afbd9dbc81bba, type: 2}
+  m_BoostersInfo:
+  - BoosterType: 0
+    UnlockAtLevel: 7
+    AppliedDuration: 20
+  - BoosterType: 1
+    UnlockAtLevel: 16
+    AppliedDuration: 20
+  - BoosterType: 2
+    UnlockAtLevel: 20
+    AppliedDuration: 10
+  m_MapAchievementUpdate: {fileID: 11400000, guid: c927eb33687798b41b62e75d20509e94, type: 2}
+  m_DataProfile: {fileID: 11400000, guid: 4651c4f03bdf60d408d3d7e701634705, type: 2}

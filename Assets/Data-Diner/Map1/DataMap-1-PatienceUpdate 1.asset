@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c599a4627c9ba4abc86d731faf5515, type: 3}
+  m_Name: DataMap-1-PatienceUpdate 1
+  m_EditorClassIdentifier: 
+  m_PatiencesUpdateInfo:
+  - Data: {fileID: 11400000, guid: 9bcc147299feb6c43ae9dab762a11b20, type: 2}
+    PatienceUpgradePanelUI: {fileID: 2993287046697532443, guid: 10c3830816172d44694e6467586d77f2, type: 3}
+    IsChairPatience: 1
+    ShowOnAndAfterLevel: 20
+    HeaderText: Comfortable Chair
+    PreviewSprite: {fileID: 21300000, guid: 13c58e48ee6303b48978bb283d286731, type: 3}
+    NameText: Patience Cooldown
+    InfoDiscriptionText: Unlock comfortable chair to cooldown the customer patience!
+    NotifationSeenKey: Notification_Upgrade_Station_Chair_0
+    PatiencePriceUpdatesInfo:
+    - UpdateType: 2
+      RequiredCoins: 1200
+      RequiredGems: 0
+  - Data: {fileID: 11400000, guid: 1d6373e159344c548aa45eb8b3d75278, type: 2}
+    PatienceUpgradePanelUI: {fileID: 2993287046697532443, guid: 10c3830816172d44694e6467586d77f2, type: 3}
+    IsChairPatience: 0
+    ShowOnAndAfterLevel: 1000
+    HeaderText: AC
+    PreviewSprite: {fileID: 21300000, guid: 3d210b490ad865048b23ecaec920f5af, type: 3}
+    NameText: Queue Patience
+    InfoDiscriptionText: Unlock AC to make the customer comfertable and add extra
+      seconds to their patiences!
+    NotifationSeenKey: Notification_Upgrade_Station_AC_0
+    PatiencePriceUpdatesInfo:
+    - UpdateType: 2
+      RequiredCoins: 2000
+      RequiredGems: 0
+  - Data: {fileID: 11400000, guid: ebaaac1f02d0f77409baed5f1362d0dc, type: 2}
+    PatienceUpgradePanelUI: {fileID: 2993287046697532443, guid: 10c3830816172d44694e6467586d77f2, type: 3}
+    IsChairPatience: 0
+    ShowOnAndAfterLevel: 20
+    HeaderText: Television
+    PreviewSprite: {fileID: 21300000, guid: 4cce6d96883489644bb6db9f4aed726f, type: 3}
+    NameText: Queue Patience
+    InfoDiscriptionText: Unlock TV to make the customer comfertable and add extra
+      seconds to their patiences!
+    NotifationSeenKey: Notification_Upgrade_Station_Television_0
+    PatiencePriceUpdatesInfo:
+    - UpdateType: 2
+      RequiredCoins: 2000
+      RequiredGems: 0
+  - Data: {fileID: 11400000, guid: 3d470648505c3c84783faef1a0ff28c1, type: 2}
+    PatienceUpgradePanelUI: {fileID: 2993287046697532443, guid: 10c3830816172d44694e6467586d77f2, type: 3}
+    IsChairPatience: 0
+    ShowOnAndAfterLevel: 20
+    HeaderText: Book Shelf
+    PreviewSprite: {fileID: 21300000, guid: 8b1b3b051042a90408898ddf412cc41d, type: 3}
+    NameText: Queue Patience
+    InfoDiscriptionText: Unlock Book Shelf to make the customer comfertable and add
+      extra seconds to their patiences!
+    NotifationSeenKey: Notification_Upgrade_Station_BookShelf_0
+    PatiencePriceUpdatesInfo:
+    - UpdateType: 2
+      RequiredCoins: 1000
+      RequiredGems: 0

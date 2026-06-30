@@ -1,0 +1,2727 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ec2c00ceef71a4a9952fc5d63bdef7, type: 3}
+  m_Name: DataMap-1-Update
+  m_EditorClassIdentifier: 
+  m_PlayerUpdateInfo:
+    Data: {fileID: 11400000, guid: 07dfdb0dff14dc940bb791dce560399e, type: 2}
+    PlayerUpgradesInfo:
+    - UpgradeType: 0
+      PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 4f816a4674e7fbf4cb5076e3bee7a628, type: 3}
+      HeaderText: Tray
+      UpgradeNameText: Tray Size
+      BasePreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      InfoDiscriptionText: Upgrade your tray size to carry more food
+      NotifationSeenKey: Notification_Upgrade_Player_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1600
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+    - UpgradeType: 1
+      PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 4f816a4674e7fbf4cb5076e3bee7a628, type: 3}
+      HeaderText: Walk Speed
+      UpgradeNameText: Walk Speed
+      BasePreviewSprite: {fileID: 21300000, guid: d7b198cff2d713c419a448debe683b9e, type: 3}
+      InfoDiscriptionText: Train you waitress to move faster
+      NotifationSeenKey: Notification_Upgrade_Player_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  m_ChairsUpdateInfo:
+  - ChairType: 0
+    ShowAfterAndAtLevel: 0
+    ChairCapacityUpgradePanelUIPrefab: {fileID: 5545678417985155296, guid: db0144eb87671f54c9ae4e48f3894a75, type: 3}
+    HeaderText: Hospital Bed
+    BasePreviewSprite: {fileID: 21300000, guid: 79753329c23686946a0d7358551cad21, type: 3}
+    UpgradeNameText: Capacity
+    InfoDiscriptionText: Add more hospital beds to serve more patients!
+    NotifationSeenKey: Notification_Upgrade_Salon_Chair_0
+    ChairsCapacityUpgrade:
+    - ChairData: {fileID: 11400000, guid: 271844831762406478dc88bad80b0f28, type: 2}
+      IsAlreadyUnlocked: 1
+      UpdateType: 2
+      RequiredCoins: 0
+      RequiredGems: 0
+    - ChairData: {fileID: 11400000, guid: e9e2b3e553a1ed343b2a0ec240cfef1b, type: 2}
+      IsAlreadyUnlocked: 1
+      UpdateType: 2
+      RequiredCoins: 0
+      RequiredGems: 0
+    - ChairData: {fileID: 11400000, guid: 958db64b6729b5844b04d0c554941bcc, type: 2}
+      IsAlreadyUnlocked: 0
+      UpdateType: 2
+      RequiredCoins: 500
+      RequiredGems: 0
+    - ChairData: {fileID: 11400000, guid: 60e4bc50401b2304cab1fcb441636fd3, type: 2}
+      IsAlreadyUnlocked: 0
+      UpdateType: 2
+      RequiredCoins: 1200
+      RequiredGems: 0
+    - ChairData: {fileID: 11400000, guid: a7385e7f814631a4a9104d2e068ef2e9, type: 2}
+      IsAlreadyUnlocked: 0
+      UpdateType: 2
+      RequiredCoins: 2000
+      RequiredGems: 0
+    - ChairData: {fileID: 11400000, guid: f11dca74f5c0c82459f40591dae4dc99, type: 2}
+      IsAlreadyUnlocked: 0
+      UpdateType: 2
+      RequiredCoins: 3000
+      RequiredGems: 0
+  m_WorkerUpdateInfo:
+    WorkersUnlockingInfo:
+    - Data: {fileID: 11400000, guid: 84e98f1a689e307479855ca72ff23575, type: 2}
+      UnlockAtLevel: 1
+      Worker1Sprite: {fileID: 21300000, guid: 1f386e0ad795aa94e92bebc580ac68b6, type: 3}
+      Worker2Sprite: {fileID: 21300000, guid: 82eac32d85846104c8352506f5acaea0, type: 3}
+      WorkerOrderSymbolSprite: {fileID: 21300000, guid: 28e12101c4a13334ab75272836e96c14, type: 3}
+      WorkerOrderSymbolSpriteForUpgrade: {fileID: 21300000, guid: 823b5e38feb7fba4b8ade24ca72f4a20, type: 3}
+      WorkerTypeSprite: {fileID: 21300000, guid: 2344d79dd6dc4ae459c1435a3ea42047, type: 3}
+      UpgradeServingTimeInfo:
+        WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
+        HeaderText: Service Time
+        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        PreviewSprite1: {fileID: 21300000, guid: 95157529c3a4ee847a4444f0641d7a43, type: 3}
+        PreviewSprite2: {fileID: 21300000, guid: 2c3a13cb3aaf69140808cb901120dc12, type: 3}
+        InfoDiscriptionText: When the worker level is lower than the level difficulty,
+          the worker will spend more time serving!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: e3fe05b26754864478296264cfbf44cb, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        NotifationSeenKey: Notification_Upgrade_Worker_2
+        UpgradeServingTimeRangesInfo:
+        - LevelDifficultyRangeMin: 1
+          LevelDifficultyRangeMax: 2
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 3
+          LevelDifficultyRangeMax: 3
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 4
+          LevelDifficultyRangeMax: 4
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 5
+          LevelDifficultyRangeMax: 5
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 6
+          LevelDifficultyRangeMax: 6
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 200
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 7
+          LevelDifficultyRangeMax: 7
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 8
+          LevelDifficultyRangeMax: 8
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 9
+          LevelDifficultyRangeMax: 9
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 10
+          LevelDifficultyRangeMax: 10
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 11
+          LevelDifficultyRangeMax: 11
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 12
+          LevelDifficultyRangeMax: 12
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 13
+          LevelDifficultyRangeMax: 13
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+    - Data: {fileID: 11400000, guid: e2439be719b1faf4c99dd170293ff4c1, type: 2}
+      UnlockAtLevel: 1
+      Worker1Sprite: {fileID: 21300000, guid: 67c2b5d2f4f728f499ff054855f12fe5, type: 3}
+      Worker2Sprite: {fileID: 21300000, guid: dc75acc1cd08cdf4d9f44a8a19009389, type: 3}
+      WorkerOrderSymbolSprite: {fileID: 21300000, guid: c4386443cea1d544eaa0b6ba9e544952, type: 3}
+      WorkerOrderSymbolSpriteForUpgrade: {fileID: 21300000, guid: 7f26036faf10e3f409332fcab1f32b0f, type: 3}
+      WorkerTypeSprite: {fileID: 21300000, guid: 650627711d8a83748977f2a5e9006638, type: 3}
+      UpgradeServingTimeInfo:
+        WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
+        HeaderText: Service Time
+        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        PreviewSprite1: {fileID: 21300000, guid: de3b4b3d5ba4b8c4591121c245246723, type: 3}
+        PreviewSprite2: {fileID: 21300000, guid: 6aa5f366fb4ea7c45996c2a003130747, type: 3}
+        InfoDiscriptionText: When the worker level is lower than the level difficulty,
+          the worker will spend more time serving!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: f497237d3aab34842b8700459884c845, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        NotifationSeenKey: Notification_Upgrade_Worker_4
+        UpgradeServingTimeRangesInfo:
+        - LevelDifficultyRangeMin: 1
+          LevelDifficultyRangeMax: 2
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 3
+          LevelDifficultyRangeMax: 3
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 4
+          LevelDifficultyRangeMax: 4
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 5
+          LevelDifficultyRangeMax: 5
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 6
+          LevelDifficultyRangeMax: 6
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 200
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 7
+          LevelDifficultyRangeMax: 7
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 8
+          LevelDifficultyRangeMax: 8
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 9
+          LevelDifficultyRangeMax: 9
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 10
+          LevelDifficultyRangeMax: 10
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 11
+          LevelDifficultyRangeMax: 11
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 12
+          LevelDifficultyRangeMax: 12
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 13
+          LevelDifficultyRangeMax: 13
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+    - Data: {fileID: 11400000, guid: 3cf34837a5a78cf41b18d531366e6999, type: 2}
+      UnlockAtLevel: 6
+      Worker1Sprite: {fileID: 21300000, guid: 3588c897cb30945479dfc0fdb7da9e80, type: 3}
+      Worker2Sprite: {fileID: 21300000, guid: fbc72f64eaf668e41ae0ab995e57a9ce, type: 3}
+      WorkerOrderSymbolSprite: {fileID: 21300000, guid: 09d348cb8be9fb8459d63bb34856c8d7, type: 3}
+      WorkerOrderSymbolSpriteForUpgrade: {fileID: 21300000, guid: f3cb3d99c27fdaa448f97fb5b3ff50bc, type: 3}
+      WorkerTypeSprite: {fileID: 21300000, guid: cb70dbbb5bdcdab4d8c1ceb6959515ca, type: 3}
+      UpgradeServingTimeInfo:
+        WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
+        HeaderText: Service Time
+        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        PreviewSprite1: {fileID: 21300000, guid: 62740c77d6f70d144a86f157755ea229, type: 3}
+        PreviewSprite2: {fileID: 21300000, guid: 359c081c85b0eee47887ff4b90897408, type: 3}
+        InfoDiscriptionText: When the worker level is lower than the level difficulty,
+          the worker will spend more time serving!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 91651d4a8a773484ea0cd92367ad1924, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        NotifationSeenKey: Notification_Upgrade_Worker_3
+        UpgradeServingTimeRangesInfo:
+        - LevelDifficultyRangeMin: 1
+          LevelDifficultyRangeMax: 2
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 3
+          LevelDifficultyRangeMax: 3
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 4
+          LevelDifficultyRangeMax: 4
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 5
+          LevelDifficultyRangeMax: 5
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 6
+          LevelDifficultyRangeMax: 6
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 200
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 7
+          LevelDifficultyRangeMax: 7
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 8
+          LevelDifficultyRangeMax: 8
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 9
+          LevelDifficultyRangeMax: 9
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 10
+          LevelDifficultyRangeMax: 10
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 11
+          LevelDifficultyRangeMax: 11
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 12
+          LevelDifficultyRangeMax: 12
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 13
+          LevelDifficultyRangeMax: 13
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+    - Data: {fileID: 11400000, guid: 6bc3ccb393324ba4aaec102c651dab66, type: 2}
+      UnlockAtLevel: 27
+      Worker1Sprite: {fileID: 21300000, guid: 1d374db1280de3a49bf2d72761bc4518, type: 3}
+      Worker2Sprite: {fileID: 21300000, guid: b51607acf91b96c4b90397add5de16e0, type: 3}
+      WorkerOrderSymbolSprite: {fileID: 21300000, guid: 87d1ac115db1bcb4b85a8ff52acf00cb, type: 3}
+      WorkerOrderSymbolSpriteForUpgrade: {fileID: 21300000, guid: c926188d565e9b5488b10a3aff860359, type: 3}
+      WorkerTypeSprite: {fileID: 21300000, guid: 4747d1e3401b10341850e2bef2928b1b, type: 3}
+      UpgradeServingTimeInfo:
+        WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
+        HeaderText: Service Time
+        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        PreviewSprite1: {fileID: 21300000, guid: e7f5b180cb4c05e4cac2bfbe27629bf0, type: 3}
+        PreviewSprite2: {fileID: 21300000, guid: 7527cc192b33eaa449458c58fb6a2032, type: 3}
+        InfoDiscriptionText: When the worker level is lower than the level difficulty,
+          the worker will spend more time serving!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 1d08e72c5f508164984c80d8f3ce0063, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        NotifationSeenKey: Notification_Upgrade_Worker_1
+        UpgradeServingTimeRangesInfo:
+        - LevelDifficultyRangeMin: 1
+          LevelDifficultyRangeMax: 2
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 3
+          LevelDifficultyRangeMax: 3
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 4
+          LevelDifficultyRangeMax: 4
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 5
+          LevelDifficultyRangeMax: 5
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 6
+          LevelDifficultyRangeMax: 6
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 200
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 7
+          LevelDifficultyRangeMax: 7
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 8
+          LevelDifficultyRangeMax: 8
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 9
+          LevelDifficultyRangeMax: 9
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 10
+          LevelDifficultyRangeMax: 10
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 11
+          LevelDifficultyRangeMax: 11
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 12
+          LevelDifficultyRangeMax: 12
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 13
+          LevelDifficultyRangeMax: 13
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+    - Data: {fileID: 11400000, guid: 4365ae98974d98e4f9253754642dca12, type: 2}
+      UnlockAtLevel: 42
+      Worker1Sprite: {fileID: 21300000, guid: 6d571851544e4304a9c9edd43cee4f09, type: 3}
+      Worker2Sprite: {fileID: 21300000, guid: 53c2df7a6262d8145a49546068e2ea60, type: 3}
+      WorkerOrderSymbolSprite: {fileID: 21300000, guid: 72d23451a1b221a42a88568aa744efbd, type: 3}
+      WorkerOrderSymbolSpriteForUpgrade: {fileID: 21300000, guid: be5fc531f5ea758418698f8d27a457a0, type: 3}
+      WorkerTypeSprite: {fileID: 21300000, guid: 2e0937ae1a2ec664b91a893495e41275, type: 3}
+      UpgradeServingTimeInfo:
+        WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
+        HeaderText: Service Time
+        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        PreviewSprite1: {fileID: 21300000, guid: 334e7a5fc50e16b40972316fda246bd2, type: 3}
+        PreviewSprite2: {fileID: 21300000, guid: b37773b9504919244b33e26e47f1843d, type: 3}
+        InfoDiscriptionText: When the worker level is lower than the level difficulty,
+          the worker will spend more time serving!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 5b1cbd63148bc544d95ace3398f6e027, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        NotifationSeenKey: Notification_Upgrade_Worker_5
+        UpgradeServingTimeRangesInfo:
+        - LevelDifficultyRangeMin: 1
+          LevelDifficultyRangeMax: 2
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 3
+          LevelDifficultyRangeMax: 3
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 4
+          LevelDifficultyRangeMax: 4
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 5
+          LevelDifficultyRangeMax: 5
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 6
+          LevelDifficultyRangeMax: 6
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 200
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 7
+          LevelDifficultyRangeMax: 7
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 300
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 8
+          LevelDifficultyRangeMax: 8
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 400
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 9
+          LevelDifficultyRangeMax: 9
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 500
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 10
+          LevelDifficultyRangeMax: 10
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 600
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 11
+          LevelDifficultyRangeMax: 11
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 700
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 12
+          LevelDifficultyRangeMax: 12
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 800
+            RequiredGems: 0
+        - LevelDifficultyRangeMin: 13
+          LevelDifficultyRangeMax: 13
+          UpgradeServingTimePrices:
+          - UpdateType: 2
+            RequiredCoins: 1800
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1700
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1600
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1500
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1400
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1300
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1200
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1100
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 1000
+            RequiredGems: 0
+          - UpdateType: 2
+            RequiredCoins: 900
+            RequiredGems: 0
+    WorkersUpgradeQuantityInfo:
+    - Key: Map1-ChefQuanityUpgrade1
+      ShowAtLevel: 11
+    - Key: Map1-ChefQuanityUpgrade2
+      ShowAtLevel: 16
+    - Key: Map1-ChefQuanityUpgrade3
+      ShowAtLevel: 21
+    - Key: Map1-ChefQuanityUpgrade4
+      ShowAtLevel: 32
+    - Key: Map1-ChefQuanityUpgrade5
+      ShowAtLevel: 47
+  m_StationsUpdateInfo:
+  - Data: {fileID: 11400000, guid: e6ead84c01fc0784180f414b7e8e901e, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 1
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: d8b2241985e38a34aa70196d97920f0d, type: 3}
+    NameDiscption: Salad
+    Discription: Salad can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 0
+    StationUpgradeInfo:
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Basket
+      BasePreviewSprite: {fileID: 21300000, guid: d8b2241985e38a34aa70196d97920f0d, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Salad Basket to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_Salad_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: ffaacf8455f55c04eb09bd45b372d8d3, type: 2}
+    DependentsUpgradableData:
+    - {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    - {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    UnlockingOrder: 2
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 14e9623077c53164f86ffa4a50b043c0, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 22
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Snacks
+      BasePreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Snack Counter"
+      NotifationSeenKey: Notification_Upgrade_Station_Snacks_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 400
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 0ecc09ad1a813b14dbd28f63d27fb613, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1600
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: a0135c7e1032ed345a2b64ad70cd09b5, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Snacks
+      BasePreviewSprite: {fileID: 21300000, guid: 82ed4a9d336c3ab4ba2cc6c491344c0d, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Snack Counter to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_Snacks_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 4000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    DependentsUpgradableData:
+    - {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    - {fileID: 11400000, guid: f47c51f2c33cde44580d27aa2ed482cf, type: 2}
+    UnlockingOrder: 3
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: c4c65014c4f1e6444a944ba119f68c59, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 7
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: e417afa0df237f94e993afc6d3599e51, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 5
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+    NameDiscption: Salad Bar
+    Discription: Salad Bar can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Bar
+      BasePreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Salad Bar"
+      NotifationSeenKey: Notification_Upgrade_Station_SaladBar_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 446daccc9c0b6124d9199c659d196b91, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 6b40bebf30ea81840bfc42d76befd589, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Salad Bar
+      BasePreviewSprite: {fileID: 21300000, guid: 5f1248917bfb0a14381552bc297cff85, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Salad Bar to earn more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_SaladBar_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 33e01d8a1e811084a8476a687b15109e, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 7
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+    NameDiscption: Bbq Kitchen
+    Discription: Bbq Kitchen can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Fish BBQ
+      BasePreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      InfoDiscriptionText: "Increase the capacity and the refilling \nspeed of the
+        Fish BBQ Counter!"
+      NotifationSeenKey: Notification_Upgrade_Station_FishBBQ_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 2941f9378cf1d48438664254f3b4a5d1, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+      - UpdateType: 3
+        RequiredCoins: 1100
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 8e583262edd15e743a8249704605554e, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Fish BBQ
+      BasePreviewSprite: {fileID: 21300000, guid: 2ec592925cb8a7c41b8c73ba0d7847e9, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Fish BBQ Counter to earn more
+        coins!
+      NotifationSeenKey: Notification_Upgrade_Station_FishBBQ_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 794a4e76961f71a49adeec118da9e742, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 9
+    RequiredStars: 4
+    Preview: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+    NameDiscption: Ice Cream
+    Discription: Ice Cream can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Ice Cream
+      BasePreviewSprite: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+      InfoDiscriptionText: "Increase the refilling \nspeed of the Ice Cream Machines!"
+      NotifationSeenKey: Notification_Upgrade_Station_IceCream_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1200
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 3
+        RequiredCoins: 2500
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Ice Cream
+      BasePreviewSprite: {fileID: 21300000, guid: b1fad46504c0785469e13277d7eee1fd, type: 3}
+      InfoDiscriptionText: Increase the revenue of the Ice Cream Station to earn
+        more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_IceCream_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 79f665b3d70a1a54b8a834e0407ac9c1, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 12
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 38f94c7c5aba8d54e9da3fe1943cf586, type: 3}
+    NameDiscption: Counter Table
+    Discription: Counter Table can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: fd5e99becc633d74f9354ea8c77bc4a8, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 13
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+    NameDiscption: Soda
+    Discription: Soda can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Soda
+      BasePreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      InfoDiscriptionText: "Increase the refilling \nspeed of the Soda Machines!"
+      NotifationSeenKey: Notification_Upgrade_Station_Soda_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 595fc4afa5f09504187a99a2a37dc542, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Add a Slot
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+      - UpdateType: 3
+        RequiredCoins: 1100
+        RequiredGems: 500
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 1
+        PreviewSprite: {fileID: 21300000, guid: 1b3d23d3a2305744ab95c3b56e0b6abe, type: 3}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Soda
+      BasePreviewSprite: {fileID: 21300000, guid: 375d8ba8546dda3489ce0cbb42c49c51, type: 3}
+      InfoDiscriptionText: "Increase the revenue of the \nSoda Station to earn more
+        coins!"
+      NotifationSeenKey: Notification_Upgrade_Station_Soda_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: b9366b41fcac124479ed9cc7bdef5d01, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 14
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 1c436e2db29790749be1d13660a2f7e1, type: 3}
+    NameDiscption: Snacks
+    Discription: Snacks can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 0
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: f638f203dccfcc24596d1b6e55980563, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 16
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 3d210b490ad865048b23ecaec920f5af, type: 3}
+    NameDiscption: Air Conditioner
+    Discription: Air Conditioner can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+    StationUpgradeInfo: []
+  - Data: {fileID: 11400000, guid: 5131694993d126a4e9c8c4a99e133f22, type: 2}
+    DependentsUpgradableData: []
+    UnlockingOrder: 20
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+    NameDiscption: Music Stage
+    Discription: Music Stage can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Music Stage
+      BasePreviewSprite: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+      InfoDiscriptionText: Decrase the performance duration time of the Music Stage!
+      NotifationSeenKey: Notification_Upgrade_Station_Performance_0
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1200
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 3
+        RequiredCoins: 2500
+        RequiredGems: 2000
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+    - UpgradeType: 1
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Music Stage
+      BasePreviewSprite: {fileID: 21300000, guid: 54bf788702acac6488a971532dd3aa04, type: 3}
+      InfoDiscriptionText: "Increase the revenue of the \nMusic Stage to earn more
+        coins!"
+      NotifationSeenKey: Notification_Upgrade_Station_Performance_1
+      PropertyUpgradesInfo:
+      - UpdateType: 2
+        RequiredCoins: 0
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  m_DecorationsUpdateInfo:
+  - Data: {fileID: 11400000, guid: e30730ea90f518141b74ae9d6ac937b3, type: 2}
+    UnlockingOrder: 4
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 7e382a355423a5d4c83746eb00cb0e9e, type: 3}
+    NameDiscption: Sitting Area
+    Discription: Sitting Area can be unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: dd543134759f0cb4d996a93111f5f1f9, type: 2}
+    UnlockingOrder: 6
+    RequiredStars: 5
+    Preview: {fileID: 21300000, guid: d31e74020b8162c4b9375f3f32e1a643, type: 3}
+    NameDiscption: Bench Garden
+    Discription: Bench Garden can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: a3d2c0679c9c4274994c925dab7007da, type: 2}
+    UnlockingOrder: 8
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: a352834a7f13a3f40819b4558beae603, type: 3}
+    NameDiscption: Fish Aquarium
+    Discription: Fish Aquarium can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: 6ed60cff73dbe844c882a56378399c22, type: 2}
+    UnlockingOrder: 10
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: ed5c47a0b52bcc640a1f2ec445589e16, type: 3}
+    NameDiscption: Front Garden
+    Discription: Front Garden can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+  - Data: {fileID: 11400000, guid: 9b03eda1fa99a64429b34b1dcd97b82a, type: 2}
+    UnlockingOrder: 11
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 147dc25bb84bffc4fa8ba6cd9610693c, type: 3}
+    NameDiscption: Fountain Back
+    Discription: Fountain Back can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: 15fcd972b0b30cf49a798b9ece416cb3, type: 2}
+    UnlockingOrder: 15
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 855cceb6ece0a9a47be7cdac9d2473a3, type: 3}
+    NameDiscption: Ice Cream Bus
+    Discription: Ice Cream Bus can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: a3f3e87c6934167468e046ac1a2906e1, type: 2}
+    UnlockingOrder: 17
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 3afe4efd5197712479908b9c41ae8b14, type: 3}
+    NameDiscption: Picnic Carpet
+    Discription: Picnic Carpet can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: b14cf1b20d22ed14386e6ecc50ef9e54, type: 2}
+    UnlockingOrder: 18
+    RequiredStars: 3
+    Preview: {fileID: 21300000, guid: 708da3f45e90afd44bfb812864e46349, type: 3}
+    NameDiscption: Side Mountain
+    Discription: Side Mountain can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 6
+  - Data: {fileID: 11400000, guid: ec829440d22eea54598bb5e8242f06bb, type: 2}
+    UnlockingOrder: 19
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 92a93fa091d466b4cabd07b76f6445d6, type: 3}
+    NameDiscption: Road Flower
+    Discription: Road Flower can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: ff4bec38e3cd327409558c5299217164, type: 2}
+    UnlockingOrder: 21
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 5a7672ea75466614c859f90d5b97525d, type: 3}
+    NameDiscption: Small Pond
+    Discription: Small Pond can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 2
+  - Data: {fileID: 11400000, guid: fdd98e666048a794ebf5db444e174b7e, type: 2}
+    UnlockingOrder: 22
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: cb0ed8e658376d54697faf886d2e293d, type: 3}
+    NameDiscption: Umbrella Chair
+    Discription: Umbrella Chair can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: 4d62f71a40a549b4b81cc52233bc3dc9, type: 2}
+    UnlockingOrder: 23
+    RequiredStars: 2
+    Preview: {fileID: 21300000, guid: 141033a7882a99d41b23cddcc2e0c2c8, type: 3}
+    NameDiscption: Waterfall
+    Discription: Waterfall can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 4
+  - Data: {fileID: 11400000, guid: ad2c8dc1d77f3714a9bf09aabdf5ab5d, type: 2}
+    UnlockingOrder: 24
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 5f1b2d82496a4274aae0f627167a513b, type: 3}
+    NameDiscption: Candle Table
+    Discription: Candle Table can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  - Data: {fileID: 11400000, guid: ae80c09928288c74c95fe6335246fc3e, type: 2}
+    UnlockingOrder: 25
+    RequiredStars: 1
+    Preview: {fileID: 21300000, guid: 3851cc09307029b4895aa019f70e024c, type: 3}
+    NameDiscption: Cycle can
+    Discription: Cycle can be Unlocked
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 1
+  m_DataMapPatienceUpdate: {fileID: 11400000, guid: 1b2414756d3ba7744a8afbd9dbc81bba, type: 2}
+  m_BoostersInfo:
+  - BoosterType: 0
+    UnlockAtLevel: 7
+    AppliedDuration: 20
+  - BoosterType: 1
+    UnlockAtLevel: 16
+    AppliedDuration: 20
+  - BoosterType: 2
+    UnlockAtLevel: 20
+    AppliedDuration: 10
+  m_MapAchievementUpdate: {fileID: 11400000, guid: c927eb33687798b41b62e75d20509e94, type: 2}
+  m_DataProfile: {fileID: 11400000, guid: 4651c4f03bdf60d408d3d7e701634705, type: 2}

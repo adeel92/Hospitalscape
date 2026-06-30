@@ -828,8 +828,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpgradePopupUIManager: {fileID: 0}
-  DataStation: {fileID: 0}
-  StationUpgradeType: 0
+  m_DataStation: {fileID: 0}
+  m_StationUpgradeType: 0
   UpgradeCurrency: 0
   UpgradeCost: 0
   HeaderText: {fileID: 5187409625113804178}
@@ -848,72 +848,6 @@ MonoBehaviour:
   InfoDiscriptionText: 
   NotifiationSeenKey: 
   m_NotificationMain: {fileID: 7451773568805476187}
-  OnRecommendation:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7012997999412689120}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 8817131304045964462}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2700324618377521820}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRecommendationOff:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7012997999412689120}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8817131304045964462}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!222 &4254539852324340368
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1470,7 +1404,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327595907361069776, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5397628151683466481, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
       propertyPath: m_Pivot.x
@@ -1562,18 +1496,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806194202118172668, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
---- !u!1 &7012997999412689120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6751194454819156768, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
-  m_PrefabInstance: {fileID: 4387107540728646592}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8505638491842694961 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5397628151683466481, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
@@ -1884,7 +1813,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4422140935987907840, guid: c119e785555218c438b59962285bb351, type: 3}
+    - {fileID: 1248184407911628807, guid: c119e785555218c438b59962285bb351, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1892,11 +1823,6 @@ PrefabInstance:
 --- !u!224 &2755653625106101426 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5020950421495836389, guid: c119e785555218c438b59962285bb351, type: 3}
-  m_PrefabInstance: {fileID: 7175346436977728087}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8817131304045964462 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1859790546215565049, guid: c119e785555218c438b59962285bb351, type: 3}
   m_PrefabInstance: {fileID: 7175346436977728087}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7326156201744754796
@@ -1996,11 +1922,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0228152fe44ac4dbeb27c4174623d6, type: 3}
---- !u!1 &2700324618377521820 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4671014364732916464, guid: fd0228152fe44ac4dbeb27c4174623d6, type: 3}
-  m_PrefabInstance: {fileID: 7326156201744754796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5063878787522130370 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2588794434852297134, guid: fd0228152fe44ac4dbeb27c4174623d6, type: 3}

@@ -35,7 +35,6 @@ namespace Isometric.UI
             public TextMeshProUGUI ChanceDetailText;
             public int GemCost;
             public TextMeshProUGUI GemCostText;
-            
         }
 
         [Serializable]

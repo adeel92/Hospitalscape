@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf04eab851616641b73b8c4d6eb9849, type: 3}
+  m_Name: Map1-DataLevel1-Small2
+  m_EditorClassIdentifier: 
+  m_EditComment: 0
+  m_Comment: TutorialPart2 Dependent
+  m_LevelGoal:
+    GoalType: 1
+    NumberCoinsToCollect: 40
+    NumberOfCustomersToServe: 2
+  m_Key1TargetValue: 2
+  m_Key2TargetValue: 2
+  m_LevelConstraintInfos:
+  - ConstraintType: 1
+    TimeConstraints: 90
+    NumberOfCustomers: 2
+  m_LevelDifficulty: 1
+  m_HasNewCustomer: 0
+  m_NewCustomersInfo:
+    NewCustomersInfo: 000000000100000002000000
+  m_CustomerSalonSequence: 0
+  m_CustomerSalonSequencesInfo:
+    CustomerSequences: []
+  m_CustomersData:
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 0
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
+        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 5275518852732708029, guid: 9939f85d3fe21f04e8c45e342c8ee42d, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 1.5
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: 91854eb5de52f244c8ba890e275757c0, type: 2}
+        - {fileID: 11400000, guid: 91854eb5de52f244c8ba890e275757c0, type: 2}
+  m_PatienceSunRaysData: []

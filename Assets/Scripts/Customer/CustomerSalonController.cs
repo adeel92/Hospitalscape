@@ -30,7 +30,9 @@ namespace Isometric.Customer
         [SerializeField] CustomerApronController m_ApronController;
 
         [Header("---PickedUp---")]
+        [SerializeField] List<PickupCollider> PickupColliders = new();
         [SerializeField] GameObject m_PickUp;
+        [SerializeField, ReadOnly] PickupCollider m_CurrentPickupCollider = null;
         private bool m_IsPickedUp = false;
         [SerializeField, SortingLayer] string m_PickedUpSortingLayer;
         [SerializeField] float m_PickedUpZAxis = 0;
@@ -125,6 +127,7 @@ namespace Isometric.Customer
                 m_CustomerSalonOrdersInfo = null;
             }
 
+            DisableAllPickupColliders();
             Enter();
         }
 
@@ -142,6 +145,36 @@ namespace Isometric.Customer
             GlobalEventHolder.OnPatienceSunRays -= OnPatienceSunRays;
             GlobalEventHolder.OnCustomerWaitFreeze -= OnCustomerWaitFreeze;
         }
+
+        #region Pickup
+        private void EnablePickupCollider(PickupColliderType colliderType)
+        {
+            PickupCollider pickupCollider = PickupColliders.Find(x => x.PickupColliderType == colliderType);
+            if(pickupCollider != null)
+            {
+                pickupCollider.ColliderObj.SetActive(true);
+                m_CurrentPickupCollider = pickupCollider;
+            }
+        }
+        private void DisablePickupCollider()
+        {
+            if(m_CurrentPickupCollider != null)
+            {
+                m_CurrentPickupCollider.ColliderObj.SetActive(false);
+                m_CurrentPickupCollider = null;
+            }
+        }
+        private void DisableAllPickupColliders()
+        {
+            if(PickupColliders != null && PickupColliders.Count > 0)
+            {
+                foreach(PickupCollider pickupCollider in PickupColliders)
+                {
+                    pickupCollider.ColliderObj.SetActive(false);
+                }
+            }
+        }
+        #endregion
 
         #region Enter
         private void Enter()
@@ -177,7 +210,8 @@ namespace Isometric.Customer
                 PatienceChairController patienceChairController = handler.PatienceChairController;
                 transform.SetParent(patienceChairController.CustomerSittingHolder);
                 transform.localPosition = Vector3.zero;
-                m_PickUp.SetActive(true);
+                // m_PickUp.SetActive(true);
+                EnablePickupCollider(PickupColliderType.Sitting);
                 m_SalonWaitState = CustomerAnimatorState.SittingIdleNeurtalRight;
                 m_AnimatorController.PlayState(CustomerAnimatorState.SititngRight, () =>
                 {
@@ -189,7 +223,8 @@ namespace Isometric.Customer
             {
                 m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleNeutral);
                 m_IsOnPatienceChair = false;
-                m_PickUp.SetActive(true);
+                // m_PickUp.SetActive(true);
+                EnablePickupCollider(PickupColliderType.Standing);
                 m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
             }
 
@@ -369,7 +404,8 @@ namespace Isometric.Customer
                     else if (m_MainServiceCustomerHandler != null)
                     {
                         m_IsOnSalonChair = true;
-                        m_PickUp.SetActive(false);
+                        // m_PickUp.SetActive(false);
+                        DisablePickupCollider();
                         StopSalonWaitCorotoine();
 
                         if (m_CounterTableController == null)
@@ -402,7 +438,8 @@ namespace Isometric.Customer
                     }
                     else if (m_CounterTableController != null)
                     {
-                        m_PickUp.SetActive(false);
+                        // m_PickUp.SetActive(false);
+                        DisablePickupCollider();
                         m_CurrentQueue.CurrentCustomer = null;
                         CustomerManager.ResetQueue();
                         m_CurrentNode = m_CounterTableController.GetStandingPathNode();
@@ -413,7 +450,8 @@ namespace Isometric.Customer
                             m_IsFirstOrderUndecided = false;
                             m_WaitingUIController.SetupForSalon(m_CustomerFirstSalonOrder.OrderConsumable, m_IsFirstOrderUndecided);
                             m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleNeutral);
-                            m_PickUp.SetActive(true);
+                            // m_PickUp.SetActive(true);
+                            EnablePickupCollider(PickupColliderType.Standing);
                             m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
                         });
                     }
@@ -431,7 +469,8 @@ namespace Isometric.Customer
                 {
                     m_MainServiceCustomerHandler.GetSalonChair().CleanPreviousOrders();
                     m_StationCusterInHandler.CustomerEnters();
-                    m_PickUp.SetActive(false);
+                    // m_PickUp.SetActive(false);
+                    DisablePickupCollider();
                 }
             }
         }
@@ -481,7 +520,8 @@ namespace Isometric.Customer
         public void SetCustomerForChairLeaveOrder(DataConsumable chairLeaveOrder)
         {
             m_CurrentChairLeaveOrder = chairLeaveOrder;
-            m_PickUp.SetActive(true);
+            // m_PickUp.SetActive(true);
+            EnablePickupCollider(PickupColliderType.Laying);
         }
 
         public void SetForCustomerInHandler(StationCustomerInHandler stationCustomerInHandler)
@@ -509,7 +549,8 @@ namespace Isometric.Customer
         public void ResetQueue(QueueInfo newQueue)
         {
             m_CurrentQueue = newQueue;
-            m_PickUp.SetActive(false);
+            // m_PickUp.SetActive(false);
+            DisablePickupCollider();
 
             PathTraverserExtension.StopTargetImmediately(transform);
             PathTraverserExtension.MoveTarget(transform, m_CurrentNode, newQueue.Node, m_WalkSpeed, OnGoingToNodeResetQueue, OnReachedQueueSalonQueue);
@@ -561,12 +602,14 @@ namespace Isometric.Customer
                     {
                         PlaySalonAnimationState();
                     });
+                    EnablePickupCollider(PickupColliderType.Sitting);
                 }
                 else
                 {
                     PlaySalonAnimationState();
                 }
-                m_PickUp.SetActive(true);
+                EnablePickupCollider(PickupColliderType.Standing);
+                // m_PickUp.SetActive(true);
             }
         }
         #endregion
@@ -609,7 +652,8 @@ namespace Isometric.Customer
                     transform.position = m_CurrentNode.transform.position;                    
                 }
             }
-            m_PickUp.SetActive(false);
+            // m_PickUp.SetActive(false);
+            DisablePickupCollider();
             PathTraverserExtension.StopTargetImmediately(transform);
             PathTraverserExtension.MoveTarget(transform, m_CurrentNode, startNode, m_WalkSpeed, OnGoingToNodeLeavingUnserved, OnReachedNodeLeft);
         }
@@ -648,7 +692,8 @@ namespace Isometric.Customer
                 m_SalonWaitCorotoine = null;
             }
 
-            m_PickUp.SetActive(true);
+            // m_PickUp.SetActive(true);
+            EnablePickupCollider(PickupColliderType.Standing);
             m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
         }
         #endregion
@@ -697,7 +742,7 @@ namespace Isometric.Customer
                     m_AnimatorController.PlayState(CustomerAnimatorState.PickedUpFurious);
                 }
             }
-            else if (m_PickUp && m_IsOnSalonChair)
+            else if (/*m_PickUp*/m_CurrentPickupCollider != null && m_IsOnSalonChair)
             {
                 m_AnimatorController.PlayState(CustomerAnimatorState.PickedUpNeutral);
             }
@@ -869,7 +914,8 @@ namespace Isometric.Customer
                 m_SalonWaitCorotoine = null;
             }
 
-            m_PickUp.SetActive(false);
+            // m_PickUp.SetActive(false);
+            DisablePickupCollider();
             m_WaitingUIController.StopVibrating();
             m_WaitingUIController.SetActiveState(false);
 
@@ -936,6 +982,11 @@ namespace Isometric.Customer
         #endregion
     }
 
+    public enum PickupColliderType
+    {
+        Standing, Sitting, Laying    
+    }
+
     public enum CustomerWaitState
     {
         Happy, Angry, Furious
@@ -944,5 +995,12 @@ namespace Isometric.Customer
     public enum CustomerType
     {
         Salon, Cafe
+    }
+
+    [Serializable]
+    public class PickupCollider
+    {
+        public PickupColliderType PickupColliderType;
+        public GameObject ColliderObj;
     }
 }
