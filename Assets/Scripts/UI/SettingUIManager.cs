@@ -5,6 +5,7 @@ using UnityEngine;
 using Isometric.Data;
 using Isometric.Sound;
 using Arc;
+using UnityEngine.Events;
 
 namespace Isometric.UI
 {
@@ -16,13 +17,18 @@ namespace Isometric.UI
         [SerializeField] SlideButtonUI m_SoundSideButton;
         [SerializeField] SlideButtonUI m_MusicSideButton;
 
+        private bool m_IsSoundOn;
+        private bool m_IsMusicOn;
+        public bool IsSoundOn => m_IsSoundOn;
+        public bool IsMusicOn => m_IsMusicOn;
+
 
         public override void Setup()
         {
-            bool isSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);
-            bool isMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);
+            m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);
+            m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);
 
-            if(isSoundOn)
+            if(m_IsSoundOn)
             {
                 m_SoundSideButton.SetOn(false);
             }
@@ -31,7 +37,7 @@ namespace Isometric.UI
                 m_SoundSideButton.SetOff(false);
             }
 
-            if (isMusicOn)
+            if (m_IsMusicOn)
             {
                 m_MusicSideButton.SetOn(false);
             }
@@ -48,6 +54,7 @@ namespace Isometric.UI
             m_OpeningSequence.PlaySequence(() =>
             {
                 onComplete?.Invoke();
+                OnPopupOpened?.Invoke();
             });
         }
 
@@ -58,6 +65,7 @@ namespace Isometric.UI
             {
                 m_Popup.SetActive(false);
                 onCompete?.Invoke();
+                OnPopupClosed?.Invoke();
             });
         }
 
@@ -65,28 +73,32 @@ namespace Isometric.UI
         {
             SoundManager.PlaySound(SoundType.ButtonSwitch);
             SoundManager.SetSound(true);
-            DataManager.SetBool(SoundCategroy.Sound.ToString(), true);
+            m_IsSoundOn = true;
+            DataManager.SetBool(SoundCategroy.Sound.ToString(), m_IsSoundOn);
         }
 
         public void SetSoundOff()
         {
             SoundManager.PlaySound(SoundType.ButtonSwitch);
             SoundManager.SetSound(false);
-            DataManager.SetBool(SoundCategroy.Sound.ToString(), false);
+            m_IsSoundOn = false;
+            DataManager.SetBool(SoundCategroy.Sound.ToString(), m_IsSoundOn);
         }
 
         public void SetMusicOn()
         {
             SoundManager.PlaySound(SoundType.ButtonSwitch);
             SoundManager.SetMusic(true);
-            DataManager.SetBool(SoundCategroy.Music.ToString(), true);
+            m_IsMusicOn = true;
+            DataManager.SetBool(SoundCategroy.Music.ToString(), m_IsMusicOn);
         }
 
         public void SetMusicOff()
         {
             SoundManager.PlaySound(SoundType.ButtonSwitch);
             SoundManager.SetMusic(false);
-            DataManager.SetBool(SoundCategroy.Music.ToString(), false);
+            m_IsMusicOn = false;
+            DataManager.SetBool(SoundCategroy.Music.ToString(), m_IsMusicOn);
         }
 
         public void OnResetGameButton()

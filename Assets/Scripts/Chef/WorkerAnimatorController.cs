@@ -12,10 +12,11 @@ namespace Isometric.Worker
         private static readonly int WalkRight = Animator.StringToHash("WalkRight");
         private static readonly int WalkLeft = Animator.StringToHash("WalkLeft");
 
-        private static readonly int WorkLeft = Animator.StringToHash("WorkLeft");
-        private static readonly int ServeDown = Animator.StringToHash("ServeDown");
+        private static readonly int WorkRight = Animator.StringToHash("WorkRight");
+        private static readonly int ServeRight = Animator.StringToHash("ServeRight");
 
         private static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int IdleRight = Animator.StringToHash("IdleRight");
         private static readonly int WalkSpeed = Animator.StringToHash("WalkSpeed");
 
         [SerializeField] Animator m_Animator;
@@ -77,13 +78,18 @@ namespace Isometric.Worker
             m_CurrentWalkingDirection = PathDirection.None;
 
             m_Animator.SetBool(Idle, false);
-            m_Animator.SetTrigger(WorkLeft);
+            m_Animator.SetTrigger(WorkRight);
         }
 
         public void PlayServe()
         {
             m_Animator.SetBool(Idle, false);
-            m_Animator.SetTrigger(ServeDown);
+            m_Animator.SetTrigger(ServeRight);
+        }
+        public void PlayServeWait()
+        {
+            m_Animator.SetBool(Idle, false);
+            m_Animator.SetTrigger(IdleRight);
         }
     }
 }

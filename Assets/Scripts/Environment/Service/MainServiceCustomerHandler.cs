@@ -14,6 +14,7 @@ namespace Isometric.Environment
         [Header("---Setup---")]
         [SerializeField] MainServiceController m_MainServiceController;
 
+        [SerializeField] bool m_ShowCapturingGizmos = true;
         [SerializeField] float m_CaptureDistance;
         [SerializeField] float m_ExitDistance;
 
@@ -199,6 +200,9 @@ namespace Isometric.Environment
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if(!m_ShowCapturingGizmos)
+                return;
+                
             DrawCircle(Color.blue, m_CaptureDistance);
             DrawCircle(Color.red, m_ExitDistance);
         }

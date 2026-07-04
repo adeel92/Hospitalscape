@@ -18,9 +18,10 @@ namespace Isometric.UI
         [SerializeField] Image m_Fill;
         [SerializeField] float m_FillOnValue;
         [SerializeField] float m_FillOffValue;
+        
         [Space]
-        [SerializeField] UnityEvent OnToggleOn;
-        [SerializeField] UnityEvent OnToggleOff;
+        public UnityEvent OnToggleOn;
+        public UnityEvent OnToggleOff;
 
         bool m_IsOn = false;
 

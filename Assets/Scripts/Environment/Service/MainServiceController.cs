@@ -74,6 +74,12 @@ namespace Isometric.Environment
         [Header("---Serve Start---")]
         public UnityEvent OnCustomerServeStart;
 
+        [Header("---Next Order---")]
+        public UnityEvent OnCustomerNextOrderShown;
+
+        [Header("---Order Served---")]
+        public UnityEvent OnCustomerOrderServed;
+
         [Header("---Leave For Order---")]
         public UnityEvent OnCustomerLeaveForOrder;
 
@@ -247,7 +253,7 @@ namespace Isometric.Environment
         }
 
         //----Step 3---
-        public void WorkerReachedMainServiceSeat(WorkerController workerController, Vector3 workerOrderOrigin)
+        public void WorkerReachedMainServiceSeat(WorkerController workerController, Vector3 workerOrderOrigin, out bool hasExtraOrder)
         {
             workerController.transform.SetParent(m_WorkerPoint);
             workerController.transform.localPosition = Vector3.zero;
@@ -271,7 +277,7 @@ namespace Isometric.Environment
 
             float workerServingDuration = workerController.ServingDuration;
 
-            bool hasExtraOrder = false;
+            hasExtraOrder = false;
 
             List<CustomerOrderInfo> customerOrderInfo = m_CustomerHandler.GetCurrentCustomer().GetSalonOrders();
             if (customerOrderInfo != null)
@@ -343,6 +349,8 @@ namespace Isometric.Environment
                     m_WaitDuration = m_WorkerServingDuration;
                     m_OrderIndexNumber++;
                     m_IsCustomerWaitingToBeServed = true;
+
+                    OnCustomerNextOrderShown?.Invoke();
                 }
                 else
                 {
@@ -405,6 +413,7 @@ namespace Isometric.Environment
                         m_SpriteFillController.StartFill(fillFrom, fillTo, m_WaitDuration);
 
                         GlobalEventHolder.OnCustomerOrderServed?.Invoke();
+                        OnCustomerOrderServed?.Invoke();
                         CoroutineManager.LateAction(ShowNextOrder, m_WaitDuration);
 
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);

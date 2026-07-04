@@ -35,10 +35,10 @@ RectTransform:
   - {fileID: 6310933546662921880}
   - {fileID: 2769092614630775705}
   - {fileID: 8134013714739553453}
-  - {fileID: 74270997089089786}
   - {fileID: 2116840888771245888}
   - {fileID: 1980889001447484124}
   - {fileID: 8409326391525249927}
+  - {fileID: 74270997089089786}
   - {fileID: 3196432823191065572}
   - {fileID: 3762438780673297047}
   - {fileID: 3779443874726346280}
@@ -179,8 +179,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -109.8}
-  m_SizeDelta: {x: 59.2, y: 59.2}
+  m_AnchoredPosition: {x: 0, y: -123}
+  m_SizeDelta: {x: 66.6591, y: 66.6591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6799447038472323503
 CanvasRenderer:
@@ -254,7 +254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.23, y: -87.2}
+  m_AnchoredPosition: {x: -10.3, y: -86}
   m_SizeDelta: {x: 189.77, y: 43.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7875133992988421700
@@ -312,12 +312,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.1
+  m_fontSize: 25.7
   m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18.5
-  m_fontSizeMax: 22.1
+  m_fontSizeMax: 25.7
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -149.6}
+  m_AnchoredPosition: {x: 0, y: -154}
   m_SizeDelta: {x: 238.56, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3697107028783310999
@@ -702,8 +702,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -115.6}
-  m_SizeDelta: {x: 207.94, y: 40.66}
+  m_AnchoredPosition: {x: 0, y: -120.00002}
+  m_SizeDelta: {x: 231.42, y: 45.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3383515259438150569
 CanvasRenderer:
@@ -1884,6 +1884,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 605133747493221172, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605133747493221172, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605133747493221172, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1984,6 +1992,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3140527496155090868, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140527496155090868, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140527496155090868, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1997,6 +2013,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677669848889297757, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677669848889297757, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677669848889297757, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3677669848889297757, guid: 895f32317b2dd2149826789a0e5b096b, type: 3}

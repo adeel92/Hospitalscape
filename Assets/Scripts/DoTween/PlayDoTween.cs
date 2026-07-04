@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,10 @@ namespace Arc
         }
 
         public enum DurationType { time, speed }
+
+        [SerializeField] bool editComment;
+        [SerializeField, EnableIf(nameof(editComment)), TextArea]
+        string comment;
 
         [Header("--Call Settings--")]
         public CallType callType;

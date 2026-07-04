@@ -42,6 +42,9 @@ namespace Isometric.Worker
         public void Serve(MainServiceController seat)
         {
             m_CurrentSeat = seat;
+            m_CurrentSeat.OnCustomerNextOrderShown.AddListener(m_AnimatorController.PlayServeWait);
+            m_CurrentSeat.OnCustomerOrderServed.AddListener(m_AnimatorController.PlayServe);
+            m_CurrentSeat.OnCustomerComesBackAfterLeaveOrder.AddListener(m_AnimatorController.PlayServe);
             PathTraverserExtension.MoveTarget(transform, m_StartNode, seat.WorkerServeNode, m_WalkSpeed, OnGoingToNodeEntering, OnReachedTable);
         }
 
@@ -54,13 +57,24 @@ namespace Isometric.Worker
 
         private void OnReachedTable(PathNode node)
         {
+            m_CurrentSeat.WorkerReachedMainServiceSeat(this, m_OrderDropOriginPoint.position, out bool hasExtraOrder);
             m_AnimatorController.PlayServe();
-            m_CurrentSeat.WorkerReachedMainServiceSeat(this, m_OrderDropOriginPoint.position);
+            /* if (hasExtraOrder)
+            {
+                m_AnimatorController.PlayServeWait();
+            }
+            else
+            {
+                m_AnimatorController.PlayServe();
+            } */
         }
 
         public void ServeComplete()
         {
             PathTraverserExtension.MoveTarget(transform, m_CurrentSeat.WorkerServeNode, m_StartNode, m_WalkSpeed, OnGoingToNodeLeaving, OnReachedStartNode);
+            m_CurrentSeat.OnCustomerNextOrderShown.RemoveListener(m_AnimatorController.PlayServeWait);
+            m_CurrentSeat.OnCustomerOrderServed.RemoveListener(m_AnimatorController.PlayServe);
+            m_CurrentSeat.OnCustomerComesBackAfterLeaveOrder.RemoveListener(m_AnimatorController.PlayServe);
             m_CurrentSeat = null;
         }
 
