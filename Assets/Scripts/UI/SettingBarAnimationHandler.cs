@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Arc;
 using Isometric.UI;
 using UnityEngine;
@@ -11,9 +12,12 @@ public class SettingBarAnimationHandler : MonoBehaviour
     [SerializeField] SlideButtonUI m_SlideButtonUI;
 
     [Header("---Toggle Bacteria---")]
+    [SerializeField] RectTransform m_BacteriaRectTransform;
     [SerializeField] PlayDoTween m_BacteriaEnableTween;
     [SerializeField] PlayDoTween m_BacteriaDisableTween;
     [SerializeField] ParticleSystem m_SleepParticle;
+    [SerializeField] Vector3 m_BacteriaEnabledPosition;
+    [SerializeField] Vector3 m_BacteriaDisabledPosition;
 
     private void OnEnable()
     {
@@ -33,6 +37,18 @@ public class SettingBarAnimationHandler : MonoBehaviour
         if (!IsToggleOn())
         {
             m_SleepParticle.Play();
+        }
+    }
+
+    public void UpdateBacteriaInitPosition()
+    {
+        if (!IsToggleOn())
+        {
+            m_BacteriaRectTransform.anchoredPosition = m_BacteriaEnabledPosition;
+        }
+        else
+        {
+            m_BacteriaRectTransform.anchoredPosition = m_BacteriaDisabledPosition;
         }
     }
 

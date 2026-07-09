@@ -9,6 +9,7 @@ using NaughtyAttributes;
 using Arc;
 using Isometric.Data;
 using Isometric.Sound;
+using Coffee.UIExtensions;
 
 namespace Isometric.UI
 {
@@ -28,7 +29,12 @@ namespace Isometric.UI
 
             public GameObject Holder;
             public GameObject Selected;
+            public Image SelectedIcon;
+            public PlayDoTweenSequence SelectedSequence;
             public Button UnselectedButton;
+            public Image UnselectedIcon;
+            public PlayDoTweenSequence UnselectedSequence;
+
             [Header("-On category select button offset to the highlighted object")]
             public float HighlightedChildSelectionOffset;
             [AllowNesting, ReadOnly]
@@ -69,11 +75,15 @@ namespace Isometric.UI
         [SerializeField] GameObject m_PlayButton;
         [SerializeField] GameObject m_PlayLockedButton;
         [SerializeField] List<SideButtonInfo> m_SideButtonsInfo;
+        [ReadOnly] private SideButtonInfo m_CurrentSelectedSideButton;
 
         [SerializeField] NotificationParentUI m_NotificationStaff;
         [SerializeField] NotificationParentUI m_NotificationStations;
         [SerializeField] NotificationParentUI m_NotificationRevenue;
         [SerializeField] NotificationParentUI m_NotificationPatience;
+
+        [Space]
+        [SerializeField] ShinyEffectForUGUIEnabler m_ShinyEffectEnabler;
 
 
         [Header("---Info Popup---")]
@@ -129,17 +139,24 @@ namespace Isometric.UI
             m_PlayerUpgradePanelsUI = m_DataMapUpdate.GetAndSetPlayerUpgradePanels(m_PanelHolder);
             foreach (var panel in m_PlayerUpgradePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationStaff);
             }
 
-            ChairCapacityUpgradePanelUI chairSalonCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Salon);
+            ChairCapacityUpgradePanelUI chairSalonCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Salon, true);
             if(chairSalonCapacityUpgradePanelUI != null)
             {
                 m_ChairCapacityUpgradePanelsUI.Add(chairSalonCapacityUpgradePanelUI);
             }
 
-            ChairCapacityUpgradePanelUI chairCafeCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Cafe);
+            ChairCapacityUpgradePanelUI chairCafeCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Cafe, true);
             if(chairCafeCapacityUpgradePanelUI != null)
             {
                 m_ChairCapacityUpgradePanelsUI.Add(chairCafeCapacityUpgradePanelUI);
@@ -147,6 +164,13 @@ namespace Isometric.UI
 
             foreach (var panel in m_ChairCapacityUpgradePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationStaff);
             }
@@ -154,6 +178,13 @@ namespace Isometric.UI
             m_WorkerUpgradePanelsUI = m_DataMapUpdate.GetAndSetWorkerUpgradePanels(m_PanelHolder);
             foreach (var panel in m_WorkerUpgradePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationStaff);
             }
@@ -162,6 +193,13 @@ namespace Isometric.UI
 
             foreach (var panel in m_StationUpgradePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationStations);
             }
@@ -170,6 +208,13 @@ namespace Isometric.UI
 
             foreach (var panel in m_StationUpgradeRevenuePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationRevenue);
             }
@@ -178,6 +223,13 @@ namespace Isometric.UI
 
             foreach (var panel in m_PatienceUpgradePanelsUI)
             {
+                if(panel.ShinyEffects.Count > 0)
+                {
+                    foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
+                    {
+                        m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                    }
+                }
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationPatience);
             }
@@ -295,6 +347,14 @@ namespace Isometric.UI
             m_PlayerUpgradePanelsUI[index] = newPlayerUpgradePanelUI;
             newPlayerUpgradePanelUI.SetupNotification(m_NotificationStaff);
 
+            if(newPlayerUpgradePanelUI.ShinyEffects.Count > 0)
+            {
+                foreach(ShinyEffectForUGUI shineEffect in newPlayerUpgradePanelUI.ShinyEffects)
+                {
+                    m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                }
+            }
+
             if (index == 0)
             {
                 SideButtonInfo sideButton = m_SideButtonsInfo.Find((x) => x.Type == SideButtonType.Staff);
@@ -312,6 +372,14 @@ namespace Isometric.UI
             newChairCapacityUpgradePanelUI.UpgradePopupUIManager = this;
             m_ChairCapacityUpgradePanelsUI.Add(newChairCapacityUpgradePanelUI);
             newChairCapacityUpgradePanelUI.SetupNotification(m_NotificationStaff);
+
+            if(newChairCapacityUpgradePanelUI.ShinyEffects.Count > 0)
+            {
+                foreach(ShinyEffectForUGUI shineEffect in newChairCapacityUpgradePanelUI.ShinyEffects)
+                {
+                    m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                }
+            }
         }
 
 
@@ -322,6 +390,14 @@ namespace Isometric.UI
             newWorkerUpgradePanelUI.UpgradePopupUIManager = this;
             m_WorkerUpgradePanelsUI.Add(newWorkerUpgradePanelUI);
             newWorkerUpgradePanelUI.SetupNotification(m_NotificationStaff);
+
+            if(newWorkerUpgradePanelUI.ShinyEffects.Count > 0)
+            {
+                foreach(ShinyEffectForUGUI shineEffect in newWorkerUpgradePanelUI.ShinyEffects)
+                {
+                    m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                }
+            }
         }
 
         public void UpgradeStation(DataStation dataStaion, StationUpgradeType stationUpgradeType, StationUpgradePanelUI stationUpgradePanelUI)
@@ -367,6 +443,14 @@ namespace Isometric.UI
                     }
                 }
             }
+
+            if(newStationUpgradePanelUI.ShinyEffects.Count > 0)
+            {
+                foreach(ShinyEffectForUGUI shineEffect in newStationUpgradePanelUI.ShinyEffects)
+                {
+                    m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                }
+            }
         }
 
         public void UpgradePatience(DataPatience dataPatience, PatienceUpgradePanelUI patienceUpgradePanelUI)
@@ -376,6 +460,14 @@ namespace Isometric.UI
             newPatienceUpgradePanelUI.UpgradePopupUIManager = this;
             m_PatienceUpgradePanelsUI.Add(newPatienceUpgradePanelUI);
             newPatienceUpgradePanelUI.SetupNotification(m_NotificationPatience);
+
+            if(newPatienceUpgradePanelUI.ShinyEffects.Count > 0)
+            {
+                foreach(ShinyEffectForUGUI shineEffect in newPatienceUpgradePanelUI.ShinyEffects)
+                {
+                    m_ShinyEffectEnabler.AddShinyEffect(shineEffect);
+                }
+            }
         }
         #endregion
 
@@ -392,13 +484,22 @@ namespace Isometric.UI
             {
                 if (sideButtonInfo.Type == SideButtonType.Staff)
                 {
-                    sideButtonInfo.Selected.SetActive(true);
-                    sideButtonInfo.UnselectedButton.gameObject.SetActive(false);
+                    // sideButtonInfo.Selected.SetActive(true);
+                    m_CurrentSelectedSideButton = sideButtonInfo;
+                    // m_CurrentSelectedSideButton.UnselectedSequence?.Stop();
+                    m_CurrentSelectedSideButton.SelectedSequence?.PlaySequence();
+                    // sideButtonInfo.UnselectedButton.gameObject.SetActive(false);
                 }
                 else
                 {
-                    sideButtonInfo.Selected.SetActive(false);
-                    sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                    Image selectedBar = sideButtonInfo.Selected.GetComponent<Image>();
+                    selectedBar.color = new Color(selectedBar.color.r, selectedBar.color.g, selectedBar.color.b, 0f);
+                    Image selectedBarIcon = sideButtonInfo.Selected.GetComponent<Image>();
+                    selectedBarIcon.color = new Color(selectedBarIcon.color.r, selectedBarIcon.color.g, selectedBarIcon.color.b, 0f);
+                    // sideButtonInfo.Selected.SetActive(false);
+                    // sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                    // sideButtonInfo.SelectedSequence?.Stop();
+                    // sideButtonInfo.UnselectedSequence?.PlaySequence();
                 }
             }
         }
@@ -408,16 +509,23 @@ namespace Isometric.UI
             SideButtonInfo selectedSideButton = m_SideButtonsInfo[0];
             foreach (var sideButtonInfo in m_SideButtonsInfo)
             {
-                sideButtonInfo.Selected.SetActive(false);
-                sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                // sideButtonInfo.Selected.SetActive(false);
+                // sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                // sideButtonInfo.UnselectedSequence?.PlaySequence();
                 if (sideButtonInfo.IsVisibleInViewport(m_ScrollRect, m_ContentAutoSelectOffset))
                 {
                     selectedSideButton = sideButtonInfo;
                 }
             }
 
-            selectedSideButton.Selected.SetActive(true);
-            selectedSideButton.UnselectedButton.gameObject.SetActive(true);
+            // selectedSideButton.Selected.SetActive(true);
+            if(m_CurrentSelectedSideButton != selectedSideButton)
+            {
+                m_CurrentSelectedSideButton.UnselectedSequence?.PlaySequence();
+                selectedSideButton.SelectedSequence?.PlaySequence();
+                m_CurrentSelectedSideButton = selectedSideButton;
+            }
+            // selectedSideButton.UnselectedButton.gameObject.SetActive(false);
         }
 
         public void ScrollTo(RectTransform target, float xOffset)

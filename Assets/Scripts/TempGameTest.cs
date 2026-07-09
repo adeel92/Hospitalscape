@@ -11,7 +11,7 @@ public class TempGameTest : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(Setup), 0.1f);
+        // Invoke(nameof(Setup), 0.1f);
         // Setup();
     }
 

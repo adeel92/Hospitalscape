@@ -55,13 +55,13 @@ namespace Isometric.Data
                         int index = data.CurrentUpgradeIndex;
                         if (index >= data.PatienceUpgrade.Count - 1)
                         {
-                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(numberOfUpgrades);
+                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(numberOfUpgrades, true);
                             patienceUpgradePanelUI.Tick.SetActive(true);
                             patienceUpgradePanelUI.MaxButton.gameObject.SetActive(true);
                         }
                         else
                         {
-                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(1 + index);
+                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(1 + index, true);
                             patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
 
@@ -140,7 +140,7 @@ namespace Isometric.Data
                     }
                     else
                     {
-                        patienceUpgradePanelUI.StepFillBar.SetFillAmount(0);
+                        patienceUpgradePanelUI.StepFillBar.SetFillAmount(0, true);
                         patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
                         if (patienceUpdateInfo.IsChairPatience)

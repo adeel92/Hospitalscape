@@ -6,6 +6,7 @@ using TMPro;
 using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.Sound;
+using Coffee.UIExtensions;
 
 namespace Isometric.UI
 {
@@ -37,6 +38,10 @@ namespace Isometric.UI
         public Button MaxButton;
         public GameObject Tick;
         public ParticleSystem UpgradeEffect;
+
+        [Space]
+        public List<ShinyEffectForUGUI> ShinyEffects;
+
         [ReadOnly]
         public Sprite InfoPreviewSprite;
         [TextArea, ReadOnly]

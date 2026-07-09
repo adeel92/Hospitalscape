@@ -25,8 +25,8 @@ namespace Isometric.UI
 
         public override void Setup()
         {
-            m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);
-            m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);
+            m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);   //mrcHefF
+            m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);   //mrcHefF
 
             if(m_IsSoundOn)
             {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Isometric
 {
@@ -11,9 +12,12 @@ namespace Isometric
         {
             public int NumberOfChidsCondition;
             public Vector3 Scale;
+            public int LayoutLeftPadding;
+            public float LayoutYSpacing;
         }
 
         [SerializeField] bool m_CallOnStart;
+        [SerializeField] GridLayoutGroup m_GridLayoutGroup;
         [SerializeField] List<ResizeInfo> m_ResizeInfo;
 
         private void Start()
@@ -45,6 +49,9 @@ namespace Isometric
                     transform.GetChild(i).localScale = resizeInfo.Scale;
                 }
             }
+
+            m_GridLayoutGroup.padding.left = resizeInfo.LayoutLeftPadding;
+            m_GridLayoutGroup.spacing = new Vector2(m_GridLayoutGroup.spacing.x, resizeInfo.LayoutYSpacing);
         }
     }
 }

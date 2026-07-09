@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EditKey: 0
   m_GameData:
     EditValues: 1
-    CoinCurrency: 0
+    CoinCurrency: 3600
     GemCurrency: 0
     StarCurrency: 1
     KeyCurrency: 0
@@ -38,12 +38,58 @@ MonoBehaviour:
     EditGeneralData: 0
     GeneralData:
       GeneralInfo:
-      - Key: Music
+      - Key: HeartCurrency_LastTime
+        Value: 2026-07-07T16:24:19.8109155Z
+      - Key: HeartCurrency_ShouldBeMinusOne
+        Value: False
+      - Key: Notification_Upgrade_Player_0
         Value: True
+      - Key: Notification_Upgrade_Player_1
+        Value: False
+      - Key: Notification_Upgrade_Salon_Chair_0
+        Value: False
+      - Key: Notification_Upgrade_Worker_2
+        Value: False
+      - Key: Notification_Upgrade_Worker_4
+        Value: False
+      - Key: Notification_Upgrade_Worker_3
+        Value: False
+      - Key: Notification_Upgrade_Worker_1
+        Value: False
+      - Key: Notification_Upgrade_Worker_5
+        Value: False
+      - Key: Notification_Upgrade_Station_Snacks_0
+        Value: False
+      - Key: Notification_Upgrade_Station_SaladBar_0
+        Value: False
+      - Key: Notification_Upgrade_Station_FishBBQ_0
+        Value: False
+      - Key: Notification_Upgrade_Station_IceCream_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Soda_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Performance_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Salad_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Snacks_1
+        Value: False
+      - Key: Notification_Upgrade_Station_SaladBar_1
+        Value: False
+      - Key: Notification_Upgrade_Station_FishBBQ_1
+        Value: False
+      - Key: Notification_Upgrade_Station_IceCream_1
+        Value: False
+      - Key: Notification_Upgrade_Station_Soda_1
+        Value: False
+      - Key: Notification_Upgrade_Station_Performance_1
+        Value: False
       - Key: Sound
         Value: True
-    EditDefaultValues: 0
-    CoinCurrencyDefaultValue: 0
+      - Key: Music
+        Value: True
+    EditDefaultValues: 1
+    CoinCurrencyDefaultValue: 3600
     GemCurrencyDefaultValue: 0
     StarCurrencyDefaultValue: 1
     KeyCurrencyDefaultValue: 0

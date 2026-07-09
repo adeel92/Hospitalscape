@@ -68,7 +68,7 @@ namespace Isometric.Data
                 }
 
                 playerUpgradePanelUI.StepFillBar.SetupBars(playerUpgrade.PropertyUpgradesInfo.Count - 1);
-                playerUpgradePanelUI.StepFillBar.SetFillAmount(currentIndex - 1);
+                playerUpgradePanelUI.StepFillBar.SetFillAmount(currentIndex - 1, true);
 
                 if (currentIndex < playerUpgrade.PropertyUpgradesInfo.Count)
                 {
@@ -373,7 +373,7 @@ namespace Isometric.Data
         #endregion
 
         #region Chair Related
-        public ChairCapacityUpgradePanelUI GetAndSetChairCapacityUpgradePanel(Transform holder, ChairUpgradeType chairUpgradeType)
+        public ChairCapacityUpgradePanelUI GetAndSetChairCapacityUpgradePanel(Transform holder, ChairUpgradeType chairUpgradeType, bool doSetupOnly = false)
         {
             foreach (var chairUpdateInfotem in m_ChairsUpdateInfo)
             {
@@ -1165,11 +1165,11 @@ namespace Isometric.Data
                                 stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(fill);
+                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(fill, true);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1);
+                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1, true);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
@@ -1262,11 +1262,11 @@ namespace Isometric.Data
                                 stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(upgradeIndex - 1);
+                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(upgradeIndex - 1, true);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1);
+                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1, true);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
