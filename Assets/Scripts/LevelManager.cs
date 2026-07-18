@@ -236,11 +236,26 @@ namespace Isometric
                 {
                     m_CurrentTimeConstraintValue -= Time.deltaTime;
                 }
-                GlobalEventHolder.OnTimeConstraintValueUpdate(Mathf.RoundToInt(m_CurrentTimeConstraintValue), m_TimeConstraintValue);
+                GlobalEventHolder.OnTimeConstraintValueUpdate(m_CurrentTimeConstraintValue, m_TimeConstraintValue);
             }
 
             CheckIsGameOver();
         }
+        /* IEnumerator TimeConstraintCounter(int timeTarget)
+        {
+            m_CurrentTimeConstraintValue = timeTarget;
+            while (m_CurrentTimeConstraintValue > 0)
+            {
+                yield return null;
+                if (!m_TimerLock)
+                {
+                    m_CurrentTimeConstraintValue -= Time.deltaTime;
+                }
+                GlobalEventHolder.OnTimeConstraintValueUpdate(Mathf.RoundToInt(m_CurrentTimeConstraintValue), m_TimeConstraintValue);
+            }
+
+            CheckIsGameOver();
+        } */
 
         private void OnCustomerEntered()
         {

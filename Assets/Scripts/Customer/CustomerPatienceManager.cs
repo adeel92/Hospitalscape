@@ -18,9 +18,9 @@ namespace Isometric.Customer
 
         [Header("---Sun Rays---")]
         [Header("-Higher the value more quickly patience depletes")]
-        [SerializeField] float m_HotSunRaysPatienceCoolDownMultipier;
-        private bool m_HotSunRaysActivated;
-        [SerializeField] ParticleSystem m_SunRaysEffect;
+        [SerializeField] float m_WeatherPatienceCoolDownMultipier;
+        private bool m_WeatherEffectActivated;
+        [SerializeField] ParticleSystem m_WeatherEffect;
 
         private void Awake()
         {
@@ -38,7 +38,7 @@ namespace Isometric.Customer
                 return;
             }
 
-            s_Instnace.m_HotSunRaysActivated = false;
+            s_Instnace.m_WeatherEffectActivated = false;
             DataLevel dataLevel = DataManager.GetCurrentDataLevel();
 
             if (dataLevel != null)
@@ -121,11 +121,11 @@ namespace Isometric.Customer
 
         IEnumerator SunRaysChecker(DataLevel dataLevel)
         {
-            foreach (var patienceSunRaysData in dataLevel.PatienceSunRaysData)
+            foreach (var patienceSunRaysData in dataLevel.PatienceWeatherData)
             {
                 yield return new WaitForSeconds(patienceSunRaysData.ActivationDelay);
                 ActivateSunRays();
-                yield return new WaitWhile(() => m_HotSunRaysActivated == true);
+                yield return new WaitWhile(() => m_WeatherEffectActivated == true);
             }
         }
 
@@ -138,8 +138,8 @@ namespace Isometric.Customer
             }
 
             GlobalEventHolder.OnPatienceSunRays?.Invoke(true);
-            s_Instnace.m_HotSunRaysActivated = true;
-            s_Instnace.m_SunRaysEffect.Play();
+            s_Instnace.m_WeatherEffectActivated = true;
+            s_Instnace.m_WeatherEffect.Play();
             if (UIManager.GetPopup<GameplayUIManager>() != null) UIManager.GetPopup<GameplayUIManager>().SetActiveWeatherSymbol(true);
             else Debug.LogWarning(nameof(GameplayUIManager) + " is null");
         }
@@ -153,8 +153,8 @@ namespace Isometric.Customer
             }
 
             GlobalEventHolder.OnPatienceSunRays?.Invoke(false);
-            s_Instnace.m_HotSunRaysActivated = false;
-            s_Instnace.m_SunRaysEffect.Stop();
+            s_Instnace.m_WeatherEffectActivated = false;
+            s_Instnace.m_WeatherEffect.Stop();
             if (UIManager.GetPopup<GameplayUIManager>() != null) UIManager.GetPopup<GameplayUIManager>().SetActiveWeatherSymbol(false);
             else Debug.LogWarning(nameof(GameplayUIManager) + " is null");
         }
@@ -167,7 +167,7 @@ namespace Isometric.Customer
                 return false;
             }
 
-            return s_Instnace.m_HotSunRaysActivated;
+            return s_Instnace.m_WeatherEffectActivated;
         }
 
         public static float GetSunRaysPatienaceCoolDown()
@@ -178,9 +178,9 @@ namespace Isometric.Customer
                 return 1;
             }
 
-            if (s_Instnace.m_HotSunRaysActivated)
+            if (s_Instnace.m_WeatherEffectActivated)
             {
-                return s_Instnace.m_HotSunRaysPatienceCoolDownMultipier;
+                return s_Instnace.m_WeatherPatienceCoolDownMultipier;
             }
             else
             {

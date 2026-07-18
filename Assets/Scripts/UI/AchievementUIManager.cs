@@ -8,11 +8,19 @@ using NaughtyAttributes;
 using Arc;
 using Isometric.Data;
 using Isometric.Sound;
+using UnityEngine.UI;
+using Achievement = Isometric.UI.AchievementPanelType;
+
 
 namespace Isometric.UI
 {
     public class AchievementUIManager : UIPopupBase
     {
+        public enum AchievementTabs
+        {
+            Patient, Achievement
+        }
+
         [Serializable]
         private class CustomerPanelInfo
         {
@@ -24,13 +32,19 @@ namespace Isometric.UI
         [SerializeField] GameObject m_Canvas;
         [SerializeField] GameObject m_PopupHolder;
         [SerializeField] DataMapUpdate m_DataMapUpdate;
+        [SerializeField, ReadOnly] AchievementTabs m_CurrentTab;
 
-        [SerializeField] PlayDoTweenSequence m_CurtainOpeningSequence;
-        [SerializeField] PlayDoTweenSequence m_CurtainClosingSequence;
+        [SerializeField] PlayDoTweenSequence m_OpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] GameObject m_CustomerAchievementPopupButton;
-        [SerializeField] GameObject m_CustomerAchievementPopupSelectedButton;
+        [SerializeField] AnimatorStatePlayer m_CustomerAchievementButtonAnimatorPlayer;
+        [SerializeField] string m_CustomerAchievementButtonActiveState;
+        [SerializeField] string m_CustomerAchievementButtonInactiveState;
         [SerializeField] GameObject m_AchievementPopupButton;
-        [SerializeField] GameObject m_AchievementPopupSelectedButton;
+        [SerializeField] AnimatorStatePlayer m_AchievementButtonAnimatorPlayer;
+        [SerializeField] string m_AchievementButtonActiveState;
+        [SerializeField] string m_AchievementButtonInactiveState;
+        [SerializeField] Vector3 m_ButtonActiveScale, m_ButtonInactiveScale;
 
         [Header("---Notification---")]
         [SerializeField] NotificationParentUI m_NotificationParentCustomerAchievement;
@@ -40,6 +54,7 @@ namespace Isometric.UI
 
         [Header("---Customer---")]
         [SerializeField] Transform m_CustomerTab;
+        [SerializeField] PlayDoTween m_CustomerTabEnableTween;
         [SerializeField] Transform m_CustomerPanelHolder;
         [SerializeField] Transform m_CustomerCharacterHolder;
         [SerializeField] float m_NextShowDuration;
@@ -69,8 +84,9 @@ namespace Isometric.UI
 
         [Header("---Achievement---")]
         [SerializeField] Transform m_AchievementTab;
+        [SerializeField] PlayDoTween m_AchievementTabEnableTween;
         [SerializeField] Transform m_AchievementPanelsHolder;
-        [SerializeField, ReadOnly] List<Transform> m_AchievementPanels;
+        [SerializeField, ReadOnly] List<UIGeneralPanel> m_AchievementPanels;
 
         [Header("---Collectable---")]
         [SerializeField] float m_CollectionDuration = GlobalConstents.CollectionDuration;
@@ -107,9 +123,12 @@ namespace Isometric.UI
             m_NotificationParentAchievemet.AddNotificationParent(m_NotificationParentAchievementButton);
             m_NotificationParentCustomerAchievement.AddNotificationParent(m_NotificationParentAchievementButton);
 
-            FullResetCustomerPanels();
+            // FullResetCustomerPanels();   mrcHefF
             FullResetAchievementPanels();
-            OpenCustomerAchievementPopup();
+            // OpenCustomerAchievementPopup();  mrcHefF
+            m_CustomerAchievementButtonAnimatorPlayer.transform.localScale = m_ButtonInactiveScale;
+            m_AchievementButtonAnimatorPlayer.transform.localScale = m_ButtonActiveScale;
+            OpenAchievementPopup(true);
 
         }
 
@@ -122,62 +141,66 @@ namespace Isometric.UI
             SoundManager.PlaySound(SoundType.PopupWhoosh);
 
             m_Canvas.SetActive(true);
-            m_PopupHolder.SetActive(false);
+            // m_PopupHolder.SetActive(false);
             
-
-            m_CurtainOpeningSequence.PlaySequence(() =>
+            m_OpeningSequence.PlaySequence(() =>
             {
                 SoundManager.PlaySound(SoundType.PopupWhoosh);
 
-                m_PopupHolder.SetActive(true);
+                // m_PopupHolder.SetActive(true);
 
-                FullResetCustomerPanels();
-                FullResetAchievementPanels();
-                OpenCustomerAchievementPopup();
+                // FullResetCustomerPanels();   mrcHefF
+                // FullResetAchievementPanels();
+                // OpenCustomerAchievementPopup();  mrcHefF
+                m_CustomerAchievementButtonAnimatorPlayer.transform.localScale = m_ButtonInactiveScale;
+                m_AchievementButtonAnimatorPlayer.transform.localScale = m_ButtonActiveScale;
+                OpenAchievementPopup(true);
+                onComplete?.Invoke();
             
-                m_CurtainClosingSequence.PlaySequence(onComplete).SetDelay(0.6f);
+                // m_ClosingSequence.PlaySequence(onComplete).SetDelay(0.6f);
             });
         }
 
         public override void ClosePopup(Action onComplete)
         {
-            m_CurtainOpeningSequence.PlaySequence(() => 
+            ResetCustomerPanels();
+
+            foreach (var collection in m_Collections)
             {
-                ResetCustomerPanels();
-                
-                onComplete?.Invoke();
-
-                foreach (var collection in m_Collections)
+                if (collection != null)
                 {
-                    if (collection != null)
-                    {
-                        collection.Stop();
-                    }
+                    collection.Stop();
                 }
+            }
 
-                m_Collections.Clear();
-                SoundManager.PlaySound(SoundType.PopupWhoosh);
+            m_Collections.Clear();
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
 
-                m_PopupHolder.SetActive(false);
-                m_CurtainClosingSequence.PlaySequence(() =>
-                {
-                    m_Canvas.SetActive(false);
-                    onComplete?.Invoke();
-                }).SetDelay(0.6f);
+            // m_PopupHolder.SetActive(false);
+            m_ClosingSequence.PlaySequence(() =>
+            {
+                m_Canvas.SetActive(false);
+                onComplete?.Invoke();
             });
         }
 
         #region Button Event
         public void OnCustomerAchievementButton()
         {
+            if(m_CurrentTab == AchievementTabs.Patient)
+                return;
+
             ResetCustomerPanels();
-            OpenCustomerAchievementPopup();
+            OpenCustomerAchievementPopup(false);
         }
 
         public void OnAchievementButton()
         {
+            if(m_CurrentTab == AchievementTabs.Achievement)
+                return;
+
             ResetCustomerPanels();
-            OpenAchievementPopup();
+            OpenAchievementPopup(false);
         }
 
         public void OnCloseButton()
@@ -187,28 +210,46 @@ namespace Isometric.UI
         #endregion
 
 
-        private void OpenCustomerAchievementPopup()
+        private void OpenCustomerAchievementPopup(bool setupCall)
         {
-            m_CustomerAchievementPopupButton.SetActive(false);
-            m_CustomerAchievementPopupSelectedButton.SetActive(true);
-
+            m_CurrentTab = AchievementTabs.Patient;
             m_CustomerTab.gameObject.SetActive(true);
             m_AchievementTab.gameObject.SetActive(false);
-
-            m_AchievementPopupButton.SetActive(true);
-            m_AchievementPopupSelectedButton.SetActive(false);
+            if(!setupCall)
+            {
+                m_CustomerAchievementButtonAnimatorPlayer.PlayTrigger(m_CustomerAchievementButtonActiveState);
+                m_AchievementButtonAnimatorPlayer.PlayTrigger(m_AchievementButtonInactiveState);
+                m_CustomerTabEnableTween.Play();
+            }
         }
 
-        private void OpenAchievementPopup()
+        private void OpenAchievementPopup(bool setupCall)
         {
-            m_AchievementPopupButton.SetActive(false);
-            m_AchievementPopupSelectedButton.SetActive(true);
-
+            m_CurrentTab = AchievementTabs.Achievement;
             m_CustomerTab.gameObject.SetActive(false);
             m_AchievementTab.gameObject.SetActive(true);
+            PlayAchievementUIAnimations();
+            if(!setupCall)
+            {
+                m_AchievementButtonAnimatorPlayer.PlayTrigger(m_AchievementButtonActiveState);
+                m_CustomerAchievementButtonAnimatorPlayer.PlayTrigger(m_CustomerAchievementButtonInactiveState);
+                m_AchievementTabEnableTween.Play();
+            }
+        }
+        private void PlayAchievementUIAnimations()
+        {
+            foreach(UIGeneralPanel achievementPanel in m_AchievementPanels)
+            {
+                Button claimButton = achievementPanel.GetPanelHolding<Button, Achievement>(Achievement.ClaimButton);
+                if (claimButton.gameObject.activeSelf)
+                {
+                    AnimatorStatePlayer barAnimatorPlayer = achievementPanel.GetPanelHolding<AnimatorStatePlayer, Achievement>(Achievement.BarAnimatorPlayer);
+                    barAnimatorPlayer.PlayTrigger("ScaleUpDown");
 
-            m_CustomerAchievementPopupButton.SetActive(true);
-            m_CustomerAchievementPopupSelectedButton.SetActive(false);
+                    AnimatorStatePlayer ClaimButtonAnimatorPlayer = achievementPanel.GetPanelHolding<AnimatorStatePlayer, Achievement>(Achievement.ClaimButtonAnimatorPlayer);
+                    ClaimButtonAnimatorPlayer.PlayTrigger("ScaleText");
+                }
+            }
         }
 
 

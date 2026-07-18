@@ -11,7 +11,7 @@ using Isometric.UI;
 
 namespace Isometric.Environment
 {
-    public class StationVacuumPatience : MonoBehaviour
+    public class StationACPatience : MonoBehaviour
     {
         private const string MetaSetupFoldOut = "---Setup---";
         [SerializeField, Foldout(MetaSetupFoldOut), Expandable]

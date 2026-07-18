@@ -26,7 +26,7 @@ namespace Isometric
 
         //Sends current value and the target value
         public static Action<int, int> OnTargetValueUpdate;
-        public static Action<int, int> OnTimeConstraintValueUpdate;
+        public static Action<float, int> OnTimeConstraintValueUpdate;
         public static Action<int> OnCustomerConstraintValueUpdate;
 
         public static Action OnGameplayPause;

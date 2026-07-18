@@ -261,7 +261,7 @@ namespace Isometric.UI
 
         public void OnAchievementButton()
         {
-            UIManager.OpenPopup<AchievementUIManager>(false, true);
+            UIManager.OpenPopup<AchievementUIManager>(true, true);
         }
 
         public NotificationParentUI GetAchievementButtonNotificationParent()

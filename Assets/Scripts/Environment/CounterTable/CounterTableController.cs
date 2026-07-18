@@ -49,8 +49,8 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaInteractiveFoldOut)] PathNode m_StandingNode;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_CaptureDistance;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_ExitDistance;
-        [SerializeField, SortingLayer, Foldout(MetaInteractiveFoldOut)] string m_SittingSortingLayer;
-        [SerializeField, Foldout(MetaInteractiveFoldOut)] int m_SittingSortingOrder;
+        [SerializeField, SortingLayer, Foldout(MetaInteractiveFoldOut)] string m_StandingSortingLayer;
+        [SerializeField, Foldout(MetaInteractiveFoldOut)] int m_StandingSortingOrder;
         [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerSalonController m_CurrentSalonCustomer;
         [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerCafeController m_CurrentCafeCustomer;
 
@@ -163,7 +163,7 @@ namespace Isometric.Environment
                                 m_CurrentSalonCustomer = salonCustomer;
                                 m_CurrentSalonCustomer.transform.SetParent(m_StandingNode.transform);
                                 m_CurrentSalonCustomer.transform.localPosition = Vector3.zero;
-                                m_CurrentSalonCustomer.SetSortingLayer(m_SittingSortingLayer, m_SittingSortingOrder);
+                                m_CurrentSalonCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
                                 m_CurrentSalonCustomer.StandAtTheCounter(this);
                                 yield break;
                             }
@@ -183,7 +183,7 @@ namespace Isometric.Environment
                                 m_CurrentCafeCustomer = cafeCustomer;
                                 m_CurrentCafeCustomer.transform.SetParent(m_StandingNode.transform);
                                 m_CurrentCafeCustomer.transform.localPosition = Vector3.zero;
-                                m_CurrentCafeCustomer.SetSortingLayer(m_SittingSortingLayer, m_SittingSortingOrder);
+                                m_CurrentCafeCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
                                 m_CurrentCafeCustomer.StandAtTheCounter(this);
                                 yield break;
                             }
@@ -200,14 +200,14 @@ namespace Isometric.Environment
             {
                 m_CurrentSalonCustomer.transform.SetParent(m_StandingNode.transform);
                 m_CurrentSalonCustomer.transform.localPosition = Vector3.zero;
-                m_CurrentSalonCustomer.SetSortingLayer(m_SittingSortingLayer, m_SittingSortingOrder);
+                m_CurrentSalonCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
             }
 
             if(m_CurrentCafeCustomer != null)
             {
                 m_CurrentCafeCustomer.transform.SetParent(m_StandingNode.transform);
                 m_CurrentCafeCustomer.transform.localPosition = Vector3.zero;
-                m_CurrentCafeCustomer.SetSortingLayer(m_SittingSortingLayer, m_SittingSortingOrder);
+                m_CurrentCafeCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
             }
         }
 

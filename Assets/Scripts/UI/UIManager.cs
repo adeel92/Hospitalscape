@@ -407,7 +407,7 @@ namespace Isometric.UI
         #endregion
 
         #region Achievement Popup
-        /*public static void OpenAchievementPopup()
+        /* public static void OpenAchievementPopup()
         {
             if (s_Instance == null)
             {
@@ -419,14 +419,15 @@ namespace Isometric.UI
             UIInteractionOff();
             HideMenu(() =>
             {
-                s_Instance.m_AchievementUIManager.OpenPopup(() =>
+                AchievementUIManager achievementUIManager = GetPopup<AchievementUIManager>();
+                achievementUIManager.OpenPopup(() =>
                 {
                     UIInteractionOn();
                 });
             });
-        }*/
+        } */
 
-        /*public static void CloseAchievementPopup()
+        /* public static void CloseAchievementPopup()
         {
             if (s_Instance == null)
             {
@@ -435,7 +436,8 @@ namespace Isometric.UI
             }
 
             UIInteractionOff();
-            s_Instance.m_AchievementUIManager.ClosePopup(() =>
+            AchievementUIManager achievementUIManager = GetPopup<AchievementUIManager>();
+            achievementUIManager.ClosePopup(() =>
             {
                 ShowMenu(() =>
                 {
@@ -443,7 +445,7 @@ namespace Isometric.UI
                     CameraInteractionOn();
                 });
             });
-        }*/
+        } */
         #endregion
 
         #region UI Interaction

@@ -128,6 +128,7 @@ namespace Isometric.Customer
             }
 
             DisableAllPickupColliders();
+            AssignInitPickupCollider();
             Enter();
         }
 
@@ -160,6 +161,7 @@ namespace Isometric.Customer
         {
             if(m_CurrentPickupCollider != null)
             {
+                Debug.Log($"Adeel {name} : {m_CurrentPickupCollider.ColliderObj != null}");
                 m_CurrentPickupCollider.ColliderObj.SetActive(false);
                 m_CurrentPickupCollider = null;
             }
@@ -173,6 +175,10 @@ namespace Isometric.Customer
                     pickupCollider.ColliderObj.SetActive(false);
                 }
             }
+        }
+        private void AssignInitPickupCollider()
+        {
+            m_CurrentPickupCollider = PickupColliders.Find(x => x.PickupColliderType == PickupColliderType.Standing);
         }
         #endregion
 
@@ -211,11 +217,11 @@ namespace Isometric.Customer
                 transform.SetParent(patienceChairController.CustomerSittingHolder);
                 transform.localPosition = Vector3.zero;
                 // m_PickUp.SetActive(true);
-                EnablePickupCollider(PickupColliderType.Sitting);
-                m_SalonWaitState = CustomerAnimatorState.SittingIdleNeurtalRight;
-                m_AnimatorController.PlayState(CustomerAnimatorState.SititngRight, () =>
+                m_SalonWaitState = CustomerAnimatorState.SittingIdleNeurtalDown;
+                m_AnimatorController.PlayState(CustomerAnimatorState.SittingDown, () =>
                 {
-                    m_AnimatorController.PlayState(CustomerAnimatorState.SittingIdleNeurtalRight);
+                    m_AnimatorController.PlayState(CustomerAnimatorState.SittingIdleNeurtalDown);
+                    EnablePickupCollider(PickupColliderType.Sitting);
                 });
                 m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
             }

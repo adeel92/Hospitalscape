@@ -31,14 +31,20 @@ namespace Isometric.UI
             public Image BarFill;
             public TextMeshProUGUI TargetText;
             public RectTransform StarTargetMarkHolder;
+            public Animator StarAnimator;
+            public string StarEnableState;
             public GameObject StarTargetArrow;
             public GameObject StarTargetMarkOff;
             public GameObject StarTargetMarkOn;
 
             public RectTransform Key1TargetMarkHolder;
+            public Animator Key1Animator;
+            public string Key1EnableState;
             public GameObject Key1TargetMarkOff;
             public GameObject Key1TargetMarkOn;
             public RectTransform Key2TargetMarkHolder;
+            public Animator Key2Animator;
+            public string Key2EnableState;
             public GameObject Key2TargetMarkOff;
             public GameObject Key2TargetMarkOn;
 
@@ -47,10 +53,19 @@ namespace Isometric.UI
             public TextMeshProUGUI TimeConstraintText;
             public Image TimeConstraintFillBar;
             public float TimeConstraintFillBarAlarmingValue;
+            public float TimeConstraintFillBarCriticalValue;
             public Color TimeConstraintFillBarNormalColor;
             public Color TimeConstraintFillBarAlarmingColor;
+            public Color TimeConstraintFillBarCriticalColor;
+            public float ColorChangeDuration = 0.25f;
+            [Space]
             public GameObject CustomerConstraintHolder;
+            public Animator CustomerConstraintHolderAnimator;
+            public string CustomerConstraintHolderActiveState, CustomerConstraintHolderInactiveState;
             public TextMeshProUGUI CustomerConstraintText;
+            public Image CustomerAvailableIcon;
+            public Sprite CustomerAvailableSprite, CustomerUnavailableSprite;
+            [Space]
             public GameObject DontLostCustomerConstraintHolder;
 
             [Header("---Weather Symbol---")]
@@ -183,7 +198,9 @@ namespace Isometric.UI
                         && m_GameplayGoalInfo.CustomerConstraintHolder.activeSelf == false)
                     {
                         m_GameplayGoalInfo.CustomerConstraintHolder.SetActive(true);
+                        m_GameplayGoalInfo.CustomerAvailableIcon.sprite = m_GameplayGoalInfo.CustomerAvailableSprite;
                         m_GameplayGoalInfo.CustomerConstraintText.text = levelConstraintInfo.NumberOfCustomers.FormatNumberMB();
+                        m_GameplayGoalInfo.CustomerConstraintHolderAnimator.SetTrigger(m_GameplayGoalInfo.CustomerConstraintHolderActiveState);
                     }
                     else if (levelConstraintInfo.ConstraintType == LevelConstraintType.DoNotLoseCustomer
                         && m_GameplayGoalInfo.DontLostCustomerConstraintHolder.activeSelf == false)
@@ -308,6 +325,7 @@ namespace Isometric.UI
             if (currentValue >= targetValue && !m_GameplayGoalInfo.StarTargetMarkOn.activeSelf)
             {
                 m_GameplayGoalInfo.StarTargetMarkOn.SetActive(true);
+                m_GameplayGoalInfo.StarAnimator.SetTrigger(m_GameplayGoalInfo.StarEnableState);
             }
 
             if (KeyRewardManager.IsUsingKeyReward())
@@ -326,31 +344,45 @@ namespace Isometric.UI
                 if (key1TargetValue <= currentValue && !m_GameplayGoalInfo.Key1TargetMarkOn.activeSelf)
                 {
                     m_GameplayGoalInfo.Key1TargetMarkOn.SetActive(true);
+                    m_GameplayGoalInfo.Key1Animator.SetTrigger(m_GameplayGoalInfo.Key1EnableState);
                 }
 
                 if (key2TargetValue <= currentValue && !m_GameplayGoalInfo.Key2TargetMarkOn.activeSelf)
                 {
                     m_GameplayGoalInfo.Key2TargetMarkOn.SetActive(true);
+                    m_GameplayGoalInfo.Key2Animator.SetTrigger(m_GameplayGoalInfo.Key2EnableState);
                 }
             }
         }
         #endregion
 
         #region Constraint Related
-        private void OnTimeConstraintValueUpdate(int timeConstraintCurrentValue, int timeConstraintValue)
+        private void OnTimeConstraintValueUpdate(float timeConstraintCurrentValue, int timeConstraintValue)
         {
-            float fillAmount = (float)timeConstraintCurrentValue / (float)timeConstraintValue;
-            if (fillAmount < m_GameplayGoalInfo.TimeConstraintFillBarAlarmingValue)
+            float fillAmount = timeConstraintCurrentValue / (float) timeConstraintValue;
+            if (fillAmount < m_GameplayGoalInfo.TimeConstraintFillBarCriticalValue)
             {
-                m_GameplayGoalInfo.TimeConstraintFillBar.color = m_GameplayGoalInfo.TimeConstraintFillBarAlarmingColor;
+                m_GameplayGoalInfo.TimeConstraintFillBar.DOColor(m_GameplayGoalInfo.TimeConstraintFillBarCriticalColor, m_GameplayGoalInfo.ColorChangeDuration);
+            }
+            else if (fillAmount < m_GameplayGoalInfo.TimeConstraintFillBarAlarmingValue)
+            {
+                m_GameplayGoalInfo.TimeConstraintFillBar.DOColor(m_GameplayGoalInfo.TimeConstraintFillBarAlarmingColor, m_GameplayGoalInfo.ColorChangeDuration);
             }
             m_GameplayGoalInfo.TimeConstraintFillBar.fillAmount = fillAmount;
-            m_GameplayGoalInfo.TimeConstraintText.text = timeConstraintCurrentValue.FormatTimeMSS();
+            
+            int timeConstraint = Mathf.RoundToInt(timeConstraintCurrentValue);
+            m_GameplayGoalInfo.TimeConstraintText.text = timeConstraint.FormatTimeMSS();
         }
 
         private void OnCustomerConstraintValueUpdate(int customerConstraintValue)
         {
             m_GameplayGoalInfo.CustomerConstraintText.text = customerConstraintValue.ToString();
+            if(customerConstraintValue == 0)
+            {
+                m_GameplayGoalInfo.CustomerAvailableIcon.sprite = m_GameplayGoalInfo.CustomerUnavailableSprite;
+                m_GameplayGoalInfo.CustomerConstraintText.DOColor(Color.red, m_GameplayGoalInfo.ColorChangeDuration);
+                m_GameplayGoalInfo.CustomerConstraintHolderAnimator.SetTrigger(m_GameplayGoalInfo.CustomerConstraintHolderInactiveState);
+            }
         }
         #endregion
 

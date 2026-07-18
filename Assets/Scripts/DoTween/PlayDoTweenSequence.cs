@@ -83,11 +83,32 @@ namespace Arc
         public CallType callType;
         public bool ignoreTimeScale;
         public bool killOnDisable = false;
+        public bool shouldLoop = false;
+        public LoopType loopType;
+        public int loopCount = -1;
         public List<TweenInfo> tweensInfo;
         public CallBacksContainer SequenceCallBacksInfo;
 
+#if UNITY_EDITOR
+        [Header("Editor Preview Only \n - Used only when previewing from the \n Inspector in Edit Mode.")]
+        [Tooltip("Edit Mode only. Invokes UnityEvents during preview. Keep off unless you need to test event callbacks like enabling objects, particles, or sounds.")]
+        [Space] public bool editorPreviewInvokeCallbacks;
+        [Tooltip("Edit Mode only. Controls the preview playback speed. 1 = normal speed, 0.5 = slower, 2 = faster. Runtime speed is not affected.")]
+        [Min(0.01f)] public float editorPreviewSpeed = 1f;
+        [Tooltip("Edit Mode only. Repeats the preview sequence continuously in the editor. Runtime looping is not affected.")]
+        public bool editorPreviewLoop = false;
+#endif
 
         Sequence tweenSequence = null;
+
+#if UNITY_EDITOR
+        private bool editorPreviewIsRunning;
+        private double editorPreviewLastEditorTime;
+        private float editorPreviewElapsed;
+        private float editorPreviewDuration;
+
+        public bool IsEditorPreviewRunning => editorPreviewIsRunning;
+#endif
 
         private void Start()
         {
@@ -161,8 +182,12 @@ namespace Arc
                 }
             }
 
-            tweenSequence.SetUpdate(ignoreTimeScale)
-            .OnStart(() =>
+            tweenSequence.SetUpdate(ignoreTimeScale);
+            if (/* Application.isPlaying &&  */shouldLoop)
+            {
+                tweenSequence.SetLoops(loopCount, loopType);
+            }
+            tweenSequence.OnStart(() =>
             {
                 if (SequenceCallBacksInfo != null && SequenceCallBacksInfo.CallBacksInfo != null)
                 {
@@ -190,6 +215,18 @@ namespace Arc
         }
 
         public void Stop()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                StopEditorPreview(false, true);
+                return;
+            }
+#endif
+            KillSequence();
+        }
+
+        private void KillSequence()
         {
             if (tweenSequence != null)
             {
@@ -541,6 +578,11 @@ namespace Arc
 
         private void HandleTweenCallback(TweenInfo tweenInfo, Tween tween)
         {
+#if UNITY_EDITOR
+        if (!Application.isPlaying && !editorPreviewInvokeCallbacks)
+            return;
+#endif
+
             tween.OnStart(() =>
             {
                 if (tweenInfo.tweenCallBacksContainer != null && tweenInfo.tweenCallBacksContainer.CallBacksInfo != null)
@@ -607,6 +649,182 @@ namespace Arc
         {
             Debug.LogWarning("Target in the TweenInfo is not assigned");
         }
+
+#if UNITY_EDITOR
+        public void EditorPreviewPlay()
+        {
+            if (Application.isPlaying)
+            {
+                PlaySequence();
+                return;
+            }
+
+            StopEditorPreview(false, true);
+
+            DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
+
+            tweenSequence = PlaySequence(null);
+            if (tweenSequence == null)
+            {
+                return;
+            }
+
+            tweenSequence.SetAutoKill(false);
+            tweenSequence.Pause();
+            tweenSequence.ForceInit();
+
+            editorPreviewDuration = tweenSequence.Duration(false);
+            editorPreviewElapsed = 0f;
+            editorPreviewLastEditorTime = UnityEditor.EditorApplication.timeSinceStartup;
+            editorPreviewIsRunning = true;
+
+            tweenSequence.Goto(0f, false);
+
+            UnityEditor.EditorApplication.update -= EditorPreviewUpdate;
+            UnityEditor.EditorApplication.update += EditorPreviewUpdate;
+            RepaintEditorPreviewViews();
+        }
+
+        public void EditorPreviewStop()
+        {
+            if (Application.isPlaying)
+            {
+                Stop();
+                return;
+            }
+
+            StopEditorPreview(false, true);
+        }
+
+        public void EditorPreviewRewindToStart()
+        {
+            if (Application.isPlaying)
+            {
+                Stop();
+                return;
+            }
+
+            if (tweenSequence == null || !tweenSequence.IsActive())
+            {
+                DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
+                tweenSequence = PlaySequence(null);
+                if (tweenSequence != null)
+                {
+                    tweenSequence.SetAutoKill(false);
+                    tweenSequence.Pause();
+                    tweenSequence.ForceInit();
+                }
+            }
+
+            StopEditorPreview(true, true);
+        }
+
+        public void EditorPreviewCompleteToEnd()
+        {
+            if (Application.isPlaying)
+            {
+                if (tweenSequence != null && tweenSequence.IsActive())
+                {
+                    tweenSequence.Complete();
+                }
+                return;
+            }
+
+            if (tweenSequence == null || !tweenSequence.IsActive())
+            {
+                DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
+                tweenSequence = PlaySequence(null);
+                if (tweenSequence == null)
+                {
+                    return;
+                }
+
+                tweenSequence.SetAutoKill(false);
+                tweenSequence.Pause();
+                tweenSequence.ForceInit();
+            }
+
+            tweenSequence.Goto(tweenSequence.Duration(false), false);
+            StopEditorPreview(false, true);
+        }
+
+        private void EditorPreviewUpdate()
+        {
+            if (Application.isPlaying)
+            {
+                StopEditorPreview(false, true);
+                return;
+            }
+
+            if (!editorPreviewIsRunning || tweenSequence == null || !tweenSequence.IsActive())
+            {
+                StopEditorPreview(false, true);
+                return;
+            }
+
+            double currentEditorTime = UnityEditor.EditorApplication.timeSinceStartup;
+            float deltaTime = Mathf.Max(0f, (float)(currentEditorTime - editorPreviewLastEditorTime));
+            editorPreviewLastEditorTime = currentEditorTime;
+
+            editorPreviewElapsed += deltaTime * Mathf.Max(0.01f, editorPreviewSpeed);
+
+            if (editorPreviewDuration <= 0f)
+            {
+                tweenSequence.Goto(0f, false);
+                StopEditorPreview(false, false);
+                return;
+            }
+
+            if (editorPreviewElapsed >= editorPreviewDuration)
+            {
+                tweenSequence.Goto(editorPreviewDuration, false);
+
+                if (editorPreviewLoop)
+                {
+                    editorPreviewElapsed = 0f;
+                    editorPreviewLastEditorTime = currentEditorTime;
+                    tweenSequence.Goto(0f, false);
+                }
+                else
+                {
+                    StopEditorPreview(false, false);
+                }
+            }
+            else
+            {
+                tweenSequence.Goto(editorPreviewElapsed, false);
+            }
+
+            RepaintEditorPreviewViews();
+        }
+
+        private void StopEditorPreview(bool resetToStart, bool killSequence)
+        {
+            UnityEditor.EditorApplication.update -= EditorPreviewUpdate;
+            editorPreviewIsRunning = false;
+
+            if (tweenSequence != null && tweenSequence.IsActive())
+            {
+                if (resetToStart)
+                {
+                    tweenSequence.Goto(0f, false);
+                }
+
+                if (killSequence)
+                {
+                    KillSequence();
+                }
+            }
+
+            RepaintEditorPreviewViews();
+        }
+
+        private void RepaintEditorPreviewViews()
+        {
+            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            UnityEditor.SceneView.RepaintAll();
+        }
+#endif
     }
 
 
@@ -679,8 +897,109 @@ namespace Arc
             }
         }
     }
-
-
 #endif
 
+#if UNITY_EDITOR
+    [UnityEditor.CustomEditor(typeof(PlayDoTweenSequence))]
+    public class PlayDoTweenSequenceInspector : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            UnityEditor.EditorGUILayout.Space(10f);
+            UnityEditor.EditorGUILayout.LabelField("Editor Sequence Preview", UnityEditor.EditorStyles.boldLabel);
+
+            PlayDoTweenSequence sequencePlayer = (PlayDoTweenSequence)target;
+
+            using (new UnityEditor.EditorGUILayout.HorizontalScope())
+            {
+                if (UnityEngine.GUILayout.Button(sequencePlayer.IsEditorPreviewRunning ? "Restart Preview" : "Play Preview"))
+                {
+                    sequencePlayer.EditorPreviewPlay();
+                }
+
+                if (UnityEngine.GUILayout.Button("Stop"))
+                {
+                    sequencePlayer.EditorPreviewStop();
+                }
+            }
+
+            using (new UnityEditor.EditorGUILayout.HorizontalScope())
+            {
+                if (UnityEngine.GUILayout.Button("Rewind To Start"))
+                {
+                    sequencePlayer.EditorPreviewRewindToStart();
+                }
+
+                if (UnityEngine.GUILayout.Button("Complete To End"))
+                {
+                    sequencePlayer.EditorPreviewCompleteToEnd();
+                }
+            }
+
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                UnityEditor.EditorGUILayout.HelpBox(
+                    "These buttons preview the same tween list in Edit Mode, so you can test popup animation without entering Play Mode.",
+                    UnityEditor.MessageType.Info
+                );
+            }
+        }
+    }
+
+    [UnityEditor.CustomPropertyDrawer(typeof(TweenTesterShowIfAttribute))]
+    public class TweenTesterShowIfDrawer : UnityEditor.PropertyDrawer
+    {
+        public override void OnGUI(Rect position, UnityEditor.SerializedProperty property, GUIContent label)
+        {
+            TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
+            UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
+
+            if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
+            {
+                UnityEditor.EditorGUI.PropertyField(position, property, label, true);
+            }
+        }
+
+        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label)
+        {
+            TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
+            UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
+
+            if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
+            {
+                return UnityEditor.EditorGUI.GetPropertyHeight(property, label, true);
+            }
+
+            return 0f;
+        }
+
+        private UnityEditor.SerializedProperty GetConditionProperty(UnityEditor.SerializedProperty property, string conditionPath)
+        {
+            // Handles nested properties correctly
+            string propertyPath = property.propertyPath; // e.g., "tweensInfo.Array.data[0].playFromStartValue"
+            string parentPath = propertyPath.Substring(0, propertyPath.LastIndexOf('.')); // Extract parent path
+            return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}");
+        }
+
+        private bool ShouldShowField(UnityEditor.SerializedProperty conditionProperty, object[] expectedValues)
+        {
+            if (expectedValues == null || expectedValues.Length == 0) return true;
+
+            switch (conditionProperty.propertyType)
+            {
+                case UnityEditor.SerializedPropertyType.Boolean:
+                    return System.Array.Exists(expectedValues, value => (bool)value == conditionProperty.boolValue);
+
+                case UnityEditor.SerializedPropertyType.Enum:
+                    return System.Array.Exists(expectedValues, value => (int)value == conditionProperty.enumValueIndex);
+
+                default:
+                    Debug.LogWarning($"Unsupported property type: {conditionProperty.propertyType}");
+                    return false;
+            }
+        }
+    }
+#endif
 }

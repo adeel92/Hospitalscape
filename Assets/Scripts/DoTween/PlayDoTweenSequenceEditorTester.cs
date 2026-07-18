@@ -892,59 +892,59 @@ namespace Arc
         }
     }
 
-    [UnityEditor.CustomPropertyDrawer(typeof(TweenTesterShowIfAttribute))]
-    public class TweenTesterShowIfDrawer : UnityEditor.PropertyDrawer
-    {
-        public override void OnGUI(Rect position, UnityEditor.SerializedProperty property, GUIContent label)
-        {
-            TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
-            UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
+    // [UnityEditor.CustomPropertyDrawer(typeof(TweenTesterShowIfAttribute))]
+    // public class TweenTesterShowIfDrawer : UnityEditor.PropertyDrawer
+    // {
+    //     public override void OnGUI(Rect position, UnityEditor.SerializedProperty property, GUIContent label)
+    //     {
+    //         TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
+    //         UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
 
-            if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
-            {
-                UnityEditor.EditorGUI.PropertyField(position, property, label, true);
-            }
-        }
+    //         if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
+    //         {
+    //             UnityEditor.EditorGUI.PropertyField(position, property, label, true);
+    //         }
+    //     }
 
-        public override float GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label)
-        {
-            TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
-            UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
+    //     public override float GetPropertyHeight(UnityEditor.SerializedProperty property, GUIContent label)
+    //     {
+    //         TweenTesterShowIfAttribute showIf = (TweenTesterShowIfAttribute)attribute;
+    //         UnityEditor.SerializedProperty conditionProperty = GetConditionProperty(property, showIf.ConditionFieldName);
 
-            if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
-            {
-                return UnityEditor.EditorGUI.GetPropertyHeight(property, label, true);
-            }
+    //         if (conditionProperty != null && ShouldShowField(conditionProperty, showIf.ExpectedValues))
+    //         {
+    //             return UnityEditor.EditorGUI.GetPropertyHeight(property, label, true);
+    //         }
 
-            return 0f;
-        }
+    //         return 0f;
+    //     }
 
-        private UnityEditor.SerializedProperty GetConditionProperty(UnityEditor.SerializedProperty property, string conditionPath)
-        {
-            // Handles nested properties correctly
-            string propertyPath = property.propertyPath; // e.g., "tweensInfo.Array.data[0].playFromStartValue"
-            string parentPath = propertyPath.Substring(0, propertyPath.LastIndexOf('.')); // Extract parent path
-            return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}");
-        }
+    //     private UnityEditor.SerializedProperty GetConditionProperty(UnityEditor.SerializedProperty property, string conditionPath)
+    //     {
+    //         // Handles nested properties correctly
+    //         string propertyPath = property.propertyPath; // e.g., "tweensInfo.Array.data[0].playFromStartValue"
+    //         string parentPath = propertyPath.Substring(0, propertyPath.LastIndexOf('.')); // Extract parent path
+    //         return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}");
+    //     }
 
-        private bool ShouldShowField(UnityEditor.SerializedProperty conditionProperty, object[] expectedValues)
-        {
-            if (expectedValues == null || expectedValues.Length == 0) return true;
+    //     private bool ShouldShowField(UnityEditor.SerializedProperty conditionProperty, object[] expectedValues)
+    //     {
+    //         if (expectedValues == null || expectedValues.Length == 0) return true;
 
-            switch (conditionProperty.propertyType)
-            {
-                case UnityEditor.SerializedPropertyType.Boolean:
-                    return System.Array.Exists(expectedValues, value => (bool)value == conditionProperty.boolValue);
+    //         switch (conditionProperty.propertyType)
+    //         {
+    //             case UnityEditor.SerializedPropertyType.Boolean:
+    //                 return System.Array.Exists(expectedValues, value => (bool)value == conditionProperty.boolValue);
 
-                case UnityEditor.SerializedPropertyType.Enum:
-                    return System.Array.Exists(expectedValues, value => (int)value == conditionProperty.enumValueIndex);
+    //             case UnityEditor.SerializedPropertyType.Enum:
+    //                 return System.Array.Exists(expectedValues, value => (int)value == conditionProperty.enumValueIndex);
 
-                default:
-                    Debug.LogWarning($"Unsupported property type: {conditionProperty.propertyType}");
-                    return false;
-            }
-        }
-    }
+    //             default:
+    //                 Debug.LogWarning($"Unsupported property type: {conditionProperty.propertyType}");
+    //                 return false;
+    //         }
+    //     }
+    // }
 
 
 #endif

@@ -15,6 +15,8 @@ namespace Isometric.UI
     public class GameWonUIManager : UIPopupBase
     {
         [SerializeField] GameObject m_Popup;
+        [SerializeField] PlayDoTweenSequence m_OpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] Animator m_OpeningAnimator;
         [SerializeField] string m_OpeningAnimatorState;
         [SerializeField] TextMeshProUGUI m_CoinText;
@@ -56,6 +58,9 @@ namespace Isometric.UI
             SoundManager.StopFadeOut(SoundType.GameMusic1, 0.3f, false);
             SoundManager.PlaySound(SoundType.GameWon, false, false);
 
+            m_VideoButton.gameObject.SetActive(true);
+            m_ContinueButton.gameObject.SetActive(true);
+
             m_Popup.SetActive(true);
             m_CoinText.text = LevelManager.GetCollectedCoins().ToString();
 
@@ -88,17 +93,25 @@ namespace Isometric.UI
                 }
             }
 
-            GlobalFunctions.PlayAnimationWithCallback(this, m_OpeningAnimator, m_OpeningAnimatorState, () =>
+            m_OpeningSequence.PlaySequence(() =>
             {
-                m_OpeningAnimator.enabled = false;
-                onComplete?.Invoke();
+               onComplete?.Invoke(); 
             });
+
+            // GlobalFunctions.PlayAnimationWithCallback(this, m_OpeningAnimator, m_OpeningAnimatorState, () =>
+            // {
+            //     m_OpeningAnimator.enabled = false;
+            //     onComplete?.Invoke();
+            // });
         }
 
         public override void ClosePopup(Action onComplete)
         {
-            m_Popup.SetActive(false);
-            onComplete?.Invoke();
+            m_ClosingSequence.PlaySequence(() =>
+            {
+                m_Popup.SetActive(false);
+                onComplete?.Invoke();
+            });
         }
 
         public void OnContinueButton()

@@ -239,7 +239,7 @@ namespace Isometric.UI
             if (levelLostReason == LevelLostReason.NoMoreTime)
             {
                 m_OfferInfo.TimeChanceSymbolHolder.SetActive(true);
-                m_OfferInfo.TimerText.text = "+ " + m_OfferInfo.AdditionalSeconds;
+                m_OfferInfo.TimerText.text = "+ " + m_OfferInfo.AdditionalSeconds + "s";
             }
             else if(levelLostReason == LevelLostReason.LostACustomer)
             {

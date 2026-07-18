@@ -55,9 +55,9 @@ namespace Isometric.Data
         public List<CustomerData> CustomersData => m_CustomersData;
         [SerializeField] List<CustomerData> m_CustomersData;
 
-        [Header("---Sun Rays Activate---")]
-        [SerializeField] List<PatienceSunRaysData> m_PatienceSunRaysData;
-        public List<PatienceSunRaysData> PatienceSunRaysData => m_PatienceSunRaysData;
+        [Header("---Weather Activate---")]
+        [SerializeField] List<PatienceWeatherData> m_PatienceWeatherData;
+        public List<PatienceWeatherData> PatienceWeatherData => m_PatienceWeatherData;
 
     }
 
@@ -196,7 +196,7 @@ namespace Isometric.Data
 
     #region Patience
     [Serializable]
-    public class PatienceSunRaysData
+    public class PatienceWeatherData
     {
         public float ActivationDelay;
     }

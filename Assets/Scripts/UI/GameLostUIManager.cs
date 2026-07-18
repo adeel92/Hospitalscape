@@ -24,6 +24,8 @@ namespace Isometric.UI
 
         [Header("---Lost Popup---")]
         [SerializeField] GameObject m_GameLostPopup;
+        [SerializeField] PlayDoTweenSequence m_OpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] Animator m_OpeningAnimator;
         [SerializeField] string m_OpeningAnimatorState;
         [SerializeField] float m_FailedRewardMultiplier;
@@ -121,15 +123,19 @@ namespace Isometric.UI
         {
             SoundManager.PlaySound(SoundType.GameLost, false, false);
 
-            m_GameLostPopup.SetActive(true);
+            m_RewardButton.gameObject.SetActive(true);
+            m_ContinueButton.gameObject.SetActive(true);
             m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
             int coins = Mathf.RoundToInt(LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier);
             int rewardCoins = (coins * m_VideoReward) - coins;
             m_RewardButtonText.text = "+" + rewardCoins;
-            m_RewardButton.gameObject.SetActive(false);
-            m_ContinueButton.gameObject.SetActive(false);
+            m_GameLostPopup.SetActive(true);
+            m_OpeningSequence.PlaySequence(() =>
+            {
+                onComplete?.Invoke();
+            });
 
-            GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_OpeningAnimatorState, () =>
+            /* GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_OpeningAnimatorState, () =>
             {
                 if (false)
                 {
@@ -164,13 +170,16 @@ namespace Isometric.UI
                         onComplete?.Invoke();
                     });
                 }
-            });
+            }); */
         }
 
         public override void ClosePopup(Action onComplete)
         {
-            m_GameLostPopup.SetActive(false);
-            onComplete?.Invoke();
+            m_ClosingSequence.PlaySequence(() =>
+            {
+                m_GameLostPopup.SetActive(false);
+                onComplete?.Invoke();
+            });
         }
 
         public void OnRewardButton()

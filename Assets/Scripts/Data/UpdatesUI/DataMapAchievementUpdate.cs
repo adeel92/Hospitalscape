@@ -216,9 +216,9 @@ namespace Isometric.Data
         /// Is going to return Achievement Panels
         /// onClaimCallback(Coins, CoinTransfrom, Gems, GemTransform)
         /// </summary>
-        public List<Transform> GetAchievementPanels(AchievementUIManager achievementUIManager, Transform holder, Action<int, Transform, int, Transform> onClaimCallback)
+        public List<UIGeneralPanel> GetAchievementPanels(AchievementUIManager achievementUIManager, Transform holder, Action<int, Transform, int, Transform> onClaimCallback)
         {
-            List<Transform> panels = new List<Transform>();
+            List<UIGeneralPanel> panels = new List<UIGeneralPanel>();
 
 
             List<AchievementInfo> frontList = new List<AchievementInfo>();   // record >= target && !isCollected
@@ -313,13 +313,17 @@ namespace Isometric.Data
                 {
                     if (isCollected == false)
                     {
+                        AnimatorStatePlayer barAnimatorPlayer = achievementPanel.GetPanelHolding<AnimatorStatePlayer, Achievement>(Achievement.BarAnimatorPlayer);
+                        barAnimatorPlayer.PlayTrigger("ScaleUpDown");
+
                         notificationMain.gameObject.SetActive(true);
                         List<NotificationParentUI> notificationParent = new List<NotificationParentUI>();
                         notificationParent.Add(achievementUIManager.GetNotificationAchievement());
                         notificationMain.Setup(achievementInfo.NotifationSeenKey, notificationParent);
 
                         claimButton.gameObject.SetActive(true);
-
+                        AnimatorStatePlayer ClaimButtonAnimatorPlayer = achievementPanel.GetPanelHolding<AnimatorStatePlayer, Achievement>(Achievement.ClaimButtonAnimatorPlayer);
+                        ClaimButtonAnimatorPlayer.PlayTrigger("ScaleText");
                         claimButton.onClick.AddListener(() =>
                         {
                             claimButton.gameObject.SetActive(false);
@@ -343,6 +347,7 @@ namespace Isometric.Data
                     lockedGameobject.SetActive(true);
                 }
 
+                panels.Add(achievementPanel);
             }
 
             return panels;

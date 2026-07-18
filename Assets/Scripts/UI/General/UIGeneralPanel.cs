@@ -20,7 +20,7 @@ namespace Isometric.UI
     {
         private enum GeneralPanelComponentType
         {
-            Gameobject, Transform, RectTransform, Image, TextMeshProUGUI, Button, NotificationMainUI
+            Gameobject, Transform, RectTransform, Image, TextMeshProUGUI, Button, NotificationMainUI, AnimatorStatePlayer
         }
 
         [Serializable]
@@ -51,6 +51,8 @@ namespace Isometric.UI
             public Button ButtonHolding;
             [AllowNesting, ShowIf(nameof(ComponentType), GeneralPanelComponentType.NotificationMainUI)]
             public NotificationMainUI NotificationMain;
+            [AllowNesting, ShowIf(nameof(ComponentType), GeneralPanelComponentType.AnimatorStatePlayer)]
+            public AnimatorStatePlayer AnimatorStatePlayer;
         }
 
         [SerializeField] GeneralPanelType m_GeneralPanelType;
@@ -88,6 +90,10 @@ namespace Isometric.UI
                 else if (typeof(T) == typeof(NotificationMainUI) && generalPanelInfo.ComponentType == GeneralPanelComponentType.NotificationMainUI)
                 {
                     return (T)(object)generalPanelInfo.NotificationMain;
+                }
+                else if (typeof(T) == typeof(AnimatorStatePlayer) && generalPanelInfo.ComponentType == GeneralPanelComponentType.AnimatorStatePlayer)
+                {
+                    return (T)(object)generalPanelInfo.AnimatorStatePlayer;
                 }
                 else
                 {
@@ -150,7 +156,9 @@ namespace Isometric.UI
         ClaimedGameObject,
         CoinTransfrom,
         GemTransfrom,
-        NotificationMain
+        NotificationMain,
+        BarAnimatorPlayer,
+        ClaimButtonAnimatorPlayer
     }
 
     public enum AchievementPageType
