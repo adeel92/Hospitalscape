@@ -114,7 +114,18 @@ namespace Isometric.Data
 
             return null;
         }
-
+        public string GetCurrentMapName()
+        {
+            MapInfo mapInfo = GameData.MapsInfo.Find((x) => x.Type == m_GameData.CurrentMapType);
+            if (mapInfo != null)
+            {
+                return mapInfo.MapName;
+            }
+            else
+            {
+                return "";
+            }
+        }
         public string GetMapName(MapType mapType)
         {
             MapInfo mapInfo = GameData.MapsInfo.Find((x) => x.Type == mapType);

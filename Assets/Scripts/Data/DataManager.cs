@@ -250,7 +250,16 @@ namespace Isometric.Data
             s_Instance.m_DataGame.GameData.CurrentMapType = mapType;
             s_Instance.m_DataGame.SetCurrentDataMap();
         }
+        public static string GetCurrentMapName()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return "";
+            }
 
+            return s_Instance.m_DataGame.GetCurrentMapName();
+        }
         public static string GetMapName(MapType mapType)
         {
             if (s_Instance == null)

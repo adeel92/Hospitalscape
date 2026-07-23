@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using Arc;
 using Isometric.Data;
+using Isometric.Sound;
+using TMPro;
 
 namespace Isometric.UI
 {
@@ -15,6 +17,12 @@ namespace Isometric.UI
         [SerializeField] GameObject m_PausePopup;
         [SerializeField] PlayDoTweenSequence m_PauseOpeningSequence; 
         [SerializeField] PlayDoTweenSequence m_PauseClosingSequence;
+        [Space, SerializeField] TextMeshProUGUI m_MapNameText;
+        [SerializeField] TextMeshProUGUI m_LevelText;
+        [SerializeField] GameObject m_SoundOffObj;
+        [SerializeField] GameObject m_MusicOffObj;
+        private bool m_IsSoundOn;
+        private bool m_IsMusicOn;
 
         [Header("---Warning---")]
         [SerializeField] GameObject m_WarningPopup;
@@ -25,9 +33,16 @@ namespace Isometric.UI
 
         public void SetupForGameplay()
         {
+            m_MapNameText.text = DataManager.GetCurrentMapName();
+            m_LevelText.text = "Level " + (DataManager.CurrentMapLevelIndex + 1).ToString();
+            m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);
+            m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);
+            m_SoundOffObj.SetActive(!m_IsSoundOn);
+            m_MusicOffObj.SetActive(!m_IsMusicOn);
             m_Popup.SetActive(true);
         }
 
+        #region  Pause Popup
         public override void OpenPopup(Action onComplete)
         {
             UIManager.CameraEnvironmentInteractionOff();
@@ -70,6 +85,25 @@ namespace Isometric.UI
             ClosePopup(null);
         }
 
+        public void ToggleSound()
+        {
+            SoundManager.PlaySound(SoundType.ButtonSwitch);
+            m_IsSoundOn = !m_IsSoundOn;
+            m_SoundOffObj.SetActive(!m_IsSoundOn);
+            SoundManager.SetSound(m_IsSoundOn);
+            DataManager.SetBool(SoundCategroy.Sound.ToString(), m_IsSoundOn);
+        }
+        public void ToggleMusic()
+        {
+            SoundManager.PlaySound(SoundType.ButtonSwitch);
+            m_IsMusicOn = !m_IsMusicOn;
+            m_MusicOffObj.SetActive(!m_IsMusicOn);
+            SoundManager.SetMusic(m_IsMusicOn);
+            DataManager.SetBool(SoundCategroy.Music.ToString(), m_IsMusicOn);
+        }
+        #endregion
+
+        #region Warning Popup
         public void OnWarningQuitButton()
         {
             int levelNumber = DataManager.CurrentMapLevelIndex + 1;
@@ -115,5 +149,6 @@ namespace Isometric.UI
                 UIManager.UIInteractionOn();
             });
         }
+        #endregion
     }
 }

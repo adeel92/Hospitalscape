@@ -25,6 +25,10 @@ namespace Isometric.UI
 
         public override void Setup()
         {
+            SetupToggleButtons();
+        }
+        private void SetupToggleButtons()
+        {
             m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);   //mrcHefF
             m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);   //mrcHefF
 
@@ -49,6 +53,9 @@ namespace Isometric.UI
 
         public override void OpenPopup(Action onComplete)
         {
+            // To update the current states if values are changed somewhere else during gameplay
+            SetupToggleButtons();
+
             SoundManager.PlaySound(SoundType.PopupWhoosh);
             m_Popup.SetActive(true);
             m_OpeningSequence.PlaySequence(() =>
