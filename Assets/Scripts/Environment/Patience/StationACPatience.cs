@@ -28,11 +28,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (Not CALLED FIRST TIME)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-Unlocking for the first time")]
+        /* [Header("-Unlocking for the first time")]
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] Vector2 m_CameraFocusPosition;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraZoom;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
+        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; */
 
         //---Gameplay Calls---
         private const string MetaGameplayCallsFoldOut = "---Gameplay Calls---";
@@ -40,6 +40,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedGameplay;
         [Header("-Station is unlocked"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
+        [Header("-Unlocking for the first time")]
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] Vector2 m_CameraFocusPosition;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraZoom;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraFocusDuration;
+        [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
 
         [ContextMenu("SetupForMenu")]
         public void SetupForMenu()
@@ -48,12 +53,12 @@ namespace Isometric.Environment
             {
                 OnIsLockedMenu?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
+            else if (m_Data.StationData.IsUnlocked /* && !m_Data.StationData.HasJustUnlocked */)
             {
                 OnIsUnlockdMenu?.Invoke();
             }
 
-            if (m_Data.StationData.HasJustUnlocked)
+            /* if (m_Data.StationData.HasJustUnlocked)
             {
                 CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f,
                 () =>
@@ -80,7 +85,7 @@ namespace Isometric.Environment
 
                 m_Data.StationData.HasJustUnlocked = false;
                 m_Data.Save();
-            }
+            } */
         }
 
         [ContextMenu("SetupForGameplay")]
@@ -90,9 +95,37 @@ namespace Isometric.Environment
             {
                 OnIsLockedGameplay?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked)
+            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
             {
                 OnIsUnlockdGameplay?.Invoke();
+            }
+
+            if (m_Data.StationData.HasJustUnlocked)
+            {
+                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f,
+                () =>
+                {
+                    UIManager.UIInteractionOff();
+                    // GameManager.PauseGame();
+                },
+                () =>
+                {
+                    OnHasUnlockedGameplay?.Invoke();
+                    CoroutineManager.LateAction(() =>
+                    {
+                        if (CameraController.NextFocusCamera() == false)
+                        {
+                            CameraController.SetupForGameplay(() =>
+                            {
+                                UIManager.CheckNextGameplayUpdatable();
+                            });
+                        }
+
+                    }, m_CameraFocusDuration);
+                });
+
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
             }
         }
 

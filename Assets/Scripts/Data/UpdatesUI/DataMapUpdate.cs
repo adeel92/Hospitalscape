@@ -419,7 +419,7 @@ namespace Isometric.Data
                     int currentUnlockedIndex = 0;
                     foreach (var chairCapacityUpgrade in chairUpdateInfotem.ChairsCapacityUpgrade)
                     {
-                        if(chairUpdateInfotem.ChairType == ChairUpgradeType.Salon)
+                        if(chairUpdateInfotem.ChairType == ChairUpgradeType.Hospital)
                         {
                             DataSalonChair dataSalonChair = (DataSalonChair)chairCapacityUpgrade.ChairData;
                             if (dataSalonChair.SalonChairData.IsUnlocked == false)
@@ -586,7 +586,7 @@ namespace Isometric.Data
 
             foreach (var chairCapacityUpgrade in chairUpdateInfo.ChairsCapacityUpgrade)
             {
-                if(chairUpdateInfo.ChairType == ChairUpgradeType.Salon)
+                if(chairUpdateInfo.ChairType == ChairUpgradeType.Hospital)
                 {
                     DataSalonChair dataSalonChair = (DataSalonChair)chairCapacityUpgrade.ChairData;
                     if (chairCapacityUpgrade.IsAlreadyUnlocked == false
@@ -1699,16 +1699,15 @@ namespace Isometric.Data
         /// return if has unlockble, preview, name, discritpion, stars, coin reward, gem reward, callback
         /// returns null if no star item found
         /// </summary>
-        public StarItemInfo GetNextUnlockable()
+        public StarItemInfo GetNextStarUnlockable()
         {
             int stars = DataManager.StarCurrency;
-
             int unlockingOrder = int.MaxValue;
                 
-            StationUpdateInfo toBeUnlockedStation = null;
+            // StationUpdateInfo toBeUnlockedStation = null;
             DecorationUpdateInfo toBeUnlockedDecoration = null;
 
-            foreach (var stationsUpdateInfo in m_StationsUpdateInfo)
+            /* foreach (var stationsUpdateInfo in m_StationsUpdateInfo)
             {
                 if (stationsUpdateInfo.UnlockingOrder < unlockingOrder
                     && !stationsUpdateInfo.Data.StationData.IsUnlocked)
@@ -1716,7 +1715,7 @@ namespace Isometric.Data
                     unlockingOrder = stationsUpdateInfo.UnlockingOrder;
                     toBeUnlockedStation = stationsUpdateInfo;
                 }
-            }
+            } */
 
             foreach (var decorationsUpdateInfo in m_DecorationsUpdateInfo)
             {
@@ -1753,7 +1752,7 @@ namespace Isometric.Data
                             toBeUnlockedDecoration.Data.Save();
                         });
             }
-            else if (toBeUnlockedStation != null)
+            /* else if (toBeUnlockedStation != null)
             {
                 bool canBeUnlocked = false;
                 if (toBeUnlockedStation.RequiredStars <= stars)
@@ -1777,11 +1776,95 @@ namespace Isometric.Data
                         toBeUnlockedStation.Data.StationData.HasJustUnlocked = true;
                         toBeUnlockedStation.Data.Save();
                     });
-            }
+            } */
             
             return null;
         }
 
+        /// <summary>
+        /// return if has unlockble, preview, name, discription, coin reward, gem reward, callback
+        /// returns null if no gameplay unlockable item found
+        /// </summary>
+        public GameplayUnlockableItemInfo GetNextGameplayUnlockable()
+        {
+            int levelNumber = DataManager.CurrentMapLevelIndex + 1;
+            int unlockingOrder = int.MaxValue;
+                
+            StationUpdateInfo toBeUnlockedStation = null;
+            // DecorationUpdateInfo toBeUnlockedDecoration = null;
+
+            foreach (var stationsUpdateInfo in m_StationsUpdateInfo)
+            {
+                if (stationsUpdateInfo.UnlockingOrder < unlockingOrder
+                    && !stationsUpdateInfo.Data.StationData.IsUnlocked)
+                {
+                    unlockingOrder = stationsUpdateInfo.UnlockingOrder;
+                    toBeUnlockedStation = stationsUpdateInfo;
+                }
+            }
+
+            /* foreach (var decorationsUpdateInfo in m_DecorationsUpdateInfo)
+            {
+                if (decorationsUpdateInfo.UnlockingOrder < unlockingOrder
+                    && !decorationsUpdateInfo.Data.EnvironmentDecorationData.IsUnlocked)
+                {
+                    unlockingOrder = decorationsUpdateInfo.UnlockingOrder;
+                    toBeUnlockedDecoration = decorationsUpdateInfo;
+                }
+            } */
+
+            /* if (toBeUnlockedDecoration != null)
+            {
+                bool canBeUnlocked = false;
+                if (toBeUnlockedDecoration.RequiredStars <= stars)
+                {
+                    canBeUnlocked = true;
+                }
+
+                return new StarItemInfo(
+                        canBeUnlocked,
+                        toBeUnlockedDecoration.Preview,
+                        toBeUnlockedDecoration.NameDiscption,
+                        toBeUnlockedDecoration.Discription,
+                        toBeUnlockedDecoration.RequiredStars, 
+                        toBeUnlockedDecoration.UnlockingCoinReward, 
+                        toBeUnlockedDecoration.UnlockingGemReward,
+                        () => 
+                        {
+                            DataManager.StarCurrency -= toBeUnlockedDecoration.RequiredStars;
+                            DataManager.SaveData();
+                            toBeUnlockedDecoration.Data.EnvironmentDecorationData.IsUnlocked = true;
+                            toBeUnlockedDecoration.Data.EnvironmentDecorationData.HasJustUnlocked = true;
+                            toBeUnlockedDecoration.Data.Save();
+                        });
+            } */
+            
+            if (toBeUnlockedStation != null)
+            {
+                bool canBeUnlocked = false;
+                if (toBeUnlockedStation.UnlockingLevelNumber == levelNumber)
+                {
+                    canBeUnlocked = true;
+                }
+
+                return new GameplayUnlockableItemInfo(
+                    canBeUnlocked,
+                    toBeUnlockedStation.Preview,
+                    toBeUnlockedStation.NameDiscption,
+                    toBeUnlockedStation.Discription,
+                    toBeUnlockedStation.UnlockingCoinReward,
+                    toBeUnlockedStation.UnlockingGemReward, 
+                    () =>
+                    {
+                        DataManager.SaveData();
+                        toBeUnlockedStation.Data.StationData.IsUnlocked = true;
+                        toBeUnlockedStation.Data.StationData.HasJustUnlocked = true;
+                        toBeUnlockedStation.Data.Save();
+                    });
+            }
+            
+            return null;
+        }
         #endregion
 
         #region Patience Related
@@ -1950,6 +2033,7 @@ namespace Isometric.Data
     {
         public DataStation Data;
         public List<DataStation> DependentsUpgradableData;
+        public int UnlockingLevelNumber;
         public int UnlockingOrder;
         public int RequiredStars;
         public Sprite Preview;
@@ -2044,7 +2128,7 @@ namespace Isometric.Data
 
     public enum ChairUpgradeType
     {
-        Salon, Cafe
+        Hospital, Cafe
     }
     #endregion
 
@@ -2110,6 +2194,35 @@ namespace Isometric.Data
             NameText = nameText;
             DiscriptionText = discriptionText;
             StarRequired = starRequired;
+            CoinReward = coinReward;
+            GemReward = gemReward;
+            OnUnlocked = onUnlocked;
+        }
+    }
+
+    public class GameplayUnlockableItemInfo
+    {
+        public bool IsUnloackble;
+        public Sprite PreviewSprite;
+        public string NameText;
+        public string DiscriptionText;
+        public int CoinReward;
+        public int GemReward;
+        public Action OnUnlocked;
+
+        public GameplayUnlockableItemInfo(
+            bool isUnloackble,
+            Sprite previewSprite,
+            string nameText,
+            string discriptionText,
+            int coinReward,
+            int gemReward,
+            Action onUnlocked)
+        {
+            IsUnloackble = isUnloackble;
+            PreviewSprite = previewSprite;
+            NameText = nameText;
+            DiscriptionText = discriptionText;
             CoinReward = coinReward;
             GemReward = gemReward;
             OnUnlocked = onUnlocked;

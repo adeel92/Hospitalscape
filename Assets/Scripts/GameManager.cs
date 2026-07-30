@@ -98,7 +98,8 @@ namespace Isometric
 
             //Order Matters
             LevelManager.SetupForGameplay();
-            EnvironmentManager.SetupForGameplay();
+            if(!LevelManager.GetHasGameplayUnlockableItemIntro())
+                EnvironmentManager.SetupForGameplay();
             CustomerManager.Setup();
             CustomerPatienceManager.Setup();
             PlayerManager.SetupForGameplay();

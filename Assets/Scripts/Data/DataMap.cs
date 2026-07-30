@@ -86,6 +86,7 @@ namespace Isometric.Data
         {
             m_MapData.IsUnlocked = m_MapData.IsUnlockedDefaultValue;
             m_MapData.LevelIndex = m_MapData.LevelIndexDefaultValue;
+            m_MapData.LevelNumber = m_MapData.LevelIndex + 1;
         }
 
         public DataLevel GetCurrentDataLevel()
@@ -113,6 +114,7 @@ namespace Isometric.Data
             if (m_MapData.LevelIndex < m_DataLevels.Count)
             {
                 m_MapData.LevelIndex++;
+                m_MapData.LevelNumber = m_MapData.LevelIndex + 1;
                 return true;
             }
             else
@@ -196,6 +198,7 @@ namespace Isometric.Data
             {
                 m_MapData.IsUnlocked = mapData.IsUnlocked;
                 m_MapData.LevelIndex = mapData.LevelIndex;
+                m_MapData.LevelNumber = m_MapData.LevelIndex + 1;
             }
         }
     }
@@ -210,6 +213,8 @@ namespace Isometric.Data
         public bool IsUnlocked;
         [AllowNesting, EnableIf(nameof(EditValues))]
         public int LevelIndex;
+        [AllowNesting, EnableIf(nameof(EditValues)), ReadOnly]
+        public int LevelNumber = 1;
 
         [Space, Header("---Default Values---")]
         [XmlIgnore]

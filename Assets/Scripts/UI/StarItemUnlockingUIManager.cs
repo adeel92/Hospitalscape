@@ -44,11 +44,10 @@ namespace Isometric.UI
 
         public override void Setup() {}
 
-        // Returns tree of it has next star item unlockable
-        // Returns tree of it has next star item unlockable
+        // Returns true of it has next star item unlockable
         public bool CheckNextStarItemUnlockable()
         {
-            StarItemInfo starItemInfo = m_DataMapUpdate.GetNextUnlockable();
+            StarItemInfo starItemInfo = m_DataMapUpdate.GetNextStarUnlockable();
 
             if (starItemInfo != null)
             {

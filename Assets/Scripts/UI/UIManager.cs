@@ -29,6 +29,7 @@ namespace Isometric.UI
 
         private EventSystem m_CurrentEventSystem;
         private StarItemInfo m_StarItemRewardInfo = null;
+        private GameplayUnlockableItemInfo m_GameplayItemRewardInfo = null;
 
         private Queue<bool> m_MenuStamps = new Queue<bool>();
         private Queue<bool> m_CameraInteractionStamps = new Queue<bool>();
@@ -171,6 +172,55 @@ namespace Isometric.UI
             }
         }
 
+        public static void CheckNextGameplayUpdatable()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            if (s_Instance.m_GameplayItemRewardInfo != null &&
+                (s_Instance.m_GameplayItemRewardInfo.CoinReward > 0 ||
+                s_Instance.m_GameplayItemRewardInfo.GemReward > 0))
+            {
+                LevelManager.SetHasGameplayUnlockableItemIntro(true);
+                SetRewardCollectionPopupMessage("Tap to Collect!", RewardCollectionTextPoistion.FarDownMiddle);
+                OpenRewardCollectionPopup(s_Instance.m_GameplayItemRewardInfo.CoinReward > 0 ? s_Instance.m_GameplayItemRewardInfo.CoinReward : null,
+                    s_Instance.m_GameplayItemRewardInfo.GemReward > 0 ? s_Instance.m_GameplayItemRewardInfo.GemReward : null,
+                    null, null, null, null, null, () =>
+                    {
+                        SoundManager.PlaySound(SoundType.Reward);
+                    },
+                    CheckNextUpdatable);
+
+                s_Instance.m_GameplayItemRewardInfo = null;
+                Debug.Log($"ADEEL: Gameplay currency reward active!");
+            }
+            else if (GetPopup<GameplayItemUnlockingUIManager>() != null &&
+                GetPopup<GameplayItemUnlockingUIManager>().CheckNextGameplayItemUnlockable())
+            {
+                LevelManager.SetHasGameplayUnlockableItemIntro(true);
+                CoroutineManager.LateAction(() =>
+                {
+                    UIInteractionOff();
+                    // GameManager.PauseGame();
+                    GetPopup<GameplayItemUnlockingUIManager>().OpenPopup(() =>
+                    {
+                        UIInteractionOn();
+                    });
+                }, 0.5f);
+                Debug.Log($"ADEEL: Gameplay unlockable reward active!");
+            }
+            else
+            { 
+                UIInteractionOn();
+                GameManager.UnPauseGame();
+                GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
+                Debug.Log($"ADEEL: No Gameplay reward active!");
+            }
+        }
+
 
         public static void HasStarItemUnlocked(StarItemInfo starItemInfo)
         {
@@ -194,6 +244,31 @@ namespace Isometric.UI
             else
             {
                 Debug.LogWarning(nameof(StarItemUnlockingUIManager) + " not found in the popup list");
+            }
+        }
+
+        public static void HasGameplayItemUnlocked(GameplayUnlockableItemInfo gameplayUnlockableItemInfo)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            GameplayItemUnlockingUIManager gameplayItemUnlockingUIManager = GetPopup<GameplayItemUnlockingUIManager>();
+            if (gameplayItemUnlockingUIManager != null)
+            {
+                s_Instance.m_GameplayItemRewardInfo = gameplayUnlockableItemInfo;
+                UIInteractionOff();
+                gameplayItemUnlockingUIManager.ClosePopup(() =>
+                {
+                    UIInteractionOn();
+                    EnvironmentManager.SetupForGameplay();
+                });
+            }
+            else
+            {
+                Debug.LogWarning(nameof(GameplayItemUnlockingUIManager) + " not found in the popup list");
             }
         }
 
@@ -237,8 +312,9 @@ namespace Isometric.UI
                 return;
             }
 
-            GameManager.SetupForGameplay();
-            GameManager.PauseGame();
+            // mrcHefF
+            // GameManager.SetupForGameplay();
+            // GameManager.PauseGame();
 
             GameplayUIManager gameplayUIManager = GetPopup<GameplayUIManager>();
 
@@ -280,11 +356,31 @@ namespace Isometric.UI
                     GameManager.UnPauseGame();
 
                     TutorialManager.PlayTutorial(TutorialCallType.GameplayStart);
+                    CheckNextGameplayUpdatable();
                 });
             }
             else
             {
                 Debug.LogWarning(nameof(GameplayUIManager) + " not found in the popup list");
+            }
+        }
+
+        public static void ShowGameplayUnlockableFocusUI()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            GameplayItemUnlockingUIManager gameplayItemUnlockingUIManager = GetPopup<GameplayItemUnlockingUIManager>();
+            if (gameplayItemUnlockingUIManager != null)
+            {
+                
+            }
+            else
+            {
+                Debug.LogWarning(nameof(GameplayItemUnlockingUIManager) + " not found in the popup list");
             }
         }
 
@@ -890,6 +986,28 @@ namespace Isometric.UI
         #endregion
 
         #region Gameplay
+        public static void ShowGameplay(Action onComplete)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            OpenPopup<GameplayUIManager>(onComplete);
+        }
+
+        public static void HideGameplay(Action onComplete)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            ClosePopup<GameplayUIManager>(onComplete);
+
+        }
         /*public static void SetActivateHeatSymbol(bool value)
         {
             if (s_Instance == null)

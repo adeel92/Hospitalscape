@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.017502, y: 3.5}
-  m_SizeDelta: {x: -79.365, y: 0}
+  m_AnchoredPosition: {x: 4, y: -2}
+  m_SizeDelta: {x: -131.55, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8416849541496704221
 CanvasRenderer:
@@ -65,17 +65,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 8,333
+  m_text: 15372
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 016803729bf822d4bbad9e3597d0f501, type: 2}
-  m_sharedMaterial: {fileID: -3047604125864787439, guid: 016803729bf822d4bbad9e3597d0f501, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa5e7a65c8979c64997d9e3b22303ffe, type: 2}
+  m_sharedMaterial: {fileID: -552698060870735493, guid: fa5e7a65c8979c64997d9e3b22303ffe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282468234
-  m_fontColor: {r: 0.5411765, g: 0.2784314, b: 0.25490198, a: 1}
+    rgba: 4290209028
+  m_fontColor: {r: 0.015686275, g: 0.39607847, b: 0.7176471, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -29.240517, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -261,14 +261,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 602028118121658269}
-  - {fileID: 893858911968189528}
+  - {fileID: 1765120845821812989}
   - {fileID: 260626548963024634}
   m_Father: {fileID: 731890105146986213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 0}
-  m_SizeDelta: {x: 238.9876, y: 63.8674}
+  m_AnchoredPosition: {x: 4.4, y: 6.1}
+  m_SizeDelta: {x: 303, y: 86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7678744472598191111
 CanvasRenderer:
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a66bb2fb9d7394d48be50150703613ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7923ea95742a51e4185ea4da97604bb6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -471,6 +471,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 98.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 93.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 28.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2609179846344453586, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
       propertyPath: m_Name
       value: StarBase
@@ -480,8 +504,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
---- !u!224 &893858911968189528 stripped
+--- !u!224 &1765120845821812989 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 238874786115663687, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1678084152480386018, guid: 94497fe7ef443b04383f04dd85a13ba2, type: 3}
   m_PrefabInstance: {fileID: 1096407345591151391}
   m_PrefabAsset: {fileID: 0}

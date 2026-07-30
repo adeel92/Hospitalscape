@@ -162,6 +162,7 @@ namespace Isometric.Cam
 
 
             Sequence cameraGameplaySequence = DOTween.Sequence();
+            // cameraGameplaySequence.SetUpdate(true);
 
             SoundManager.PlaySound(SoundType.CameraWhoosh);
             cameraGameplaySequence.Insert(0, 
@@ -387,6 +388,7 @@ namespace Isometric.Cam
 
             // --- Animate camera movement and zoom ---
             Sequence cameraFocusSequence = DOTween.Sequence();
+            // cameraFocusSequence.SetUpdate(true);
 
             cameraFocusSequence.InsertCallback(0,
                 () => { onStart?.Invoke(); }

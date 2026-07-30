@@ -150,7 +150,7 @@ namespace Isometric.UI
                 panel.SetupNotification(m_NotificationStaff);
             }
 
-            ChairCapacityUpgradePanelUI chairSalonCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Salon, true);
+            ChairCapacityUpgradePanelUI chairSalonCapacityUpgradePanelUI = m_DataMapUpdate.GetAndSetChairCapacityUpgradePanel(m_PanelHolder, ChairUpgradeType.Hospital, true);
             if(chairSalonCapacityUpgradePanelUI != null)
             {
                 m_ChairCapacityUpgradePanelsUI.Add(chairSalonCapacityUpgradePanelUI);

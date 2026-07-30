@@ -8,6 +8,8 @@ using Isometric.Data;
 using Isometric.TaskSystem;
 using Isometric.Cam;
 using Isometric.UI;
+using Isometric.Tutorial;
+using Unity.VisualScripting;
 
 namespace Isometric.Environment
 {
@@ -36,11 +38,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (Not CALLED FIRST TIME)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-Unlocking for the first time")]
+        /* [Header("-Unlocking for the first time")]
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] Vector2 m_CameraFocusPosition;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraZoom;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
+        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; */
         [Header("-Upgraded any of the properties"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnHasUpgradedMenu;
 
@@ -50,6 +52,17 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedGameplay;
         [Header("-Station is unlocked"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
+        [Header("-Unlocking for the first time")]
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] bool m_UseCameraFocus = false;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseCameraFocus))] Vector2 m_CameraFocusPosition;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseCameraFocus))] float m_CameraZoom;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] bool m_UseSoftMaskFocus = true;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseSoftMaskFocus))] Transform m_FocusTarget;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseSoftMaskFocus))] Vector2 m_FocusPositionOffset;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseSoftMaskFocus))] Vector2 m_FocusScale;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut), ShowIf(nameof(m_UseSoftMaskFocus))] FocusShapeType m_FocusShapeType;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_FocusDuration;
+        [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
 
@@ -72,37 +85,9 @@ namespace Isometric.Environment
             {
                 OnIsLockedMenu?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
+            else if (m_Data.StationData.IsUnlocked /* && !m_Data.StationData.HasJustUnlocked */)
             {
                 OnIsUnlockdMenu?.Invoke();
-            }
-
-            if (m_Data.StationData.HasJustUnlocked)
-            {
-                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
-                () =>
-                {
-                    UIManager.UIInteractionOff();
-                    UIManager.HideMenu(null);
-                    CameraController.Interactability(false);
-                }, 
-                () =>
-                {
-                    OnHasUnlockedMenu?.Invoke();
-                    CoroutineManager.LateAction(() =>
-                    {
-                        if (CameraController.NextFocusCamera() == false)
-                        {
-                            CameraController.SetupForMenu(() =>
-                            {
-                                UIManager.CheckNextUpdatable();
-                            });
-                        }
-
-                    }, m_CameraFocusDuration);
-                });
-                m_Data.StationData.HasJustUnlocked = false;
-                m_Data.Save();
             }
 
             if (m_Data.StationData.HasUpgraded)
@@ -120,9 +105,63 @@ namespace Isometric.Environment
             {
                 OnIsLockedGameplay?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked)
+            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
             {
                 OnIsUnlockdGameplay?.Invoke();
+            }
+
+            if (m_Data.StationData.HasJustUnlocked)
+            {
+                if (m_UseCameraFocus)
+                {
+                    CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
+                    () =>
+                    {
+                        UIManager.UIInteractionOff();
+                        // GameManager.PauseGame();
+                    }, 
+                    () =>
+                    {
+                        OnHasUnlockedGameplay?.Invoke();
+                        CoroutineManager.LateAction(() =>
+                        {
+                            if (CameraController.NextFocusCamera() == false)
+                            {
+                                CameraController.SetupForGameplay(() =>
+                                {
+                                    UIManager.CheckNextGameplayUpdatable();
+                                });
+                            }
+
+                        }, m_FocusDuration);
+                    });
+                }
+                else if (m_UseSoftMaskFocus)
+                {
+                    /* NOT 100% COMPLETE! BELOW FOCUS WILL WORK BUT ADDITIONAL DESCRIPTION MECHANISM IS PENDING */
+
+                    TutorialFocusManager.FocusAtTransform(m_FocusTarget, m_FocusPositionOffset, m_FocusScale, m_FocusShapeType,
+                    () =>
+                    {
+                        UIManager.UIInteractionOff();
+                    },
+                    () =>
+                    {
+                        OnHasUnlockedGameplay?.Invoke();
+                        CoroutineManager.LateAction(() =>
+                        {
+                            TutorialFocusManager.StopAllFocus();
+                            CameraController.SetupForGameplay(() =>
+                            {
+                                UIManager.CheckNextGameplayUpdatable();
+                            });
+
+                        }, m_FocusDuration);
+                    });
+                }
+
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
             }
 
             if (m_Data.StationData.HasUpgraded)

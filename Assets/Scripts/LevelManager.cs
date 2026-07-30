@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.UI;
 using Isometric.Cam;
+using Unity.VisualScripting.Dependencies.NCalc;
 
 namespace Isometric
 { 
@@ -14,6 +15,7 @@ namespace Isometric
 
         [Header("---BaseInfo---")]
         [SerializeField, ReadOnly] int m_CurrentLevel;
+        [SerializeField, ReadOnly] bool m_HasGameplayUnlockableItemIntro = false;
 
         [Header("---Goal---")]
         [SerializeField, ReadOnly] LevelGoalType m_GoalType;
@@ -88,6 +90,7 @@ namespace Isometric
             }
 
             s_Instance.m_CurrentLevel = DataManager.CurrentMapLevelIndex + 1;
+            s_Instance.m_HasGameplayUnlockableItemIntro = false;
 
             DataLevel currentLevel = DataManager.GetCurrentDataLevel();
             if (currentLevel != null && currentLevel.HasNewCustomer)
@@ -173,6 +176,27 @@ namespace Isometric
             }
 
             s_Instance.SetupTimeConstraint();
+        }
+
+        public static void SetHasGameplayUnlockableItemIntro(bool value)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            s_Instance.m_HasGameplayUnlockableItemIntro = value;
+        }
+        public static bool GetHasGameplayUnlockableItemIntro()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return false;
+            }
+
+            return s_Instance.m_HasGameplayUnlockableItemIntro;
         }
 
         #region Goal/Target Related

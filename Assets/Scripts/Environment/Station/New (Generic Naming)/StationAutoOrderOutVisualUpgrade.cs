@@ -50,11 +50,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (Not CALLED FIRST TIME)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-Unlocking for the first time")]
+        /* [Header("-Unlocking for the first time")]
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] Vector2 m_CameraFocusPosition;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraZoom;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
+        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; */
         [Header("-Upgraded any of the properties"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnHasUpgradedMenu;
         [Foldout(MetaMenuCallsFoldOut)] public List<MenuUpgradeCallbackInfo> MenuUpgradeCallbackInfos = new();
@@ -65,6 +65,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedGameplay;
         [Header("-Station is unlocked"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
+        [Header("-Unlocking for the first time")]
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] Vector2 m_CameraFocusPosition;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraZoom;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraFocusDuration;
+        [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
         [Foldout(MetaGameplayCallsFoldOut)] public List<GameplayUpgradeCallbackInfo> GameplayUpgradeCallbackInfos = new();
@@ -93,7 +98,7 @@ namespace Isometric.Environment
             }
 
             bool hasJustUnlocked = false;
-            if (m_Data.StationData.HasJustUnlocked)
+            /* if (m_Data.StationData.HasJustUnlocked)
             {
                 hasJustUnlocked = true;
                 CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
@@ -120,7 +125,7 @@ namespace Isometric.Environment
                 });
                 m_Data.StationData.HasJustUnlocked = false;
                 m_Data.Save();
-            }
+            } */
 
             if (m_Data.StationData.HasUpgraded)
             {
@@ -176,6 +181,35 @@ namespace Isometric.Environment
                 OnIsUnlockdGameplay?.Invoke();
             }
 
+            bool hasJustUnlocked = false;
+            if (m_Data.StationData.HasJustUnlocked)
+            {
+                hasJustUnlocked = true;
+                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
+                () =>
+                {
+                    UIManager.UIInteractionOff();
+                    // GameManager.PauseGame();
+                }, 
+                () =>
+                {
+                    OnHasUnlockedGameplay?.Invoke();
+                    CoroutineManager.LateAction(() =>
+                    {
+                        if (CameraController.NextFocusCamera() == false)
+                        {
+                            CameraController.SetupForGameplay(() =>
+                            {
+                                UIManager.CheckNextGameplayUpdatable();
+                            });
+                        }
+
+                    }, m_CameraFocusDuration);
+                });
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
+            }
+
             if (m_Data.StationData.HasUpgraded)
             {
                 foreach(GameplayUpgradeCallbackInfo gameplayUpgradeCallbackInfo in GameplayUpgradeCallbackInfos)
@@ -193,7 +227,7 @@ namespace Isometric.Environment
             }
 
 
-            if (m_Data.StationData.IsUnlocked)
+            if (m_Data.StationData.IsUnlocked && !hasJustUnlocked)
             {
                 StationUpgrade upgradeCapacity = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
                 if (upgradeCapacity != null)

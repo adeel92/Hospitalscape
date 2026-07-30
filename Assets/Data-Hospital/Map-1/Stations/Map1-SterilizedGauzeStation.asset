@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4f3cd13908a83640a079d7144f14974, type: 3}
-  m_Name: Map1-GuazeMachineStation
+  m_Name: Map1-SterilizedGauzeStation
   m_EditorClassIdentifier: 
-  m_Key: Map1-GuazeMachineStation
+  m_Key: Map1-SterilizedGauzeStation
   m_EditKey: 0
   m_Station:
-    IsUnlocked: 0
+    StationName: 11
+    IsUnlocked: 1
     HasJustUnlocked: 0
     HasUpgraded: 0
     EditDefaultValues: 0
@@ -28,15 +29,10 @@ MonoBehaviour:
       CurrentUpgradeIndex: 0
       Upgrade:
       - 3.5
-      - 2.45
-      - 1.715
-    - UpgradeType: 1
-      EditUpgradeIndex: 0
-      CurrentUpgradeIndex: 0
-      Upgrade:
-      - 1
-      - 2
-      - 3
+      - 2.975
+      - 2.52875
+      - 2.1494374
+      - 1.8270215
     - UpgradeType: 2
       EditUpgradeIndex: 0
       CurrentUpgradeIndex: 0

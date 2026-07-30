@@ -75,6 +75,9 @@ namespace Isometric.Data
     [Serializable]
     public class StationData
     {
+        [Header("---Identity---")]
+        public StationName StationName;
+
         [Header("---Unlocking---")]
         public bool IsUnlocked;
         public bool HasJustUnlocked;
@@ -109,5 +112,26 @@ namespace Isometric.Data
     public enum PropertyUpgradeType
     {
         Duration, Capacity, Cost
+    }
+
+    public enum StationName
+    {
+        None,
+        ACPatience,
+        BlueInjectionSyrup,
+        BlueInjection,
+        Capsules,
+        Diagnosis,
+        MRI,
+        RawGauze,
+        ReceptionTable,
+        RedInjectionSyrup,
+        RedInjection,
+        SterilizedGauze,
+        Syrup,
+        Treadmill,
+        Vitamins,
+        WaterDispenser,
+        XRay
     }
 }

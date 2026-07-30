@@ -24,8 +24,8 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (Not CALLED FIRST TIME)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-Unlocking for the first time")]
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
+        // [Header("-Unlocking for the first time")]
+        // [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
         [Header("-Upgraded any of the properties"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnHasUpgradedMenu;
 
@@ -46,17 +46,17 @@ namespace Isometric.Environment
             {
                 OnIsLockedMenu?.Invoke();
             }
-            else if (m_Data.PatienceData.IsUnlocked && !m_Data.PatienceData.HasJustUnlocked)
+            else if (m_Data.PatienceData.IsUnlocked /* && !m_Data.PatienceData.HasJustUnlocked */)
             {
                 OnIsUnlockdMenu?.Invoke();
             }
 
-            if (m_Data.PatienceData.HasJustUnlocked)
+            /* if (m_Data.PatienceData.HasJustUnlocked)
             {
                 OnHasUnlockedMenu?.Invoke();
                 m_Data.PatienceData.HasJustUnlocked = false;
                 m_Data.Save();
-            }
+            } */
 
             if (m_Data.PatienceData.HasUpgraded)
             {

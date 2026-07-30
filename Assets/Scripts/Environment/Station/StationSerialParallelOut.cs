@@ -50,11 +50,11 @@ namespace Isometric.Environment
             public UnityEvent OnIsLockedMenu;
             [Header("-Station is unlocked (Not CALLED FIRST TIME)")]
             public UnityEvent OnIsUnlockdMenu;
-            [Header("-Unlocking for the first time")]
-            public Vector2 CameraFocusPosition;
-            public float CameraZoom;
-            public float CameraFocusDuration;
-            public UnityEvent OnHasUnlockedMenu;
+            // [Header("-Unlocking for the first time")]
+            // public Vector2 CameraFocusPosition;
+            // public float CameraZoom;
+            // public float CameraFocusDuration;
+            // public UnityEvent OnHasUnlockedMenu;
             [Header("-Upgraded any of the properties")]
             public UnityEvent OnHasUpgradedMenu;
 
@@ -63,6 +63,11 @@ namespace Isometric.Environment
             public UnityEvent OnIsLockedGameplay;
             [Header("-Station is unlocked")]
             public UnityEvent OnIsUnlockdGameplay;
+            [Header("-Unlocking for the first time")]
+            public Vector2 CameraFocusPosition;
+            public float CameraZoom;
+            public float CameraFocusDuration;
+            public UnityEvent OnHasUnlockedGameplay;
             [Header("-Upgraded any of the properties")]
             public UnityEvent OnHasUpgradedGameplay;
 
@@ -190,6 +195,8 @@ namespace Isometric.Environment
                 }
             }
 
+            // Debug.Log($"ADEEL No. of stations unlocked: {numberOfStationsUnlocked}");
+
             if (numberOfStationsUnlocked <= 0)
             {
                 OnIsLockedMenu?.Invoke();
@@ -214,13 +221,13 @@ namespace Isometric.Environment
                 {
                     stationInfo.OnIsLockedMenu?.Invoke();
                 }
-                else if (stationData.StationData.IsUnlocked && !stationData.StationData.HasJustUnlocked)
+                else if (stationData.StationData.IsUnlocked /* && !stationData.StationData.HasJustUnlocked */)
                 {
                     stationInfo.OnIsUnlockdMenu?.Invoke();
                 }
 
                 bool hasJustUnlocked = false;
-                if (stationData.StationData.HasJustUnlocked)
+                /* if (stationData.StationData.HasJustUnlocked)
                 {
                     //hasJustUnlocked = true;
                     CameraController.RegisterFocusCamera(stationInfo.CameraFocusPosition, stationInfo.CameraZoom, 1.4f, 
@@ -247,7 +254,7 @@ namespace Isometric.Environment
                     });
                     stationData.StationData.HasJustUnlocked = false;
                     stationData.Save();
-                }
+                } */
 
                 if (stationData.StationData.HasUpgraded)
                 {
@@ -321,6 +328,35 @@ namespace Isometric.Environment
                     stationInfo.OnIsUnlockdGameplay?.Invoke();
                 }
 
+                bool hasJustUnlocked = false;
+                if (stationData.StationData.HasJustUnlocked)
+                {
+                    //hasJustUnlocked = true;
+                    CameraController.RegisterFocusCamera(stationInfo.CameraFocusPosition, stationInfo.CameraZoom, 1.4f, 
+                    () =>
+                    {
+                        UIManager.UIInteractionOff();
+                        // GameManager.PauseGame();
+                    },
+                    () =>
+                    {
+                        stationInfo.OnHasUnlockedGameplay?.Invoke();
+                        CoroutineManager.LateAction(() =>
+                        {
+                            if (CameraController.NextFocusCamera() == false)
+                            {
+                                CameraController.SetupForGameplay(() =>
+                                {
+                                    UIManager.CheckNextGameplayUpdatable();
+                                });
+                            }
+
+                        }, stationInfo.CameraFocusDuration);
+                    });
+                    stationData.StationData.HasJustUnlocked = false;
+                    stationData.Save();
+                }
+
                 if (stationData.StationData.HasUpgraded)
                 {
                     stationInfo.OnHasUpgradedGameplay?.Invoke();
@@ -328,7 +364,8 @@ namespace Isometric.Environment
                     stationData.Save();
                 }
 
-                if (stationData.StationData.IsUnlocked)
+                if (stationData.StationData.IsUnlocked
+                && hasJustUnlocked == false)
                 {
                     StationUpgrade durationUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
                     if (durationUpgrade != null)
