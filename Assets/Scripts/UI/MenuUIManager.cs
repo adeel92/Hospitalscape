@@ -128,6 +128,15 @@ namespace Isometric.UI
             else
             {
                 m_IsOpen = true;
+
+                if (DataManager.GetCurrentDataLevel() == null)
+                {
+                    m_PlayButtonText.text = (DataManager.CurrentMapLevelIndex).ToString();
+                }
+                else
+                {
+                    m_PlayButtonText.text = (DataManager.CurrentMapLevelIndex + 1).ToString();
+                }
             }
 
             SetupNoAdsPurchaseButton();

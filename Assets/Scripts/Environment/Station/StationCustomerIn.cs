@@ -200,7 +200,6 @@ namespace Isometric.Environment
                 () =>
                 {
                     OnHasUnlockedGameplay?.Invoke();
-                    SetupStationHandlers(upgradeCapacity, true, true);
 
                     CoroutineManager.LateAction(() =>
                     {
@@ -212,6 +211,7 @@ namespace Isometric.Environment
                             });
                         }
 
+                        SetupStationHandlers(upgradeCapacity, false, false);
                     }, m_CameraFocusDuration);
                 });
                 m_Data.StationData.HasJustUnlocked = false;
@@ -234,7 +234,7 @@ namespace Isometric.Environment
 
                 m_Data.Save();
             }
-            else if(m_Data.StationData.IsUnlocked)
+            else if(m_Data.StationData.IsUnlocked && !hasJustUnlocked)
             {
                 SetupStationHandlers(upgradeCapacity, false, false);
             }

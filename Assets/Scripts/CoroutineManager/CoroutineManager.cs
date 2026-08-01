@@ -182,6 +182,39 @@ namespace Isometric
                 Debug.LogError($"Error in AtEndOfFrameAction execution: {ex.Message}");
             }
         }
-    }
 
+        public static Coroutine ActionWaitUntil(Action action, Func<bool> condition)
+        {
+            try
+            {
+                if (s_Instance)
+                {
+                    return s_Instance.StartCoroutine(WaitUntilAction(action, condition));
+                }
+                else
+                {
+                    Debug.LogWarning("CoroutineManager is null");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error in WaitUntil: {ex.Message}");
+                return null;
+            }
+        }
+        private static IEnumerator WaitUntilAction(Action action, Func<bool> condition)
+        {
+            yield return new WaitUntil(condition);
+
+            try
+            {
+                action?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error in WaitUntil execution: {ex.Message}");
+            }
+        }
+    }
 }

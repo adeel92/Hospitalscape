@@ -15,9 +15,11 @@ namespace Isometric.UI
     public class GameWonUIManager : UIPopupBase
     {
         [SerializeField] GameObject m_Popup;
+        [SerializeField] GameObject m_WonPanel;
+        [SerializeField] GameObject m_CharacterPanel;
+        [SerializeField] Animator m_OpeningAnimator;
         [SerializeField] PlayDoTweenSequence m_OpeningSequence;
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
-        [SerializeField] Animator m_OpeningAnimator;
         [SerializeField] string m_OpeningAnimatorState;
         [SerializeField] TextMeshProUGUI m_CoinText;
         [SerializeField] GameObject m_Key1Holder;
@@ -26,6 +28,7 @@ namespace Isometric.UI
         [SerializeField] GameObject m_Key2;
         [SerializeField] RectTransform m_ContinueButton;
         [SerializeField] RectTransform m_VideoButton;
+        [SerializeField] GameObject m_OuterParticles;
 
         [Header("---Currency---")]
         [SerializeField] RectTransform m_CoinCurrency;
@@ -45,6 +48,18 @@ namespace Isometric.UI
         [SerializeField] TextMeshProUGUI m_CoinCollectabeCountText;
         [SerializeField] Vector3 m_CollectableStartSize;
         [SerializeField] Vector3 m_CollectableEndSize;
+
+        [Header("---Key Collection---")]
+        [SerializeField] int m_RequiredKeysToOpenChestBoxReward;
+        [SerializeField] TextMeshProUGUI m_NumberOfKeysText;
+        [SerializeField] string m_OneKeyCollectionAnimatorState;
+        [SerializeField] string m_TwoKeyCollectionAnimatorState;
+        [SerializeField] string m_TransitionToCollectAnimatorState;
+        [SerializeField] string m_CollectChestRewardAnimatorState;
+        [SerializeField] GameObject m_KeyRewardCollectionButton;
+        [SerializeField] GameObject m_TapToCollectText;
+        [SerializeField] ParticleSystem m_ChestBoxAuraEffect;
+        [SerializeField] List<KeyCollectionReward> m_KeyCollectionRewards;
 
 
         int m_VideoCoins = 0;
@@ -158,7 +173,14 @@ namespace Isometric.UI
                 {
                     CoinCollection(m_CoinCollectabeStartPosition.position, originalCoinCurrency, addedCoinCurrency, () =>
                     {
-                        UIManager.RestartGame();
+                        if (KeyRewardManager.IsUsingKeyReward())
+                        {
+                            KeysHandling();
+                        }
+                        else
+                        {
+                            UIManager.RestartGame();
+                        }
                     });
                 }).SetEase(Ease.OutBack);
         }
@@ -182,6 +204,140 @@ namespace Isometric.UI
             SoundManager.PlaySound(SoundType.Reward);
 
             m_VideoButton.gameObject.SetActive(false);
+        }
+
+        private void KeysHandling()
+        {
+            if (m_HasKey1 && m_HasKey2)
+            {
+                m_NumberOfKeysText.text = (DataManager.KeyCurrency - 2) + "/" + m_RequiredKeysToOpenChestBoxReward;
+                SetChsetSettings();
+                GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_TwoKeyCollectionAnimatorState, () =>
+                {
+                    SetForCollection();
+                });
+            }
+            else if (m_HasKey1)
+            {
+                m_NumberOfKeysText.text = (DataManager.KeyCurrency - 1) + "/" + m_RequiredKeysToOpenChestBoxReward;
+                SetChsetSettings();
+                GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_OneKeyCollectionAnimatorState, () =>
+                {
+                    SetForCollection();
+                });
+            }
+            else if (DataManager.KeyCurrency >= m_RequiredKeysToOpenChestBoxReward)
+            {
+                SetChsetSettings();
+                GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_TransitionToCollectAnimatorState, () =>
+                {
+                    SetForCollection();
+                });
+            }
+            else
+            {
+                UIManager.RestartGame();
+            }
+        }
+
+        private void SetChsetSettings()
+        {
+            m_CoinCurrency.DOAnchorPos(m_CoinCurrencyStartPosition, m_CoinCurrencyMoveDuration).SetUpdate(true);
+            m_WonPanel.SetActive(false);
+            m_CharacterPanel.SetActive(false);
+            m_OuterParticles.SetActive(false);
+        }
+
+        private void SetForCollection()
+        {
+            if (DataManager.KeyCurrency >= m_RequiredKeysToOpenChestBoxReward)
+            {
+                m_ChestBoxAuraEffect.Play();
+                UIManager.UIInteractionOn();
+                m_TapToCollectText.SetActive(true);
+                m_KeyRewardCollectionButton.SetActive(true);
+            }
+            else
+            {
+                CoroutineManager.LateActionRealTime(() =>
+                {
+                    UIManager.RestartGame();
+                }, 1);
+            }
+        }
+
+        public void OnRewardCollectionButton()
+        {
+            m_TapToCollectText.SetActive(false);
+            m_KeyRewardCollectionButton.SetActive(false);
+
+            KeyCollectionReward keyCollectionReward = m_KeyCollectionRewards[UnityEngine.Random.Range(0, m_KeyCollectionRewards.Count)];
+            if (keyCollectionReward != null)
+            {
+                int? coins = null;
+                int? gems = null;
+
+                if (keyCollectionReward.HasCoinReward)
+                {
+                    coins = keyCollectionReward.CoinReward;
+                    DataManager.CoinCurrency += keyCollectionReward.CoinReward;
+                }
+
+                if (keyCollectionReward.HasGemReward)
+                {
+                    gems = keyCollectionReward.GemReward;
+                    DataManager.GemCurrency += keyCollectionReward.GemReward;
+                }
+
+                DataManager.KeyCurrency -= m_RequiredKeysToOpenChestBoxReward;
+                DataManager.SaveData();
+
+                SoundManager.PlaySound(SoundType.MediumReward);
+
+                UIManager.UIInteractionOff();
+                GlobalFunctions.PlayAnimationWithCallbackUpdate(this, m_OpeningAnimator, m_CollectChestRewardAnimatorState, () =>
+                {
+                    UIManager.SetRewardCollectionPopupMessage("Tap to Collect!", RewardCollectionTextPoistion.FarDownMiddle);
+                    UIManager.OpenRewardCollectionPopup(coins, gems,
+                        null, null, null, null, null,
+                        () =>
+                        {
+                            SoundManager.PlaySound(SoundType.Reward);
+                        },
+                        () =>
+                        {
+                            CoroutineManager.LateActionRealTime(() =>
+                            {
+                                UIManager.RestartGame();
+                            },1);
+                        });
+                });
+            }
+            else
+            {
+                CoroutineManager.LateActionRealTime(() =>
+                {
+                    UIManager.RestartGame();
+                }, 1);
+            }
+        }
+
+        public void OnAnimationCallbackOneKey()
+        {
+            m_NumberOfKeysText.text = (DataManager.KeyCurrency) + "/" + m_RequiredKeysToOpenChestBoxReward;
+            SoundManager.PlaySound(SoundType.Coin);
+        }
+
+        public void OnAnimationCallbackTwoKey_FirstKeyCollection()
+        {
+            m_NumberOfKeysText.text = (DataManager.KeyCurrency - 1) + "/" + m_RequiredKeysToOpenChestBoxReward;
+            SoundManager.PlaySound(SoundType.Coin);
+        }
+
+        public void OnAnimationCallbackTwoKey_SecondKeyCollection()
+        {
+            m_NumberOfKeysText.text = (DataManager.KeyCurrency) + "/" + m_RequiredKeysToOpenChestBoxReward;
+            SoundManager.PlaySound(SoundType.Coin);
         }
 
         #region Collectable Animation
@@ -231,6 +387,16 @@ namespace Isometric.UI
                 });
         }
         #endregion
+    }
 
+    [Serializable]
+    public class KeyCollectionReward
+    {
+        public bool HasCoinReward;
+        [AllowNesting, NaughtyAttributes.ShowIf(nameof(HasCoinReward))]
+        public int CoinReward;
+        public bool HasGemReward;
+        [AllowNesting, NaughtyAttributes.ShowIf(nameof(HasGemReward))]
+        public int GemReward;
     }
 }

@@ -110,8 +110,10 @@ namespace Isometric.Environment
                 OnIsUnlockdGameplay?.Invoke();
             }
 
+            bool hasJustUnlocked = false;
             if (m_Data.StationData.HasJustUnlocked)
             {
+                hasJustUnlocked = true;
                 if (m_UseCameraFocus)
                 {
                     CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
@@ -133,6 +135,7 @@ namespace Isometric.Environment
                                 });
                             }
 
+                            ApplyUpgradeProperties();
                         }, m_FocusDuration);
                     });
                 }
@@ -156,6 +159,7 @@ namespace Isometric.Environment
                                 UIManager.CheckNextGameplayUpdatable();
                             });
 
+                            ApplyUpgradeProperties();
                         }, m_FocusDuration);
                     });
                 }
@@ -171,6 +175,12 @@ namespace Isometric.Environment
                 m_Data.Save();
             }
 
+            if(m_Data.StationData.IsUnlocked && !hasJustUnlocked)
+                ApplyUpgradeProperties();
+        }
+
+        private void ApplyUpgradeProperties()
+        {
             StationUpgrade upgradeCapacity = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
             if (upgradeCapacity != null)
             {

@@ -204,6 +204,7 @@ namespace Isometric.Environment
                             });
                         }
 
+                        ApplyUpgradeProperties();
                     }, m_CameraFocusDuration);
                 });
                 m_Data.StationData.HasJustUnlocked = false;
@@ -226,40 +227,42 @@ namespace Isometric.Environment
                 m_Data.Save();
             }
 
+            if(m_Data.StationData.IsUnlocked && !hasJustUnlocked)
+                ApplyUpgradeProperties();
+        }
 
-            if (m_Data.StationData.IsUnlocked && !hasJustUnlocked)
+        private void ApplyUpgradeProperties()
+        {
+            // Executing callback with respect to the current upgrade index of each upgrade type (capacity, duration, and revenue)
+            StationUpgrade upgradeCapacity = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
+            if (upgradeCapacity != null)
             {
-                StationUpgrade upgradeCapacity = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
-                if (upgradeCapacity != null)
-                {
-                    m_CapacityProperty = (int)upgradeCapacity.Upgrade[upgradeCapacity.CurrentUpgradeIndex];
+                m_CapacityProperty = (int)upgradeCapacity.Upgrade[upgradeCapacity.CurrentUpgradeIndex];
 
-                    foreach (var propertyCallbackInfo in m_ProperityCallbackInfos)
+                foreach (var propertyCallbackInfo in m_ProperityCallbackInfos)
+                {
+                    if (propertyCallbackInfo.CapacityPropertyMatch == m_CapacityProperty)
                     {
-                        if (propertyCallbackInfo.CapacityPropertyMatch == m_CapacityProperty)
-                        {
-                            m_CurrentProperityCallbackInfo = propertyCallbackInfo;
-                            break;
-                        }
+                        m_CurrentProperityCallbackInfo = propertyCallbackInfo;
+                        break;
                     }
                 }
-
-                StationUpgrade upgradeDuration = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
-                if (upgradeDuration != null)
-                {
-                    m_DurationProperty = upgradeDuration.Upgrade[upgradeDuration.CurrentUpgradeIndex];
-                    m_CurrentProperityCallbackInfo.OnDurationSetup?.Invoke(upgradeDuration.CurrentUpgradeIndex);
-                }
-
-                StationUpgrade upgradeCost = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
-                if (upgradeCost != null)
-                {
-                    m_CostProperty = Mathf.RoundToInt(upgradeCost.Upgrade[upgradeCost.CurrentUpgradeIndex]);
-                }
-
-                AutoMakeFood();
             }
 
+            StationUpgrade upgradeDuration = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
+            if (upgradeDuration != null)
+            {
+                m_DurationProperty = upgradeDuration.Upgrade[upgradeDuration.CurrentUpgradeIndex];
+                m_CurrentProperityCallbackInfo.OnDurationSetup?.Invoke(upgradeDuration.CurrentUpgradeIndex);
+            }
+
+            StationUpgrade upgradeCost = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
+            if (upgradeCost != null)
+            {
+                m_CostProperty = Mathf.RoundToInt(upgradeCost.Upgrade[upgradeCost.CurrentUpgradeIndex]);
+            }
+
+            AutoMakeFood();
         }
 
         private void OnEnable()

@@ -331,7 +331,7 @@ namespace Isometric.Environment
                 bool hasJustUnlocked = false;
                 if (stationData.StationData.HasJustUnlocked)
                 {
-                    //hasJustUnlocked = true;
+                    hasJustUnlocked = true;
                     CameraController.RegisterFocusCamera(stationInfo.CameraFocusPosition, stationInfo.CameraZoom, 1.4f, 
                     () =>
                     {
@@ -351,6 +351,7 @@ namespace Isometric.Environment
                                 });
                             }
 
+                            ApplyUpgradeProperties(stationData, stationInfo);
                         }, stationInfo.CameraFocusDuration);
                     });
                     stationData.StationData.HasJustUnlocked = false;
@@ -364,36 +365,37 @@ namespace Isometric.Environment
                     stationData.Save();
                 }
 
-                if (stationData.StationData.IsUnlocked
-                && hasJustUnlocked == false)
+                if (stationData.StationData.IsUnlocked && !hasJustUnlocked)
+                    ApplyUpgradeProperties(stationData, stationInfo);
+            }
+        }
+
+        private void ApplyUpgradeProperties(DataStation stationData, StationInfo stationInfo)
+        {
+            StationUpgrade durationUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
+            if (durationUpgrade != null)
+            {
+                stationInfo.DurationProperty = durationUpgrade.Upgrade[durationUpgrade.CurrentUpgradeIndex];
+            }
+
+            StationUpgrade costUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
+            if (costUpgrade != null)
+            {
+                stationInfo.CostProperty = Mathf.RoundToInt(costUpgrade.Upgrade[costUpgrade.CurrentUpgradeIndex]);
+            }
+
+            StationUpgrade capacityUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
+            if (capacityUpgrade != null)
+            {
+                stationInfo.CapacityProperty = (int)capacityUpgrade.Upgrade[capacityUpgrade.CurrentUpgradeIndex];
+                stationInfo.CurrentlyHolding = stationInfo.CapacityProperty;
+
+                UpgradeCapacityPropertyCallbackInfo UpgradeCapacityPropertyCallbackInfo = stationInfo.UpgradeCapacityPropertyCallbackInfos.Find((x) => x.CapacityMatchIndex == capacityUpgrade.CurrentUpgradeIndex);
+                if (UpgradeCapacityPropertyCallbackInfo != null)
                 {
-                    StationUpgrade durationUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
-                    if (durationUpgrade != null)
-                    {
-                        stationInfo.DurationProperty = durationUpgrade.Upgrade[durationUpgrade.CurrentUpgradeIndex];
-                    }
-
-                    StationUpgrade costUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
-                    if (costUpgrade != null)
-                    {
-                        stationInfo.CostProperty = Mathf.RoundToInt(costUpgrade.Upgrade[costUpgrade.CurrentUpgradeIndex]);
-                    }
-
-                    StationUpgrade capacityUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Capacity);
-                    if (capacityUpgrade != null)
-                    {
-                        stationInfo.CapacityProperty = (int)capacityUpgrade.Upgrade[capacityUpgrade.CurrentUpgradeIndex];
-                        stationInfo.CurrentlyHolding = stationInfo.CapacityProperty;
-
-                        UpgradeCapacityPropertyCallbackInfo UpgradeCapacityPropertyCallbackInfo = stationInfo.UpgradeCapacityPropertyCallbackInfos.Find((x) => x.CapacityMatchIndex == capacityUpgrade.CurrentUpgradeIndex);
-                        if (UpgradeCapacityPropertyCallbackInfo != null)
-                        {
-                            UpgradeCapacityPropertyCallbackInfo.SetupCallback?.Invoke();
-                            stationInfo.CurrentPropertyCallbackInfo = UpgradeCapacityPropertyCallbackInfo;
-                        }
-                    }
+                    UpgradeCapacityPropertyCallbackInfo.SetupCallback?.Invoke();
+                    stationInfo.CurrentPropertyCallbackInfo = UpgradeCapacityPropertyCallbackInfo;
                 }
-
             }
         }
 

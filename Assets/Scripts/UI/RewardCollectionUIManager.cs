@@ -153,7 +153,7 @@ namespace Isometric.UI
             m_WaitressSpeedBoosterHolder.SetActive(false);
 
             m_FloatyRewardTween.Stop();
-            m_VisiableBackground.enabled = true;
+            // m_VisiableBackground.enabled = true; // mrcHefF
             m_AllRewardsHolder.anchoredPosition = Vector2.zero;
             SetTextStyle(RewardCollectionTextStyle.Default); ;
             m_FloatyRewardRectTransform.anchoredPosition = Vector2.zero;
@@ -259,14 +259,15 @@ namespace Isometric.UI
             m_WaitressSpeedBoosterTargetHolder.SetActive(false);
             m_WaitressSpeedBoosterHolder.SetActive(false);
 
-            if (isBackgroundVisible)
+            // mrcHefF
+            /* if (isBackgroundVisible)
             {
                 m_VisiableBackground.enabled = true;
             }
             else
             {
                 m_VisiableBackground.enabled = false;
-            }
+            } */
 
             m_AllRewardsHolder.anchoredPosition = Vector2.zero;
             m_AllRewardsHolder.anchoredPosition = m_AllRewardsHolder.anchoredPosition + middleRewardRectTransformOffset;

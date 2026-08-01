@@ -10,6 +10,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Customer;
 using Isometric.PathSystem;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace Isometric.Environment
 {
@@ -26,11 +27,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (Not CALLED FIRST TIME)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-Unlocking for the first time")]
+        /* [Header("-Unlocking for the first time")]
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] Vector2 m_CameraFocusPosition;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraZoom;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu;
+        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; */
         [Header("-Upgraded any of the properties"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnHasUpgradedMenu;
 
@@ -40,6 +41,11 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedGameplay;
         [Header("-Station is unlocked"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
+        [Header("-Unlocking for the first time")]
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] Vector2 m_CameraFocusPosition;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraZoom;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraFocusDuration;
+        [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
 
@@ -70,7 +76,7 @@ namespace Isometric.Environment
                 OnIsUnlockdMenu?.Invoke();
             }
 
-            if (m_Data.StationData.HasJustUnlocked)
+            /* if (m_Data.StationData.HasJustUnlocked)
             {
                 CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
                 () =>
@@ -97,7 +103,7 @@ namespace Isometric.Environment
 
                 m_Data.StationData.HasJustUnlocked = false;
                 m_Data.Save();
-            }
+            } */
 
             if (m_Data.StationData.HasUpgraded)
             {
@@ -119,6 +125,36 @@ namespace Isometric.Environment
                 OnIsUnlockdGameplay?.Invoke();
             }
 
+            bool hasJustUnlocked = false;
+            if (m_Data.StationData.HasJustUnlocked)
+            {
+                hasJustUnlocked = true;
+                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
+                () =>
+                {
+                    UIManager.UIInteractionOff();
+                }, 
+                () =>
+                {
+                    OnHasUnlockedGameplay?.Invoke();
+                    CoroutineManager.LateAction(() =>
+                    {
+                        if (CameraController.NextFocusCamera() == false)
+                        {
+                            CameraController.SetupForGameplay(() =>
+                            {
+                                UIManager.CheckNextGameplayUpdatable();
+                            });
+                        }
+
+                        StartDetection();
+                    }, m_CameraFocusDuration);
+                });
+
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
+            }
+
             if (m_Data.StationData.HasUpgraded)
             {
                 OnHasUpgradedMenu?.Invoke();
@@ -126,18 +162,19 @@ namespace Isometric.Environment
                 m_Data.Save();
             }
 
-            if(m_Data.StationData.IsUnlocked)
-            {
-                if (m_DectectionUpdate != null)
-                {
-                    StopCoroutine(m_DectectionUpdate);
-                    m_DectectionUpdate = null;
-                }
-                m_DectectionUpdate = StartCoroutine(DectectionUpdate());
-            }
+            if(m_Data.StationData.IsUnlocked && !hasJustUnlocked)
+                StartDetection();
         }
 
-
+        private void StartDetection()
+        {
+            if (m_DectectionUpdate != null)
+            {
+                StopCoroutine(m_DectectionUpdate);
+                m_DectectionUpdate = null;
+            }
+            m_DectectionUpdate = StartCoroutine(DectectionUpdate());
+        }
         private IEnumerator DectectionUpdate()
         {
             float sqrCaptureDistance = m_CaptureDistance * m_CaptureDistance;
