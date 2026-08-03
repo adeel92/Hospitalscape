@@ -1055,6 +1055,73 @@ MonoBehaviour:
   InfoDiscriptionText: 
   NotifiationSeenKey: 
   m_NotificationMain: {fileID: 1258672155870357653}
+  OnRecommendation:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4932929311895846011}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2507198066086398553}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6009154107476677970}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRecommendationOff:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4932929311895846011}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2507198066086398553}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IsRecommended: 0
 --- !u!222 &5357176532579629519
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1864,6 +1931,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2588794434852297134, guid: fd0228152fe44ac4dbeb27c4174623d6, type: 3}
   m_PrefabInstance: {fileID: 1420334842781702050}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6009154107476677970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4671014364732916464, guid: fd0228152fe44ac4dbeb27c4174623d6, type: 3}
+  m_PrefabInstance: {fileID: 1420334842781702050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1856686481561407323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1985,6 +2057,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
+--- !u!1 &4932929311895846011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6751194454819156768, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
+  m_PrefabInstance: {fileID: 1856686481561407323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5993302300855176106 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5397628151683466481, guid: 3c9baa02b47803e41ac29df54177b01b, type: 3}
@@ -2294,6 +2371,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c119e785555218c438b59962285bb351, type: 3}
+--- !u!1 &2507198066086398553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1859790546215565049, guid: c119e785555218c438b59962285bb351, type: 3}
+  m_PrefabInstance: {fileID: 4252549230762048672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9127082516328862277 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5020950421495836389, guid: c119e785555218c438b59962285bb351, type: 3}

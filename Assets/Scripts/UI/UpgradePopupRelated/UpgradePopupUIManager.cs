@@ -64,6 +64,7 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_OpeningSequence;
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] DataMapUpdate m_DataMapUpdate;
+        [SerializeField] DataUpgradeRecommendation m_DataUpgradeRecommendation;
         [SerializeField] ScrollRect m_ScrollRect;
         [SerializeField] Transform m_PanelHolder;
         [SerializeField] GameObject m_FirstHolding;
@@ -285,6 +286,53 @@ namespace Isometric.UI
             ResetScroll();
         }
 
+        public void SetupUpgradeRecommendation(bool shouldScrollFocus)
+        {
+            // if (Tutorial.TutorialManager.IsInTutorial()) return;
+
+            List<PlayerUpgradePanelUI> temPlayerUpgradePanelsUI = GlobalFunctions.ListShallowCopy(m_PlayerUpgradePanelsUI);
+            ChairCapacityUpgradePanelUI temChairCapacityUpgradePanelUI = null;
+            if (m_ChairCapacityUpgradePanelsUI != null &&
+                m_ChairCapacityUpgradePanelsUI.Count > 0)
+            {
+                temChairCapacityUpgradePanelUI = m_ChairCapacityUpgradePanelsUI[0];
+            }
+            List<WorkerUpgradePanelUI> temChefUpgradePanelsUI = GlobalFunctions.ListShallowCopy(m_WorkerUpgradePanelsUI);
+
+            List<StationUpgradePanelUI> temStationUpgradePanelUI = new List<StationUpgradePanelUI>();
+
+            foreach (var item in m_StationUpgradePanelsUI)
+            {
+                temStationUpgradePanelUI.Add(item);
+            }
+
+            foreach (var item in m_StationUpgradeRevenuePanelsUI)
+            {
+                temStationUpgradePanelUI.Add(item);
+            }
+
+            List<PatienceUpgradePanelUI> temPatienceUpgradePanelsUI = GlobalFunctions.ListShallowCopy(m_PatienceUpgradePanelsUI);
+
+            /* List<PurchaseOfferPanelUI> temPurchaseOfferPanelUI = new List<PurchaseOfferPanelUI>();
+
+            foreach (var purchaseOfferInfo in m_PurchaseOffersInfo)
+            {
+                if (purchaseOfferInfo.PurchaseOfferPanelUIInstantiated != null)
+                {
+                    temPurchaseOfferPanelUI.Add(purchaseOfferInfo.PurchaseOfferPanelUIInstantiated);
+                }
+            } */
+
+            try
+            {
+                m_DataUpgradeRecommendation.SetUpgradeRecommendation(temPlayerUpgradePanelsUI, temChairCapacityUpgradePanelUI, temChefUpgradePanelsUI, temStationUpgradePanelUI, temPatienceUpgradePanelsUI, /* temPurchaseOfferPanelUI, */ this, shouldScrollFocus);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("SetUpgradeRecommendation error: " + ex);
+            }
+        }
+
         public override void OpenPopup(Action callback)
         {
             SoundManager.PlaySound(SoundType.PopupWhoosh);
@@ -293,6 +341,7 @@ namespace Isometric.UI
             m_OpeningSequence.PlaySequence(() =>
             {
                 callback?.Invoke();
+                SetupUpgradeRecommendation(true);
             });
         }
 
@@ -339,7 +388,7 @@ namespace Isometric.UI
 
 
         #region Upgrade Related
-        public void UpgradePlayer(PlayerUpgradeType PlayerUpgradeType, PlayerUpgradePanelUI playerUpgradePanelUI)
+        public void UpgradePlayer(PlayerUpgradeType PlayerUpgradeType, PlayerUpgradePanelUI playerUpgradePanelUI, bool shouldRecommendNext)
         {
             int index = m_PlayerUpgradePanelsUI.IndexOf(playerUpgradePanelUI);
             PlayerUpgradePanelUI newPlayerUpgradePanelUI = m_DataMapUpdate.UpgradePlayerProperty(PlayerUpgradeType, playerUpgradePanelUI);
@@ -363,15 +412,25 @@ namespace Isometric.UI
                     sideButton.HighlightedChild = newPlayerUpgradePanelUI.GetComponent<RectTransform>();
                 }
             }
+
+            if (shouldRecommendNext)
+            {
+                SetupUpgradeRecommendation(true);
+            }
         }
 
-        public void UpgradeChairCapacity(ChairCapacityUpgradePanelUI chairCapacityUpgradePanelUI)
+        public void UpgradeChairCapacity(ChairCapacityUpgradePanelUI chairCapacityUpgradePanelUI, bool shouldRecommendNext)
         {
             m_ChairCapacityUpgradePanelsUI.Remove(chairCapacityUpgradePanelUI);
             ChairCapacityUpgradePanelUI newChairCapacityUpgradePanelUI = m_DataMapUpdate.UpgradeChairCapacityProperty(chairCapacityUpgradePanelUI);
             newChairCapacityUpgradePanelUI.UpgradePopupUIManager = this;
             m_ChairCapacityUpgradePanelsUI.Add(newChairCapacityUpgradePanelUI);
             newChairCapacityUpgradePanelUI.SetupNotification(m_NotificationStaff);
+
+            if (shouldRecommendNext)
+            {
+                SetupUpgradeRecommendation(true);
+            }
 
             if(newChairCapacityUpgradePanelUI.ShinyEffects.Count > 0)
             {
@@ -383,13 +442,18 @@ namespace Isometric.UI
         }
 
 
-        public void UpgradeWorker(DataWorker dataWorker, WorkerUpgradePanelUI workerUpgradePanelUI)
+        public void UpgradeWorker(DataWorker dataWorker, WorkerUpgradePanelUI workerUpgradePanelUI, bool shouldRecommendNext)
         {
             m_WorkerUpgradePanelsUI.Remove(workerUpgradePanelUI);
             WorkerUpgradePanelUI newWorkerUpgradePanelUI = m_DataMapUpdate.UpgradeWorkerServingDurationProperty(dataWorker, workerUpgradePanelUI);
             newWorkerUpgradePanelUI.UpgradePopupUIManager = this;
             m_WorkerUpgradePanelsUI.Add(newWorkerUpgradePanelUI);
             newWorkerUpgradePanelUI.SetupNotification(m_NotificationStaff);
+
+            if (shouldRecommendNext)
+            {
+                SetupUpgradeRecommendation(true);
+            }
 
             if(newWorkerUpgradePanelUI.ShinyEffects.Count > 0)
             {
@@ -400,7 +464,7 @@ namespace Isometric.UI
             }
         }
 
-        public void UpgradeStation(DataStation dataStaion, StationUpgradeType stationUpgradeType, StationUpgradePanelUI stationUpgradePanelUI)
+        public void UpgradeStation(DataStation dataStaion, StationUpgradeType stationUpgradeType, StationUpgradePanelUI stationUpgradePanelUI, bool shouldRecommendNext)
         {
             int index = 0;
             if (stationUpgradeType == StationUpgradeType.StationUpgradeType1)
@@ -444,6 +508,11 @@ namespace Isometric.UI
                 }
             }
 
+            if (shouldRecommendNext)
+            {
+                SetupUpgradeRecommendation(true);
+            }
+
             if(newStationUpgradePanelUI.ShinyEffects.Count > 0)
             {
                 foreach(ShinyEffectForUGUI shineEffect in newStationUpgradePanelUI.ShinyEffects)
@@ -453,13 +522,18 @@ namespace Isometric.UI
             }
         }
 
-        public void UpgradePatience(DataPatience dataPatience, PatienceUpgradePanelUI patienceUpgradePanelUI)
+        public void UpgradePatience(DataPatience dataPatience, PatienceUpgradePanelUI patienceUpgradePanelUI, bool shouldRecommendNext)
         {
             m_PatienceUpgradePanelsUI.Remove(patienceUpgradePanelUI);
             PatienceUpgradePanelUI newPatienceUpgradePanelUI = m_DataMapUpdate.UpgradePatienceUpgradePanel(dataPatience, patienceUpgradePanelUI);
             newPatienceUpgradePanelUI.UpgradePopupUIManager = this;
             m_PatienceUpgradePanelsUI.Add(newPatienceUpgradePanelUI);
             newPatienceUpgradePanelUI.SetupNotification(m_NotificationPatience);
+
+            if (shouldRecommendNext)
+            {
+                SetupUpgradeRecommendation(true);
+            }
 
             if(newPatienceUpgradePanelUI.ShinyEffects.Count > 0)
             {
@@ -538,6 +612,43 @@ namespace Isometric.UI
             {
                 m_ScrollRect.DOKill();
                 m_ScrollRect.DOHorizontalNormalizedPos(normalizedX, m_ScrollDuration).SetEase(m_ScrollEase);
+            }
+        }
+
+        public void TryScrollTo(RectTransform target, float xOffset)
+        {
+            if (m_ScrollRect == null || m_ScrollRect.content == null || target == null) return;
+
+            RectTransform content = m_ScrollRect.content;
+            RectTransform viewport = m_ScrollRect.viewport != null ? m_ScrollRect.viewport : m_ScrollRect.GetComponent<RectTransform>();
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+
+            Vector3 targetLocalPos = content.InverseTransformPoint(target.position);
+
+            float contentWidth = content.rect.width;
+            float viewportWidth = viewport.rect.width;
+
+            if (contentWidth <= viewportWidth)
+            {
+                if (m_ScrollRect.horizontal)
+                {
+                    m_ScrollRect.DOKill();
+                    m_ScrollRect.DOHorizontalNormalizedPos(0f, m_ScrollDuration).SetEase(m_ScrollEase);
+                }
+                return;
+            }
+
+            float leftEdgeLocalX = -contentWidth * content.pivot.x;
+            float targetFromLeft = targetLocalPos.x - leftEdgeLocalX;
+            float desiredContentLeft = targetFromLeft - (viewportWidth * 0.5f) + xOffset;
+            float maxScrollable = contentWidth - viewportWidth;
+            float normalized = Mathf.Clamp01(desiredContentLeft / maxScrollable);
+
+            if (m_ScrollRect.horizontal)
+            {
+                m_ScrollRect.DOKill();
+                m_ScrollRect.DOHorizontalNormalizedPos(normalized, m_ScrollDuration).SetEase(m_ScrollEase);
             }
         }
         #endregion

@@ -295,6 +295,19 @@ namespace Isometric
         {
             return DOTween.To(() => rt.offsetMax, x => rt.offsetMax = x, endValue, duration);
         }
+
+        public static List<T> ListShallowCopy<T>(List<T> source)
+        {
+            if (source == null)
+                return null;
+
+            List<T> newList = new List<T>(source.Count);
+
+            foreach (var item in source)
+                newList.Add(item);
+
+            return newList;
+        }
     }
 
 }

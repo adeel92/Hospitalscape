@@ -7,6 +7,7 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.Sound;
 using Coffee.UIExtensions;
+using UnityEngine.Events;
 
 namespace Isometric.UI
 {
@@ -49,6 +50,15 @@ namespace Isometric.UI
         public string NotifiationSeenKey = "";
         public NotificationMainUI m_NotificationMain;
 
+        public UnityEvent OnRecommendation;
+        public UnityEvent OnRecommendationOff;
+        [ReadOnly]
+        public bool IsRecommended = false;
+
+
+        public DataPatience DataPatience => m_DataPatience;
+
+
         public void Setup(DataPatience dataPatience)
         {
             m_DataPatience = dataPatience;
@@ -67,7 +77,9 @@ namespace Isometric.UI
 
         public void UpdatePatience()
         {
+            bool isRecommended = IsRecommended;
             OnNotficationSeen();
+            SetRecommendationOff();
             if (UpgradeCurrency == CurrencyType.Coin)
             {
                 if (DataManager.CoinCurrency >= UpgradeCost)
@@ -78,7 +90,7 @@ namespace Isometric.UI
                     GlobalEventHolder.OnCoinCurrencySpendOnUpgrade?.Invoke(UpgradeCost);
                     DataManager.CoinCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradePatience(m_DataPatience, this);
+                    UpgradePopupUIManager.UpgradePatience(m_DataPatience, this, isRecommended);
                 }
                 else
                 {
@@ -94,7 +106,7 @@ namespace Isometric.UI
                     GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
                     DataManager.GemCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradePatience(m_DataPatience, this);
+                    UpgradePopupUIManager.UpgradePatience(m_DataPatience, this, isRecommended);
                 }
                 else
                 {
@@ -112,6 +124,12 @@ namespace Isometric.UI
         public void OnNotficationSeen()
         {
             m_NotificationMain.OnNotficationSeen();
+        }
+
+        public void SetRecommendationOff()
+        {
+            OnRecommendationOff?.Invoke();
+            IsRecommended = false;
         }
     }
 }

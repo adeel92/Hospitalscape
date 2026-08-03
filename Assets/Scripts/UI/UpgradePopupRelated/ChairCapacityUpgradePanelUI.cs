@@ -7,6 +7,7 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.Sound;
 using Coffee.UIExtensions;
+using UnityEngine.Events;
 
 namespace Isometric.UI
 {
@@ -49,6 +50,12 @@ namespace Isometric.UI
         public string NotifiationSeenKey = "";
         public NotificationMainUI m_NotificationMain;
 
+        public UnityEvent OnRecommendation;
+        public UnityEvent OnRecommendationOff;
+        [ReadOnly]
+        public bool IsRecommended = false;
+
+
         public void Setup()
         {
             UpgradeButton.onClick.RemoveAllListeners();
@@ -65,7 +72,9 @@ namespace Isometric.UI
 
         public void UpgradeChairCapacity()
         {
+            bool isRecommended = IsRecommended;
             OnNotficationSeen();
+            SetRecommendationOff();
             if (UpgradeCurrency == CurrencyType.Coin)
             {
                 if (DataManager.CoinCurrency >= UpgradeCost)
@@ -76,7 +85,7 @@ namespace Isometric.UI
                     GlobalEventHolder.OnCoinCurrencySpendOnUpgrade?.Invoke(UpgradeCost);
                     DataManager.CoinCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeChairCapacity(this);
+                    UpgradePopupUIManager.UpgradeChairCapacity(this, isRecommended);
                 }
                 else
                 {
@@ -93,7 +102,7 @@ namespace Isometric.UI
                     UpgradeEffect.Play();
                     DataManager.GemCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeChairCapacity(this);
+                    UpgradePopupUIManager.UpgradeChairCapacity(this, isRecommended);
                 }
                 else
                 {
@@ -111,6 +120,12 @@ namespace Isometric.UI
         public void OnNotficationSeen()
         {
             m_NotificationMain.OnNotficationSeen();
+        }
+
+        public void SetRecommendationOff()
+        {
+            OnRecommendationOff?.Invoke();
+            IsRecommended = false;
         }
     }
 }

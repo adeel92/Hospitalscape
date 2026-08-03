@@ -7,6 +7,7 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.Sound;
 using Coffee.UIExtensions;
+using UnityEngine.Events;
 
 namespace Isometric.UI
 {
@@ -51,6 +52,16 @@ namespace Isometric.UI
         public string NotifiationSeenKey = "";
         public NotificationMainUI m_NotificationMain;
 
+        public UnityEvent OnRecommendation;
+        public UnityEvent OnRecommendationOff;
+        [ReadOnly]
+        public bool IsRecommended = false;
+
+
+        public DataStation DataStation => m_DataStation;
+        public StationUpgradeType StationUpgradeType => m_StationUpgradeType;
+
+
         public void Setup(DataStation dataStation, StationUpgradeType stationUpgradeType)
         {
             m_DataStation = dataStation;
@@ -70,7 +81,9 @@ namespace Isometric.UI
 
         public void UpgradeStation()
         {
+            bool isRecommended = IsRecommended;
             OnNotficationSeen();
+            SetRecommendationOff();
             if (UpgradeCurrency == CurrencyType.Coin)
             {
                 if (DataManager.CoinCurrency >= UpgradeCost)
@@ -81,7 +94,7 @@ namespace Isometric.UI
                     GlobalEventHolder.OnCoinCurrencySpendOnUpgrade?.Invoke(UpgradeCost);
                     DataManager.CoinCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeStation(m_DataStation, m_StationUpgradeType, this);
+                    UpgradePopupUIManager.UpgradeStation(m_DataStation, m_StationUpgradeType, this, isRecommended);
                 }
                 else
                 {
@@ -97,7 +110,7 @@ namespace Isometric.UI
                     GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
                     DataManager.GemCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeStation(m_DataStation, m_StationUpgradeType, this);
+                    UpgradePopupUIManager.UpgradeStation(m_DataStation, m_StationUpgradeType, this, isRecommended);
                 }
                 else
                 {
@@ -115,6 +128,12 @@ namespace Isometric.UI
         public void OnNotficationSeen()
         {
             m_NotificationMain.OnNotficationSeen();
+        }
+
+        public void SetRecommendationOff()
+        {
+            OnRecommendationOff?.Invoke();
+            IsRecommended = false;
         }
     }
 }

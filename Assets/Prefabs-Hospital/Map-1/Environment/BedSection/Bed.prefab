@@ -595,8 +595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MainServiceController: {fileID: 0}
   m_ShowCapturingGizmos: 1
-  m_CaptureDistance: 1.2
-  m_ExitDistance: 1.5
+  m_CaptureDistance: 1.75
+  m_ExitDistance: 1.95
   m_CustomerSittingHolder: {fileID: 5662715891369589438}
   m_CustomerSittingLocalScale: {x: 1, y: 1, z: 1}
   m_SittingSortingLayer: Default
@@ -2036,6 +2036,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  OnCustomerNextOrderShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCustomerOrderServed:
+    m_PersistentCalls:
+      m_Calls: []
   OnCustomerLeaveForOrder:
     m_PersistentCalls:
       m_Calls:
