@@ -29,20 +29,22 @@ namespace Isometric
 
         private void Start()
         {
-            Setup();
+            StartCoroutine(Setup());
         }
 
-        public static void Setup()
+        public static IEnumerator Setup()
         {
             if (s_Instance == null)
             {
                 PrintNullInstanceError();
-                return;
+                yield break;
             }
 
             //Order Matters
             LevelManager.Setup();
             EnvironmentManager.SetupForMenu();
+            yield return new WaitUntil(() => {return !LoadingUIManager.IsLoadingActive();});
+
             CameraController.SetEnvironemntInteractiblity(false);
             UIManager.Setup();
             WorkerManager.Setup();

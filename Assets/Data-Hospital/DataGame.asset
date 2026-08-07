@@ -16,13 +16,13 @@ MonoBehaviour:
   m_EditKey: 0
   m_GameData:
     EditValues: 0
-    CoinCurrency: 1367
-    GemCurrency: 1
+    CoinCurrency: 372
+    GemCurrency: 0
     StarCurrency: 0
-    KeyCurrency: 1
-    HeartCurrency: 4
+    KeyCurrency: 4
+    HeartCurrency: 5
     HeartTimeCurrency: 0
-    HeartRefillTime: 1800
+    HeartRefillTime: 5
     CurrentMapType: 0
     MapsInfo:
     - Type: 0
@@ -39,9 +39,9 @@ MonoBehaviour:
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-08-01T12:21:04.7725410Z
+        Value: 2026-08-05T18:31:15.2402059Z
       - Key: HeartCurrency_ShouldBeMinusOne
-        Value: True
+        Value: False
       - Key: NewCustomer1
         Value: True
       - Key: NewCusomter2
@@ -49,7 +49,7 @@ MonoBehaviour:
       - Key: Notification_Upgrade_Player_0
         Value: True
       - Key: Notification_Upgrade_Player_1
-        Value: True
+        Value: False
       - Key: Notification_Upgrade_Salon_Chair_0
         Value: False
       - Key: Notification_Upgrade_Station_RawGauze_1
@@ -126,20 +126,16 @@ MonoBehaviour:
         Value: False
       - Key: Notification_Upgrade_Worker_2
         Value: False
-      - Key: NewCustomer3
-        Value: True
       - Key: Notification_Upgrade_Station_Pharmacy_0
         Value: False
       - Key: Notification_Upgrade_Station_Pharmacy_1
-        Value: False
-      - Key: Notification_Upgrade_Worker_4
         Value: False
     EditDefaultValues: 0
     CoinCurrencyDefaultValue: 0
     GemCurrencyDefaultValue: 0
     StarCurrencyDefaultValue: 0
     KeyCurrencyDefaultValue: 0
-    HeartCurrencyDefaultValue: 5
+    HeartCurrencyDefaultValue: 100
     HeartTimeCurrencyDefaultValue: 0
     CurrentMapTypeDefaultValue: 0
     TimeFrozeBoosterDefaultValue: 4

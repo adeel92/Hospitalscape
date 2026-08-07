@@ -907,7 +907,8 @@ namespace Isometric.UI
             GameManager.UnPauseGame();
             DOTween.KillAll();
             CoroutineManager.StopAllCoroutine();
-            SceneManager.LoadScene(s_Instance.m_SceneName);
+            LoadingUIManager.LoadScene(s_Instance.m_SceneName);
+            // SceneManager.LoadScene(s_Instance.m_SceneName);
         }
         #endregion
 

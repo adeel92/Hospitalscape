@@ -32,6 +32,7 @@ namespace Isometric.Data
         {
             m_EnvironmentDecoration.IsUnlocked = m_EnvironmentDecoration.IsUnlockedDefaultValue;
             m_EnvironmentDecoration.HasJustUnlocked = m_EnvironmentDecoration.HasJustUnlockedDefaultValue;
+            m_EnvironmentDecoration.CurrentDesignIndex = m_EnvironmentDecoration.CurrentDesignIndexDefaultValue;
         }
 
         [ContextMenu("Save Data")]
@@ -59,6 +60,9 @@ namespace Isometric.Data
         [Header("---Unlocking---")]
         public bool IsUnlocked;
         public bool HasJustUnlocked;
+        public int CurrentDesignIndex;
+        [XmlIgnore]
+        [Space] public List<DecorationDesignInfo> DecorationDesignInfos = new();
 
         [Space, Header("---Default Values---")]
         [XmlIgnore]
@@ -67,5 +71,31 @@ namespace Isometric.Data
         public bool IsUnlockedDefaultValue;
         [XmlIgnore, AllowNesting, EnableIf(nameof(EditDefaultValues))]
         public bool HasJustUnlockedDefaultValue;
+        [XmlIgnore, AllowNesting, EnableIf(nameof(EditDefaultValues))]
+        public int CurrentDesignIndexDefaultValue;
+    }
+
+    [Serializable]
+    public class DecorationDesignInfo
+    {
+        public Sprite UISprite;
+        public List<DecorationSubItemInfo> DecorationSubItemInfos = new();
+    }
+
+    [Serializable]
+    public class DecorationSubItemInfo
+    {
+        public DecorationSubItem SubItemKey;
+        public Sprite EnvironmentSprite;
+    }
+
+    public enum DecorationSubItem
+    {
+        Item1,
+        Item2,
+        Item3,
+        Item4,
+        Item5,
+        Item6,    
     }
 }

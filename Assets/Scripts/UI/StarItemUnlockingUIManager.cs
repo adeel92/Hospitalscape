@@ -7,6 +7,7 @@ using TMPro;
 using Arc;
 using Isometric.Data;
 using Isometric.Sound;
+using NaughtyAttributes;
 
 namespace Isometric.UI
 {
@@ -15,8 +16,11 @@ namespace Isometric.UI
         [Header("---Popup---")]
         [SerializeField] DataMapUpdate m_DataMapUpdate;
         [SerializeField] GameObject m_Popup;
+        [SerializeField] GameObject m_ChoicePopup;
         [SerializeField] PlayDoTweenSequence m_OpeningSequence;
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
+        [SerializeField] PlayDoTweenSequence m_ChoiceOpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_ChoiceClosingSequence;
         [SerializeField] GameObject m_AllItemsUnlockedMessage;
 
         [Header("---Star Use---")]
@@ -42,6 +46,15 @@ namespace Isometric.UI
         [SerializeField] TextMeshProUGUI m_LockOnButtonText;
         [SerializeField] GameObject m_CloseButton;
 
+        [Header("---Star Item Choices---")]
+        [SerializeField] StartItemChoiceButtonUI m_ChoiceButtonPrefab;
+        [SerializeField] Transform m_ChoiceButtonsHolder;
+        [ReadOnly, SerializeField] List<StartItemChoiceButtonUI> m_AvailableChoiceButtonUIs = new();
+        [ReadOnly, SerializeField] StartItemChoiceButtonUI m_CurrentSelectedChoiceButton;
+        [SerializeField] Button m_ChoiceApplyButton;
+
+        private StarItemInfo m_CurrentStarItemInfo = null;
+
         public override void Setup() {}
 
         // Returns true of it has next star item unlockable
@@ -51,6 +64,7 @@ namespace Isometric.UI
 
             if (starItemInfo != null)
             {
+                m_CurrentStarItemInfo = starItemInfo;
                 m_AllItemsUnlockedMessage.SetActive(false);
                 m_StarUnlockingPopup.SetActive(true);
 
@@ -68,6 +82,13 @@ namespace Isometric.UI
                     m_LockButton.SetActive(false);
                     m_UnlockOnButton.gameObject.SetActive(true);
 
+                    SetupChoiceButtons(starItemInfo.EnvironmentDecorationData);
+                    m_ChoiceApplyButton.onClick.RemoveAllListeners();
+                    m_ChoiceApplyButton.onClick.AddListener(
+                    () =>
+                    {
+                        GlobalEventHolder.OnStarItemChoiceFinalSelection?.Invoke(m_CurrentSelectedChoiceButton.ChoiceIndex);    
+                    });
 
                     Action callback = starItemInfo.OnUnlocked;
 
@@ -83,7 +104,7 @@ namespace Isometric.UI
                         {
                             DataManager.GemCurrency += starItemInfo.GemReward;
                         }
-                        DataManager.SaveData();
+                        // DataManager.SaveData();
 
                         UIManager.UIInteractionOff();
                         CollectionUIManager.CollectCurve(starItemInfo.StarRequired, 
@@ -135,6 +156,53 @@ namespace Isometric.UI
             }
         }
 
+        public void SetupChoiceButtons(EnvironmentDecorationData environmentDecorationData)
+        {
+            for (int i = m_ChoiceButtonsHolder.childCount - 1; i >= 0; i--)
+            {
+                Transform child = m_ChoiceButtonsHolder.GetChild(i);
+                child.SetParent(null);
+                Destroy(child.gameObject);
+            }
+
+            m_AvailableChoiceButtonUIs.Clear();
+            m_CurrentSelectedChoiceButton = null;
+
+            List<DecorationDesignInfo> designInfos = environmentDecorationData.DecorationDesignInfos;
+
+            for (int i = 0; i < designInfos.Count; i++)
+            {
+                int choiceIndex = i;
+                StartItemChoiceButtonUI choiceButtonUI = Instantiate(m_ChoiceButtonPrefab, m_ChoiceButtonsHolder);
+                choiceButtonUI.Setup(choiceIndex, designInfos[choiceIndex].UISprite,
+                () =>
+                {
+                    m_CurrentSelectedChoiceButton.Deselect();
+                    choiceButtonUI.Select();
+                    m_CurrentSelectedChoiceButton = choiceButtonUI;
+                    GlobalEventHolder.OnStarItemChoiceButtonClick?.Invoke(choiceIndex);
+                });
+                choiceButtonUI.Deselect();
+                m_AvailableChoiceButtonUIs.Add(choiceButtonUI);
+            }
+
+            if (m_AvailableChoiceButtonUIs.Count == 0)
+                return;
+
+            m_CurrentSelectedChoiceButton = m_AvailableChoiceButtonUIs[0];
+            m_CurrentSelectedChoiceButton.Select();
+        }
+        private void DeselectAllChoiceButtons()
+        {
+            if(m_AvailableChoiceButtonUIs.Count == 0)
+                return;
+
+            foreach(StartItemChoiceButtonUI choiceButtonUI in m_AvailableChoiceButtonUIs)
+            {
+                choiceButtonUI.Deselect();
+            }
+        }
+
         public override void OpenPopup(Action callback)
         {
             SoundManager.PlaySound(SoundType.PopupWhoosh);
@@ -152,6 +220,26 @@ namespace Isometric.UI
             m_ClosingSequence.PlaySequence(() =>
             {
                 m_Popup.SetActive(false);
+                callback?.Invoke();
+            });
+        }
+
+        public void OpenChoicePopup(Action callback)
+        {
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            m_ChoicePopup.SetActive(true);
+            m_ChoiceOpeningSequence.PlaySequence(() =>
+            {
+                callback?.Invoke();
+            });
+        } 
+
+        public void CloseChoicePopup(Action callback)
+        {
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            m_ChoiceClosingSequence.PlaySequence(() =>
+            {
+                m_ChoicePopup.SetActive(false);
                 callback?.Invoke();
             });
         }

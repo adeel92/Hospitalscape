@@ -1736,6 +1736,7 @@ namespace Isometric.Data
                 }
 
                 return new StarItemInfo(
+                        toBeUnlockedDecoration.Data.EnvironmentDecorationData,
                         canBeUnlocked,
                         toBeUnlockedDecoration.Preview,
                         toBeUnlockedDecoration.NameDiscption,
@@ -1746,10 +1747,10 @@ namespace Isometric.Data
                         () => 
                         {
                             DataManager.StarCurrency -= toBeUnlockedDecoration.RequiredStars;
-                            DataManager.SaveData();
+                            // DataManager.SaveData();
                             toBeUnlockedDecoration.Data.EnvironmentDecorationData.IsUnlocked = true;
                             toBeUnlockedDecoration.Data.EnvironmentDecorationData.HasJustUnlocked = true;
-                            toBeUnlockedDecoration.Data.Save();
+                            // toBeUnlockedDecoration.Data.Save();
                         });
             }
             /* else if (toBeUnlockedStation != null)
@@ -2170,6 +2171,7 @@ namespace Isometric.Data
     //unlockble, preview, name, discritpion, stars, coin reward, gem reward, callback
     public class StarItemInfo
     {
+        public EnvironmentDecorationData EnvironmentDecorationData;
         public bool IsUnloackble;
         public Sprite PreviewSprite;
         public string NameText;
@@ -2180,6 +2182,7 @@ namespace Isometric.Data
         public Action OnUnlocked;
 
         public StarItemInfo(
+            EnvironmentDecorationData environmentDecorationData,
             bool isUnloackble,
             Sprite previewSprite,
             string nameText,
@@ -2189,6 +2192,7 @@ namespace Isometric.Data
             int gemReward,
             Action onUnlocked)
         {
+            EnvironmentDecorationData = environmentDecorationData;
             IsUnloackble = isUnloackble;
             PreviewSprite = previewSprite;
             NameText = nameText;

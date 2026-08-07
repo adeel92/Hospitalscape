@@ -84,6 +84,10 @@ namespace Isometric
         public static Action OnWorkerServesOrder;
         public static Action OnACustomersWaitFrozen;
 
+        //---Star Item---
+        public static Action<int> OnStarItemChoiceButtonClick;
+        public static Action<int> OnStarItemChoiceFinalSelection;
+
         //---Ads Purchase---
         public static Action OnNoAdsPurchaseSuccessful;
     }
