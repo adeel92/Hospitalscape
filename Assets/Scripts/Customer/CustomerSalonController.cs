@@ -40,7 +40,14 @@ namespace Isometric.Customer
         private Vector3 m_PickedLastPosition;
 
         [Header("---Service---")]
-        [SerializeField] CustomerAnimatorState m_MainServiceAnimationState = CustomerAnimatorState.LayingPain;
+        [SerializeField] CustomerAnimatorState m_MainServiceNormalAnimationState = CustomerAnimatorState.GoingToBedIdleDown;
+        [SerializeField] bool m_ShowAngryReaction = true;
+        [ShowIf(nameof(m_ShowAngryReaction))]
+        [SerializeField] CustomerAnimatorState m_MainServiceAngryAnimationState = CustomerAnimatorState.GoingToBedAngryDown;
+        [SerializeField] bool m_ShowSatisfiedServiceReaction = true;
+        [ShowIf(nameof(m_ShowSatisfiedServiceReaction))]
+        [SerializeField] List<CustomerAnimatorState> m_MainServiceSatisfiedAnimationStates = new();
+        [SerializeField] CustomerAnimatorState m_LeaveHappyAnimationState = CustomerAnimatorState.LeavingHappyDown;
 
         private MainServiceCustomerHandler m_MainServiceCustomerHandler = null;
         private StationCustomerInHandler m_StationCusterInHandler = null;
@@ -60,6 +67,7 @@ namespace Isometric.Customer
         private float m_WaitDurationCounter = 0;
         private CustomerAnimatorState m_SalonWaitState = CustomerAnimatorState.PickedUpNeutral;
         private CustomerWaitState m_WaitState;
+        private CustomerWaitState m_OnChairState;
         private Coroutine m_SalonWaitCorotoine;
         private bool m_HasEntered = false;
         [SerializeField, ReadOnly]
@@ -84,6 +92,7 @@ namespace Isometric.Customer
             m_IsFirstOrderUndecided = dataCustomer.IsFirstOrderUndecided;
 
             m_WaitState = CustomerWaitState.Happy;
+            m_OnChairState = CustomerWaitState.Happy;
 
             CustomerData salonData = (CustomerData)dataCustomer;
             m_IsCustomerVIP = salonData.IsCustomerVIP;
@@ -273,6 +282,7 @@ namespace Isometric.Customer
                     m_SalonWaitState = m_IsOnPatienceChair == false ? CustomerAnimatorState.StandingIdleAngry : CustomerAnimatorState.SittingIdleAngryDown;
                     PlaySalonAnimationState();
                     m_WaitState = CustomerWaitState.Angry;
+                    m_OnChairState = CustomerWaitState.Happy;
                     InvokeAngryStateEvent();
                 }
 
@@ -283,6 +293,7 @@ namespace Isometric.Customer
                     m_SalonWaitState = m_IsOnPatienceChair == false ? CustomerAnimatorState.StandingIdleFurious : CustomerAnimatorState.SittingIdleFuriousDown;
                     PlaySalonAnimationState();
                     m_WaitState = CustomerWaitState.Furious;
+                    m_OnChairState = m_ShowAngryReaction ? CustomerWaitState.Angry : CustomerWaitState.Happy;
                     InvokeFuriousStateEvent();
                 }
             }
@@ -335,6 +346,8 @@ namespace Isometric.Customer
                         && Vector3.Distance(pickedPosition, m_MainServiceCustomerHandler.transform.position) > m_MainServiceCustomerHandler.GetExitDistance())
                     {
                         m_MainServiceCustomerHandler.CustomerDragedRemoved();
+                        m_MainServiceCustomerHandler.MainServiceController.OnCustomerServeStart.RemoveListener(SetSatisfiedServiceState);
+                        m_MainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.RemoveListener(SetSatisfiedServiceState);
                         m_MainServiceCustomerHandler = null;
                         transform.SetParent(CustomerManager.ParentTransfomr);
                         transform.position = pickedPosition;
@@ -468,8 +481,10 @@ namespace Isometric.Customer
                 if (m_StationCusterInHandler == null)
                 {
                     m_MainServiceCustomerHandler.ResitOnSalonChair();
-                    SetSalonAnimationStateSitting();
-                    ShowApron(GetSalonFirstOrder().OrderConsumable);
+                    // SetSalonAnimationStateSitting();
+                    SetMainServiceAnimationState(m_OnChairState);
+                    m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayWrap(null, false);
+                    // ShowApron(GetSalonFirstOrder().OrderConsumable);
                 }
                 else if (m_StationCusterInHandler != null)
                 {
@@ -501,11 +516,11 @@ namespace Isometric.Customer
             if (!m_IsOnSalonChair)
             {
                 m_MainServiceCustomerHandler = mainServiceCustomerHandler;
+                mainServiceCustomerHandler.MainServiceController.OnCustomerServeStart.AddListener(SetSatisfiedServiceState);
+                mainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.AddListener(SetSatisfiedServiceState);
                 m_PickedLastPosition = transform.position;
-                m_AnimatorController.PlayState(CustomerAnimatorState.SittingDown, () =>
-                {
-                    m_AnimatorController.PlayState(m_MainServiceAnimationState);
-                });
+                CustomerAnimatorState state = m_OnChairState == CustomerWaitState.Happy ? m_MainServiceNormalAnimationState : m_MainServiceAngryAnimationState;
+                m_AnimatorController.PlayState(state);
             }
         }
         #endregion
@@ -538,15 +553,14 @@ namespace Isometric.Customer
 
         public void CustomerOutOnStationDone(int cost)
         {
-            ShowApron(GetSalonFirstOrder().OrderConsumable);
+            // ShowApron(GetSalonFirstOrder().OrderConsumable);
             m_CurrentChairLeaveOrder = null;
+            m_OnChairState = CustomerWaitState.Happy;
             m_MainServiceCustomerHandler.ResitOnSalonChair();
             m_MainServiceCustomerHandler.GetSalonChair().AddToRevenue(cost);
             m_MainServiceCustomerHandler.GetSalonChair().ResitAfterLeaveOrder();
-            m_AnimatorController.PlayState(CustomerAnimatorState.SittingDown, () =>
-            {
-                m_AnimatorController.PlayState(m_MainServiceAnimationState);
-            });
+            m_AnimatorController.PlayState(m_MainServiceNormalAnimationState);
+            m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayWrap(null, false);
             m_MainServiceCustomerHandler.ShowNextOrder();
         }
         #endregion
@@ -617,6 +631,14 @@ namespace Isometric.Customer
                 EnablePickupCollider(PickupColliderType.Standing);
                 // m_PickUp.SetActive(true);
             }
+        }
+        #endregion
+
+        #region Listener
+        public void ResetListenersOnLeave()
+        {
+            m_MainServiceCustomerHandler.MainServiceController.OnCustomerServeStart.RemoveListener(SetSatisfiedServiceState);
+            m_MainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.RemoveListener(SetSatisfiedServiceState);
         }
         #endregion
 
@@ -751,6 +773,7 @@ namespace Isometric.Customer
             else if (/*m_PickUp*/m_CurrentPickupCollider != null && m_IsOnSalonChair)
             {
                 m_AnimatorController.PlayState(CustomerAnimatorState.PickedUpNeutral);
+                m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayUnmade(null);
             }
         }
 
@@ -759,20 +782,48 @@ namespace Isometric.Customer
             m_AnimatorController.PlayState(animationState);
         }
 
+        private void SetSatisfiedServiceState()
+        {
+            if (!m_ShowSatisfiedServiceReaction)
+            {
+                if(m_OnChairState != CustomerWaitState.Happy)
+                {
+                    SetMainServiceAnimationState(CustomerWaitState.Happy);
+                }
+            }
+            else
+            {
+                if(m_MainServiceSatisfiedAnimationStates.Count == 0)
+                {
+                    Debug.LogWarning($"{name} | MainServiceSatisfiedAnimationStates count is zero. Couldn't play any satisfied service animation!");
+                    if(m_OnChairState != CustomerWaitState.Happy)
+                    {
+                        SetMainServiceAnimationState(CustomerWaitState.Happy);
+                    }
+                    m_OnChairState = CustomerWaitState.Happy;
+                    return;
+                }
+                CustomerAnimatorState state = m_MainServiceSatisfiedAnimationStates[UnityEngine.Random.Range(0, m_MainServiceSatisfiedAnimationStates.Count)];
+                m_AnimatorController.PlayState(state);
+            }
+            m_OnChairState = CustomerWaitState.Happy;
+        }
+
         public void SetSalonAnimationStateSitting()
         {
             m_AnimatorController.PlayState(CustomerAnimatorState.SittingIdleNeurtalDown);
         }
 
-        public void SetMainServiceAnimationState()
+        public void SetMainServiceAnimationState(CustomerWaitState onChairState)
         {
-            m_AnimatorController.PlayState(m_MainServiceAnimationState);
+            CustomerAnimatorState state = onChairState == CustomerWaitState.Happy ? m_MainServiceNormalAnimationState : m_MainServiceAngryAnimationState;
+            m_AnimatorController.PlayState(state);
         }
 
-        public void SetAnimationStateHappy(Action onCompete)
+        public void SetAnimationStateLeaveHappy(Action onCompete)
         {
             InvokeHappyStateEvent();
-            m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleHappyDown, onCompete);
+            m_AnimatorController.PlayState(m_LeaveHappyAnimationState, onCompete);
         }
 
         public void SetSortingLayer(string layer, int order)
@@ -797,6 +848,10 @@ namespace Isometric.Customer
         public CustomerWaitState GetWaitState()
         {
             return m_WaitState;
+        }
+        public CustomerWaitState GetChairState()
+        {
+            return m_OnChairState;
         }
 
         public CustomerCommonSetting GetCommonSetting()

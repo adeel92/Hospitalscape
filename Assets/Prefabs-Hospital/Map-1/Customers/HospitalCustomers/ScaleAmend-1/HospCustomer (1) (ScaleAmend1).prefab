@@ -78,7 +78,11 @@ MonoBehaviour:
   m_PickedUpSortingLayer: PickedUp
   m_PickedUpZAxis: 0
   m_SittingDragMoveMinDisance: 2.5
-  m_MainServiceAnimationState: 22
+  m_MainServiceNormalAnimationState: 24
+  m_ShowAngryReaction: 1
+  m_MainServiceAngryAnimationState: 25
+  m_ShowSatisfiedServiceReaction: 1
+  m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -165,6 +169,18 @@ MonoBehaviour:
     StateName: LyingPain
   - AnimatorState: 23
     StateName: LyingHappy
+  - AnimatorState: 24
+    StateName: GoingToBedIdleDown
+  - AnimatorState: 24
+    StateName: GoingToBedIdleDown
+  - AnimatorState: 25
+    StateName: GoingToBedAngryDown
+  - AnimatorState: 26
+    StateName: BedHappyReactionDown_A
+  - AnimatorState: 27
+    StateName: BedHappyReactionDown_B
+  - AnimatorState: 28
+    StateName: LeavingHappyDown
 --- !u!1 &6142434879831078360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.67
       objectReference: {fileID: 0}
+    - target: {fileID: 8511433087405472618, guid: d3d11e90e6cf90c43be4c4737add57c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8533304698591602355, guid: d3d11e90e6cf90c43be4c4737add57c3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4557309
@@ -1814,10 +1834,6 @@ PrefabInstance:
     - target: {fileID: 9133922659396527627, guid: d3d11e90e6cf90c43be4c4737add57c3, type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9195386428429522344, guid: d3d11e90e6cf90c43be4c4737add57c3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,6 +13,7 @@ namespace Isometric.Environment
     {
         [Header("---Setup---")]
         [SerializeField] MainServiceController m_MainServiceController;
+        public MainServiceController MainServiceController => m_MainServiceController;
 
         [SerializeField] bool m_ShowCapturingGizmos = true;
         [SerializeField] float m_CaptureDistance;
@@ -27,9 +28,10 @@ namespace Isometric.Environment
         [SerializeField] Transform m_CustomerLeaveHolder;
 
         [Space]
-        [SerializeField] GameObject m_DefaultBlanket;
+        [SerializeField] BlanketAnimationHandler m_DefaultBlanketAnimationHandler;
         [SerializeField] List<MainServiceBlanketInfo> m_BlanketInfo = new();
         [SerializeField, ReadOnly] MainServiceBlanketInfo m_CurrentBlanketInfo;
+        public BlanketAnimationHandler DefaultBlanketAnimationHandler => m_DefaultBlanketAnimationHandler;
 
         [Space, SerializeField, ReadOnly]
         private CustomerSalonController m_CurrentCustomer;
@@ -37,6 +39,18 @@ namespace Isometric.Environment
 
         private bool m_LockForTutorail = false;
         Coroutine m_DectectionUpdate = null;
+
+
+        private void OnEnable()
+        {
+            GlobalEventHolder.OnCurrentTaskTargetCancle += SetBlanketStateOnTaskCancel;
+            GlobalEventHolder.OnCurrentTaskTargetCancleImmediately += SetBlanketStateOnTaskCancel;
+        }
+        private void OnDisable()
+        {
+            GlobalEventHolder.OnCurrentTaskTargetCancle -= SetBlanketStateOnTaskCancel;
+            GlobalEventHolder.OnCurrentTaskTargetCancleImmediately -= SetBlanketStateOnTaskCancel;
+        }
 
         public void SetupForGameplay()
         {
@@ -78,7 +92,7 @@ namespace Isometric.Environment
                                 m_CurrentCustomer.transform.localScale = m_CustomerSittingLocalScale;
                                 m_CurrentCustomer.SetSortingLayer(m_SittingSortingLayer, m_SittingSortingOrder);
                                 m_CurrentCustomer.SitOnServiceSeat(this);
-                                ShowServiceSeatBlanket();
+                                ShowServiceSeatOrderBlanket();
                                 yield break;
                             }
                         }
@@ -88,7 +102,18 @@ namespace Isometric.Environment
             }
         }
 
-        public void ShowServiceSeatBlanket()
+        private void SetBlanketStateOnTaskCancel()
+        {
+            if (m_MainServiceController.m_IsSalonChairBeingCleaned)
+            {
+                m_DefaultBlanketAnimationHandler.PlayDirty(() =>
+                {
+                    m_MainServiceController.m_IsSalonChairBeingCleaned = false;
+                }, false);
+            }
+        }
+
+        public void ShowServiceSeatOrderBlanket()
         {
             if(m_CurrentCustomer == null)
                 return;
@@ -97,19 +122,45 @@ namespace Isometric.Environment
 
             if(blanketInfo != null)
             {
-                m_DefaultBlanket.SetActive(false);
                 m_CurrentBlanketInfo = blanketInfo;
-                blanketInfo.Blanket.SetActive(true);
+                blanketInfo.BlanketAnimationHandler.PlayWrap(() =>
+                {
+                    m_DefaultBlanketAnimationHandler.FadeOut(true);
+                }, true);
             }
         }
-        public void HideServiceSeatBlanket()
+        public void ShowServiceSeatDefaultBlanket(bool showDirty)
         {
             if(m_CurrentBlanketInfo == null)
                 return;
 
-            m_CurrentBlanketInfo.Blanket.SetActive(false);
-            m_DefaultBlanket.SetActive(true);
+            switch (showDirty)
+            {
+                case true:
+                m_DefaultBlanketAnimationHandler.PlayDirty(() =>
+                {
+                    m_CurrentBlanketInfo.BlanketAnimationHandler.FadeOut(true);
+                }, true);
+                break;
+
+                case false:
+                m_CurrentBlanketInfo.BlanketAnimationHandler.FadeOut(true);
+                m_DefaultBlanketAnimationHandler.FadeIn();
+                break;
+            }
+                        
             m_CurrentBlanketInfo = null;
+        }
+
+        public BlanketAnimationHandler GetCurrentBlanketAnimationHandler()
+        {
+            if(m_CurrentBlanketInfo == null)
+                return null;
+
+            if(m_CurrentBlanketInfo.BlanketAnimationHandler == null)
+                return null;
+
+            return m_CurrentBlanketInfo.BlanketAnimationHandler;
         }
 
         public void ResitOnSalonChair()
@@ -134,7 +185,7 @@ namespace Isometric.Environment
             }
             m_DectectionUpdate = StartCoroutine(DectectionUpdate());
 
-            HideServiceSeatBlanket();
+            ShowServiceSeatDefaultBlanket(false);
         }
 
         public void SitOnTheSalonChair()
@@ -151,8 +202,8 @@ namespace Isometric.Environment
             GameObject customer = m_CurrentCustomer.gameObject;
 
             CustomerManager.RemoveFromQueue(m_CurrentCustomer);
-            HideServiceSeatBlanket();
-            m_CurrentCustomer.SetAnimationStateHappy(() =>
+            ShowServiceSeatDefaultBlanket(true);
+            m_CurrentCustomer.SetAnimationStateLeaveHappy(() =>
             {
                 Destroy(customer);
             });
@@ -164,7 +215,7 @@ namespace Isometric.Environment
                 m_DectectionUpdate = null;
             }
             m_DectectionUpdate = StartCoroutine(DectectionUpdate());
-
+            m_CurrentCustomer.ResetListenersOnLeave();
             m_CurrentCustomer = null;
         }
 
@@ -245,7 +296,7 @@ namespace Isometric.Environment
     public class MainServiceBlanketInfo
     {
         public DataConsumable OrderType;
-        public GameObject Blanket;
+        public BlanketAnimationHandler BlanketAnimationHandler;
     }
     #endregion
 }

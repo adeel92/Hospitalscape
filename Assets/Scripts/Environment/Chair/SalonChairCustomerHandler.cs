@@ -117,7 +117,7 @@ namespace Isometric.Environment
             GameObject customer = m_CurrentCustomer.gameObject;
 
             CustomerManager.RemoveFromQueue(m_CurrentCustomer);
-            m_CurrentCustomer.SetAnimationStateHappy(() =>
+            m_CurrentCustomer.SetAnimationStateLeaveHappy(() =>
             {
                 Destroy(customer);
             });
