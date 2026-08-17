@@ -455,7 +455,10 @@ namespace Isometric.Environment
                 {
                     OnMainServiceAreaCleanStart?.Invoke();
                     interactable.EngageInteractable(m_CleaningDirection);
-                    m_CustomerHandler.DefaultBlanketAnimationHandler.PlayCleaning(null);
+                    m_CustomerHandler.DirtyBlanketAnimationHandler.PlayCleaning(() =>
+                    {
+                        m_CustomerHandler.PillowAnimationHandler.PlayCleaning(null);
+                    });
                     m_IsSalonChairBeingCleaned = true;
                     CoroutineManager.LateAction(() =>
                     {
@@ -465,7 +468,14 @@ namespace Isometric.Environment
                         m_IsSalonChairDirty = false;
                         OnMainServiceAreaCleanComplete?.Invoke();
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
-                        m_CustomerHandler.DefaultBlanketAnimationHandler.PlayCleaned(null);
+                        m_CustomerHandler.DefaultBlanketAnimationHandler.PlayCleaned(() =>
+                        {
+                            m_CustomerHandler.DirtyBlanketAnimationHandler.PlayCleaned(() =>
+                            {
+                                m_CustomerHandler.DirtyBlanketAnimationHandler.FadeOut(true);
+                                m_CustomerHandler.PillowAnimationHandler.PlayCleaned(null);
+                            }, false);
+                        }, true);
                     }, m_CleaningDuration);
                 }
                 else

@@ -86,17 +86,19 @@ public class BlanketAnimationHandler : MonoBehaviour
             Debug.LogWarning($"State {BlanketAnimatorState.Cleaning} not found in AnimatorStateInfo!");
         }
     }
-    public void PlayCleaned(Action onStartCallback)
+    public void PlayCleaned(Action onStartCallback, bool doFade)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Normal);
+        string parameterName = GetStateName(BlanketAnimatorState.Cleaned);
         if (!string.IsNullOrEmpty(parameterName))
         {
             onStartCallback?.Invoke();
+            if (doFade)
+                FadeIn();
             m_Animator.SetTrigger(parameterName);
         }
         else
         {
-            Debug.LogWarning($"State {BlanketAnimatorState.Normal} not found in AnimatorStateInfo!");
+            Debug.LogWarning($"State {BlanketAnimatorState.Cleaned} not found in AnimatorStateInfo!");
         }
     }
 
@@ -121,5 +123,5 @@ public enum BlanketAnimatorState
     Unmade,
     Dirty,
     Cleaning,
-    Normal
+    Cleaned
 }

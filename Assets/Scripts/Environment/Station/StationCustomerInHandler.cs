@@ -22,6 +22,17 @@ namespace Isometric.Environment
             public UnityEvent Callback;
         }
 
+        //---For different states during the whole treatment---
+        public Action OnGameplaySetupStart;
+        public Action OnCustomerDraggedIn;
+        public Action OnCustomerDraggedOut;
+        public Action OnCustomerDropped;
+        public Action OnCustomerSettled;
+        public Action<float> OnServiceStart;
+        public Action<float> OnServiceTimerUpdate;
+        public Action OnServiceEnd;
+        public Action OnCustomerLeft;
+
         [Header("---Setup---")]
         [SerializeField] DataConsumable m_InOrder;
         [SerializeField] bool m_ShowCapturingGizmos = true;
@@ -44,8 +55,11 @@ namespace Isometric.Environment
         private CustomerSalonController m_CurrentCustomer;
         public CustomerSalonController CurrentCustomer => m_CurrentCustomer;
 
+        [SerializeField, ReadOnly] float m_BeforeCustomerSettleDelay = 0f;
+        [SerializeField, ReadOnly] float m_BeforeServiceStartDelay = 0f; 
+        [SerializeField, ReadOnly] float m_BeforeCustomerLeaveDelay = 0f;
 
-        Coroutine m_DectectionUpdate = null;
+        private Coroutine m_DectectionUpdate = null;
 
         public void SetupForMenu(float durationProperty, int costProperty)
         {
@@ -55,6 +69,7 @@ namespace Isometric.Environment
 
         public void SetupForGameplay(float durationProperty, int costProperty)
         {
+            OnGameplaySetupStart?.Invoke();
             m_DurationProperty = durationProperty;
             m_CostProperty = costProperty;
 
@@ -64,6 +79,13 @@ namespace Isometric.Environment
                 m_DectectionUpdate = null;
             }
             m_DectectionUpdate = StartCoroutine(DectectionUpdate());
+        }
+
+        public void SetServiceDelays(float beforeCustomerSettleDelay, float beforeServiceStartDelay, float beforeCustomerLeaveDelay)
+        {
+            m_BeforeCustomerSettleDelay = beforeCustomerSettleDelay;
+            m_BeforeServiceStartDelay = beforeServiceStartDelay;
+            m_BeforeCustomerLeaveDelay = beforeCustomerLeaveDelay;
         }
 
         private IEnumerator DectectionUpdate()
@@ -94,6 +116,7 @@ namespace Isometric.Environment
                                 m_CurrentCustomer.SetSortingLayer(m_HoldingSortingLayer, m_HoldingSortingOrder);
                                 m_CurrentCustomer.PlayAnimationState(m_InAnimatorState);
                                 m_CurrentCustomer.SetForCustomerInHandler(this);
+                                OnCustomerDraggedIn?.Invoke();
                                 yield break;
                             }
                         }
@@ -106,6 +129,7 @@ namespace Isometric.Environment
         public void RemoveCustomer()
         {
             m_CurrentCustomer = null;
+            OnCustomerDraggedOut?.Invoke();
             if (m_DectectionUpdate != null)
             {
                 StopCoroutine(m_DectectionUpdate);
@@ -119,6 +143,7 @@ namespace Isometric.Environment
             if(m_CurrentCustomer != null)
             {
                 OnCustomerEnteres?.Invoke();
+                OnCustomerDropped?.Invoke();
                 StartCoroutine(StartingCustomer());
             }
         }
@@ -127,6 +152,13 @@ namespace Isometric.Environment
         {
             float waitCounter = 0;
             int customerAnimationInfoIndex = 0;
+
+            yield return new WaitForSeconds(m_BeforeCustomerSettleDelay);
+            OnCustomerSettled?.Invoke();
+
+            yield return new WaitForSeconds(m_BeforeServiceStartDelay);
+            OnServiceStart?.Invoke(m_DurationProperty);
+
             while (waitCounter < m_DurationProperty)
             {
                 if (customerAnimationInfoIndex < m_CustomerAnimationInfos.Count)
@@ -141,11 +173,15 @@ namespace Isometric.Environment
 
                 yield return null;
                 waitCounter += Time.deltaTime;
+                OnServiceTimerUpdate?.Invoke(waitCounter);
             }
 
+            OnServiceEnd?.Invoke();
+            yield return new WaitForSeconds(m_BeforeCustomerLeaveDelay);
             OnCustomerLeaves?.Invoke();
             //m_CurrentCustomer.PerformanceDone(m_CostProperty);
             CustomerLeaves();
+            OnCustomerLeft?.Invoke();
         }
 
         public void CustomerLeaves()

@@ -328,6 +328,7 @@ namespace Isometric.Customer
             if (m_IsOnSalonChair)
             {
                 transform.SetParent(CustomerManager.ParentTransfomr);
+                transform.localScale = Vector3.one;
             }
             PlaySalonAnimationState();
             HideApron();
@@ -350,6 +351,7 @@ namespace Isometric.Customer
                         m_MainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.RemoveListener(SetSatisfiedServiceState);
                         m_MainServiceCustomerHandler = null;
                         transform.SetParent(CustomerManager.ParentTransfomr);
+                        transform.localScale = Vector3.one;
                         transform.position = pickedPosition;
                         OnDragBegin();
                     }
@@ -366,6 +368,7 @@ namespace Isometric.Customer
                         m_CounterTableController.CustomerRemoved();
                         m_CounterTableController = null;
                         transform.SetParent(CustomerManager.ParentTransfomr);
+                        transform.localScale = Vector3.one;
                         transform.position = pickedPosition;
                         OnDragBegin();
                     }
@@ -383,6 +386,7 @@ namespace Isometric.Customer
                     m_StationCusterInHandler.RemoveCustomer();
                     m_StationCusterInHandler = null;
                     transform.SetParent(CustomerManager.ParentTransfomr);
+                    transform.localScale = Vector3.one;
                     transform.position = pickedPosition;
                     OnDragBegin();
                 }
@@ -677,6 +681,7 @@ namespace Isometric.Customer
                 if(customerManagerTransform != null)
                 {
                     transform.SetParent(customerManagerTransform);
+                    transform.localScale = Vector3.one;
                     transform.position = m_CurrentNode.transform.position;                    
                 }
             }
