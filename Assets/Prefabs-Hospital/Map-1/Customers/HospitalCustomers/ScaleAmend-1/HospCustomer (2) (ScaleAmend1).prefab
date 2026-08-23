@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1981741125045302828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.44, y: -5.25, z: -0.019902}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78,7 +78,12 @@ MonoBehaviour:
   m_PickedUpSortingLayer: PickedUp
   m_PickedUpZAxis: 0
   m_SittingDragMoveMinDisance: 2.5
-  m_MainServiceAnimationState: 22
+  m_MainServiceNormalAnimationState: 24
+  m_ShowAngryReaction: 1
+  m_MainServiceAngryAnimationState: 25
+  m_ShowSatisfiedServiceReaction: 1
+  m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
+  m_LeaveHappyAnimationState: 28
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -115,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 2417109760544677228}
-  m_WalkSpeedMultiplier: 1.7
+  m_WalkSpeedMultiplier: 1.75
   m_AnimatorStateInfo:
   - AnimatorState: 0
     StateName: WalkingRight
@@ -165,6 +170,18 @@ MonoBehaviour:
     StateName: LyingPain
   - AnimatorState: 23
     StateName: LyingHappy
+  - AnimatorState: 24
+    StateName: GoingToBedIdleDown
+  - AnimatorState: 25
+    StateName: GoingToBedAngryDown
+  - AnimatorState: 26
+    StateName: BedHappyReactionDown_A
+  - AnimatorState: 27
+    StateName: BedHappyReactionDown_B
+  - AnimatorState: 28
+    StateName: LeavingHappyDown
+  - AnimatorState: 29
+    StateName: GoingToBedIdleRight
 --- !u!1 &3581086122683184444
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6274945534056940229, guid: 3b179d6582cb02247930969771b1c78d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.22
+      value: 3.47
       objectReference: {fileID: 0}
     - target: {fileID: 6274945534056940229, guid: 3b179d6582cb02247930969771b1c78d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -735,6 +752,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallCustomerAnimation (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1023331829956843384, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369204301313834514, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376037013026936592, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481240654670151122, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080538090130212879, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594529962845525368, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313653497371871710, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961661649333378442, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892074271567044622, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6783979335310600495, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -773,6 +826,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6783979335310600495, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7821095447690060403, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456889687117571904, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935966762979078353, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212539676262782955, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

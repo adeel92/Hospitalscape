@@ -372,7 +372,12 @@ MonoBehaviour:
   m_PickedUpSortingLayer: PickedUp
   m_PickedUpZAxis: 0
   m_SittingDragMoveMinDisance: 2.5
-  m_MainServiceAnimationState: 22
+  m_MainServiceNormalAnimationState: 24
+  m_ShowAngryReaction: 1
+  m_MainServiceAngryAnimationState: 25
+  m_ShowSatisfiedServiceReaction: 1
+  m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
+  m_LeaveHappyAnimationState: 28
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -409,7 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 4382595374696693305}
-  m_WalkSpeedMultiplier: 1.7
+  m_WalkSpeedMultiplier: 1.75
   m_AnimatorStateInfo:
   - AnimatorState: 0
     StateName: WalkingRight
@@ -459,6 +464,18 @@ MonoBehaviour:
     StateName: LyingPain
   - AnimatorState: 23
     StateName: LyingHappy
+  - AnimatorState: 24
+    StateName: GoingToBedIdleDown
+  - AnimatorState: 25
+    StateName: GoingToBedAngryDown
+  - AnimatorState: 26
+    StateName: BedHappyReactionDown_A
+  - AnimatorState: 27
+    StateName: BedHappyReactionDown_B
+  - AnimatorState: 28
+    StateName: LeavingHappyDown
+  - AnimatorState: 29
+    StateName: GoingToBedIdleRight
 --- !u!1 &6236493968688347684
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6274945534056940229, guid: 3b179d6582cb02247930969771b1c78d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.27
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 6274945534056940229, guid: 3b179d6582cb02247930969771b1c78d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

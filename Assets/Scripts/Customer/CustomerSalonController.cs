@@ -383,12 +383,12 @@ namespace Isometric.Customer
                 if (m_StationCusterInHandler != null
                     && Vector3.Distance(pickedPosition, m_StationCusterInHandler.transform.position) > m_StationCusterInHandler.GetExitDistance())
                 {
+                    OnDragBegin();
                     m_StationCusterInHandler.RemoveCustomer();
                     m_StationCusterInHandler = null;
                     transform.SetParent(CustomerManager.ParentTransfomr);
                     transform.localScale = Vector3.one;
                     transform.position = pickedPosition;
-                    OnDragBegin();
                 }
                 else if (m_StationCusterInHandler == null)
                 {
@@ -778,7 +778,10 @@ namespace Isometric.Customer
             else if (/*m_PickUp*/m_CurrentPickupCollider != null && m_IsOnSalonChair)
             {
                 m_AnimatorController.PlayState(CustomerAnimatorState.PickedUpNeutral);
-                m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayUnmade(null);
+                if(m_StationCusterInHandler == null)
+                {
+                    m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayUnmade(null);
+                }
             }
         }
 

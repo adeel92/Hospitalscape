@@ -14,6 +14,7 @@ public class BlanketAnimationHandler : MonoBehaviour
 
     public void FadeIn()
     {
+        m_BlanketRenderer.DOKill();
         m_BlanketRenderer.gameObject.SetActive(false);
         Color color = m_BlanketRenderer.color;
         color.a = 0f;
@@ -23,6 +24,7 @@ public class BlanketAnimationHandler : MonoBehaviour
     }
     public void FadeOut(bool disableOnFade)
     {
+        m_BlanketRenderer.DOKill();
         m_BlanketRenderer.DOFade(0f, m_FadeDuration).OnComplete(() =>
         {
             if(disableOnFade)
@@ -32,9 +34,15 @@ public class BlanketAnimationHandler : MonoBehaviour
 
     public void PlayWrap(Action onStartCallback, bool doFade)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Wrap);
+        AnimatorTriggerInfo triggerInfo = GetTriggerInfo(BlanketAnimatorState.Wrap);
+        string parameterName = triggerInfo.ParameterName;
+        string stateName = triggerInfo.NextStateName;
         if (!string.IsNullOrEmpty(parameterName))
         {
+            /* AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if(currentAnimatorStateInfo.IsName(stateName))  // State already running
+                return; */
+
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
@@ -47,9 +55,16 @@ public class BlanketAnimationHandler : MonoBehaviour
     }
     public void PlayUnmade(Action onStartCallback)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Unmade);
+        // Debug.Log($"ADEEL... {gameObject.name} : PlayUnmade()");
+        AnimatorTriggerInfo triggerInfo = GetTriggerInfo(BlanketAnimatorState.Unmade);
+        string parameterName = triggerInfo.ParameterName;
+        string stateName = triggerInfo.NextStateName;
         if (!string.IsNullOrEmpty(parameterName))
         {
+            /* AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if(currentAnimatorStateInfo.IsName(stateName))  // State already running
+                return; */
+
             onStartCallback?.Invoke();
             m_Animator.SetTrigger(parameterName);
         }
@@ -60,9 +75,15 @@ public class BlanketAnimationHandler : MonoBehaviour
     }
     public void PlayDirty(Action onStartCallback, bool doFade)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Dirty);
+        AnimatorTriggerInfo triggerInfo = GetTriggerInfo(BlanketAnimatorState.Dirty);
+        string parameterName = triggerInfo.ParameterName;
+        string stateName = triggerInfo.NextStateName;
         if (!string.IsNullOrEmpty(parameterName))
         {
+            /* AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if(currentAnimatorStateInfo.IsName(stateName))  // State already running
+                return; */
+
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
@@ -75,9 +96,15 @@ public class BlanketAnimationHandler : MonoBehaviour
     }
     public void PlayCleaning(Action onStartCallback)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Cleaning);
+        AnimatorTriggerInfo triggerInfo = GetTriggerInfo(BlanketAnimatorState.Cleaning);
+        string parameterName = triggerInfo.ParameterName;
+        string stateName = triggerInfo.NextStateName;
         if (!string.IsNullOrEmpty(parameterName))
         {
+            /* AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if(currentAnimatorStateInfo.IsName(stateName))  // State already running
+                return; */
+
             onStartCallback?.Invoke();
             m_Animator.SetTrigger(parameterName);
         }
@@ -88,9 +115,15 @@ public class BlanketAnimationHandler : MonoBehaviour
     }
     public void PlayCleaned(Action onStartCallback, bool doFade)
     {
-        string parameterName = GetStateName(BlanketAnimatorState.Cleaned);
+        AnimatorTriggerInfo triggerInfo = GetTriggerInfo(BlanketAnimatorState.Cleaned);
+        string parameterName = triggerInfo.ParameterName;
+        string stateName = triggerInfo.NextStateName;
         if (!string.IsNullOrEmpty(parameterName))
         {
+            /* AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+            if(currentAnimatorStateInfo.IsName(stateName))  // State already running
+                return; */
+
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
@@ -102,6 +135,11 @@ public class BlanketAnimationHandler : MonoBehaviour
         }
     }
 
+    private AnimatorTriggerInfo GetTriggerInfo(BlanketAnimatorState state)
+    {
+        AnimatorTriggerInfo stateInfo = m_AnimatorStateInfo.Find(info => info.AnimatorState == state);
+        return stateInfo;
+    }
     private string GetStateName(BlanketAnimatorState state)
     {
         AnimatorTriggerInfo stateInfo = m_AnimatorStateInfo.Find(info => info.AnimatorState == state);
@@ -114,6 +152,7 @@ public class BlanketAnimationHandler : MonoBehaviour
     {
         public BlanketAnimatorState AnimatorState;
         public string ParameterName;
+        public string NextStateName;
     }
 }
 
