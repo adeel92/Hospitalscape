@@ -38,7 +38,11 @@ namespace Isometric.Environment
         [SerializeField] bool m_ShowCapturingGizmos = true;
         [SerializeField] float m_CaptureDistance;
         [SerializeField] float m_ExitDistance;
+        [SerializeField] float m_DetectionCooldownDuration = 0.2f;
         [SerializeField] CustomerAnimatorState m_InAnimatorState;
+        [SerializeField] bool m_HasCustomerServiceEndAnimation = false;
+        [ShowIf(nameof(m_HasCustomerServiceEndAnimation))]
+        [SerializeField] CustomerAnimatorState m_CustomerServiceEndState;
 
         [Space]
         [SerializeField] Transform m_CustomerHolder;
@@ -91,6 +95,7 @@ namespace Isometric.Environment
         private IEnumerator DectectionUpdate()
         {
             float sqrCaptureDistance = m_CaptureDistance * m_CaptureDistance;
+            yield return new WaitForSeconds(m_DetectionCooldownDuration);
 
             while (true)
             {
@@ -177,11 +182,15 @@ namespace Isometric.Environment
             }
 
             OnServiceEnd?.Invoke();
+            if (m_HasCustomerServiceEndAnimation)
+            {
+                m_CurrentCustomer.PlayAnimationState(m_CustomerServiceEndState);
+            }
             yield return new WaitForSeconds(m_BeforeCustomerLeaveDelay);
             OnCustomerLeaves?.Invoke();
             //m_CurrentCustomer.PerformanceDone(m_CostProperty);
-            CustomerLeaves();
             OnCustomerLeft?.Invoke();
+            CustomerLeaves();
         }
 
         public void CustomerLeaves()

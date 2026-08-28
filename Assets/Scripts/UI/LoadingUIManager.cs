@@ -64,21 +64,33 @@ namespace Isometric.UI
         {
             AsyncOperation loadingOperation = null;
             m_IsLoading = true;
+            Debug.Log($"ADEEL LOADING 1");
             OpenPopup(() =>
             {
+                Debug.Log($"ADEEL LOADING 3");
+                DOTween.KillAll();
+                Debug.Log($"ADEEL LOADING 4");
                 loadingOperation = SceneManager.LoadSceneAsync(sceneName);
             });
 
+            Debug.Log($"ADEEL LOADING 2");
             yield return null;
 
             while (loadingOperation == null || !loadingOperation.isDone)
+            {
+                Debug.Log($"ADEEL LOADING 5");
                 yield return null;
+            }
 
+            Debug.Log($"ADEEL LOADING 6");
             m_LoadingBarFillImage.DOFillAmount(1f, m_LoadingDuration).OnComplete(() =>
             {
+                Debug.Log($"ADEEL LOADING 8");
                 ClosePopup(null);
             });
+            Debug.Log($"ADEEL LOADING 7");
             yield return new WaitForSeconds(m_CharacterDisplayDelay);
+            Debug.Log($"ADEEL LOADING 9");
             m_CharacterHolderTween.Play();
         }
 

@@ -77,7 +77,8 @@ namespace Isometric.Environment
                     {
                         if (salonCustomer != null 
                             && !salonCustomer.IsCustomerOnSalonChair()
-                            && !salonCustomer.IsCustomerFirstOrderUndecided())
+                            && !salonCustomer.IsCustomerFirstOrderUndecided()
+                            && !salonCustomer.IsCustomerAlreadyDetectedByMainService())
                         {
                             float sqrDist = (salonCustomer.transform.position - transform.position).sqrMagnitude;
 

@@ -44,6 +44,7 @@ namespace Isometric.Environment
             }
 
             onStartCallback?.Invoke();
+            ResetAllTriggers();
             if(onCompleteCallback == null)
             {
                 m_Animator.SetTrigger(triggerInfo.ParameterName);
@@ -67,6 +68,17 @@ namespace Isometric.Environment
             }
 
             onCompleteCallback?.Invoke();
+        }
+
+        private void ResetAllTriggers()
+        {
+            foreach (var triggerInfo in m_AnimatorTriggerInfo)
+            {
+                if (!string.IsNullOrEmpty(triggerInfo.ParameterName))
+                {
+                    m_Animator.ResetTrigger(triggerInfo.ParameterName);
+                }
+            }
         }
 
         private AnimatorTriggerInfo GetTriggerInfo(StationCustomerInItemAnimatorStates state)
@@ -99,6 +111,12 @@ namespace Isometric.Environment
         MoveOutside,
         DisplayWave,
         ScanComplete,
-        Hold
+        Hold,
+        On,
+        Off,
+        Glow,
+        Open,
+        Close,
+        ScalePingPong
     }
 }

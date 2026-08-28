@@ -125,6 +125,9 @@ namespace Isometric.Customer
         BedHappyReactionDown_A,
         BedHappyReactionDown_B,
         LeavingHappyDown,
-        GoingToBedIdleRight
+        GoingToBedIdleRight,
+        GoingToSteadyStandRight,
+        SteadyStandingRight,
+        SteadyStandingHappyRight
     }
 }

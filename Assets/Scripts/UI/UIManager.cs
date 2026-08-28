@@ -905,7 +905,7 @@ namespace Isometric.UI
             }
 
             GameManager.UnPauseGame();
-            DOTween.KillAll();
+            // DOTween.KillAll();
             CoroutineManager.StopAllCoroutine();
             LoadingUIManager.LoadScene(s_Instance.m_SceneName);
             // SceneManager.LoadScene(s_Instance.m_SceneName);

@@ -109,7 +109,7 @@ namespace Isometric.Environment
             m_OnCustomerLeft?.Invoke();
         }
 
-        public void SetTimerFill(float fillAmount)
+        private void SetTimerFill(float fillAmount)
         {
             if(m_TimerFillBarMaterial == null)
             {

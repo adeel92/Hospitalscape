@@ -49,8 +49,11 @@ namespace Isometric.Customer
         [SerializeField] List<CustomerAnimatorState> m_MainServiceSatisfiedAnimationStates = new();
         [SerializeField] CustomerAnimatorState m_LeaveHappyAnimationState = CustomerAnimatorState.LeavingHappyDown;
 
+        [InfoBox("To let the customer executes its post-detection animation (t-pose) before reaching the new main service seat. \nNote: This duration is useful when one seat's captured distance is overlapping the exit distance of the other seat!", EInfoBoxType.Normal)]
+        [SerializeField] float m_MainServiceDetectionCooldownDuration = 0.1f;
+        [SerializeField, ReadOnly] bool m_IsAlreadyDetectedByMainService = false;
         private MainServiceCustomerHandler m_MainServiceCustomerHandler = null;
-        private StationCustomerInHandler m_StationCusterInHandler = null;
+        [SerializeField, ReadOnly] private StationCustomerInHandler m_StationCusterInHandler = null;
         private CounterTableController m_CounterTableController = null;
 
         [Header("---Loaded Externally---")]
@@ -170,7 +173,7 @@ namespace Isometric.Customer
         {
             if(m_CurrentPickupCollider != null)
             {
-                Debug.Log($"Adeel {name} : {m_CurrentPickupCollider.ColliderObj != null}");
+                // Debug.Log($"Adeel {name} : {m_CurrentPickupCollider.ColliderObj != null}");
                 m_CurrentPickupCollider.ColliderObj.SetActive(false);
                 m_CurrentPickupCollider = null;
             }
@@ -354,6 +357,10 @@ namespace Isometric.Customer
                         transform.localScale = Vector3.one;
                         transform.position = pickedPosition;
                         OnDragBegin();
+                        CoroutineManager.LateAction(() =>
+                        {
+                            m_IsAlreadyDetectedByMainService = false;
+                        }, m_MainServiceDetectionCooldownDuration);
                     }
                     else if (m_MainServiceCustomerHandler == null)
                     {
@@ -396,7 +403,7 @@ namespace Isometric.Customer
                 }
             }
         }
-
+        
         public void OnDragEnd()
         {
             m_IsPickedUp = false;
@@ -519,6 +526,7 @@ namespace Isometric.Customer
         {
             if (!m_IsOnSalonChair)
             {
+                m_IsAlreadyDetectedByMainService = true;
                 m_MainServiceCustomerHandler = mainServiceCustomerHandler;
                 mainServiceCustomerHandler.MainServiceController.OnCustomerServeStart.AddListener(SetSatisfiedServiceState);
                 mainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.AddListener(SetSatisfiedServiceState);
@@ -559,6 +567,7 @@ namespace Isometric.Customer
         {
             // ShowApron(GetSalonFirstOrder().OrderConsumable);
             m_CurrentChairLeaveOrder = null;
+            m_StationCusterInHandler = null;
             m_OnChairState = CustomerWaitState.Happy;
             m_MainServiceCustomerHandler.ResitOnSalonChair();
             m_MainServiceCustomerHandler.GetSalonChair().AddToRevenue(cost);
@@ -880,6 +889,11 @@ namespace Isometric.Customer
         public bool IsCustomerFirstOrderUndecided()
         {
             return m_IsFirstOrderUndecided;
+        }
+
+        public bool IsCustomerAlreadyDetectedByMainService()
+        {
+            return m_IsAlreadyDetectedByMainService;
         }
 
         // Returns the Order Type and UI Order Position

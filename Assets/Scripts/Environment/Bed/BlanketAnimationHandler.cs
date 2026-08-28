@@ -46,6 +46,7 @@ public class BlanketAnimationHandler : MonoBehaviour
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
+            ResetAllTriggers();
             m_Animator.SetTrigger(parameterName);
         }
         else
@@ -66,6 +67,7 @@ public class BlanketAnimationHandler : MonoBehaviour
                 return; */
 
             onStartCallback?.Invoke();
+            ResetAllTriggers();
             m_Animator.SetTrigger(parameterName);
         }
         else
@@ -87,6 +89,7 @@ public class BlanketAnimationHandler : MonoBehaviour
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
+            ResetAllTriggers();
             m_Animator.SetTrigger(parameterName);
         }
         else
@@ -106,6 +109,7 @@ public class BlanketAnimationHandler : MonoBehaviour
                 return; */
 
             onStartCallback?.Invoke();
+            ResetAllTriggers();
             m_Animator.SetTrigger(parameterName);
         }
         else
@@ -127,11 +131,23 @@ public class BlanketAnimationHandler : MonoBehaviour
             onStartCallback?.Invoke();
             if (doFade)
                 FadeIn();
+            ResetAllTriggers();
             m_Animator.SetTrigger(parameterName);
         }
         else
         {
             Debug.LogWarning($"State {BlanketAnimatorState.Cleaned} not found in AnimatorStateInfo!");
+        }
+    }
+
+    private void ResetAllTriggers()
+    {
+        foreach (var triggerInfo in m_AnimatorStateInfo)
+        {
+            if (!string.IsNullOrEmpty(triggerInfo.ParameterName))
+            {
+                m_Animator.ResetTrigger(triggerInfo.ParameterName);
+            }
         }
     }
 

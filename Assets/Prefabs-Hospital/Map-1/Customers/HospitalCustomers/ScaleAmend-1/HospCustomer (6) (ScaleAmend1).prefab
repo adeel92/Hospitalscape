@@ -378,6 +378,8 @@ MonoBehaviour:
   m_ShowSatisfiedServiceReaction: 1
   m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
   m_LeaveHappyAnimationState: 28
+  m_MainServiceDetectionCooldownDuration: 0.06
+  m_IsAlreadyDetectedByMainService: 0
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -476,6 +478,12 @@ MonoBehaviour:
     StateName: LeavingHappyDown
   - AnimatorState: 29
     StateName: GoingToBedIdleRight
+  - AnimatorState: 30
+    StateName: GoingToSteadyStandRight
+  - AnimatorState: 31
+    StateName: SteadyStandingRight
+  - AnimatorState: 32
+    StateName: SteadyStandingHappyRight
 --- !u!1 &6560367459602397173
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +776,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1784409239256374758, guid: 73f3c2734fd1f0a48a92f5edb5209d5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000000102611615
+      objectReference: {fileID: 0}
     - target: {fileID: 3126519309196092368, guid: 73f3c2734fd1f0a48a92f5edb5209d5d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -783,10 +795,6 @@ PrefabInstance:
     - target: {fileID: 4236788819913561570, guid: 73f3c2734fd1f0a48a92f5edb5209d5d, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5365528877234598193, guid: 73f3c2734fd1f0a48a92f5edb5209d5d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5700059450511086931, guid: 73f3c2734fd1f0a48a92f5edb5209d5d, type: 3}
       propertyPath: m_IsActive

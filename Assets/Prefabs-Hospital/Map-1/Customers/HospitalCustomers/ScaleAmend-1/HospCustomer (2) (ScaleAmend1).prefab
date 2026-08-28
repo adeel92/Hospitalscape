@@ -84,6 +84,8 @@ MonoBehaviour:
   m_ShowSatisfiedServiceReaction: 1
   m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
   m_LeaveHappyAnimationState: 28
+  m_MainServiceDetectionCooldownDuration: 0.06
+  m_IsAlreadyDetectedByMainService: 0
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -182,6 +184,12 @@ MonoBehaviour:
     StateName: LeavingHappyDown
   - AnimatorState: 29
     StateName: GoingToBedIdleRight
+  - AnimatorState: 30
+    StateName: GoingToSteadyStandRight
+  - AnimatorState: 31
+    StateName: SteadyStandingRight
+  - AnimatorState: 32
+    StateName: SteadyStandingHappyRight
 --- !u!1 &3581086122683184444
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,9 +788,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4961661649333378442, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+    - target: {fileID: 3404901841318961004, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803835687627196318, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5892074271567044622, guid: e3e244d836a3f0c45b344e8c4b73f7ac, type: 3}
       propertyPath: m_IsActive

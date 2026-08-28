@@ -378,6 +378,8 @@ MonoBehaviour:
   m_ShowSatisfiedServiceReaction: 1
   m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
   m_LeaveHappyAnimationState: 28
+  m_MainServiceDetectionCooldownDuration: 0.06
+  m_IsAlreadyDetectedByMainService: 0
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -476,6 +478,12 @@ MonoBehaviour:
     StateName: LeavingHappyDown
   - AnimatorState: 29
     StateName: GoingToBedIdleRight
+  - AnimatorState: 30
+    StateName: GoingToSteadyStandRight
+  - AnimatorState: 31
+    StateName: SteadyStandingRight
+  - AnimatorState: 32
+    StateName: SteadyStandingHappyRight
 --- !u!1 &6236493968688347684
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +756,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1245087754506445165}
     m_Modifications:
+    - target: {fileID: 2943882701890337380, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3494912654427609913, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071758643400300975, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093444002880036356, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105020855809412726, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152521621514243461, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4217903003383896772, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -788,9 +820,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4676144792549519478, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4761176280071713967, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
       propertyPath: m_Name
       value: SmallCustomerAnimation (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886998848159600708, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945181429730784245, guid: fe0ce7874b442ec4d964d89484c5c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
