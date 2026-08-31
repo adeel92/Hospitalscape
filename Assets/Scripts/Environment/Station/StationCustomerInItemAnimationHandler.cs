@@ -117,6 +117,7 @@ namespace Isometric.Environment
         Glow,
         Open,
         Close,
-        ScalePingPong
+        ScalePingPong,
+        StandBy
     }
 }

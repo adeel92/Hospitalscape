@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Isometric.Customer;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -93,7 +94,7 @@ namespace Isometric.Environment
             m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, null, null);
             m_OnCustomerDraggedOut?.Invoke();
         }
-        private void OnCustomerDropped()
+        private void OnCustomerDropped(CustomerSalonController customerSalonController)
         {
             m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Close, null, null);
         }

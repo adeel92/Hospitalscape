@@ -23,10 +23,11 @@ namespace Isometric.Environment
         }
 
         //---For different states during the whole treatment---
+        public Action OnMenuSetupStart;
         public Action OnGameplaySetupStart;
         public Action OnCustomerDraggedIn;
         public Action OnCustomerDraggedOut;
-        public Action OnCustomerDropped;
+        public Action<CustomerSalonController> OnCustomerDropped;
         public Action OnCustomerSettled;
         public Action<float> OnServiceStart;
         public Action<float> OnServiceTimerUpdate;
@@ -40,6 +41,9 @@ namespace Isometric.Environment
         [SerializeField] float m_ExitDistance;
         [SerializeField] float m_DetectionCooldownDuration = 0.2f;
         [SerializeField] CustomerAnimatorState m_InAnimatorState;
+        [SerializeField] bool m_HasCustomerServiceStartAnimation = false;
+        [ShowIf(nameof(m_HasCustomerServiceStartAnimation))]
+        [SerializeField] CustomerAnimatorState m_CustomerServiceStartState;
         [SerializeField] bool m_HasCustomerServiceEndAnimation = false;
         [ShowIf(nameof(m_HasCustomerServiceEndAnimation))]
         [SerializeField] CustomerAnimatorState m_CustomerServiceEndState;
@@ -67,6 +71,7 @@ namespace Isometric.Environment
 
         public void SetupForMenu(float durationProperty, int costProperty)
         {
+            OnMenuSetupStart?.Invoke();
             m_DurationProperty = durationProperty;
             m_CostProperty = costProperty;
         }
@@ -148,7 +153,7 @@ namespace Isometric.Environment
             if(m_CurrentCustomer != null)
             {
                 OnCustomerEnteres?.Invoke();
-                OnCustomerDropped?.Invoke();
+                OnCustomerDropped?.Invoke(m_CurrentCustomer);
                 StartCoroutine(StartingCustomer());
             }
         }
@@ -163,6 +168,10 @@ namespace Isometric.Environment
 
             yield return new WaitForSeconds(m_BeforeServiceStartDelay);
             OnServiceStart?.Invoke(m_DurationProperty);
+            if (m_HasCustomerServiceStartAnimation)
+            {
+                m_CurrentCustomer.PlayAnimationState(m_CustomerServiceStartState);
+            }
 
             while (waitCounter < m_DurationProperty)
             {

@@ -1,3 +1,4 @@
+using Isometric.Customer;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
@@ -69,7 +70,7 @@ namespace Isometric.Environment
         {
             m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
         }
-        private void OnCustomerDropped()
+        private void OnCustomerDropped(CustomerSalonController customerSalonController)
         {
             m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Hold, null, null);
             m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Hold, null, null);

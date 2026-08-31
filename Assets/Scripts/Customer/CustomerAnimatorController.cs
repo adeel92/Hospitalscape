@@ -8,6 +8,7 @@ namespace Isometric.Customer
     public class CustomerAnimatorController : MonoBehaviour
     {
         private static readonly int WalkSpeed = Animator.StringToHash("WalkSpeed");
+        private static readonly int SteadyWalkSpeed = Animator.StringToHash("SteadyWalkSpeed");
 
 
         [Serializable]
@@ -85,6 +86,10 @@ namespace Isometric.Customer
         {
             m_Animator.SetFloat(WalkSpeed, speed * m_WalkSpeedMultiplier);
         }
+        public void SetSteadyWalkSpeed(float multiplier)
+        {
+            m_Animator.SetFloat(SteadyWalkSpeed, multiplier);
+        }
 
         private string GetStateName(CustomerAnimatorState state)
         {
@@ -128,6 +133,10 @@ namespace Isometric.Customer
         GoingToBedIdleRight,
         GoingToSteadyStandRight,
         SteadyStandingRight,
-        SteadyStandingHappyRight
+        SteadyStandingHappyRight,
+        GoingToSteadyStandLeft,
+        SteadyStandingLeft,
+        SteadyStandingHappyLeft,
+        SteadyWalkLeft
     }
 }

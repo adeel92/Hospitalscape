@@ -843,6 +843,11 @@ namespace Isometric.Customer
             m_AnimatorController.PlayState(m_LeaveHappyAnimationState, onCompete);
         }
 
+        public void SetSteadyWalkSpeedMultiplier(float multiplier)
+        {
+            m_AnimatorController.SetSteadyWalkSpeed(multiplier);
+        }
+
         public void SetSortingLayer(string layer, int order)
         {
             foreach (var sortingGroup in m_SortingGroups)

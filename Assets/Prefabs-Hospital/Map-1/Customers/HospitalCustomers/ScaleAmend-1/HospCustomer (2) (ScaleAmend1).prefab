@@ -86,6 +86,7 @@ MonoBehaviour:
   m_LeaveHappyAnimationState: 28
   m_MainServiceDetectionCooldownDuration: 0.06
   m_IsAlreadyDetectedByMainService: 0
+  m_StationCusterInHandler: {fileID: 0}
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
     Customer: 0
@@ -190,6 +191,14 @@ MonoBehaviour:
     StateName: SteadyStandingRight
   - AnimatorState: 32
     StateName: SteadyStandingHappyRight
+  - AnimatorState: 33
+    StateName: GoingToSteadyStandLeft
+  - AnimatorState: 34
+    StateName: SteadyStandingLeft
+  - AnimatorState: 35
+    StateName: SteadyStandingHappyLeft
+  - AnimatorState: 36
+    StateName: SteadyWalkingLeft
 --- !u!1 &3581086122683184444
 GameObject:
   m_ObjectHideFlags: 0
