@@ -6,8 +6,12 @@ namespace Isometric
 {
     public class ImageFillController : MonoBehaviour
     {
-        [SerializeField] private Image m_TargetImage;
+        [SerializeField] GameObject m_CanvasObj;
+        [SerializeField] Image m_TargetImage;
+        [SerializeField] float m_DelayBeforeFill = 0f;
+
         private Coroutine m_FillImageOverTime;
+
         private void Awake()
         {
             if (m_TargetImage == null)
@@ -22,13 +26,15 @@ namespace Isometric
             {
                 StopCoroutine(m_FillImageOverTime);
             }
+            m_TargetImage.fillAmount = 0f;
+            m_CanvasObj.SetActive(true);
             m_FillImageOverTime = StartCoroutine(FillImageOverTime(duration));
         }
 
         private IEnumerator FillImageOverTime(float duration)
         {
             float elapsed = 0f;
-            m_TargetImage.fillAmount = 0f;
+            yield return new WaitForSeconds(m_DelayBeforeFill);
 
             while (elapsed < duration)
             {
@@ -38,6 +44,7 @@ namespace Isometric
             }
 
             m_TargetImage.fillAmount = 1f;
+            m_CanvasObj.SetActive(false);
         }
     }
 }

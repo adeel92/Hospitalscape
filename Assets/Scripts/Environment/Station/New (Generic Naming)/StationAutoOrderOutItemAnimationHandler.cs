@@ -1,0 +1,97 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Isometric.Environment
+{
+    public class StationAutoOrderOutItemAnimationHandler : MonoBehaviour
+    {
+        [SerializeField] List<AnimatorTriggerInfo> m_AnimatorTriggerInfo;
+        [Space, SerializeField] Animator m_Animator;
+
+
+        public void PlayState(StationAutoOrderOutItemAnimatorStates state, Action onStartCallback, Action onCompleteCallback)
+        {
+            AnimatorTriggerInfo triggerInfo = GetTriggerInfo(state);
+            if(triggerInfo == null)
+            {
+                Debug.LogWarning($"TriggerInfo for {state} state not found in AnimatorStateInfo of {nameof(StationAutoOrderOutItemAnimationHandler)}!");
+                return;
+            }
+            if(string.IsNullOrEmpty(triggerInfo.ParameterName))
+            {
+                Debug.LogWarning($"ParameterName for {state} state not found in AnimatorStateInfo of {nameof(StationAutoOrderOutItemAnimationHandler)}!");
+                return;
+            }
+            if(string.IsNullOrEmpty(triggerInfo.StateName))
+            {
+                Debug.LogWarning($"StateName for {state} state not found in AnimatorStateInfo of {nameof(StationAutoOrderOutItemAnimationHandler)}!");
+                return;
+            }
+
+            onStartCallback?.Invoke();
+            ResetAllTriggers();
+            if(onCompleteCallback == null)
+            {
+                m_Animator.SetTrigger(triggerInfo.ParameterName);
+            }
+            else
+            {
+                StartCoroutine(PlayStateWithCompleteCallback(triggerInfo, onCompleteCallback));
+            }
+        }
+        private IEnumerator PlayStateWithCompleteCallback(AnimatorTriggerInfo triggerInfo, Action onCompleteCallback)
+        {
+            m_Animator.SetTrigger(triggerInfo.ParameterName);
+
+            yield return null;
+            AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+
+            while (currentAnimatorStateInfo.IsName(triggerInfo.StateName) &&
+                   currentAnimatorStateInfo.normalizedTime < 1.0f)
+            {
+                yield return null;
+            }
+
+            onCompleteCallback?.Invoke();
+        }
+
+        private void ResetAllTriggers()
+        {
+            foreach (var triggerInfo in m_AnimatorTriggerInfo)
+            {
+                if (!string.IsNullOrEmpty(triggerInfo.ParameterName))
+                {
+                    m_Animator.ResetTrigger(triggerInfo.ParameterName);
+                }
+            }
+        }
+
+        private AnimatorTriggerInfo GetTriggerInfo(StationAutoOrderOutItemAnimatorStates state)
+        {
+            AnimatorTriggerInfo stateInfo = m_AnimatorTriggerInfo.Find(info => info.AnimatorState == state);
+            return stateInfo;
+        }
+        private string GetStateName(StationAutoOrderOutItemAnimatorStates state)
+        {
+            AnimatorTriggerInfo stateInfo = m_AnimatorTriggerInfo.Find(info => info.AnimatorState == state);
+            return stateInfo?.ParameterName;
+        }
+
+
+        [Serializable]
+        private class AnimatorTriggerInfo
+        {
+            public StationAutoOrderOutItemAnimatorStates AnimatorState;
+            public string ParameterName;
+            public string StateName;
+        }
+    }
+
+    public enum StationAutoOrderOutItemAnimatorStates
+    {
+        Init,
+        Fill
+    }
+}
