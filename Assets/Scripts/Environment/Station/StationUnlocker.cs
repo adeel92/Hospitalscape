@@ -65,5 +65,9 @@ namespace Isometric.Environment
         public void EngageInteractable(PathDirection direction);
 
         public void RemoveAllDataConsumables();
+
+        public void HideAllVisibleDataConsumables(float duration);
+
+        public bool IsCarryingAnyDataConsumable();
     }
 }

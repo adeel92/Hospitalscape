@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Isometric.TaskSystem;
+using Isometric.PathSystem;
 
 namespace Isometric.Environment
 {
@@ -10,6 +9,10 @@ namespace Isometric.Environment
     {
         [Header("---Setup---")]
         [SerializeField] TaskTrigger m_TaskTrigger;
+        [SerializeField] PathDirection m_EngageDirection;
+        [SerializeField] float m_RemoveDuration = 0.5f;
+        [SerializeField] float m_HoldingItemHideDuration = 0.85f;
+        [SerializeField] UnityEvent OnEngageSuccessful;
         [SerializeField] UnityEvent OnTaskSuccesful;
 
         private void OnEnable()
@@ -26,9 +29,22 @@ namespace Isometric.Environment
         {
             if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable))
             {
-                interactable.RemoveAllDataConsumables();
-                OnTaskSuccesful?.Invoke();
-                m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                if (interactable.IsCarryingAnyDataConsumable())
+                {
+                    interactable.EngageInteractable(m_EngageDirection);
+                    OnEngageSuccessful?.Invoke();
+                    interactable.HideAllVisibleDataConsumables(m_HoldingItemHideDuration);
+                    CoroutineManager.LateAction(() =>
+                    {
+                        interactable.RemoveAllDataConsumables();
+                        OnTaskSuccesful?.Invoke();
+                        m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                    }, m_RemoveDuration);
+                }
+                else
+                {
+                    m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                }
             }
             else
             {

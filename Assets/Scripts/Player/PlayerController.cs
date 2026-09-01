@@ -236,10 +236,20 @@ namespace Isometric.Player
             m_TrayController.RemoveAllItem();
         }
 
+        public void HideAllVisibleDataConsumables(float duration)
+        {
+            m_TrayController.HideAllVisibleItems(duration);
+        }
+
         public void EngageInteractable(PathDirection direction)
         {
             SoundManager.PlaySound(SoundType.TaskInteractions);
             m_AnimatorController.PlayWorkAnimation(direction);
+        }
+
+        public bool IsCarryingAnyDataConsumable()
+        {
+            return !m_TrayController.IsEmpty();
         }
         #endregion
     }

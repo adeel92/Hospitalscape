@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using NaughtyAttributes;
+using DG.Tweening;
 
 namespace Isometric.Player
 {
@@ -70,6 +71,23 @@ namespace Isometric.Player
             {
                 return false;
             }
+        }
+
+        public bool IsEmpty()
+        {
+           if (m_CurrentTray != null)
+            {
+                foreach (var holder in m_CurrentTray.TrayHolder)
+                {
+                    if (holder.HoldingItem != null)
+                        return false;
+                }
+                return true;
+            }
+            else
+            {
+                return true;
+            } 
         }
 
         public void AddItem(string key, GameObject item, int itemCost) 
@@ -167,5 +185,20 @@ namespace Isometric.Player
             }
         }
         
+        public void HideAllItems(float duration)
+        {
+            if (m_CurrentTray != null)
+            {
+                foreach (var item in m_CurrentTray.TrayHolder)
+                {
+                    Transform holdTransform = item.Hold;
+
+                    foreach (var spriteRenderer in holdTransform.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        spriteRenderer.DOFade(0f, duration);
+                    }
+                }
+            }
+        }
     }
 }

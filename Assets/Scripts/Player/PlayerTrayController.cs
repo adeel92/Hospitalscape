@@ -58,9 +58,26 @@ namespace Isometric.Player
             }
         }
 
+        public bool IsEmpty()
+        {
+            if (m_TraysHandler != null)
+            {
+                return m_TraysHandler.TrueForAll((x) => x.TrayHandler.IsEmpty());
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public int GetNumberTrayHandlers()
         {
             return m_TraysHandler.Count;
+        }
+
+        private PlayerTrayHandler GetVisibleTrayHandler()
+        {
+            return m_TraysHandler.Find(x => x.TrayHandler.gameObject.activeInHierarchy).TrayHandler;
         }
 
         public bool AddItem(string key, GameObject itemPrefab, int itemCost)
@@ -134,6 +151,13 @@ namespace Isometric.Player
                 }
             }
         }
+
+        public void HideAllVisibleItems(float duration)
+        {
+            PlayerTrayHandler trayHandler = GetVisibleTrayHandler();
+            trayHandler.HideAllItems(duration);
+        }
+
 
         /*public List<GameObject> RemoveItem(string key)
         {
