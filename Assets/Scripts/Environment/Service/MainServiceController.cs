@@ -76,6 +76,7 @@ namespace Isometric.Environment
 
         [Header("---Next Order---")]
         public UnityEvent OnCustomerNextOrderShown;
+        // public Action<CustomerSalonController, CustomerFirstOrderInfo, List<CurrentOrderInfo>> OnCustomerNextOrderAsked;
 
         [Header("---Order Served---")]
         public UnityEvent OnCustomerOrderServed;
@@ -319,9 +320,10 @@ namespace Isometric.Environment
         //----Step 4---
         public void ShowNextOrder()
         {
-            if (m_CustomerHandler.GetCurrentCustomer() != null)
+            CustomerSalonController currentCustomer = m_CustomerHandler.GetCurrentCustomer();
+            if (currentCustomer != null)
             {
-                List<CustomerOrderInfo> customerOrders = m_CustomerHandler.GetCurrentCustomer().GetSalonOrders();
+                List<CustomerOrderInfo> customerOrders = currentCustomer.GetSalonOrders();
                 if (customerOrders != null &&
                     m_OrderIndexNumber < customerOrders.Count)
                 {
@@ -352,6 +354,7 @@ namespace Isometric.Environment
                     m_IsCustomerWaitingToBeServed = true;
 
                     OnCustomerNextOrderShown?.Invoke();
+                    // OnCustomerNextOrderAsked?.Invoke(currentCustomer, currentCustomer.GetSalonFirstOrder(), m_CurrentOrdersInfo);
                 }
                 else
                 {
