@@ -69,7 +69,10 @@ namespace Isometric.Environment
         //---Upgrade Properties---
         const string MetaUpgradePropertiesFoldOut = "---Upgrade Properties---";
         public float DurationProperty => m_DurationProperty;
+        public float ExtraDurationForAnimation {get {return m_ExtraDurationForAnimation;} set {m_ExtraDurationForAnimation = value;}}
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] float m_DurationProperty;
+        [Tooltip("This duration is added to the actual Duration Property to cover the initial input item animation duration too.")]
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut), ReadOnly] float m_ExtraDurationForAnimation;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] int m_CapacityProperty = 3;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] int m_CostProperty = 3;
         private bool m_IsProcessing = false;
@@ -246,6 +249,7 @@ namespace Isometric.Environment
                 {
                     m_IsProcessing = true;
                     OnDurationStart?.Invoke(m_DurationProperty);
+                    float totalDuration = m_DurationProperty + m_ExtraDurationForAnimation;
                     CoroutineManager.LateAction(() =>
                     {
                         OnDurationComplete?.Invoke();
@@ -260,7 +264,7 @@ namespace Isometric.Environment
                             count++;
                         }
                         m_IsProcessing = false;
-                    }, m_DurationProperty);
+                    }, totalDuration);
                     isTaskSuccessful = true;
                 }
                
