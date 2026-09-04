@@ -20,6 +20,8 @@ namespace Isometric.Player
                 [ReadOnly, AllowNesting]
                 public GameObject HoldingItem;
                 [ReadOnly, AllowNesting]
+                public bool IsThrowable = true;
+                [ReadOnly, AllowNesting]
                 public int HoldingItemCost;
 
                 public int SortingOrder;
@@ -73,6 +75,23 @@ namespace Isometric.Player
             }
         }
 
+        public bool HasThrowableItem()
+        {
+           if (m_CurrentTray != null)
+            {
+                foreach (var holder in m_CurrentTray.TrayHolder)
+                {
+                    if (holder.HoldingItem != null && holder.IsThrowable)
+                        return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            } 
+        }
+
         public bool IsEmpty()
         {
            if (m_CurrentTray != null)
@@ -90,7 +109,7 @@ namespace Isometric.Player
             } 
         }
 
-        public void AddItem(string key, GameObject item, int itemCost) 
+        public void AddItem(string key, GameObject item, bool isThrowable, int itemCost) 
         {
             if (m_CurrentTray != null)
             {
@@ -99,6 +118,7 @@ namespace Isometric.Player
                     if (holder.Key == "")
                     {
                         holder.Key = key;
+                        holder.IsThrowable = isThrowable;
                         holder.HoldingItemCost = itemCost;
                         foreach (var spriterRendereer in item.GetComponentsInChildren<SpriteRenderer>())
                         {
@@ -134,6 +154,7 @@ namespace Isometric.Player
                 if (holder != null)
                 {
                     holder.Key = "";
+                    holder.IsThrowable = true;
                     int itemCost = holder.HoldingItemCost;
                     holder.HoldingItemCost = 0;
                     if (holder.HoldingItem != null)
@@ -167,6 +188,37 @@ namespace Isometric.Player
                 foreach (var item in m_CurrentTray.TrayHolder)
                 {
                     item.Key = "";
+                    item.IsThrowable = true;
+                    item.HoldingItemCost = 0;
+                    if (item.HoldingItem != null)
+                    {
+                        GameObject holdingItem = item.HoldingItem;
+                        holdingItem.transform.parent = null;
+                        item.HoldingItem = null;
+                        items.Add(holdingItem);
+                    }
+                }
+
+                return items;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<GameObject> RemoveAllThrowableItems()
+        {
+            if (m_CurrentTray != null)
+            {
+                List<GameObject> items = new List<GameObject>();
+                foreach (var item in m_CurrentTray.TrayHolder)
+                {
+                    if(!item.IsThrowable)
+                        continue;
+                        
+                    item.Key = "";
+                    item.IsThrowable = true;
                     item.HoldingItemCost = 0;
                     if (item.HoldingItem != null)
                     {
@@ -191,8 +243,10 @@ namespace Isometric.Player
             {
                 foreach (var item in m_CurrentTray.TrayHolder)
                 {
-                    Transform holdTransform = item.Hold;
+                    if(!item.IsThrowable)
+                        continue;
 
+                    Transform holdTransform = item.Hold;
                     foreach (var spriteRenderer in holdTransform.GetComponentsInChildren<SpriteRenderer>())
                     {
                         spriteRenderer.DOFade(0f, duration);

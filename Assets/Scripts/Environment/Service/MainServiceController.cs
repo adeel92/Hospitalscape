@@ -76,7 +76,7 @@ namespace Isometric.Environment
 
         [Header("---Next Order---")]
         public UnityEvent OnCustomerNextOrderShown;
-        // public Action<CustomerSalonController, CustomerFirstOrderInfo, List<CurrentOrderInfo>> OnCustomerNextOrderAsked;
+        public Action<CustomerSalonController, CustomerFirstOrderInfo, List<DataConsumable>> OnCustomerNewOrderBunchAsked;
 
         [Header("---Order Served---")]
         public UnityEvent OnCustomerOrderServed;
@@ -115,6 +115,8 @@ namespace Isometric.Environment
         private int m_TotalRevenue = 0;
 
         private List<CurrentOrderInfo> m_CurrentOrdersInfo;
+        [SerializeField, ReadOnly] List<DataConsumable> m_CurrentOrderItems;
+
         [SerializeField, ReadOnly]
         private float m_WaitDuration = 0;
 
@@ -329,6 +331,7 @@ namespace Isometric.Environment
                 {
                     CustomerOrderInfo currentOrder = customerOrders[m_OrderIndexNumber];
                     m_CurrentOrdersInfo = new List<CurrentOrderInfo>();
+                    m_CurrentOrderItems = new List<DataConsumable>();
 
                     foreach (var order in currentOrder.OrdersConsumable)
                     {
@@ -336,10 +339,11 @@ namespace Isometric.Environment
                         info.Order = order;
                         info.HasBeenServed = false;
                         m_CurrentOrdersInfo.Add(info);
+                        m_CurrentOrderItems.Add(order);
                     }
 
                     m_OrderUIController.CleanPreviousOrders();
-                    List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrder.OrdersConsumable);
+                    List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrder.OrdersConsumable, currentCustomer.GetSalonFirstOrder());
 
                     for (int i = 0; i < m_CurrentOrdersInfo.Count && i < uiOrderPositions.Count; i++)
                     {
@@ -354,7 +358,7 @@ namespace Isometric.Environment
                     m_IsCustomerWaitingToBeServed = true;
 
                     OnCustomerNextOrderShown?.Invoke();
-                    // OnCustomerNextOrderAsked?.Invoke(currentCustomer, currentCustomer.GetSalonFirstOrder(), m_CurrentOrdersInfo);
+                    OnCustomerNewOrderBunchAsked?.Invoke(currentCustomer, currentCustomer.GetSalonFirstOrder(), m_CurrentOrderItems);
                 }
                 else
                 {
@@ -373,6 +377,7 @@ namespace Isometric.Environment
                     && !m_IsPlayerOrdersLocked)
                 {
                     List<DataConsumable> currentOrders = new List<DataConsumable>();
+                    m_CurrentOrderItems = new List<DataConsumable>();
                     bool hasBeenServedSomething = false;
                     foreach (var currentOrder in m_CurrentOrdersInfo)
                     {
@@ -388,6 +393,7 @@ namespace Isometric.Environment
                             else
                             {
                                 currentOrders.Add(currentOrder.Order);
+                                m_CurrentOrderItems.Add(currentOrder.Order);
                             }
                         }
                     }
@@ -425,7 +431,7 @@ namespace Isometric.Environment
                     else if (hasBeenServedSomething == true)
                     {
                         m_OrderUIController.CleanPreviousOrders();
-                        List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrders);
+                        List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrders, m_CustomerHandler.GetCurrentCustomer().GetSalonFirstOrder());
 
                         int uiOrderCount = 0;
                         for (int i = 0; i < m_CurrentOrdersInfo.Count && uiOrderCount < uiOrderPositions.Count; i++)
@@ -658,7 +664,7 @@ namespace Isometric.Environment
                 else if (hasBeenServedSomething == true)
                 {
                     m_OrderUIController.CleanPreviousOrders();
-                    List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrders);
+                    List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrders, m_CustomerHandler.GetCurrentCustomer().GetSalonFirstOrder());
 
                     int uiOrderCount = 0;
                     for (int i = 0; i < m_CurrentOrdersInfo.Count && uiOrderCount < uiOrderPositions.Count; i++)

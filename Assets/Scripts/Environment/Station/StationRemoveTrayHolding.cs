@@ -29,14 +29,14 @@ namespace Isometric.Environment
         {
             if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable))
             {
-                if (interactable.IsCarryingAnyDataConsumable())
+                if (interactable.IsCarryingAnyThrowableDataConsumable())
                 {
                     interactable.EngageInteractable(m_EngageDirection);
                     OnEngageSuccessful?.Invoke();
                     interactable.HideAllVisibleDataConsumables(m_HoldingItemHideDuration);
                     CoroutineManager.LateAction(() =>
                     {
-                        interactable.RemoveAllDataConsumables();
+                        interactable.RemoveAllThrowableDataConsumables();
                         OnTaskSuccesful?.Invoke();
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
                     }, m_RemoveDuration);

@@ -61,13 +61,17 @@ namespace Isometric.Environment
         public Tuple<bool, int> GetDataConsumable(DataConsumable dataConsumable);
 
         public bool SendDataConsumable(DataConsumable dataConsumable, int itemCost);
+        
+        public bool SendDataConsumable(DataConsumable dataConsumable, CustomerFirstOrderInfo firstOrder, int itemCost);
 
         public void EngageInteractable(PathDirection direction);
 
         public void RemoveAllDataConsumables();
+        public void RemoveAllThrowableDataConsumables();
 
         public void HideAllVisibleDataConsumables(float duration);
 
+        public bool IsCarryingAnyThrowableDataConsumable();
         public bool IsCarryingAnyDataConsumable();
     }
 }

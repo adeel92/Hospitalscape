@@ -221,7 +221,20 @@ namespace Isometric.Player
             if (m_TrayController.HasCapacity())
             {
                 SoundManager.PlaySound(SoundType.TaskInteractions);
-                m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, itemCost);
+                m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, dataConsumable.IsThrowable, itemCost);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool SendDataConsumable(DataConsumable dataConsumable, CustomerFirstOrderInfo firstOrder, int itemCost)
+        {
+            if (m_TrayController.HasCapacity())
+            {
+                SoundManager.PlaySound(SoundType.TaskInteractions);
+                m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, dataConsumable.IsThrowable, firstOrder, itemCost);
                 return true;
             }
             else
@@ -235,6 +248,11 @@ namespace Isometric.Player
             SoundManager.PlaySound(SoundType.TaskInteractions);
             m_TrayController.RemoveAllItem();
         }
+        public void RemoveAllThrowableDataConsumables()
+        {
+            SoundManager.PlaySound(SoundType.TaskInteractions);
+            m_TrayController.RemoveAllThrowableItem();
+        }
 
         public void HideAllVisibleDataConsumables(float duration)
         {
@@ -247,6 +265,10 @@ namespace Isometric.Player
             m_AnimatorController.PlayWorkAnimation(direction);
         }
 
+        public bool IsCarryingAnyThrowableDataConsumable()
+        {
+            return m_TrayController.HasThrowableItem();
+        }
         public bool IsCarryingAnyDataConsumable()
         {
             return !m_TrayController.IsEmpty();

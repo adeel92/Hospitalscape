@@ -20,7 +20,38 @@ namespace Isometric.Environment
         [SerializeField] List<OrderHolderInfo> m_OrderHoldersInfo;
 
         //Returns the positions of the UI orders
-        public List<Vector3> SetOrders(List<DataConsumable> ordersConsumable)
+        public List<Vector3> SetOrders(List<DataConsumable> ordersConsumable, CustomerFirstOrderInfo firstOrder)
+        {
+            OrderHolderInfo orderHolderInfo = m_OrderHoldersInfo.Find((x) => x.Quantity == ordersConsumable.Count);
+            if (orderHolderInfo != null)
+            {
+                List<Vector3> positions = new List<Vector3>();
+
+                for (int i = 0; i < ordersConsumable.Count; i++)
+                {
+                    GameObject order = Instantiate(ordersConsumable[i].ConsumableOrderPrefab, orderHolderInfo.HoldingTransfroms[i]);
+                    if(order.TryGetComponent(out StationVisualUpgradeApplier stationVisualUpgradeApplier))
+                    {
+                        stationVisualUpgradeApplier.ApplyVisualUpgrade();
+                    }
+                    if(order.TryGetComponent(out OrderItemVisualSelector orderItemVisualSelector))
+                    {
+                        orderItemVisualSelector.SelectVisual(firstOrder);
+                    }
+                    order.transform.localPosition = Vector3.zero;
+
+                    positions.Add(order.transform.position);
+                }
+
+                orderHolderInfo.Holder.SetActive(true);
+
+                return positions;
+            }
+
+            return null;
+        }
+
+        /* public List<Vector3> SetOrders(List<DataConsumable> ordersConsumable)
         {
             OrderHolderInfo orderHolderInfo = m_OrderHoldersInfo.Find((x) => x.Quantity == ordersConsumable.Count);
             if (orderHolderInfo != null)
@@ -45,7 +76,7 @@ namespace Isometric.Environment
             }
 
             return null;
-        }
+        } */
 
         public void CleanPreviousOrders()
         {

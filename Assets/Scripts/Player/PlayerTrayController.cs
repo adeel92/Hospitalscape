@@ -4,6 +4,7 @@ using UnityEngine;
 using Isometric.PathSystem;
 using System;
 using Isometric.Environment;
+using Isometric.Data;
 
 namespace Isometric.Player
 {
@@ -58,6 +59,18 @@ namespace Isometric.Player
             }
         }
 
+        public bool HasThrowableItem()
+        {
+            if (m_TraysHandler != null)
+            {
+                return m_TraysHandler.TrueForAll((x) => x.TrayHandler.HasThrowableItem());
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool IsEmpty()
         {
             if (m_TraysHandler != null)
@@ -80,7 +93,7 @@ namespace Isometric.Player
             return m_TraysHandler.Find(x => x.TrayHandler.gameObject.activeInHierarchy).TrayHandler;
         }
 
-        public bool AddItem(string key, GameObject itemPrefab, int itemCost)
+        public bool AddItem(string key, GameObject itemPrefab, bool isThrowable, int itemCost)
         {
             if (m_TraysHandler != null && HasCapacity())
             {
@@ -91,7 +104,33 @@ namespace Isometric.Player
                     {
                         stationVisualUpgradeApplier.ApplyVisualUpgrade();
                     }
-                    trayInfo.TrayHandler.AddItem(key, itemCopy, itemCost);
+                    trayInfo.TrayHandler.AddItem(key, itemCopy, isThrowable, itemCost);
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddItem(string key, GameObject itemPrefab, bool isThrowable, CustomerFirstOrderInfo firstOrder, int itemCost)
+        {
+            if (m_TraysHandler != null && HasCapacity())
+            {
+                foreach (var trayInfo in m_TraysHandler)
+                {
+                    GameObject itemCopy = Instantiate(itemPrefab);
+                    if(itemCopy.TryGetComponent(out StationVisualUpgradeApplier stationVisualUpgradeApplier))
+                    {
+                        stationVisualUpgradeApplier.ApplyVisualUpgrade();
+                    }
+                    if(itemCopy.TryGetComponent(out OrderItemVisualSelector orderItemVisualSelector))
+                    {
+                        orderItemVisualSelector.SelectVisual(firstOrder);
+                    }
+                    trayInfo.TrayHandler.AddItem(key, itemCopy, isThrowable, itemCost);
                 }
 
                 return true;
@@ -143,6 +182,21 @@ namespace Isometric.Player
                 foreach (var tray in m_TraysHandler)
                 {
                     List<GameObject> copyItems = tray.TrayHandler.RemoveAllItems();
+
+                    foreach (var item in copyItems)
+                    {
+                        Destroy(item);
+                    }
+                }
+            }
+        }
+        public void RemoveAllThrowableItem()
+        {
+            if (m_TraysHandler != null)
+            {
+                foreach (var tray in m_TraysHandler)
+                {
+                    List<GameObject> copyItems = tray.TrayHandler.RemoveAllThrowableItems();
 
                     foreach (var item in copyItems)
                     {
