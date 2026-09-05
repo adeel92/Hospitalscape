@@ -11,6 +11,7 @@ using Isometric.UI;
 using Unity.VisualScripting;
 using UnityEngine.Profiling;
 using Isometric.Customer;
+using System;
 
 namespace Isometric.Environment
 {
@@ -58,13 +59,24 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] int m_CostProperty = 3;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<int> OnDurationSetup;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<float> OnDurationStart;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
 
         //---Engege---
         const string MetaEngegeFoldOut = "---Engege---";
         [SerializeField, Foldout(MetaEngegeFoldOut)] UnityEvent OnEngegeSuccesful;
         [SerializeField, Foldout(MetaEngegeFoldOut)] UnityEvent OnOrderOutSuccesful;
 
-        private Queue<DemandedCustomerInfo> DemandedCustomersQueue = new();
+        //---Actions For Independent Animations---
+        public Action OnDemandedCustomerAdded;
+        public Action OnProcessStart;
+        public Action OnProcessComplete;
+
+        [Space]
+        [Tooltip("This delay can be updated independently by any accessible class to manage the whole task process in synchronization with animations created for this station.")]
+        [SerializeField, ReadOnly] float m_DelayBeforeDurationStart;
+        [Tooltip("This delay can be updated independently by any accessible class to manage the whole task process in synchronization with animations created for this station.")]
+        [SerializeField, ReadOnly] float m_DelayBeforeOrderOut;
+        private Queue<DemandedCustomerInfo> m_DemandedCustomersQueue = new();
 
 
         [ContextMenu("SetupForMenu")]
@@ -202,6 +214,12 @@ namespace Isometric.Environment
             }
         }
 
+        public void SetTaskProcessDelays(float delayBeforeDurationStart, float delayBeforeOrderOut)
+        {
+            m_DelayBeforeDurationStart = delayBeforeDurationStart;
+            m_DelayBeforeOrderOut = delayBeforeOrderOut;
+        }
+
         private void CheckDemandedCustomer(CustomerSalonController customer, CustomerFirstOrderInfo firstOrder, List<DataConsumable> orderItems)
         {
             foreach(DataConsumable order in orderItems)
@@ -215,39 +233,47 @@ namespace Isometric.Environment
 
         private void AddDemandedCustomer(CustomerSalonController customer, CustomerFirstOrderInfo firstOrder, DataConsumable orderItem)
         {
-            DemandedCustomersQueue.Enqueue(new DemandedCustomerInfo
+            m_DemandedCustomersQueue.Enqueue(new DemandedCustomerInfo
             {
                 CustomerController = customer,
-                // CustomerFirstOrderInfo  = firstOrder,
+                CustomerFirstOrderInfo  = firstOrder,
                 CustomerOrderItem = orderItem
             });
+            OnDemandedCustomerAdded?.Invoke();
         }
         private void RemoveDemandedCustomer()
         {
-            DemandedCustomersQueue.Dequeue();
+            m_DemandedCustomersQueue.Dequeue();
         }
 
         private bool HasAnyDemandedCustomer()
         {
-            return DemandedCustomersQueue.Count > 0;
+            return m_DemandedCustomersQueue.Count > 0;
+        }
+        public DemandedCustomerInfo GetFirstDemandedCustomer()
+        {
+            DemandedCustomerInfo firstDemandedCustomerInfo = null;
+            if (HasAnyDemandedCustomer())
+            {
+                DemandedCustomerInfo demandedCustomerInfo = m_DemandedCustomersQueue.Peek();
+                firstDemandedCustomerInfo = new DemandedCustomerInfo
+                {
+                    CustomerController = demandedCustomerInfo.CustomerController,
+                    CustomerFirstOrderInfo = demandedCustomerInfo.CustomerFirstOrderInfo,
+                    CustomerOrderItem = demandedCustomerInfo.CustomerOrderItem
+                };
+            }
+            return firstDemandedCustomerInfo;
         }
 
         private void OnTaskStart(TaskTarget taskTarget)
         {
             if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable) && HasAnyDemandedCustomer())
             {
-                DemandedCustomerInfo currentDemandedCustomerInfo = DemandedCustomersQueue.Peek();
+                DemandedCustomerInfo currentDemandedCustomerInfo = m_DemandedCustomersQueue.Peek();
                 if (interactable.SendDataConsumable(currentDemandedCustomerInfo.CustomerOrderItem, m_CostProperty))
                 {
-                    interactable.EngageInteractable(m_EngageDirection);
-                    OnDurationStart?.Invoke(m_DurationProperty);
-                    OnEngegeSuccesful?.Invoke();
-                    CoroutineManager.LateAction(() =>
-                    {
-                        OnOrderOutSuccesful?.Invoke();
-                        RemoveDemandedCustomer();
-                        m_TaskTrigger.SendTaskResult(TaskResult.Success);
-                    }, m_DurationProperty);
+                    StartCoroutine(TaskProcess(interactable));
                 }
                 else
                 {
@@ -260,10 +286,29 @@ namespace Isometric.Environment
             }
         }
 
-        private class DemandedCustomerInfo
+        private IEnumerator TaskProcess(IEnvironmentInteractable interactable)
+        {
+            interactable.EngageInteractable(m_EngageDirection);
+            OnProcessStart?.Invoke();
+
+            yield return new WaitForSeconds(m_DelayBeforeDurationStart);
+            OnDurationStart?.Invoke(m_DurationProperty);
+            OnEngegeSuccesful?.Invoke();
+            
+            yield return new WaitForSeconds(m_DurationProperty);
+            OnDurationComplete?.Invoke();
+
+            yield return new WaitForSeconds(m_DelayBeforeOrderOut);
+            OnOrderOutSuccesful?.Invoke();
+            RemoveDemandedCustomer();
+            OnProcessComplete?.Invoke();
+            m_TaskTrigger.SendTaskResult(TaskResult.Success);
+        }
+
+        public class DemandedCustomerInfo
         {
             public CustomerSalonController CustomerController;
-            // public CustomerFirstOrderInfo CustomerFirstOrderInfo;
+            public CustomerFirstOrderInfo CustomerFirstOrderInfo;
             public DataConsumable CustomerOrderItem;
         }
     }
