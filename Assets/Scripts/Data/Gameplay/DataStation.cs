@@ -132,6 +132,12 @@ namespace Isometric.Data
         Treadmill,
         Vitamins,
         WaterDispenser,
-        XRay
+        XRay,
+        SampleCollectionBed1,
+        SampleCollectionBed2,
+        SampleCollectionBed3,
+        SampleCollectionBed4,
+        SampleCollectionBed5,
+        SampleCollectionBed6,
     }
 }
