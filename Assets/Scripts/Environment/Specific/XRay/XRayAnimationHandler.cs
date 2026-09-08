@@ -63,6 +63,7 @@ namespace Isometric.Environment
             m_StationCustomerInHandler.OnServiceTimerUpdate += OnServiceTimerUpdate;
             m_StationCustomerInHandler.OnServiceEnd += OnServiceEnd;
             m_StationCustomerInHandler.OnCustomerLeft += OnCustomerLeft;
+            m_StationCustomerInHandler.OnInstantOrderComplete += OnInstantOrderComplete;
         }
         private void OnDisable()
         {
@@ -75,6 +76,7 @@ namespace Isometric.Environment
             m_StationCustomerInHandler.OnServiceTimerUpdate -= OnServiceTimerUpdate;
             m_StationCustomerInHandler.OnServiceEnd -= OnServiceEnd;
             m_StationCustomerInHandler.OnCustomerLeft -= OnCustomerLeft;
+            m_StationCustomerInHandler.OnInstantOrderComplete -= OnInstantOrderComplete;
         }
 
         private void OnGameplaySetupStart()
@@ -85,29 +87,29 @@ namespace Isometric.Environment
         private void OnCustomerDraggedIn()
         {
             // m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Open, null, null);
-            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, false, null, null);
             m_OnCustomerDraggedIn?.Invoke();
         }
         private void OnCustomerDraggedOut()
         {
             // m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Close, null, null);
-            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, false, null, null);
             m_OnCustomerDraggedOut?.Invoke();
         }
         private void OnCustomerDropped(CustomerSalonController customerSalonController)
         {
-            m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Close, null, null);
+            m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Close, false, null, null);
         }
         private void OnCustomerSettled()
         {
-            m_XRayAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, () =>
+            m_XRayAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, false, () =>
             {
                 m_XRayHolder.localPosition = m_XRayScanTopLocalPos;
             }, null);
-            m_MonitorScannerAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, () =>
+            m_MonitorScannerAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, false, () =>
             {
                 m_MonitorScannerHolder.localPosition = m_MonitorScanTopLocalPos;
-                m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, null, null);
+                m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, false, null, null);
             }, null);
             m_OnCustomerSettled?.Invoke();
         }
@@ -115,7 +117,7 @@ namespace Isometric.Environment
         {
             m_TotalServiceDuration = totalDuration;
             SetTimerFill(0f);
-            m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, null, null);
+            m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, false, null, null);
             StartXRayScan();
             StartMonitorScan();
         }
@@ -127,21 +129,35 @@ namespace Isometric.Environment
         private void OnServiceEnd()
         {
             SetTimerFill(1f);
-            m_XRayAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
-            m_MonitorScannerAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
-            m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, () =>
+            m_XRayAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, null);
+            m_MonitorScannerAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, null);
+            m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, () =>
             {
                 SetTimerFill(0f);
             });
-            m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.ScalePingPong, null, null);
-            m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Open, null, null);
+            m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.ScalePingPong, false, null, null);
+            m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Open, false, null, null);
             m_OnServiceEnd?.Invoke();
         }
         private void OnCustomerLeft()
         {
             // m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Close, null, null);
-            m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
-            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, null, null);
+            m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, false, null, null);
+            m_OnCustomerLeft?.Invoke();
+        }
+
+        private void OnInstantOrderComplete()
+        {
+            m_XRayHolder.DOKill();
+            m_MonitorScannerHolder.DOKill();
+            m_GlassDoorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Open, true, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, true, null, null);
+            m_MonitorSkeletonAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, true, null, null);
+            m_MonitorScannerAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, true, null, null);
+            m_TimerBarAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, true, null, null);
+            m_XRayAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, true, null, null);
+            SetTimerFill(0f);
             m_OnCustomerLeft?.Invoke();
         }
 

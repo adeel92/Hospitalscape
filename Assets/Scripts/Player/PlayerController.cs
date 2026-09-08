@@ -87,6 +87,7 @@ namespace Isometric.Player
             m_TaskTarget.OnNoMoreTasks += OnNoMoreTasks;
 
             GlobalEventHolder.OnWaitressSpeedBooster += OnManagerSpeedBooster;
+            GlobalEventHolder.OnInstanceOrderFillBooster += RemoveAllNonThrowableDataConsumables;
             GlobalEventHolder.OnGameWon += OnGameWon;
             GlobalEventHolder.OnGameLost += OnGameLost;
             GlobalEventHolder.OnTaskAssigned += OnTaskAssigned;
@@ -102,6 +103,7 @@ namespace Isometric.Player
             m_TaskTarget.OnNoMoreTasks -= OnNoMoreTasks;
 
             GlobalEventHolder.OnWaitressSpeedBooster -= OnManagerSpeedBooster;
+            GlobalEventHolder.OnInstanceOrderFillBooster -= RemoveAllNonThrowableDataConsumables;
             GlobalEventHolder.OnGameWon -= OnGameWon;
             GlobalEventHolder.OnGameLost -= OnGameLost;
             GlobalEventHolder.OnTaskAssigned -= OnTaskAssigned;
@@ -252,6 +254,11 @@ namespace Isometric.Player
         {
             SoundManager.PlaySound(SoundType.TaskInteractions);
             m_TrayController.RemoveAllThrowableItem();
+        }
+        public void RemoveAllNonThrowableDataConsumables()
+        {
+            // SoundManager.PlaySound(SoundType.TaskInteractions);
+            m_TrayController.RemoveAllNonThrowableItem();
         }
 
         public void HideAllVisibleDataConsumables(float duration)

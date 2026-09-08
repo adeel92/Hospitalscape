@@ -205,6 +205,21 @@ namespace Isometric.Player
                 }
             }
         }
+        public void RemoveAllNonThrowableItem()
+        {
+            if (m_TraysHandler != null)
+            {
+                foreach (var tray in m_TraysHandler)
+                {
+                    List<GameObject> copyItems = tray.TrayHandler.RemoveAllNonThrowableItems();
+
+                    foreach (var item in copyItems)
+                    {
+                        Destroy(item);
+                    }
+                }
+            }
+        }
 
         public void HideAllVisibleItems(float duration)
         {

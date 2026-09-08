@@ -70,14 +70,16 @@ namespace Isometric.Environment
         public Action OnDemandedCustomerAdded;
         public Action OnProcessStart;
         public Action OnProcessComplete;
+        public Action OnInstantProcessComplete;
 
         [Space]
         [Tooltip("This delay can be updated independently by any accessible class to manage the whole task process in synchronization with animations created for this station.")]
         [SerializeField, ReadOnly] float m_DelayBeforeDurationStart;
         [Tooltip("This delay can be updated independently by any accessible class to manage the whole task process in synchronization with animations created for this station.")]
         [SerializeField, ReadOnly] float m_DelayBeforeOrderOut;
+        [SerializeField] float m_DelayBeforeInstantServiceComplete = 0.05f;
         private Queue<DemandedCustomerInfo> m_DemandedCustomersQueue = new();
-
+        private Coroutine m_TaskProcess;
 
         [ContextMenu("SetupForMenu")]
         public void SetupForMenu()
@@ -203,6 +205,7 @@ namespace Isometric.Environment
             {
                 mainServiceController.OnCustomerNewOrderBunchAsked += CheckDemandedCustomer;
             }
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFill;
         }
 
         private void OnDisable()
@@ -212,6 +215,7 @@ namespace Isometric.Environment
             {
                 mainServiceController.OnCustomerNewOrderBunchAsked -= CheckDemandedCustomer;
             }
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFill;
         }
 
         public void SetTaskProcessDelays(float delayBeforeDurationStart, float delayBeforeOrderOut)
@@ -245,6 +249,10 @@ namespace Isometric.Environment
         {
             m_DemandedCustomersQueue.Dequeue();
         }
+        private void RemoveAllDemandedCustomers()
+        {
+            m_DemandedCustomersQueue.Clear();
+        }
 
         private bool HasAnyDemandedCustomer()
         {
@@ -273,7 +281,7 @@ namespace Isometric.Environment
                 DemandedCustomerInfo currentDemandedCustomerInfo = m_DemandedCustomersQueue.Peek();
                 if (interactable.SendDataConsumable(currentDemandedCustomerInfo.CustomerOrderItem, m_CostProperty))
                 {
-                    StartCoroutine(TaskProcess(interactable));
+                    m_TaskProcess = StartCoroutine(TaskProcess(interactable));
                 }
                 else
                 {
@@ -303,6 +311,23 @@ namespace Isometric.Environment
             RemoveDemandedCustomer();
             OnProcessComplete?.Invoke();
             m_TaskTrigger.SendTaskResult(TaskResult.Success);
+        }
+
+        private void OnInstantOrderFill()
+        {
+            if (m_TaskProcess != null)
+            {
+                StopCoroutine(m_TaskProcess);
+                m_TaskProcess = null;
+            }
+            StartCoroutine(CompleteProcessInstantly());
+        }
+        private IEnumerator CompleteProcessInstantly()
+        {
+            yield return new WaitForSeconds(m_DelayBeforeInstantServiceComplete);
+            RemoveAllDemandedCustomers();
+            m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+            OnInstantProcessComplete?.Invoke();
         }
 
         public class DemandedCustomerInfo

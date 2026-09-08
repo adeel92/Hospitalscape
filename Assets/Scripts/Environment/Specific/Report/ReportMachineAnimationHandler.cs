@@ -37,12 +37,14 @@ namespace Isometric.Environment
             m_StationEngageOrderOutOnCustomerDemand.OnDemandedCustomerAdded += HandleOrder;
             m_StationEngageOrderOutOnCustomerDemand.OnProcessStart += OnProcessStart;
             m_StationEngageOrderOutOnCustomerDemand.OnProcessComplete += OnProcessComplete;
+            m_StationEngageOrderOutOnCustomerDemand.OnInstantProcessComplete += OnInstantProcessComplete;
         }
         private void OnDisable()
         {
             m_StationEngageOrderOutOnCustomerDemand.OnDemandedCustomerAdded -= HandleOrder;
             m_StationEngageOrderOutOnCustomerDemand.OnProcessStart -= OnProcessStart;
             m_StationEngageOrderOutOnCustomerDemand.OnProcessComplete -= OnProcessComplete;
+            m_StationEngageOrderOutOnCustomerDemand.OnInstantProcessComplete = OnInstantProcessComplete;
         }
 
         private void UpdateDemandedReportVisuals(CustomerFirstOrderInfo firstOrder)
@@ -76,12 +78,12 @@ namespace Isometric.Environment
                 m_IsHandlingOrder = true;
                 ResetTimer();
                 UpdateDemandedReportVisuals(firstDemandedCustomerInfo.CustomerFirstOrderInfo);
-                m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.On, null, null);
+                m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.On, false, null, null);
             }
         }
         private void OnProcessStart()
         {
-            m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.Process, null, null);
+            m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.ProcessStart, false, null, null);
         }
 
         public void StartTimer(float duration)
@@ -95,7 +97,7 @@ namespace Isometric.Environment
         public void ProduceReport()
         {
             m_TimerFillBarMaterial.SetFloat(m_FillAmountPropertyName, 1f);
-            m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.Produce, null, null);
+            m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.Produce, false, null, null);
         }
 
         private void OnProcessComplete()
@@ -104,12 +106,20 @@ namespace Isometric.Environment
             HandleOrder();
         }
 
+        private void OnInstantProcessComplete()
+        {
+            ResetTimer();
+            m_MachineAnimationHandler.PlayState(StationEngageOrderOutItemAnimatorStates.Init, true, null, null);
+            OnProcessComplete();
+        }
+
         private void ResetTimer()
         {
             if(m_TimerFillBarMaterial == null)
             {
                 m_TimerFillBarMaterial = m_TimerFillBarRenderer.material;
             }
+            m_TimerFillBarMaterial.DOKill();
             m_TimerFillBarMaterial.SetFloat(m_FillAmountPropertyName, 0f);
         }
         private void ResetCurrentOrder()

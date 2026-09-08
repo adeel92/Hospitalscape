@@ -212,6 +212,7 @@ namespace Isometric.UI
                                 }
                             }
                         }
+                        GlobalEventHolder.OnInstanceOrderFillBooster?.Invoke();
                     }
                 }
             }

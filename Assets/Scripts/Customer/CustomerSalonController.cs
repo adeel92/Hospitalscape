@@ -52,7 +52,7 @@ namespace Isometric.Customer
         [InfoBox("To let the customer executes its post-detection animation (t-pose) before reaching the new main service seat. \nNote: This duration is useful when one seat's captured distance is overlapping the exit distance of the other seat!", EInfoBoxType.Normal)]
         [SerializeField] float m_MainServiceDetectionCooldownDuration = 0.1f;
         [SerializeField, ReadOnly] bool m_IsAlreadyDetectedByMainService = false;
-        private MainServiceCustomerHandler m_MainServiceCustomerHandler = null;
+        [SerializeField, ReadOnly] MainServiceCustomerHandler m_MainServiceCustomerHandler = null;
         [SerializeField, ReadOnly] private StationCustomerInHandler m_StationCusterInHandler = null;
         private CounterTableController m_CounterTableController = null;
 
@@ -149,7 +149,7 @@ namespace Isometric.Customer
             GlobalEventHolder.OnTimeFrozeBooster += OnTimeFrozeBooster;
             GlobalEventHolder.OnPatienceSunRays += OnPatienceSunRays;
             GlobalEventHolder.OnCustomerWaitFreeze += OnCustomerWaitFreeze;
-
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFill;
         }
 
         private void OnDisable()
@@ -157,6 +157,7 @@ namespace Isometric.Customer
             GlobalEventHolder.OnTimeFrozeBooster -= OnTimeFrozeBooster;
             GlobalEventHolder.OnPatienceSunRays -= OnPatienceSunRays;
             GlobalEventHolder.OnCustomerWaitFreeze -= OnCustomerWaitFreeze;
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFill;
         }
 
         #region Pickup
@@ -174,7 +175,8 @@ namespace Isometric.Customer
             if(m_CurrentPickupCollider != null)
             {
                 // Debug.Log($"Adeel {name} : {m_CurrentPickupCollider.ColliderObj != null}");
-                m_CurrentPickupCollider.ColliderObj.SetActive(false);
+                if(m_CurrentPickupCollider.ColliderObj != null)
+                    m_CurrentPickupCollider.ColliderObj.SetActive(false);
                 m_CurrentPickupCollider = null;
             }
         }
@@ -507,6 +509,20 @@ namespace Isometric.Customer
             }
         }
 
+        private void OnInstantOrderFill()
+        {
+            if (m_IsPickedUp)
+            {
+                if(m_MainServiceCustomerHandler != null && m_StationCusterInHandler == null)
+                {
+                    m_MainServiceCustomerHandler.ResitOnSalonChair();
+                    m_AnimatorController.PlayState(m_MainServiceNormalAnimationState);
+                    m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayWrap(null, false);
+                }
+                m_IsPickedUp = false;
+                DisablePickupCollider();
+            }
+        }
         #endregion
 
         #region Sitting
@@ -563,9 +579,18 @@ namespace Isometric.Customer
             m_PickedLastPosition = transform.position;
         }
 
+        public void CustomerOutOnStationDone()
+        {
+            m_CurrentChairLeaveOrder = null;
+            m_StationCusterInHandler = null;
+            m_OnChairState = CustomerWaitState.Happy;
+            m_MainServiceCustomerHandler.ResitOnSalonChair();
+            m_MainServiceCustomerHandler.GetSalonChair().ResitAfterLeaveOrder();
+            m_AnimatorController.PlayState(m_MainServiceNormalAnimationState);
+            m_MainServiceCustomerHandler.GetCurrentBlanketAnimationHandler().PlayWrap(null, false);
+        }
         public void CustomerOutOnStationDone(int cost)
         {
-            // ShowApron(GetSalonFirstOrder().OrderConsumable);
             m_CurrentChairLeaveOrder = null;
             m_StationCusterInHandler = null;
             m_OnChairState = CustomerWaitState.Happy;

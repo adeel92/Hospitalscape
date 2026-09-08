@@ -33,6 +33,7 @@ namespace Isometric.Environment
         public Action<float> OnServiceTimerUpdate;
         public Action OnServiceEnd;
         public Action OnCustomerLeft;
+        public Action OnInstantOrderComplete;
 
         [Header("---Setup---")]
         [SerializeField] DataConsumable m_InOrder;
@@ -66,8 +67,19 @@ namespace Isometric.Environment
         [SerializeField, ReadOnly] float m_BeforeCustomerSettleDelay = 0f;
         [SerializeField, ReadOnly] float m_BeforeServiceStartDelay = 0f; 
         [SerializeField, ReadOnly] float m_BeforeCustomerLeaveDelay = 0f;
+        [SerializeField] float m_BeforeInstantServiceCompleteDelay = 0.5f;
 
         private Coroutine m_DectectionUpdate = null;
+        private Coroutine m_StartingCustomer = null;
+
+        private void OnEnable()
+        {
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFill;
+        }
+        private void OnDisable()
+        {
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFill;
+        }
 
         public void SetupForMenu(float durationProperty, int costProperty)
         {
@@ -154,7 +166,7 @@ namespace Isometric.Environment
             {
                 OnCustomerEnteres?.Invoke();
                 OnCustomerDropped?.Invoke(m_CurrentCustomer);
-                StartCoroutine(StartingCustomer());
+                m_StartingCustomer = StartCoroutine(StartingCustomer());
             }
         }
 
@@ -218,6 +230,33 @@ namespace Isometric.Environment
         public float GetExitDistance()
         {
             return m_ExitDistance;
+        }
+
+        private void OnInstantOrderFill()
+        {
+            if (m_StartingCustomer != null)
+            {
+                StopCoroutine(m_StartingCustomer);
+                m_StartingCustomer = null;
+            }
+            StartCoroutine(CompleteServiceInstantly());
+        }
+        private IEnumerator CompleteServiceInstantly()
+        {
+            yield return new WaitForSeconds(m_BeforeInstantServiceCompleteDelay);
+            if(m_CurrentCustomer == null)
+                yield break;
+
+            m_CurrentCustomer.CustomerOutOnStationDone();
+            m_CurrentCustomer = null;
+
+            if (m_DectectionUpdate != null)
+            {
+                StopCoroutine(m_DectectionUpdate);
+                m_DectectionUpdate = null;
+            }
+            m_DectectionUpdate = StartCoroutine(DectectionUpdate());
+            OnInstantOrderComplete?.Invoke();
         }
 
 #if UNITY_EDITOR

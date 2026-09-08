@@ -236,6 +236,35 @@ namespace Isometric.Player
                 return null;
             }
         }
+        public List<GameObject> RemoveAllNonThrowableItems()
+        {
+            if (m_CurrentTray != null)
+            {
+                List<GameObject> items = new List<GameObject>();
+                foreach (var item in m_CurrentTray.TrayHolder)
+                {
+                    if(item.IsThrowable)
+                        continue;
+                        
+                    item.Key = "";
+                    item.IsThrowable = true;
+                    item.HoldingItemCost = 0;
+                    if (item.HoldingItem != null)
+                    {
+                        GameObject holdingItem = item.HoldingItem;
+                        holdingItem.transform.parent = null;
+                        item.HoldingItem = null;
+                        items.Add(holdingItem);
+                    }
+                }
+
+                return items;
+            }
+            else
+            {
+                return null;
+            }
+        }
         
         public void HideAllItems(float duration)
         {

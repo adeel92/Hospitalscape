@@ -48,6 +48,7 @@ namespace Isometric.Environment
             m_StationCustomerInHandler.OnServiceTimerUpdate += OnServiceTimerUpdate;
             m_StationCustomerInHandler.OnServiceEnd += OnServiceEnd;
             m_StationCustomerInHandler.OnCustomerLeft += OnCustomerLeft;
+            m_StationCustomerInHandler.OnInstantOrderComplete += OnInstantOrderComplete;
         }
         private void OnDisable()
         {
@@ -61,6 +62,7 @@ namespace Isometric.Environment
             m_StationCustomerInHandler.OnServiceTimerUpdate -= OnServiceTimerUpdate;
             m_StationCustomerInHandler.OnServiceEnd -= OnServiceEnd;
             m_StationCustomerInHandler.OnCustomerLeft -= OnCustomerLeft;
+            m_StationCustomerInHandler.OnInstantOrderComplete -= OnInstantOrderComplete;
         }
 
 		private void OnMenuSetupStart()
@@ -75,14 +77,14 @@ namespace Isometric.Environment
 
         private void OnCustomerDraggedIn()
         {
-            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, null, null);
-            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.StandBy, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, false, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.StandBy, false, null, null);
             m_OnCustomerDraggedIn?.Invoke();
         }
         private void OnCustomerDraggedOut()
         {
-			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, null, null);
-            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
+			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, false, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, null);
             m_OnCustomerDraggedOut?.Invoke();
         }
         private void OnCustomerDropped(CustomerSalonController customerSalonController)
@@ -91,7 +93,7 @@ namespace Isometric.Environment
 		}
         private void OnCustomerSettled()
         {
-            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Enable, false, null, null);
 			m_TreadLineAnimationHandler.StartMovement();
             m_OnCustomerSettled?.Invoke();
         }
@@ -99,7 +101,7 @@ namespace Isometric.Environment
         {
             m_TotalServiceDuration = totalDuration;
             SetTimerFill(0f);
-			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.DisplayWave, null, null);
+			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.DisplayWave, false, null, null);
         }
         private void OnServiceTimerUpdate(float timeElapsed)
         {
@@ -110,15 +112,24 @@ namespace Isometric.Environment
         {
             SetTimerFill(1f);
 			m_TreadLineAnimationHandler.StopMovement();
-			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, null, null);
-            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.StandBy, null, null);
+			m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.On, false, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.StandBy, false, null, null);
             m_OnServiceEnd?.Invoke();
         }
         private void OnCustomerLeft()
         {
             SetTimerFill(0f);
-            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, null, null);
-            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, null, null);
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, false, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, false, null, null);
+            m_OnCustomerLeft?.Invoke();
+        }
+
+        private void OnInstantOrderComplete()
+        {
+			m_TreadLineAnimationHandler.StopMovement();
+            m_MonitorAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Off, true, null, null);
+            m_MonitorButtonsAnimationHandler.PlayState(StationCustomerInItemAnimatorStates.Disable, true, null, null);
+            SetTimerFill(0f);
             m_OnCustomerLeft?.Invoke();
         }
 

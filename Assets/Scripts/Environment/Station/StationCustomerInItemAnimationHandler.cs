@@ -24,7 +24,7 @@ namespace Isometric.Environment
                 Debug.LogWarning($"State {state} not found in AnimatorStateInfo of {nameof(StationCustomerInItemAnimationHandler)}!");
             }
         } */
-        public void PlayState(StationCustomerInItemAnimatorStates state, Action onStartCallback, Action onCompleteCallback)
+        public void PlayState(StationCustomerInItemAnimatorStates state, bool playDirectly, Action onStartCallback, Action onCompleteCallback)
         {
             AnimatorTriggerInfo triggerInfo = GetTriggerInfo(state);
             if(triggerInfo == null)
@@ -32,36 +32,42 @@ namespace Isometric.Environment
                 Debug.LogWarning($"TriggerInfo for {state} state not found in AnimatorStateInfo of {nameof(StationCustomerInItemAnimationHandler)}!");
                 return;
             }
-            if(string.IsNullOrEmpty(triggerInfo.ParameterName))
+            if(!playDirectly && string.IsNullOrEmpty(triggerInfo.ParameterName))
             {
                 Debug.LogWarning($"ParameterName for {state} state not found in AnimatorStateInfo of {nameof(StationCustomerInItemAnimationHandler)}!");
                 return;
             }
-            if(string.IsNullOrEmpty(triggerInfo.StateName))
+            /* if(string.IsNullOrEmpty(triggerInfo.StateName))
             {
                 Debug.LogWarning($"StateName for {state} state not found in AnimatorStateInfo of {nameof(StationCustomerInItemAnimationHandler)}!");
                 return;
-            }
+            } */
 
             onStartCallback?.Invoke();
             ResetAllTriggers();
             if(onCompleteCallback == null)
             {
-                m_Animator.SetTrigger(triggerInfo.ParameterName);
+                if(playDirectly)
+                    m_Animator.Play(triggerInfo.AnimatorState.ToString());
+                else
+                    m_Animator.SetTrigger(triggerInfo.ParameterName);
             }
             else
             {
-                StartCoroutine(PlayStateWithCompleteCallback(triggerInfo, onCompleteCallback));
+                StartCoroutine(PlayStateWithCompleteCallback(triggerInfo, playDirectly, onCompleteCallback));
             }
         }
-        private IEnumerator PlayStateWithCompleteCallback(AnimatorTriggerInfo triggerInfo, Action onCompleteCallback)
+        private IEnumerator PlayStateWithCompleteCallback(AnimatorTriggerInfo triggerInfo, bool playDirectly, Action onCompleteCallback)
         {
-            m_Animator.SetTrigger(triggerInfo.ParameterName);
+            if(playDirectly)
+                m_Animator.Play(triggerInfo.AnimatorState.ToString());
+            else
+                m_Animator.SetTrigger(triggerInfo.ParameterName);
 
             yield return null;
             AnimatorStateInfo currentAnimatorStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
 
-            while (currentAnimatorStateInfo.IsName(triggerInfo.StateName) &&
+            while (currentAnimatorStateInfo.IsName(triggerInfo.AnimatorState.ToString()) &&
                    currentAnimatorStateInfo.normalizedTime < 1.0f)
             {
                 yield return null;
@@ -98,7 +104,7 @@ namespace Isometric.Environment
         {
             public StationCustomerInItemAnimatorStates AnimatorState;
             public string ParameterName;
-            public string StateName;
+            // public string StateName;
         }
     }
 
@@ -118,6 +124,7 @@ namespace Isometric.Environment
         Open,
         Close,
         ScalePingPong,
-        StandBy
+        StandBy,
+        Init
     }
 }
