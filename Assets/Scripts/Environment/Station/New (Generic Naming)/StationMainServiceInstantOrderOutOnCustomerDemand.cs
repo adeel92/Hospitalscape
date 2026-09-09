@@ -23,8 +23,6 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaSetupFoldOut)] List<OutputOrderInfo> m_OutputOrderInfos = new();
         [SerializeField, Foldout(MetaSetupFoldOut)] List<OutputOrderDisplayInfo> m_OutputOrderDisplayInfos = new();
         [SerializeField, Foldout(MetaSetupFoldOut), ReadOnly] bool m_IsStationOpen = false;
-        [SerializeField, Foldout(MetaSetupFoldOut)] DataConsumable m_FoodType;
-        [SerializeField, Foldout(MetaSetupFoldOut)] bool m_SetHasJustUnlockedValue;
 
         //---Menu Calls---
         private const string MetaMenuCallsFoldOut = "---Menu Calls---";
@@ -35,8 +33,8 @@ namespace Isometric.Environment
         /* [Header("-Unlocking for the first time")]
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] Vector2 m_CameraFocusPosition;
         [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraZoom;
-        [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;
-        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; */
+        [SerializeField, Foldout(MetaMenuCallsFoldOut)] float m_CameraFocusDuration;*/
+        [Foldout(MetaMenuCallsFoldOut)] public UnityEvent OnHasUnlockedMenu; 
         [Header("-Upgraded any of the properties"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnHasUpgradedMenu;
 
@@ -47,9 +45,6 @@ namespace Isometric.Environment
         [Header("-Station is unlocked"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
         [Header("-Unlocking for the first time")]
-        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] Vector2 m_CameraFocusPosition;
-        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraZoom;
-        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_CameraFocusDuration;
         [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
@@ -60,12 +55,15 @@ namespace Isometric.Environment
 
         //---Interaction
         private const string MetaInteractionFoldOut = "---Interaction---";
-        [Foldout(MetaInteractionFoldOut)] 
-        public UnityEvent OnFoodOutSuccesful;
+        [Foldout(MetaInteractionFoldOut)] public UnityEvent OnStationOpen;
+        [Foldout(MetaInteractionFoldOut)] public UnityEvent OnStationClose;
+        [Foldout(MetaInteractionFoldOut)] public UnityEvent OnFoodOutSuccesful;
 
         private CustomerSalonController m_CurrentCustomer = null;
         private CustomerFirstOrderInfo m_CurrentCustomerFirstOrderInfo = null;
-        private List<OutputOrderInfo> m_CurrentOutputOrderInfos = null;
+        [SerializeField, ReadOnly] List<OutputOrderInfo> m_CurrentOutputOrderInfos = null;
+        private List<GameObject> m_CurrentDisplayedOutputOrders = new();
+
 
         [ContextMenu("SetupForMenu")]
         public void SetupForMenu()
@@ -74,42 +72,17 @@ namespace Isometric.Environment
             {
                 OnIsLockedMenu?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked /* && !m_Data.StationData.HasJustUnlocked */)
+            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
             {
                 OnIsUnlockdMenu?.Invoke();
             }
 
-            /* if (m_Data.StationData.HasJustUnlocked)
+            if (m_Data.StationData.HasJustUnlocked)
             {
-                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
-                () =>
-                {
-                    UIManager.UIInteractionOff();
-                    UIManager.HideMenu(null);
-                    CameraController.Interactability(false);
-                }, 
-                () =>
-                {
-                    OnHasUnlockedMenu?.Invoke();
-                    CoroutineManager.LateAction(() =>
-                    {
-                        if (CameraController.NextFocusCamera() == false)
-                        {
-                            CameraController.SetupForMenu(() =>
-                            {
-                                UIManager.CheckNextUpdatable();
-                            });
-                        }
-
-                    }, m_CameraFocusDuration);
-                });
-
-                if (m_SetHasJustUnlockedValue)
-                {
-                    m_Data.StationData.HasJustUnlocked = false;
-                    m_Data.Save();
-                }
-            } */
+                OnHasUnlockedMenu?.Invoke();
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
+            }
 
             if (m_Data.StationData.HasUpgraded)
             {
@@ -133,38 +106,14 @@ namespace Isometric.Environment
 
             if (m_Data.StationData.HasJustUnlocked)
             {
-                CameraController.RegisterFocusCamera(m_CameraFocusPosition, m_CameraZoom, 1.4f, 
-                () =>
-                {
-                    UIManager.UIInteractionOff();
-                    // GameManager.PauseGame();
-                }, 
-                () =>
-                {
-                    OnHasUnlockedGameplay?.Invoke();
-                    CoroutineManager.LateAction(() =>
-                    {
-                        if (CameraController.NextFocusCamera() == false)
-                        {
-                            CameraController.SetupForGameplay(() =>
-                            {
-                                UIManager.CheckNextGameplayUpdatable();
-                            });
-                        }
-
-                    }, m_CameraFocusDuration);
-                });
-
-                if (m_SetHasJustUnlockedValue)
-                {
-                    m_Data.StationData.HasJustUnlocked = false;
-                    m_Data.Save();
-                }
+                OnHasUnlockedGameplay?.Invoke();
+                m_Data.StationData.HasJustUnlocked = false;
+                m_Data.Save();
             }
 
             if (m_Data.StationData.HasUpgraded)
             {
-                OnHasUpgradedMenu?.Invoke();
+                OnHasUpgradedGameplay?.Invoke();
                 m_Data.StationData.HasUpgraded = false;
                 m_Data.Save();
             }
@@ -173,6 +122,10 @@ namespace Isometric.Environment
             if (upgradeCost != null)
             {
                 m_CostProperty = Mathf.RoundToInt(upgradeCost.Upgrade[upgradeCost.CurrentUpgradeIndex]);
+            }
+            else
+            {
+                m_CostProperty = 0;
             }
         }
 
@@ -190,6 +143,7 @@ namespace Isometric.Environment
 
         private void CheckDemandedCustomer(CustomerSalonController customer, CustomerFirstOrderInfo firstOrder, List<DataConsumable> orderItems)
         {
+            Debug.Log($"{nameof(StationMainServiceInstantOrderOutOnCustomerDemand)} -- Adeel 1!");
             m_CurrentCustomer = customer;
             m_CurrentCustomerFirstOrderInfo = firstOrder;
             
@@ -211,17 +165,21 @@ namespace Isometric.Environment
         private void OpenStation()
         {
             m_IsStationOpen = true;
-            m_TaskTrigger.enabled = true;
-            ShowCustomerDemandedOrders();
+            // m_TaskTrigger.enabled = true;
+            ShowCustomerDemandedOrdersUI();
             DisplayOutputOrders();
+            OnStationOpen?.Invoke();
         }
         private void CloseStation()
         {
             m_IsStationOpen = false;
-            m_TaskTrigger.enabled = false;
+            // m_TaskTrigger.enabled = false;
+            HideCustomerDemandedOrdersUI();
+            RemoveDisplayedOutputOrders();
+            OnStationClose?.Invoke();
         }
 
-        private void ShowCustomerDemandedOrders()
+        private void ShowCustomerDemandedOrdersUI()
         {
             if (m_CurrentCustomer != null)
             {
@@ -235,9 +193,15 @@ namespace Isometric.Environment
                 m_OrderUIController.SetOrders(currentOrders, m_CurrentCustomerFirstOrderInfo);
             }
         }
+        private void HideCustomerDemandedOrdersUI()
+        {
+            m_OrderUIController.CleanPreviousOrders();
+        }
 
         private void DisplayOutputOrders()
         {
+            RemoveDisplayedOutputOrders();
+
             foreach(OutputOrderInfo outputOrderInfo in m_CurrentOutputOrderInfos)
             {
                 OutputOrderDisplayInfo outputOrderDisplayInfo = m_OutputOrderDisplayInfos.Find(x => x.OutputOrderType == outputOrderInfo.OutputOrderType);
@@ -248,20 +212,59 @@ namespace Isometric.Environment
                         if (!displayObj.activeSelf)
                         {
                             displayObj.SetActive(true);
+                            m_CurrentDisplayedOutputOrders.Add(displayObj);
                             break;
                         }
                     }
                 }
             }
         }
+        private void RemoveDisplayedOutputOrders()
+        {
+            if(m_CurrentDisplayedOutputOrders.Count > 0)
+            {
+                foreach(GameObject displayObj in m_CurrentDisplayedOutputOrders)
+                {
+                    displayObj.SetActive(false);
+                }
+                m_CurrentDisplayedOutputOrders.Clear();
+            }
+        }
+
+        private bool HasAnyDemandedCustomer()
+        {
+            return m_CurrentOutputOrderInfos.Count > 0;
+        }
 
         private void OnTaskStart(TaskTarget taskTarget)
         {
-            if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable))
+            if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable) && HasAnyDemandedCustomer())
             {
-                if (interactable.SendDataConsumable(m_FoodType, m_CostProperty))
+                bool isOutputSuccessfullySent = false;
+                for(int i = m_CurrentOutputOrderInfos.Count - 1; i >= 0; i--)
                 {
-                    OnFoodOutSuccesful?.Invoke();
+                    OutputOrderInfo outputOrderInfo = m_CurrentOutputOrderInfos[i];
+                    if (interactable.SendDataConsumable(outputOrderInfo.OutputOrderType, m_CostProperty))
+                    {
+                        OnFoodOutSuccesful?.Invoke();
+                        isOutputSuccessfullySent = true;
+                        m_CurrentOutputOrderInfos.RemoveAt(i);
+                    }
+                }
+
+                if (HasAnyDemandedCustomer())
+                {
+                    DisplayOutputOrders();
+                    ShowCustomerDemandedOrdersUI();
+                }
+                else
+                {
+                    CloseStation();
+                }
+
+
+                if (isOutputSuccessfullySent)
+                {
                     m_TaskTrigger.SendTaskResult(TaskResult.Success);
                 }
                 else
