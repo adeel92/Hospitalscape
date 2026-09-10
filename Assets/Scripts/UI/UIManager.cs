@@ -197,28 +197,44 @@ namespace Isometric.UI
                 s_Instance.m_GameplayItemRewardInfo = null;
                 Debug.Log($"ADEEL: Gameplay currency reward active!");
             }
-            else if (GetPopup<GameplayItemUnlockingUIManager>() != null &&
-                GetPopup<GameplayItemUnlockingUIManager>().CheckNextGameplayItemUnlockable())
+            else if (GetPopup<GameplayItemUnlockingUIManager>() != null)
             {
-                LevelManager.SetHasGameplayUnlockableItemIntro(true);
-                CoroutineManager.LateAction(() =>
+                var result = GetPopup<GameplayItemUnlockingUIManager>().CheckNextGameplayItemUnlockable();
+
+                if (result.isUnloackbleAvailable)
                 {
-                    UIInteractionOff();
-                    // GameManager.PauseGame();
-                    GetPopup<GameplayItemUnlockingUIManager>().OpenPopup(() =>
+                    LevelManager.SetHasGameplayUnlockableItemIntro(true);
+                    if (result.isUnlockUIRequired)
                     {
-                        UIInteractionOn();
-                    });
-                }, 0.5f);
-                Debug.Log($"ADEEL: Gameplay unlockable reward active!");
+                        CoroutineManager.LateAction(() =>
+                        {
+                            UIInteractionOff();
+                            // GameManager.PauseGame();
+                            GetPopup<GameplayItemUnlockingUIManager>().OpenPopup(() =>
+                            {
+                                UIInteractionOn();
+                            });
+                        }, 0.5f);
+                        Debug.Log($"ADEEL: Gameplay unlockable reward active!");
+                    }
+                }
+                else
+                {
+                    s_Instance.SetupGameAfterUpdates();
+                }
             }
             else
             { 
-                UIInteractionOn();
-                GameManager.UnPauseGame();
-                GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
-                Debug.Log($"ADEEL: No Gameplay reward active!");
+                s_Instance.SetupGameAfterUpdates();
             }
+        }
+
+        private void SetupGameAfterUpdates()
+        {
+            UIInteractionOn();
+            GameManager.UnPauseGame();
+            GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
+            Debug.Log($"ADEEL: No Gameplay reward active!");
         }
 
 

@@ -224,6 +224,7 @@ namespace Isometric.Player
             {
                 SoundManager.PlaySound(SoundType.TaskInteractions);
                 m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, dataConsumable.IsThrowable, itemCost);
+                GlobalEventHolder.OnTrayItemPicked?.Invoke(dataConsumable);
                 return true;
             }
             else

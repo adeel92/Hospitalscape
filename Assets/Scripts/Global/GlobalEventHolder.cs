@@ -67,6 +67,7 @@ namespace Isometric
         //Event to cancle the Current Task by the player or varient if exists
         public static Action OnCurrentTaskTargetCancle;
         public static Action OnCurrentTaskTargetCancleImmediately;
+        public static Action<DataConsumable> OnTrayItemPicked;
 
         //---Achievement---
         public static Action<CustomerId> OnNewCustomerUnlocked;

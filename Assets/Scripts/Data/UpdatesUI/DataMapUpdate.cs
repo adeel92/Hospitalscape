@@ -1849,6 +1849,7 @@ namespace Isometric.Data
                 }
 
                 return new GameplayUnlockableItemInfo(
+                    toBeUnlockedStation.IsUnlockUIRequired,
                     canBeUnlocked,
                     toBeUnlockedStation.Preview,
                     toBeUnlockedStation.NameDiscption,
@@ -2036,6 +2037,7 @@ namespace Isometric.Data
         public List<DataStation> DependentsUpgradableData;
         public int UnlockingLevelNumber;
         public int UnlockingOrder;
+        public bool IsUnlockUIRequired = true;
         public int RequiredStars;
         public Sprite Preview;
         public string NameDiscption;
@@ -2206,6 +2208,7 @@ namespace Isometric.Data
 
     public class GameplayUnlockableItemInfo
     {
+        public bool IsUnlockUIRequired;
         public bool IsUnloackble;
         public Sprite PreviewSprite;
         public string NameText;
@@ -2215,6 +2218,7 @@ namespace Isometric.Data
         public Action OnUnlocked;
 
         public GameplayUnlockableItemInfo(
+            bool isUnlockUIRequired,
             bool isUnloackble,
             Sprite previewSprite,
             string nameText,
@@ -2223,6 +2227,7 @@ namespace Isometric.Data
             int gemReward,
             Action onUnlocked)
         {
+            IsUnlockUIRequired = isUnlockUIRequired;
             IsUnloackble = isUnloackble;
             PreviewSprite = previewSprite;
             NameText = nameText;

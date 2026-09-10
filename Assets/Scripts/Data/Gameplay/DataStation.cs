@@ -139,5 +139,6 @@ namespace Isometric.Data
         SampleCollectionBed4,
         SampleCollectionBed5,
         SampleCollectionBed6,
+        MedicalResearch
     }
 }

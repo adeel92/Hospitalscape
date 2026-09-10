@@ -8,6 +8,7 @@ using Arc;
 using Isometric.Data;
 using Isometric.Sound;
 using DG.Tweening;
+using Isometric.Environment;
 
 namespace Isometric.UI
 {
@@ -43,36 +44,75 @@ namespace Isometric.UI
         public override void Setup() {}
 
         // Returns true of it has next gameplay item unlockable
-        public bool CheckNextGameplayItemUnlockable()
+        public (bool isUnloackbleAvailable, bool isUnlockUIRequired) CheckNextGameplayItemUnlockable()
         {
             GameplayUnlockableItemInfo gameplayUnlockableItemInfo = m_DataMapUpdate.GetNextGameplayUnlockable();
 
             if (gameplayUnlockableItemInfo != null)
             {
-                // m_AllItemsUnlockedMessage.SetActive(false);
-                m_ItemUnlockingPopup.SetActive(true);
-
                 if (gameplayUnlockableItemInfo.IsUnloackble == true)
                 {
-                    m_PrevewImage.sprite = gameplayUnlockableItemInfo.PreviewSprite;
-                    m_NameText.text = gameplayUnlockableItemInfo.NameText;
-                    m_DiscriptionText.text = gameplayUnlockableItemInfo.DiscriptionText;
-                    // m_UnlockOnButtonText.text = gameplayUnlockableItemInfo.StarRequired.ToString();
-
-                    m_DiscriptionText.gameObject.SetActive(true);
-                    m_LockedDiscriptionText.gameObject.SetActive(false);
-
-                    m_CloseButton.SetActive(false);
-                    m_LockButton.SetActive(false);
-                    m_UnlockOnButton.gameObject.SetActive(true);
-
-
-                    Action callback = gameplayUnlockableItemInfo.OnUnlocked;
-
-                    m_UnlockOnButton.onClick.RemoveAllListeners();
-                    m_UnlockOnButton.onClick.AddListener(() =>
+                    if (gameplayUnlockableItemInfo.IsUnlockUIRequired)
                     {
-                        callback?.Invoke();
+                        // m_AllItemsUnlockedMessage.SetActive(false);
+                        m_ItemUnlockingPopup.SetActive(true);
+
+                        m_PrevewImage.sprite = gameplayUnlockableItemInfo.PreviewSprite;
+                        m_NameText.text = gameplayUnlockableItemInfo.NameText;
+                        m_DiscriptionText.text = gameplayUnlockableItemInfo.DiscriptionText;
+                        // m_UnlockOnButtonText.text = gameplayUnlockableItemInfo.StarRequired.ToString();
+
+                        m_DiscriptionText.gameObject.SetActive(true);
+                        m_LockedDiscriptionText.gameObject.SetActive(false);
+
+                        m_CloseButton.SetActive(false);
+                        m_LockButton.SetActive(false);
+                        m_UnlockOnButton.gameObject.SetActive(true);
+
+
+                        Action callback = gameplayUnlockableItemInfo.OnUnlocked;
+
+                        m_UnlockOnButton.onClick.RemoveAllListeners();
+                        m_UnlockOnButton.onClick.AddListener(() =>
+                        {
+                            callback?.Invoke();
+                            if (gameplayUnlockableItemInfo.CoinReward > 0)
+                            {
+                                DataManager.CoinCurrency += gameplayUnlockableItemInfo.CoinReward;
+                            }
+                            if (gameplayUnlockableItemInfo.GemReward > 0)
+                            {
+                                DataManager.GemCurrency += gameplayUnlockableItemInfo.GemReward;
+                            }
+                            DataManager.SaveData();
+
+                            UIManager.UIInteractionOff();
+                            UIManager.HasGameplayItemUnlocked(gameplayUnlockableItemInfo);
+                            /* CollectionUIManager.CollectCurve(gameplayUnlockableItemInfo.StarRequired, 
+                                m_StarUseDuration,
+                                m_StarUseCurveType,
+                                m_StarUsePrefab, 
+                                m_StarUseStartScale,
+                                m_StarUseEndScale,
+                                m_StarUseHolder, 
+                                m_StarUseStartPosition.position, 
+                                m_StarUseEndPosition.position, 
+                                false,
+                                () =>
+                                {
+                                    SoundManager.PlaySound(SoundType.Coin);
+                                    m_StarUseEndPosition.DoBounceScale(Vector3.one, Vector3.one * 1.1f, 0.1f);
+                                }, 
+                                () =>
+                                {
+                                }); */
+                        });
+                        return (true, true);
+                    }
+                    else
+                    {
+                        m_ItemUnlockingPopup.SetActive(false);
+                        gameplayUnlockableItemInfo.OnUnlocked.Invoke();
                         if (gameplayUnlockableItemInfo.CoinReward > 0)
                         {
                             DataManager.CoinCurrency += gameplayUnlockableItemInfo.CoinReward;
@@ -82,46 +122,15 @@ namespace Isometric.UI
                             DataManager.GemCurrency += gameplayUnlockableItemInfo.GemReward;
                         }
                         DataManager.SaveData();
-
-                        UIManager.UIInteractionOff();
-                        UIManager.HasGameplayItemUnlocked(gameplayUnlockableItemInfo);
-                        /* CollectionUIManager.CollectCurve(gameplayUnlockableItemInfo.StarRequired, 
-                            m_StarUseDuration,
-                            m_StarUseCurveType,
-                            m_StarUsePrefab, 
-                            m_StarUseStartScale,
-                            m_StarUseEndScale,
-                            m_StarUseHolder, 
-                            m_StarUseStartPosition.position, 
-                            m_StarUseEndPosition.position, 
-                            false,
-                            () =>
-                            {
-                                SoundManager.PlaySound(SoundType.Coin);
-                                m_StarUseEndPosition.DoBounceScale(Vector3.one, Vector3.one * 1.1f, 0.1f);
-                            }, 
-                            () =>
-                            {
-                            }); */
-                    });
-
-
-                    return true;
+                        UIManager.UIInteractionOn();
+                        EnvironmentManager.SetupForGameplay();
+                        return (true, false);
+                    }
                 }
                 else
                 {
-                    /* m_PrevewImage.sprite = gameplayUnlockableItemInfo.PreviewSprite;
-                    m_NameText.text = gameplayUnlockableItemInfo.NameText;
-                    m_LockOnButtonText.text = gameplayUnlockableItemInfo.StarRequired.ToString();
-
-                    m_DiscriptionText.gameObject.SetActive(false);
-                    m_LockedDiscriptionText.gameObject.SetActive(true);
-
-                    m_CloseButton.SetActive(true);
-                    m_LockButton.SetActive(true);
-                    m_UnlockOnButton.gameObject.SetActive(false); */
-
-                    return false;
+                    m_ItemUnlockingPopup.SetActive(false);
+                    return (false, false);
                 }
             }
             else
@@ -129,7 +138,7 @@ namespace Isometric.UI
                 /* m_CloseButton.SetActive(true);
                 m_AllItemsUnlockedMessage.SetActive(true); */
                 m_ItemUnlockingPopup.SetActive(false);
-                return false;
+                return (false, false);
             }
         }
 

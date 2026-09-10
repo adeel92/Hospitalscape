@@ -301,7 +301,7 @@ namespace Isometric.Environment
 
         private void AutoMakeFood()
         {
-            if (m_HoldingCapacity <= 0)
+            if (m_HoldingCapacity <= 0 && !m_IsProcessing)
             {
                 m_IsProcessing = true;
                 m_CurrentProperityCallbackInfo.OnDurationStart?.Invoke(m_DurationProperty);

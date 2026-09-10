@@ -46,6 +46,7 @@ namespace Isometric.Environment
         public UnityEvent OnIsUnlockdGameplay;
         [Header("-Unlocking for the first time")]
         [Foldout(MetaGameplayCallsFoldOut)] public UnityEvent OnHasUnlockedGameplay;
+        [SerializeField, Foldout(MetaGameplayCallsFoldOut)] float m_DelayAfterHasUnlocked = 1f;
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
 
@@ -109,6 +110,10 @@ namespace Isometric.Environment
                 OnHasUnlockedGameplay?.Invoke();
                 m_Data.StationData.HasJustUnlocked = false;
                 m_Data.Save();
+                CoroutineManager.LateAction(() =>
+                {
+                    UIManager.CheckNextGameplayUpdatable();
+                }, m_DelayAfterHasUnlocked);
             }
 
             if (m_Data.StationData.HasUpgraded)
@@ -143,7 +148,7 @@ namespace Isometric.Environment
 
         private void CheckDemandedCustomer(CustomerSalonController customer, CustomerFirstOrderInfo firstOrder, List<DataConsumable> orderItems)
         {
-            Debug.Log($"{nameof(StationMainServiceInstantOrderOutOnCustomerDemand)} -- Adeel 1!");
+            // Debug.Log($"{nameof(StationMainServiceInstantOrderOutOnCustomerDemand)} -- Adeel 1!");
             m_CurrentCustomer = customer;
             m_CurrentCustomerFirstOrderInfo = firstOrder;
             
