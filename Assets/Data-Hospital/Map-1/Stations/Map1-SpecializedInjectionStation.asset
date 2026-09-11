@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4f3cd13908a83640a079d7144f14974, type: 3}
-  m_Name: Map1-RedInjectionStation
+  m_Name: Map1-SpecializedInjectionStation
   m_EditorClassIdentifier: 
-  m_Key: Map1-RedInjectionStation
+  m_Key: Map1-SpecializedInjectionStation
   m_EditKey: 0
   m_Station:
-    StationName: 10
-    IsUnlocked: 0
+    StationName: 24
+    IsUnlocked: 1
     HasJustUnlocked: 0
     HasUpgraded: 0
-    EditDefaultValues: 0
-    IsUnlockedDefaultValue: 0
+    EditDefaultValues: 1
+    IsUnlockedDefaultValue: 1
     HasJustUnlockedDefaultValue: 0
     HasUpgradedDefaultValue: 0
     Upgrades:
@@ -28,15 +28,11 @@ MonoBehaviour:
       EditUpgradeIndex: 0
       CurrentUpgradeIndex: 0
       Upgrade:
-      - 4
-      - 0.4
-    - UpgradeType: 1
-      EditUpgradeIndex: 0
-      CurrentUpgradeIndex: 0
-      Upgrade:
-      - 1
-      - 2
-      - 3
+      - 3.5
+      - 2.975
+      - 2.52875
+      - 2.1494374
+      - 1.8270215
     - UpgradeType: 2
       EditUpgradeIndex: 0
       CurrentUpgradeIndex: 0

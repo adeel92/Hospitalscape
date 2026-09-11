@@ -126,7 +126,7 @@ namespace Isometric.Data
         RawGauze,
         ReceptionTable,
         RedInjectionSyrup,
-        RedInjection,
+        NormalInjection,
         SterilizedGauze,
         Syrup,
         Treadmill,
@@ -139,6 +139,7 @@ namespace Isometric.Data
         SampleCollectionBed4,
         SampleCollectionBed5,
         SampleCollectionBed6,
-        MedicalResearch
+        MedicalResearch,
+        SpecializedInjection
     }
 }

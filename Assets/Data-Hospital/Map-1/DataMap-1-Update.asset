@@ -2188,51 +2188,113 @@ MonoBehaviour:
     UnlockingCoinReward: 0
     UnlockingGemReward: 0
     StationUpgradeInfo:
-    - UpgradeType: 0
+    - UpgradeType: 1
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Injection
-      BasePreviewSprite: {fileID: 21300000, guid: 2aa7be337e5f16a48a685641b92b65c3, type: 3}
-      InfoDiscriptionText: Increase the capacity and refilling speed of Antiviral
-        Injection
-      NotifationSeenKey: Notification_Upgrade_Station_RedInj_0
+      HeaderText: Injection Income
+      BasePreviewSprite: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
+      InfoDiscriptionText: Increase the revenue of Antiviral Injection Machine to
+        earn more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_NormalInjection_1
       PropertyUpgradesInfo:
       - UpdateType: 2
         RequiredCoins: 0
         RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 2aa7be337e5f16a48a685641b92b65c3, type: 3}
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
       - UpdateType: 2
         RequiredCoins: 1500
         RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 859a76dd12108994a9dad011697bd27e, type: 3}
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
       - UpdateType: 2
         RequiredCoins: 2000
         RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 53d0ba74792743447904c429d1228788, type: 3}
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 2500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 3500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Increase Revenue
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+  - Data: {fileID: 11400000, guid: 65fafb2e64af70b41b294a62edaa51fe, type: 2}
+    DependentsUpgradableData: []
+    UnlockingLevelNumber: 23
+    UnlockingOrder: 6
+    IsUnlockUIRequired: 1
+    RequiredStars: 0
+    Preview: {fileID: 21300000, guid: 10331c1e0ce7e1249a5746b059fc213d, type: 3}
+    NameDiscption: Specialized Injection
+    Discription: Specialized Injection Machine is available now!
+    UnlockingCoinReward: 0
+    UnlockingGemReward: 0
+    StationUpgradeInfo:
+    - UpgradeType: 0
+      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
+      HeaderText: Specialized Injection
+      BasePreviewSprite: {fileID: 21300000, guid: 10331c1e0ce7e1249a5746b059fc213d, type: 3}
+      InfoDiscriptionText: Decrease the process duration of Specialized Injection
+        Machine!
+      NotifationSeenKey: Notification_Upgrade_Station_SpecializedInjection_0
+      PropertyUpgradesInfo:
       - UpdateType: 2
         RequiredCoins: 0
         RequiredGems: 0
         PropertyUpgradeNameText: Decrease Time
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 53d0ba74792743447904c429d1228788, type: 3}
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1000
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1200
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
+      - UpdateType: 2
+        RequiredCoins: 1500
+        RequiredGems: 0
+        PropertyUpgradeNameText: Decrease Time
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
       - UpdateType: 3
-        RequiredCoins: 500
+        RequiredCoins: 2500
         RequiredGems: 500
         PropertyUpgradeNameText: Decrease Time
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 53d0ba74792743447904c429d1228788, type: 3}
+        UsePreviewSprite: 0
+        PreviewSprite: {fileID: 0}
     - UpgradeType: 1
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Injection Income
-      BasePreviewSprite: {fileID: 21300000, guid: 2aa7be337e5f16a48a685641b92b65c3, type: 3}
-      InfoDiscriptionText: Increase the revenue of Antiviral Injection to earn more
-        coins!
-      NotifationSeenKey: Notification_Upgrade_Station_RedInj_1
+      HeaderText: Specialized Injection Income
+      BasePreviewSprite: {fileID: 21300000, guid: 10331c1e0ce7e1249a5746b059fc213d, type: 3}
+      InfoDiscriptionText: Increase the revenue of Specialized Injection Machine
+        to earn more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_SpecializedInjection_1
       PropertyUpgradesInfo:
       - UpdateType: 2
         RequiredCoins: 0
@@ -2278,8 +2340,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: b10ec25b866f0e746bfd8232259ace5e, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 23
-    UnlockingOrder: 6
+    UnlockingLevelNumber: 29
+    UnlockingOrder: 7
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 00f02cd493c1f344395969718e61e583, type: 3}
@@ -2377,8 +2439,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: 80077fd78e1e1fd429ef8926f43c8e8a, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 7
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 8
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 08aa008000161764ebdc29f9961b80c9, type: 3}
@@ -2475,8 +2537,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: 93ae3442edd8d7b47ae6c1f32591c827, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 8
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 9
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2487,8 +2549,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 5d1e46d6e12ad174d9ecf7650c5b9d71, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 9
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 10
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2499,8 +2561,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 65f23ea32432d5b45a9e0fdc7f930865, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 10
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 11
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2511,8 +2573,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 611ec80347e804a4980f605860922e30, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 11
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 12
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2523,8 +2585,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 6d8ffa981ea6240468189b9371f509cc, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 12
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 13
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2535,8 +2597,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: c32cac2ad3a28b54f9dd28b80580ade3, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 29
-    UnlockingOrder: 13
+    UnlockingLevelNumber: 34
+    UnlockingOrder: 14
     IsUnlockUIRequired: 0
     RequiredStars: 0
     Preview: {fileID: 0}
@@ -2547,8 +2609,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 3500d02ff09a3584cb0aded99eddba1c, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 34
-    UnlockingOrder: 14
+    UnlockingLevelNumber: 36
+    UnlockingOrder: 15
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 6a8c8832dda0a224db63d092ad9d3d11, type: 3}
@@ -2559,8 +2621,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: a654157b2d4eddb4a921a2aaaad99b9f, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 36
-    UnlockingOrder: 15
+    UnlockingLevelNumber: 39
+    UnlockingOrder: 16
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 42e506ea84df7ab4b8ba207d63e8151e, type: 3}
@@ -2657,8 +2719,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: 2809f3f71a58e3540929ddf374fb3b2d, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 39
-    UnlockingOrder: 16
+    UnlockingLevelNumber: 43
+    UnlockingOrder: 17
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 8f86bb2f9972bee4c85a105d5982a9d6, type: 3}
@@ -2755,8 +2817,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: 49ed630a3e8322f40aa6544460222157, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 43
-    UnlockingOrder: 17
+    UnlockingLevelNumber: 46
+    UnlockingOrder: 18
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 1d43400674a5576468f6a4fbbfe2c5bf, type: 3}
@@ -2767,8 +2829,8 @@ MonoBehaviour:
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 194b9f69bb75ed5429580e7a695ee6bb, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 46
-    UnlockingOrder: 18
+    UnlockingLevelNumber: 50
+    UnlockingOrder: 19
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 4d6f6fa37a1d1e44b87a3330041812f2, type: 3}
@@ -2866,8 +2928,8 @@ MonoBehaviour:
         PreviewSprite: {fileID: 0}
   - Data: {fileID: 11400000, guid: f638f203dccfcc24596d1b6e55980563, type: 2}
     DependentsUpgradableData: []
-    UnlockingLevelNumber: 50
-    UnlockingOrder: 19
+    UnlockingLevelNumber: 53
+    UnlockingOrder: 20
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 8a68972a4e73e944398d81a8305340e2, type: 3}
@@ -2876,112 +2938,6 @@ MonoBehaviour:
     UnlockingCoinReward: 0
     UnlockingGemReward: 0
     StationUpgradeInfo: []
-  - Data: {fileID: 11400000, guid: 05731f83912507c48a2ba33572213049, type: 2}
-    DependentsUpgradableData: []
-    UnlockingLevelNumber: 53
-    UnlockingOrder: 20
-    IsUnlockUIRequired: 1
-    RequiredStars: 0
-    Preview: {fileID: 21300000, guid: 8a939e8073d9edc4d8248788b0a0f96d, type: 3}
-    NameDiscption: Injection
-    Discription: Therapeutic Injection is available now!
-    UnlockingCoinReward: 0
-    UnlockingGemReward: 0
-    StationUpgradeInfo:
-    - UpgradeType: 0
-      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Injection
-      BasePreviewSprite: {fileID: 21300000, guid: 8a939e8073d9edc4d8248788b0a0f96d, type: 3}
-      InfoDiscriptionText: Increase the capacity and refilling speed of Therapeutic
-        Injection
-      NotifationSeenKey: Notification_Upgrade_Station_BlueInj_0
-      PropertyUpgradesInfo:
-      - UpdateType: 2
-        RequiredCoins: 0
-        RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 8a939e8073d9edc4d8248788b0a0f96d, type: 3}
-      - UpdateType: 2
-        RequiredCoins: 1500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 6fee2315739da7747aab8e9b7ce0b192, type: 3}
-      - UpdateType: 2
-        RequiredCoins: 2000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Add a Slot
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 1a6a8bc2df4c225468edd3306a46faf0, type: 3}
-      - UpdateType: 2
-        RequiredCoins: 2500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Decrease Time
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 1a6a8bc2df4c225468edd3306a46faf0, type: 3}
-      - UpdateType: 2
-        RequiredCoins: 3000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Decrease Time
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 1a6a8bc2df4c225468edd3306a46faf0, type: 3}
-      - UpdateType: 2
-        RequiredCoins: 3500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Decrease Time
-        UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: 1a6a8bc2df4c225468edd3306a46faf0, type: 3}
-    - UpgradeType: 1
-      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Injection Income
-      BasePreviewSprite: {fileID: 21300000, guid: 8a939e8073d9edc4d8248788b0a0f96d, type: 3}
-      InfoDiscriptionText: Increase the revenue of Therapeutic Injection to earn
-        more coins!
-      NotifationSeenKey: Notification_Upgrade_Station_BlueInj_1
-      PropertyUpgradesInfo:
-      - UpdateType: 2
-        RequiredCoins: 0
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 2000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 2500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 3000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 3500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
   m_DecorationsUpdateInfo:
   - Data: {fileID: 11400000, guid: 6ed60cff73dbe844c882a56378399c22, type: 2}
     UnlockingOrder: 1
@@ -3466,13 +3422,13 @@ MonoBehaviour:
   m_DataMapPatienceUpdate: {fileID: 11400000, guid: 1b2414756d3ba7744a8afbd9dbc81bba, type: 2}
   m_BoostersInfo:
   - BoosterType: 0
-    UnlockAtLevel: 1
+    UnlockAtLevel: 7
     AppliedDuration: 20
   - BoosterType: 1
-    UnlockAtLevel: 1
+    UnlockAtLevel: 16
     AppliedDuration: 20
   - BoosterType: 2
-    UnlockAtLevel: 1
+    UnlockAtLevel: 60
     AppliedDuration: 10
   m_MapAchievementUpdate: {fileID: 11400000, guid: 347cbc559e229234d908296b7ede135c, type: 2}
   m_DataProfile: {fileID: 11400000, guid: 4651c4f03bdf60d408d3d7e701634705, type: 2}
