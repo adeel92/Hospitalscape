@@ -10,7 +10,6 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Tutorial;
 using System.Linq;
-using Unity.VisualScripting;
 
 namespace Isometric.Environment
 {
@@ -83,6 +82,7 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<int> OnDurationSetup;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<float> OnDurationStart;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnInstantOrderComplete;
         // [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] List<StationOutInfo> m_StationOutInfo;
 
         private Coroutine m_StartProcessCoroutine = null;
@@ -218,12 +218,14 @@ namespace Isometric.Environment
         {
             m_TaskTrigger.OnTaskStart += OnTaskStart;
             GlobalEventHolder.OnTrayItemPicked += UpdateRequiredInputOrdersForCustomerDemand;
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFill;
         }
 
         private void OnDisable()
         {
             m_TaskTrigger.OnTaskStart -= OnTaskStart;
             GlobalEventHolder.OnTrayItemPicked -= UpdateRequiredInputOrdersForCustomerDemand;
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFill;
         }
 
         private void UpdateRequiredInputOrdersForCustomerDemand(DataConsumable pickedOrder)
@@ -272,12 +274,6 @@ namespace Isometric.Environment
                     outputOrderInfo.InputOrderType = inputOrderInfo.InputOrderType;
                     outputOrderInfo.OutputOrderType = inputOrderInfo.OutputOrderType;
                     outputOrderInfo.OutputOrderDisplayObjPrefab = inputOrderInfo.OutputOrderDisplayObjPrefab;
-                    Debug.Log(
-                        "Adeel Check 1:" +
-                        $"Prefab={inputOrderInfo.OutputOrderDisplayObjPrefab != null}, " +
-                        $"OutputPrefab={outputOrderInfo.OutputOrderDisplayObjPrefab != null}, " +
-                        $"Holder={outputOrderInfo.OutputOrderHolder != null}"
-                    );
                     GameObject displayObj = Instantiate(outputOrderInfo.OutputOrderDisplayObjPrefab, outputOrderInfo.OutputOrderHolder);
                     displayObj.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     displayObj.transform.localScale = Vector3.one;
@@ -321,6 +317,17 @@ namespace Isometric.Environment
             pendingInputOrderInfo.InputOrderDisplayObj = null;
             pendingInputOrderInfo.IsOccupied = false;
         }
+        private void ResetAllPendingToProcessInputOrderInfo()
+        {
+            foreach(PendingInputOrderInfo pendingInputOrderInfo in m_CurrentPendingToProcessInputOrderInfo)
+            {
+                if(!pendingInputOrderInfo.IsOccupied)
+                    continue;
+
+                ResetPendingToProcessInputOrderInfo(pendingInputOrderInfo);
+            }
+            m_AvailablePendingToProcessInputOrders = 0;
+        }
         private void ResetOutputOrderInfo(OutputOrderInfo outputOrderInfo)
         {
             m_AvailableOutputOrders--;
@@ -331,10 +338,35 @@ namespace Isometric.Environment
             outputOrderInfo.OutputOrderDisplayObj = null;
             outputOrderInfo.IsOccupied = false;
         }
+        private void ResetAllOutputOrderInfo()
+        {
+            foreach(OutputOrderInfo outputOrderInfo in m_CurrentOutputOrderInfos)
+            {
+                if(!outputOrderInfo.IsOccupied)
+                    continue;
+
+                ResetOutputOrderInfo(outputOrderInfo);
+            }
+            m_AvailableOutputOrders = 0;
+        }
         private void ResetProcess()
         {
             m_CurrentInputOrderInfosForProcessing.Clear();
             m_IsProcessing = false;
+        }
+
+        private void OnInstantOrderFill()
+        {
+            if(m_StartProcessCoroutine != null)
+            {
+                StopCoroutine(m_StartProcessCoroutine);
+                m_StartProcessCoroutine = null;
+            }
+            ResetProcess();
+            ResetAllPendingToProcessInputOrderInfo();
+            ResetRequiredInputOrders();
+            ResetAllOutputOrderInfo();
+            OnInstantOrderComplete?.Invoke();
         }
 
         private void CheckForPendingToProcessInputOrders()

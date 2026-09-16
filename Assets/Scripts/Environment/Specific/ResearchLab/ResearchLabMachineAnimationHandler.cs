@@ -15,13 +15,18 @@ namespace Isometric.Environment
         // OnDurationStart
         public void PlayProcess()
         {
-            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Process, null, null);
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Process, false, null, null);
         }
 
         // OnDurationComplete
         public void PlayInit()
         {
-            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, null, null);
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, false, null, null);
+        }
+
+        public void ResetAnimation()
+        {
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, true, null, null);
         }
     }
 }

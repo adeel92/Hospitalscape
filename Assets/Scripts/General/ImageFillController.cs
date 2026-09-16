@@ -46,5 +46,16 @@ namespace Isometric
             m_TargetImage.fillAmount = 1f;
             m_CanvasObj.SetActive(false);
         }
+
+        public void StopFillInstantly()
+        {
+            if (m_FillImageOverTime != null)
+            {
+                StopCoroutine(m_FillImageOverTime);
+                m_FillImageOverTime = null;
+            }
+            m_TargetImage.fillAmount = 1f;
+            m_CanvasObj.SetActive(false);
+        }
     }
 }

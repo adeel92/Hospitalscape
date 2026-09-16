@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.TaskSystem;
-using Isometric.Cam;
 using Isometric.UI;
 using System;
 using Isometric.Customer;
@@ -138,12 +136,16 @@ namespace Isometric.Environment
         {
             m_TaskTrigger.OnTaskStart += OnTaskStart;
             m_MainServiceController.OnCustomerNewOrderBunchAsked += CheckDemandedCustomer;
+            m_MainServiceController.OnCustomerServeComplete.AddListener(ResetCustomerInfo);
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFill;
         }
 
         private void OnDisable()
         {
             m_TaskTrigger.OnTaskStart -= OnTaskStart;
             m_MainServiceController.OnCustomerNewOrderBunchAsked -= CheckDemandedCustomer;
+            m_MainServiceController.OnCustomerServeComplete.RemoveListener(ResetCustomerInfo);
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFill;
         }
 
         private void CheckDemandedCustomer(CustomerSalonController customer, CustomerFirstOrderInfo firstOrder, List<DataConsumable> orderItems)
@@ -234,6 +236,21 @@ namespace Isometric.Environment
                 }
                 m_CurrentDisplayedOutputOrders.Clear();
             }
+        }
+
+        private void OnInstantOrderFill()
+        {
+            ResetOutputOrderInfo();
+            CloseStation();
+        }
+        private void ResetOutputOrderInfo()
+        {
+            m_CurrentOutputOrderInfos.Clear();
+        }
+        private void ResetCustomerInfo()
+        {
+            m_CurrentCustomer = null;
+            m_CurrentCustomerFirstOrderInfo = null;
         }
 
         private bool HasAnyDemandedCustomer()

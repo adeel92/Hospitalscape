@@ -43,7 +43,7 @@ namespace Isometric.Environment
             Color outputGauzeColor = m_OutputGauze.color;
             outputGauzeColor.a = 0f;
             m_OutputGauze.color = outputGauzeColor;
-            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Process, null, null);
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Process, false, null, null);
 
             if(m_FillCoroutine != null)
             {
@@ -63,13 +63,13 @@ namespace Isometric.Environment
             Color outputGauzeColor = m_OutputGauze.color;
             outputGauzeColor.a = 1f;
             m_OutputGauze.color = outputGauzeColor;
-            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Produce, null, null);
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Produce, false, null, null);
         }
 
         // OnOrderOut
         public void PlayMachineInitAnimation()
         {
-            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, null, null);
+            m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, false, null, null);
             ResetTimer();
         }
 
