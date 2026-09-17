@@ -54,6 +54,7 @@ namespace Isometric.Environment
 
         private const string MetaInteractiveFoldOut = "---Interactive---";
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_OrderDecidingDelay;
+        [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_InstantOrderCompleteDelay = 2f;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] PathNode m_StandingNode;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_CaptureDistance;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_ExitDistance;
@@ -64,6 +65,7 @@ namespace Isometric.Environment
 
         private Coroutine m_DectectionUpdate = null;
         private List<CurrentOrderInfo> m_CurrentOrdersInfo;
+        private bool m_HasFirstOrderDecisionCallSent = false;
         private bool m_IsPlayerOrdersLocked = false;
         private bool m_IsCustomerWaitingToBeServed = false;
         private int m_TotalRevenue = 0;
@@ -178,11 +180,13 @@ namespace Isometric.Environment
         private void OnEnable()
         {
             m_TaskTrigger.OnTaskStart += OnTaskStart;
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderComplete;
         }
 
         private void OnDisable()
         {
             m_TaskTrigger.OnTaskStart -= OnTaskStart;
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderComplete;
         }
 
         private void StartDetection()
@@ -269,6 +273,10 @@ namespace Isometric.Environment
 
         public void StartDecidingFirstOrder(Action onWaitComplete)
         {
+            if(m_HasFirstOrderDecisionCallSent)
+                return;
+
+            m_HasFirstOrderDecisionCallSent = true;
             CoroutineManager.LateAction(() =>
             {
                 OnTotalRevenueGenerated?.Invoke(m_TotalRevenue);
@@ -322,6 +330,7 @@ namespace Isometric.Environment
             m_OnFirstOrderDecided = null;
             m_IsCustomerWaitingToBeServed = false;
             m_TotalRevenue = 0;
+            m_HasFirstOrderDecisionCallSent = false;
             // m_CurrentCafeCustomer = null;
 
             if (m_DectectionUpdate != null)
@@ -342,6 +351,31 @@ namespace Isometric.Environment
             return m_ExitDistance;
         }
 
+        // Returns the Order Type and UI Order Position
+        public List<Tuple<DataConsumable, Vector3>> GetCurrentPlayerOrders()
+        {
+            if (m_CurrentOrdersInfo != null && m_CurrentOrdersInfo.Count > 0)
+            {
+                List<Tuple<DataConsumable, Vector3>> ordersInfo = new List<Tuple<DataConsumable, Vector3>>();
+
+                foreach (var orderInfo in m_CurrentOrdersInfo)
+                {
+                    if (!orderInfo.HasBeenServed)
+                    {
+                        Tuple<DataConsumable, Vector3> temOrderInfo = new Tuple<DataConsumable, Vector3>(
+                            orderInfo.Order,
+                            orderInfo.UIOrderPosition
+                            );
+                        ordersInfo.Add(temOrderInfo);
+                    }
+                }
+
+                return ordersInfo;
+            }
+
+            return null;
+        }
+
         public void LockPlayerOrders()
         {
             m_IsPlayerOrdersLocked = true;
@@ -350,6 +384,19 @@ namespace Isometric.Environment
         public void UnlockPlayerOrders()
         {
             m_IsPlayerOrdersLocked = false;
+        }
+
+        private void OnInstantOrderComplete()
+        {
+            if(m_CurrentSalonCustomer != null)
+            {
+                CoroutineManager.LateAction(() =>
+                {
+                    m_OrderUIController.CleanPreviousOrders();
+                    m_IsCustomerWaitingToBeServed = false;
+                    StartDecidingFirstOrder(m_OnFirstOrderDecided);
+                }, m_InstantOrderCompleteDelay);
+            }
         }
 
         private void OnTaskStart(TaskTarget taskTarget)

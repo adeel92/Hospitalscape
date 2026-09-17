@@ -977,12 +977,25 @@ namespace Isometric.Customer
         // Returns the Order Type and UI Order Position
         public List<Tuple<DataConsumable, Vector3>> GetCurrentWaitressOrders()
         {
+            List<Tuple<DataConsumable, Vector3>> orders = new();
             if (m_MainServiceCustomerHandler != null)
             {
-                return m_MainServiceCustomerHandler.GetSalonChair().GetCurrentPlayerOrders();
+                List<Tuple<DataConsumable, Vector3>> mainServiceOrders = m_MainServiceCustomerHandler.GetSalonChair().GetCurrentPlayerOrders();
+                if(mainServiceOrders != null)
+                {
+                    orders.AddRange(mainServiceOrders);
+                }
+            }
+            if (m_CounterTableController != null)
+            {
+                List<Tuple<DataConsumable, Vector3>> counterTableOrders = m_CounterTableController.GetCurrentPlayerOrders();
+                if(counterTableOrders != null)
+                {
+                    orders.AddRange(counterTableOrders);
+                }
             }
 
-            return null;
+            return orders;
         }
 
         public void LockWaitressOrders()
