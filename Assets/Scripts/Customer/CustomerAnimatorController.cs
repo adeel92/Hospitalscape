@@ -137,6 +137,7 @@ namespace Isometric.Customer
         GoingToSteadyStandLeft,
         SteadyStandingLeft,
         SteadyStandingHappyLeft,
-        SteadyWalkLeft
+        SteadyWalkLeft,
+        StandingIdleNeutralUp
     }
 }

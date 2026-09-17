@@ -22,12 +22,17 @@ namespace Isometric.Environment
         [SerializeField] Vector2 m_CameraFocusPosition;
         [SerializeField] float m_CameraZoom;
         [SerializeField] float m_CameraFocusDuration;
-        [SerializeField] float m_UnlockingAnimationDuration;
+        [SerializeField] float m_DesignChoicePopupOpenDelay = 0.5f;
+        [SerializeField] float m_CameraFocusResetDelay = 1f;
 
         public UnityEvent OnIsLockedMenu;
         [Header("-Not Called First Time Unlocking")]
         public UnityEvent OnIsUnlockdMenu;
         public UnityEvent OnHasJustUnlockedMenu;
+        [Space] 
+        public UnityEvent OnDesignPreviewed;
+        public UnityEvent OnCameraFocused;
+        public UnityEvent OnDesignChoicePopupClosed;
 
 
         private void OnEnable()
@@ -79,6 +84,7 @@ namespace Isometric.Environment
                 () =>
                 {
                     OnHasJustUnlockedMenu?.Invoke();
+                    OnCameraFocused?.Invoke();
                     CoroutineManager.LateAction(() =>
                     {
                         StarItemUnlockingUIManager starItemUnlockingUIManager = UIManager.GetPopup<StarItemUnlockingUIManager>();
@@ -86,7 +92,7 @@ namespace Isometric.Environment
                         {
                             UIManager.UIInteractionOn();
                         });
-                    }, m_UnlockingAnimationDuration);
+                    }, m_DesignChoicePopupOpenDelay);
                 });
 
                 // data.HasJustUnlocked = false;
@@ -126,6 +132,7 @@ namespace Isometric.Environment
                     targetRenderer.sprite = environmentSprite;
                 }
             }
+            OnDesignPreviewed?.Invoke();
         }
 
         private bool TryGetSubItemSprite(DecorationDesignInfo designInfo, DecorationSubItem requiredKey, out Sprite environmentSprite)
@@ -173,13 +180,17 @@ namespace Isometric.Environment
             StarItemUnlockingUIManager starItemUnlockingUIManager = UIManager.GetPopup<StarItemUnlockingUIManager>();
             starItemUnlockingUIManager.CloseChoicePopup(() =>
             {
-                if (CameraController.NextFocusCamera() == false)
+                OnDesignChoicePopupClosed?.Invoke();
+                CoroutineManager.LateAction(() =>
                 {
-                    CameraController.SetupForMenu(() =>
+                    if (CameraController.NextFocusCamera() == false)
                     {
-                        UIManager.CheckNextUpdatable();
-                    });
-                }
+                        CameraController.SetupForMenu(() =>
+                        {
+                            UIManager.CheckNextUpdatable();
+                        });
+                    }   
+                }, m_CameraFocusResetDelay);
             });
         }
         public void LoadSelectedDesign()

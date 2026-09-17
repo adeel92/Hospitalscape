@@ -9,6 +9,7 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.PathSystem;
 using Isometric.Environment;
+using Unity.VisualScripting;
 
 namespace Isometric.Customer
 {
@@ -62,10 +63,12 @@ namespace Isometric.Customer
         [SerializeField, ReadOnly, Expandable] CustomerCommonSetting m_CommonSettings;
         [SerializeField, ReadOnly] CustomerFirstOrderInfo m_CustomerFirstSalonOrder;
         [SerializeField, ReadOnly] List<CustomerOrderInfo> m_CustomerSalonOrdersInfo;
+        [SerializeField, ReadOnly] CustomerOrderInfo m_CustomerCounterOrderInfo;
         [SerializeField, ReadOnly] PathNode m_CurrentNode;
         [SerializeField, ReadOnly] QueueInfo m_CurrentQueue;
         [SerializeField, ReadOnly] DataConsumable m_CurrentChairLeaveOrder = null;
 
+        private int m_ReceptionCounterServiceRevenue = 0;
         private float m_WalkSpeed;
         private float m_WaitDurationCounter = 0;
         private CustomerAnimatorState m_SalonWaitState = CustomerAnimatorState.PickedUpNeutral;
@@ -127,6 +130,15 @@ namespace Isometric.Customer
             else
             {
                 m_WaitingUIController.StopHeatEffect();
+            }
+
+            if(dataCustomer.IsFirstOrderUndecided && salonData.CustomerCounterOrderInfo != null && salonData.CustomerCounterOrderInfo.OrdersConsumable.Count > 0)
+            {
+                m_CustomerCounterOrderInfo = salonData.CustomerCounterOrderInfo;
+            }
+            else
+            {
+                m_CustomerCounterOrderInfo = null;
             }
 
             if (salonData.CustomerOrderBundles.Count > 0)
@@ -472,12 +484,14 @@ namespace Isometric.Customer
                     {
                         // m_PickUp.SetActive(false);
                         DisablePickupCollider();
+                        m_CounterTableController.OnTotalRevenueGenerated += UpdateReceptionCounterRevenue;
                         m_CurrentQueue.CurrentCustomer = null;
                         CustomerManager.ResetQueue();
                         m_CurrentNode = m_CounterTableController.GetStandingPathNode();
                         StopSalonWaitCorotoine();
+                        m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleNeutralUp);
 
-                        m_CounterTableController.StandAtTheCounter(() =>
+                        Action onFirstOrderDecided = () =>
                         {
                             m_IsFirstOrderUndecided = false;
                             m_WaitingUIController.SetupForSalon(m_CustomerFirstSalonOrder.OrderConsumable, m_IsFirstOrderUndecided);
@@ -485,7 +499,19 @@ namespace Isometric.Customer
                             // m_PickUp.SetActive(true);
                             EnablePickupCollider(PickupColliderType.Standing);
                             m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
-                        });
+                        };
+
+                        if(m_CustomerCounterOrderInfo != null && m_CustomerCounterOrderInfo.OrdersConsumable.Count > 0)
+                        {
+                            m_CounterTableController.StartShowingOrders(onFirstOrderDecided);
+                        }
+                        else
+                        {
+                            m_CounterTableController.StartDecidingFirstOrder(() =>
+                            {
+                                onFirstOrderDecided.Invoke();
+                            });
+                        }
                     }
                 }
             }
@@ -560,7 +586,7 @@ namespace Isometric.Customer
             {
                 m_CounterTableController = counterTableController;
                 m_PickedLastPosition = transform.position;
-                m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleNeutral);
+                m_AnimatorController.PlayState(CustomerAnimatorState.StandingIdleNeutralUp);
             }
         }
         #endregion
@@ -677,6 +703,22 @@ namespace Isometric.Customer
         {
             m_MainServiceCustomerHandler.MainServiceController.OnCustomerServeStart.RemoveListener(SetSatisfiedServiceState);
             m_MainServiceCustomerHandler.MainServiceController.OnCustomerOrderServed.RemoveListener(SetSatisfiedServiceState);
+            if(m_CounterTableController != null)
+            {
+                m_CounterTableController.OnTotalRevenueGenerated -= UpdateReceptionCounterRevenue;
+            }
+        }
+        #endregion
+
+        #region Additional Revenue
+        private void UpdateReceptionCounterRevenue(int revenue)
+        {
+            m_ReceptionCounterServiceRevenue = revenue;
+        }
+        public int GetAdditionalRevenue()
+        {
+            int additionalRevenue = m_ReceptionCounterServiceRevenue;
+            return additionalRevenue;
         }
         #endregion
 
@@ -704,6 +746,7 @@ namespace Isometric.Customer
             }
             else
             {
+                m_CounterTableController.OnTotalRevenueGenerated -= UpdateReceptionCounterRevenue;
                 m_CounterTableController.CustomerRemoved();
             }
 
@@ -882,6 +925,11 @@ namespace Isometric.Customer
             }
         }
 
+        public CustomerOrderInfo GetCounterOrders()
+        {
+            return m_CustomerCounterOrderInfo;
+        }
+
         public CustomerFirstOrderInfo GetSalonFirstOrder()
         {
             return m_CustomerFirstSalonOrder;
@@ -943,6 +991,10 @@ namespace Isometric.Customer
             {
                 m_MainServiceCustomerHandler.GetSalonChair().LockPlayerOrders();
             }
+            if(m_CounterTableController != null)
+            {
+                m_CounterTableController.LockPlayerOrders();
+            }
         }
 
         public void UnlockWaitressOrders()
@@ -950,6 +1002,10 @@ namespace Isometric.Customer
             if (m_MainServiceCustomerHandler != null)
             {
                 m_MainServiceCustomerHandler.GetSalonChair().UnlockPlayerOrders();
+            }
+            if(m_CounterTableController != null)
+            {
+                m_CounterTableController.UnlockPlayerOrders();
             }
         }
 

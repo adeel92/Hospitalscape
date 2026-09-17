@@ -513,6 +513,9 @@ namespace Isometric.Environment
                 m_TotalRevenue += m_LastTipVIP;
             }
 
+            // Additional revenue brings revenue that customer has generated after having treatment somewhere else, like reception counter
+            m_TotalRevenue += m_CustomerHandler.GetCurrentCustomer().GetAdditionalRevenue();
+
             m_RevenuUIController.ShowReveneu(m_TotalRevenue);
 
             GlobalEventHolder.OnCoinsCollected?.Invoke(m_TotalRevenue);

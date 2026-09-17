@@ -86,6 +86,7 @@ MonoBehaviour:
   m_LeaveHappyAnimationState: 28
   m_MainServiceDetectionCooldownDuration: 0.06
   m_IsAlreadyDetectedByMainService: 0
+  m_MainServiceCustomerHandler: {fileID: 0}
   m_StationCusterInHandler: {fileID: 0}
   m_IsCustomerVIP: 0
   m_DataCustomerSalon:
@@ -96,6 +97,8 @@ MonoBehaviour:
     QueueSpawnDelay: 0
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo: []
     CustomerOrderBundles: []
@@ -103,6 +106,8 @@ MonoBehaviour:
   m_CustomerFirstSalonOrder:
     OrderConsumable: {fileID: 0}
   m_CustomerSalonOrdersInfo: []
+  m_CustomerCounterOrderInfo:
+    OrdersConsumable: []
   m_CurrentNode: {fileID: 0}
   m_CurrentQueue:
     Node: {fileID: 0}
@@ -199,6 +204,8 @@ MonoBehaviour:
     StateName: SteadyStandingHappyLeft
   - AnimatorState: 36
     StateName: SteadyWalkingLeft
+  - AnimatorState: 37
+    StateName: StandingIdleNeutralUp
 --- !u!1 &6142434879831078360
 GameObject:
   m_ObjectHideFlags: 0

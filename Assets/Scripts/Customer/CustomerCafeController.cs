@@ -393,7 +393,7 @@ namespace Isometric.Customer
                         m_CurrentNode = m_CounterTableController.GetStandingPathNode();
                         StopCafeWaitCorotoine();
 
-                        m_CounterTableController.StandAtTheCounter(() =>
+                        m_CounterTableController.StartDecidingFirstOrder(() =>
                         {
                             m_IsFirstOrderUndecided = false;
                             m_WaitingUIController.SetupForCafe(m_IsFirstOrderUndecided);

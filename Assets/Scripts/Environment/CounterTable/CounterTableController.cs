@@ -18,8 +18,10 @@ namespace Isometric.Environment
     {
         //---Setup---
         private const string MetaSetupFoldOut = "---Setup---";
-        [SerializeField, Foldout(MetaSetupFoldOut), Expandable] 
-        private DataStation m_Data;
+        [SerializeField, Foldout(MetaSetupFoldOut), Expandable] DataStation m_Data;
+        [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
+        [SerializeField, Foldout(MetaSetupFoldOut)] MainServiceOrderUIController m_OrderUIController;
+
 
         //---Menu Calls---
         private const string MetaMenuCallsFoldOut = "---Menu Calls---";
@@ -58,10 +60,17 @@ namespace Isometric.Environment
         [SerializeField, SortingLayer, Foldout(MetaInteractiveFoldOut)] string m_StandingSortingLayer;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] int m_StandingSortingOrder;
         [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerSalonController m_CurrentSalonCustomer;
-        [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerCafeController m_CurrentCafeCustomer;
+        // [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerCafeController m_CurrentCafeCustomer;
+
+        private Coroutine m_DectectionUpdate = null;
+        private List<CurrentOrderInfo> m_CurrentOrdersInfo;
+        private bool m_IsPlayerOrdersLocked = false;
+        private bool m_IsCustomerWaitingToBeServed = false;
+        private int m_TotalRevenue = 0;
+        private Action m_OnFirstOrderDecided = null;
 
 
-        Coroutine m_DectectionUpdate = null;
+        public Action<int> OnTotalRevenueGenerated;
 
 
         [ContextMenu("SetupForMenu")]
@@ -166,6 +175,16 @@ namespace Isometric.Environment
                 StartDetection();
         }
 
+        private void OnEnable()
+        {
+            m_TaskTrigger.OnTaskStart += OnTaskStart;
+        }
+
+        private void OnDisable()
+        {
+            m_TaskTrigger.OnTaskStart -= OnTaskStart;
+        }
+
         private void StartDetection()
         {
             if (m_DectectionUpdate != null)
@@ -183,7 +202,7 @@ namespace Isometric.Environment
             {
                 yield return null;
 
-                if (m_CurrentSalonCustomer == null && m_CurrentCafeCustomer == null)
+                if (m_CurrentSalonCustomer == null /* && m_CurrentCafeCustomer == null */)
                 {
                     List<CustomerSalonController> salonCustomers = CustomerManager.GetAllSalonCustomer();
 
@@ -207,7 +226,7 @@ namespace Isometric.Environment
                         }
                     }
 
-                    List<CustomerCafeController> cafeCustomers = CustomerManager.GetAllCafeCustomer();
+                    /* List<CustomerCafeController> cafeCustomers = CustomerManager.GetAllCafeCustomer();
 
                     foreach (var cafeCustomer in cafeCustomers)
                     {
@@ -225,7 +244,7 @@ namespace Isometric.Environment
                                 yield break;
                             }
                         }
-                    }
+                    } */
                 }
 
             }
@@ -240,26 +259,70 @@ namespace Isometric.Environment
                 m_CurrentSalonCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
             }
 
-            if(m_CurrentCafeCustomer != null)
+            /* if(m_CurrentCafeCustomer != null)
             {
                 m_CurrentCafeCustomer.transform.SetParent(m_StandingNode.transform);
                 m_CurrentCafeCustomer.transform.localPosition = Vector3.zero;
                 m_CurrentCafeCustomer.SetSortingLayer(m_StandingSortingLayer, m_StandingSortingOrder);
-            }
+            } */
         }
 
-        public void StandAtTheCounter(Action onWaitComplete)
+        public void StartDecidingFirstOrder(Action onWaitComplete)
         {
             CoroutineManager.LateAction(() =>
             {
+                OnTotalRevenueGenerated?.Invoke(m_TotalRevenue);
                 onWaitComplete?.Invoke();
             }, m_OrderDecidingDelay);
+        }
+
+        public void StartShowingOrders(Action onFirstOrderDecided)
+        {
+            m_OnFirstOrderDecided = onFirstOrderDecided;
+            ShowNextOrder();
+        }
+        private void ShowNextOrder()
+        {
+            if (m_CurrentSalonCustomer != null)
+            {
+                CustomerOrderInfo customerOrders = m_CurrentSalonCustomer.GetCounterOrders();
+                if (customerOrders != null && customerOrders.OrdersConsumable.Count > 0)
+                {
+                    m_CurrentOrdersInfo = new List<CurrentOrderInfo>();
+
+                    foreach (var order in customerOrders.OrdersConsumable)
+                    {
+                        CurrentOrderInfo info = new CurrentOrderInfo();
+                        info.Order = order;
+                        info.HasBeenServed = false;
+                        m_CurrentOrdersInfo.Add(info);
+                    }
+
+                    m_OrderUIController.CleanPreviousOrders();
+                    List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(customerOrders.OrdersConsumable, m_CurrentSalonCustomer.GetSalonFirstOrder());
+
+                    for (int i = 0; i < m_CurrentOrdersInfo.Count && i < uiOrderPositions.Count; i++)
+                    {
+                        m_CurrentOrdersInfo[i].UIOrderPosition = uiOrderPositions[i];
+                    }
+
+                    m_IsCustomerWaitingToBeServed = true;
+                }
+                else
+                {
+                    StartDecidingFirstOrder(m_OnFirstOrderDecided);
+                }
+            }
         }
 
         public void CustomerRemoved()
         {
             m_CurrentSalonCustomer = null;
-            m_CurrentCafeCustomer = null;
+            m_CurrentOrdersInfo = null;
+            m_OnFirstOrderDecided = null;
+            m_IsCustomerWaitingToBeServed = false;
+            m_TotalRevenue = 0;
+            // m_CurrentCafeCustomer = null;
 
             if (m_DectectionUpdate != null)
             {
@@ -279,7 +342,90 @@ namespace Isometric.Environment
             return m_ExitDistance;
         }
 
+        public void LockPlayerOrders()
+        {
+            m_IsPlayerOrdersLocked = true;
+        }
 
+        public void UnlockPlayerOrders()
+        {
+            m_IsPlayerOrdersLocked = false;
+        }
+
+        private void OnTaskStart(TaskTarget taskTarget)
+        {
+            if (taskTarget.TryGetComponent(out IEnvironmentInteractable interactable))
+            {
+                if (m_CurrentSalonCustomer != null && m_IsCustomerWaitingToBeServed && !m_IsPlayerOrdersLocked)
+                {
+                    List<DataConsumable> currentOrders = new List<DataConsumable>();
+                    bool hasBeenServedSomething = false;
+                    foreach (var currentOrder in m_CurrentOrdersInfo)
+                    {
+                        if (currentOrder.HasBeenServed == false)
+                        {
+                            var items = interactable.GetDataConsumable(currentOrder.Order);
+                            if (items != null && items.Item1)
+                            {
+                                m_TotalRevenue += items.Item2;
+                                currentOrder.HasBeenServed = true;
+                                hasBeenServedSomething = true;
+                            }
+                            else
+                            {
+                                currentOrders.Add(currentOrder.Order);
+                            }
+                        }
+                    }
+
+                    if (m_CurrentOrdersInfo.TrueForAll((x) => x.HasBeenServed))
+                    {
+                        m_OrderUIController.CleanPreviousOrders();
+                        m_IsCustomerWaitingToBeServed = false;
+                        StartDecidingFirstOrder(m_OnFirstOrderDecided);
+                        m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                    }
+                    else if (hasBeenServedSomething == true)
+                    {
+                        m_OrderUIController.CleanPreviousOrders();
+                        List<Vector3> uiOrderPositions = m_OrderUIController.SetOrders(currentOrders, m_CurrentSalonCustomer.GetSalonFirstOrder());
+
+                        int uiOrderCount = 0;
+                        for (int i = 0; i < m_CurrentOrdersInfo.Count && uiOrderCount < uiOrderPositions.Count; i++)
+                        {
+                            if (!m_CurrentOrdersInfo[i].HasBeenServed)
+                            {
+                                m_CurrentOrdersInfo[i].UIOrderPosition = uiOrderPositions[uiOrderCount];
+                                uiOrderCount++;
+                            }
+                        }
+                        m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                    }
+                    else
+                    {
+                        m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    }
+                }
+                else
+                {
+                    m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                }
+            }
+            else
+            {
+                m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+            }
+        }
+
+
+        private class CurrentOrderInfo
+        {
+            public DataConsumable Order;
+            public bool HasBeenServed;
+            public Vector3 UIOrderPosition;
+        }
+
+        #region Editor
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -321,5 +467,6 @@ namespace Isometric.Environment
             Gizmos.DrawLine(prevPoint, firstPoint);
         }
 #endif
+#endregion
     }
 }

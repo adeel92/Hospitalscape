@@ -162,6 +162,8 @@ namespace Isometric.Data
         public bool IsCustomerVIP;
 
         public bool IsFirstOrderUndecided;
+        [AllowNesting, ShowIf(nameof(IsFirstOrderUndecided))]
+        public CustomerOrderInfo CustomerCounterOrderInfo;
 
         [AllowNesting, ShowIf(nameof(Customer), CustomerType.Salon)]
         public CustomerFirstOrderHolder CustomerFirstOrdersInfoHolder;
