@@ -220,7 +220,7 @@ namespace Isometric.Environment.Worker
             public PathNode ActionNode;
             public PathDirection ActionDirection;
             public bool doLoop = false;
-            [HideIf(nameof(doLoop))]
+            [AllowNesting, HideIf(nameof(doLoop))]
             public float ActionDuration = 5f;
         }
 

@@ -11,6 +11,7 @@ using Isometric.Cam;
 using Isometric.Data;
 using Isometric.Sound;
 using Isometric.Tutorial;
+using Isometric.Environment.Worker;
 
 namespace Isometric
 {
@@ -48,6 +49,7 @@ namespace Isometric
             CameraController.SetEnvironemntInteractiblity(false);
             UIManager.Setup();
             WorkerManager.Setup();
+            EnvironmentWorkerManager.Setup();
             PlayerManager.SetupForMenu();
 
             UIManager.UIInteractionOff();
