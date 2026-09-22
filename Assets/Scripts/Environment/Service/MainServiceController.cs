@@ -99,10 +99,10 @@ namespace Isometric.Environment
         private WorkerController m_CurrentWorkerServing = null;
 
         private int m_OrderIndexNumber = 0;
-        private bool m_IsCustomerWaitingToBeServed = false;
+        [SerializeField, ReadOnly] bool m_IsCustomerWaitingToBeServed = false;
         private bool m_IsPlayerOrdersLocked = false;
         private bool m_IsCustomerSitting = false;
-        private bool m_IsSalonChairDirty = false;
+        [SerializeField, ReadOnly] bool m_IsSalonChairDirty = false;
         [HideInInspector] public bool m_IsSalonChairBeingCleaned = false;
 
         private bool m_IsCustomerVIP = false;
@@ -114,7 +114,7 @@ namespace Isometric.Environment
 
         private int m_TotalRevenue = 0;
 
-        private List<CurrentOrderInfo> m_CurrentOrdersInfo;
+        [SerializeField, ReadOnly] List<CurrentOrderInfo> m_CurrentOrdersInfo;
         [SerializeField, ReadOnly] List<DataConsumable> m_CurrentOrderItems;
 
         [SerializeField, ReadOnly]
@@ -457,6 +457,7 @@ namespace Isometric.Environment
                             }
                         }
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        Debug.Log("ADEEL TASK FAILED 1");
                     }
 
                 }
@@ -490,11 +491,13 @@ namespace Isometric.Environment
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    Debug.Log("ADEEL TASK FAILED 2");
                 }
             }
             else
             {
                 m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                Debug.Log("ADEEL TASK FAILED 3");
             }
         }
 
