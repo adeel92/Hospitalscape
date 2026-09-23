@@ -7,7 +7,8 @@ namespace Isometric.Environment
     public class EnvironmentDecorationUnlockAnimationHandler : MonoBehaviour
     {
         [Header("---Unlock Sequences---")]
-        [SerializeField] PlayDoTweenSequence m_UnlockedSequence;
+        [SerializeField] PlayDoTweenSequence m_LockDisabledSequence;
+        [SerializeField] PlayDoTweenSequence m_UnlockEnabledSequence;
         [SerializeField] PlayDoTweenSequence m_DesignSelectedSequence;
 
         [Header("---Design Preview Tween---")]
@@ -22,12 +23,22 @@ namespace Isometric.Environment
 
         public void PlayUnlockedSequence()
         {
-            m_UnlockedSequence.PlaySequence();
+            if(m_LockDisabledSequence != null)
+            {
+                m_LockDisabledSequence.PlaySequence();
+            }
+            else
+            {
+                m_UnlockEnabledSequence.PlaySequence();
+            }
         }
         
         public void PlayDesignSelectedSequence()
         {
-            m_DesignSelectedSequence.PlaySequence();
+            if(m_DesignSelectedSequence != null)
+            {
+                m_DesignSelectedSequence.PlaySequence();
+            }
         }
 
         public void PlayDesignPreviewTween()

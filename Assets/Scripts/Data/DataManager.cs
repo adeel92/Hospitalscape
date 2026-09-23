@@ -435,6 +435,25 @@ namespace Isometric.Data
             } 
         }
 
+        public static int CurrentMapLevelNumber
+        { 
+            get
+            {
+                if (s_Instance == null)
+                {
+                    PrintNullInstanceError();
+                    return 1;
+                }
+                else if (s_Instance.m_DataGame.GetCurrentDataMap() == null)
+                {
+                    Debug.LogWarning("Current Map not found");
+                    return 1;
+                }
+                
+                return s_Instance.m_DataGame.GetCurrentDataMap().GetLevelNumber();
+            } 
+        }
+
         public static int CurrentMapTotalLevels
         {
             get

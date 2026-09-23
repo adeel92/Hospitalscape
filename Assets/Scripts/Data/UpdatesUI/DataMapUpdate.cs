@@ -1719,8 +1719,7 @@ namespace Isometric.Data
 
             foreach (var decorationsUpdateInfo in m_DecorationsUpdateInfo)
             {
-                if (decorationsUpdateInfo.UnlockingOrder < unlockingOrder
-                    && !decorationsUpdateInfo.Data.EnvironmentDecorationData.IsUnlocked)
+                if (decorationsUpdateInfo.UnlockingOrder < unlockingOrder && decorationsUpdateInfo.UnlockingAtLevelNumber == DataManager.CurrentMapLevelNumber && !decorationsUpdateInfo.Data.EnvironmentDecorationData.IsUnlocked)
                 {
                     unlockingOrder = decorationsUpdateInfo.UnlockingOrder;
                     toBeUnlockedDecoration = decorationsUpdateInfo;
@@ -2142,6 +2141,7 @@ namespace Isometric.Data
         public DataEnvironmentDecoration Data;
         public int UnlockingOrder;
         public int RequiredStars;
+        public int UnlockingAtLevelNumber = 2;
         public Sprite Preview;
         public string NameDiscption;
         public string Discription;

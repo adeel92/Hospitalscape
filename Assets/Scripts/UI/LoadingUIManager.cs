@@ -46,6 +46,9 @@ namespace Isometric.UI
         {
         }
 
+        /// <summary>
+        /// Opens a loading screen and loads the specified scene after completing an inside loading duration.
+        /// </summary>
         public static void LoadScene(string sceneName)
         {
             if (s_Instance == null)
@@ -59,11 +62,11 @@ namespace Isometric.UI
 
             s_Instance.StartCoroutine(s_Instance.LoadSceneRoutine(sceneName));
         }
-
         private IEnumerator LoadSceneRoutine(string sceneName)
         {
             AsyncOperation loadingOperation = null;
             m_IsLoading = true;
+            CameraController.SetEnvironemntInteractiblity(false);
             Debug.Log($"ADEEL LOADING 1");
             OpenPopup(() =>
             {
@@ -86,12 +89,43 @@ namespace Isometric.UI
             m_LoadingBarFillImage.DOFillAmount(1f, m_LoadingDuration).OnComplete(() =>
             {
                 Debug.Log($"ADEEL LOADING 8");
-                ClosePopup(null);
+                ClosePopup(() =>
+                {
+                    CameraController.SetEnvironemntInteractiblity(true);
+                });
             });
             Debug.Log($"ADEEL LOADING 7");
-            yield return new WaitForSeconds(m_CharacterDisplayDelay);
-            Debug.Log($"ADEEL LOADING 9");
-            m_CharacterHolderTween.Play();
+            s_Instance.StartCoroutine(s_Instance.ShowCharacter());
+        }
+
+        /// <summary>
+        /// Opens a loading screen with opened callback and closes it automatically after an inside loading duration followed by a closed callback.
+        /// </summary>
+        public static void ShowLoadingScreen(Action openedCallback, Action closedCallback)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            if (s_Instance.m_IsLoading)
+                return;
+
+            s_Instance.m_IsLoading = true;
+            OpenPopup(() =>
+            {
+                s_Instance.m_LoadingBarFillImage.DOFillAmount(1f, s_Instance.m_LoadingDuration).OnComplete(() =>
+                {
+                    ClosePopup(() =>
+                    {
+                        s_Instance.HideCharacter();
+                        closedCallback?.Invoke();
+                    });
+                });
+                s_Instance.StartCoroutine(s_Instance.ShowCharacter());
+                openedCallback?.Invoke();
+            });
         }
 
         public static void OpenPopup(Action callback)
@@ -105,7 +139,6 @@ namespace Isometric.UI
             s_Instance.m_LoadingCamera.gameObject.SetActive(true);
             s_Instance.m_LoadingBarFillImage.fillAmount = 0f;
             s_Instance.m_CharacterHolderTween.GetComponent<RectTransform>().anchoredPosition = s_Instance.m_CharacterStartAnchorPosition;
-            CameraController.SetEnvironemntInteractiblity(false);
             UIManager.UIInteractionOff();
             SoundManager.PlaySound(SoundType.PopupWhoosh);
             s_Instance.m_Popup.SetActive(true);
@@ -113,6 +146,22 @@ namespace Isometric.UI
             {
                 callback?.Invoke();
             });
+        }
+
+        private IEnumerator ShowCharacter()
+        {
+            if(m_CharacterHolderTween != null)
+            {
+                yield return new WaitForSeconds(m_CharacterDisplayDelay);
+                m_CharacterHolderTween.Play();
+            }
+        }
+        private void HideCharacter()
+        {
+            if(m_CharacterHolderTween != null)
+            {
+                m_CharacterHolderTween.Stop();
+            }
         }
 
         public static void ClosePopup(Action callback)
@@ -127,7 +176,6 @@ namespace Isometric.UI
             s_Instance.m_ClosingSequence.PlaySequence(() =>
             {
                 s_Instance.m_Popup.SetActive(false);
-                CameraController.SetEnvironemntInteractiblity(true);
                 UIManager.UIInteractionOn();
                 s_Instance.m_IsLoading = false;
                 s_Instance.m_LoadingCamera.gameObject.SetActive(false);

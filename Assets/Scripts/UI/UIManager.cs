@@ -452,6 +452,12 @@ namespace Isometric.UI
             if (upgradePopupUIManager != null)
             {
                 UIInteractionOff();
+                upgradePopupUIManager.OpenPopup(() =>
+                {
+                    UIInteractionOn();
+                    TutorialManager.PlayTutorial(TutorialCallType.AfterUpdatePopup);
+                });
+                /* UIInteractionOff();
                 CameraController.Interactability(false);
                 CameraController.SetupForGameplay(() =>
                 {
@@ -460,7 +466,7 @@ namespace Isometric.UI
                         UIInteractionOn();
                         TutorialManager.PlayTutorial(TutorialCallType.AfterUpdatePopup);
                     });
-                });
+                }); */
             }
             else
             {
@@ -482,9 +488,20 @@ namespace Isometric.UI
                 UIInteractionOff();
                 upgradePopupUIManager.ClosePopup(() =>
                 {
+                    LoadingUIManager.ShowLoadingScreen(() =>
+                    {
+                        SetupForMenu();
+                    }, () =>
+                    {
+                        CameraController.SetEnvironemntInteractiblity(true);
+                        UIInteractionOn();
+                    });
+                });
+                /* upgradePopupUIManager.ClosePopup(() =>
+                {
                     UIInteractionOn();
                     SetupForMenu();
-                });
+                }); */
             }
             else
             {

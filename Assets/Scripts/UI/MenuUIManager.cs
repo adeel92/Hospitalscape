@@ -186,12 +186,22 @@ namespace Isometric.UI
                 {
                     if (HeartTimeCurrencyCounter.HasHeartTimeCurrency() || DataManager.HeartCurrency > 0)
                     {
-
                         HeartCurrencyUIController.SetValueForShouldBeMinusOne(true);
 
                         UIManager.UIInteractionOff();
                         CameraController.Interactability(false);
-                        CameraController.SetupForGameplay(() =>
+                        ClosePopup(() =>
+                        {
+                            LoadingUIManager.ShowLoadingScreen(() =>
+                            {
+                                CameraController.SetupForGameplay(null);
+                            }, () =>
+                            {
+                                UIManager.UIInteractionOn();
+                                UIManager.SetupForGameplay();
+                            });
+                        });
+                        /* CameraController.SetupForGameplay(() =>
                         {
                             ClosePopup(() =>
                             {
@@ -199,8 +209,7 @@ namespace Isometric.UI
                                 UIManager.UIInteractionOn();
                                 UIManager.SetupForGameplay();
                             });
-                        });
-
+                        }); */
                         return;
                     }
                     else
@@ -214,9 +223,15 @@ namespace Isometric.UI
             UIManager.UIInteractionOff();
             ClosePopup(() =>
             {
-
-                UIManager.UIInteractionOn();
-                UIManager.OpenUpgradePopup();
+                LoadingUIManager.ShowLoadingScreen(() =>
+                {
+                    CameraController.SetEnvironemntInteractiblity(false);
+                    CameraController.Interactability(false);
+                    CameraController.SetupForGameplay(null);
+                }, () =>
+                {
+                    UIManager.OpenUpgradePopup();
+                });
             });
         }
 

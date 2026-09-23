@@ -106,6 +106,11 @@ namespace Isometric.Data
             return m_MapData.LevelIndex;
         }
 
+        public int GetLevelNumber()
+        {
+            return m_MapData.LevelNumber;
+        }
+
         /// <summary>
         /// Returns if level index was increased successfuly
         /// </summary>
