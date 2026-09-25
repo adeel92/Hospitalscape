@@ -5,6 +5,7 @@ using System;
 using DG.Tweening;
 using NaughtyAttributes;
 using Isometric.Sound;
+using UnityEngine.Events;
 
 namespace Isometric.Cam
 {
@@ -66,15 +67,27 @@ namespace Isometric.Cam
 
         private bool m_CameraIsInteractableTutorial = true;
 
+        [SerializeField] bool m_UseGameplayZoomAtStartup = false;
         [SerializeField] float m_ZoomSpeed = 5f;
 
         [SerializeField] Transform m_MapBottomLeft;
         [SerializeField] Transform m_MapTopRight;
-        [SerializeField, ReadOnly] Vector2 m_MinLimits;
+        [SerializeField] bool m_UseSeparateBoundaryForMaxZoom = true;
+        [SerializeField, ShowIf(nameof(m_UseSeparateBoundaryForMaxZoom))] Transform m_MapMaxZoomBottomLeft;
+        [SerializeField, ShowIf(nameof(m_UseSeparateBoundaryForMaxZoom))] Transform m_MapMaxZoomTopRight;
+
+        [Space, SerializeField, ReadOnly] Vector2 m_MinLimits;
         [SerializeField, ReadOnly] Vector2 m_MaxLimits;
 
-        [SerializeField] float m_MinZoom = 5f;
+        [Space, SerializeField] float m_MenuMinZoom = 12.6f;
+        [SerializeField] float m_GameplayMinZoom = 7.59f;
         [SerializeField] float m_MaxZoom = 15f;
+
+        // [Space, SerializeField] float m_Gamepla
+
+        [Header("---Callbacks---")]
+        [SerializeField] UnityEvent m_OnSetupForMenu;
+        [SerializeField] UnityEvent m_OnSetupForGameplay;
 
         private Vector3 m_TouchStart;
         private Vector3 m_MouseStart;
@@ -92,9 +105,9 @@ namespace Isometric.Cam
                 m_MaxZoom = CalculateMaxZoom(); // Recalculate max zoom at startup
                 if(m_UseMenuZoomBoundMethod) CalculateMenuZoom();
                 if(m_UseGameplayZoomBoundMethod) CalculateGameplayZoom();
-                m_GameplayZoom = Mathf.Clamp(m_GameplayZoom, m_MinZoom, m_MaxZoom);
-                m_MenuZoom = Mathf.Clamp(m_MenuZoom, m_MinZoom, m_MaxZoom);
-                m_Camera.orthographicSize = m_GameplayZoom;
+                m_GameplayZoom = Mathf.Clamp(m_GameplayZoom, m_GameplayMinZoom, m_MaxZoom);
+                m_MenuZoom = Mathf.Clamp(m_MenuZoom, m_MenuMinZoom, m_MaxZoom);
+                if(m_UseGameplayZoomAtStartup) m_Camera.orthographicSize = m_GameplayZoom;
                 UpdateCameraLimits();
                 m_CameraFocusInfoQueue = new List<CameraFocusInfo>();
             }
@@ -112,13 +125,13 @@ namespace Isometric.Cam
                 if (m_ForMenu)
                 {
                     if(m_UseMenuZoomBoundMethod) CalculateMenuZoom();
-                    m_MenuZoom = Mathf.Clamp(m_MenuZoom, m_MinZoom, m_MaxZoom);
+                    m_MenuZoom = Mathf.Clamp(m_MenuZoom, m_MenuMinZoom, m_MaxZoom);
                     SetupForMenu(null);
                 }
                 else if (m_ForGameplay)
                 {
                     if(m_UseGameplayZoomBoundMethod) CalculateGameplayZoom();
-                    m_GameplayZoom = Mathf.Clamp(m_GameplayZoom, m_MinZoom, m_MaxZoom);
+                    m_GameplayZoom = Mathf.Clamp(m_GameplayZoom, m_GameplayMinZoom, m_MaxZoom);
                     m_Camera.orthographicSize = m_GameplayZoom;
                     SetupForGameplay(null);
                 }
@@ -150,6 +163,8 @@ namespace Isometric.Cam
                 s_Instance.UpdateCameraLimits();
                 onComplete?.Invoke(); 
             });
+
+            s_Instance.m_OnSetupForMenu?.Invoke();
         }
 
         public static void SetupForGameplay(Action onComplete)
@@ -178,6 +193,8 @@ namespace Isometric.Cam
                 s_Instance.UpdateCameraLimits();
                 onComplete?.Invoke(); 
             });
+
+            s_Instance.m_OnSetupForGameplay?.Invoke();
         }
 
         private void CalculateMenuZoom()
@@ -186,7 +203,7 @@ namespace Isometric.Cam
             Vector3 cernterPoint = sum / 4;
             float aspect = m_Camera.aspect;
 
-            float orthoSize = m_MinZoom;
+            float orthoSize = m_MenuMinZoom;
 
             while (orthoSize < m_MaxZoom)
             {
@@ -215,7 +232,7 @@ namespace Isometric.Cam
 
             m_MenuCameraPosition = cernterPoint;
             m_MenuCameraPosition.z = m_Camera.transform.position.z;
-            m_MenuZoom = Mathf.Max(m_MinZoom, orthoSize);  
+            m_MenuZoom = Mathf.Max(m_MenuMinZoom, orthoSize);  
         }
 
         private void CalculateGameplayZoom()
@@ -224,7 +241,7 @@ namespace Isometric.Cam
             Vector3 cernterPoint = sum / 4;
             float aspect = m_Camera.aspect;
 
-            float orthoSize = m_MinZoom;
+            float orthoSize = m_GameplayMinZoom;
 
             while (orthoSize < m_MaxZoom)
             {
@@ -253,7 +270,7 @@ namespace Isometric.Cam
 
             m_GameplayCameraPosition = cernterPoint;
             m_GameplayCameraPosition.z = m_Camera.transform.position.z;
-            m_GameplayZoom = Mathf.Max(m_MinZoom, orthoSize);  
+            m_GameplayZoom = Mathf.Max(m_GameplayMinZoom, orthoSize);  
         }
 
         public static void SetEnvironemntInteractiblity(bool value)
@@ -482,7 +499,7 @@ namespace Isometric.Cam
             {
                 m_Camera.orthographicSize -= scroll * m_ZoomSpeed;
                 m_MaxZoom = CalculateMaxZoom(); // Recalculate max zoom dynamically
-                m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize, m_MinZoom, m_MaxZoom);
+                m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize, m_MenuMinZoom, m_MaxZoom);
 
                 UpdateCameraLimits();
                 ReadjustCameraPositionWithinLimits();
@@ -551,7 +568,7 @@ namespace Isometric.Cam
 
                     float zoomFactor = (m_TouchZoomStart - currentDistance) * m_ZoomSpeed * 0.01f;
                     m_Camera.orthographicSize += zoomFactor;
-                    m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize, m_MinZoom, m_MaxZoom);
+                    m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize, m_MenuMinZoom, m_MaxZoom);
                     m_TouchZoomStart = currentDistance;
 
                     Vector3 worldMidAfterZoom = m_Camera.ScreenToWorldPoint(new Vector3(midPoint.x, midPoint.y, m_Camera.nearClipPlane));
@@ -648,8 +665,11 @@ namespace Isometric.Cam
         // }
         private float CalculateMaxZoom()
         {
-            float mapWidth = m_MapTopRight.position.x - m_MapBottomLeft.position.x;
-            float mapHeight = m_MapTopRight.position.y - m_MapBottomLeft.position.y;
+            Transform mapTopRight = m_UseSeparateBoundaryForMaxZoom ? m_MapMaxZoomTopRight : m_MapTopRight;
+            Transform mapBottomLeft = m_UseSeparateBoundaryForMaxZoom ? m_MapMaxZoomBottomLeft : m_MapBottomLeft;
+
+            float mapWidth = mapTopRight.position.x - mapBottomLeft.position.x;
+            float mapHeight = mapTopRight.position.y - mapBottomLeft.position.y;
 
             float maxZoomWidth = mapWidth / (2f * m_Camera.aspect);
             float maxZoomHeight = mapHeight / 2f;
@@ -665,6 +685,7 @@ namespace Isometric.Cam
             MenuZoomBoundery();
             GameplayZoomBoundery();
             MapBoundery();
+            ZoomBoundery();
         }
 
         private void MenuZoomBoundery()
@@ -757,6 +778,24 @@ namespace Isometric.Cam
 
             Vector3 bottomLeft = m_MapBottomLeft.position;
             Vector3 topRight = m_MapTopRight.position;
+
+            Vector3 bottomRight = new Vector3(topRight.x, bottomLeft.y, bottomLeft.z);
+            Vector3 topLeft = new Vector3(bottomLeft.x, topRight.y, bottomLeft.z);
+
+            Gizmos.DrawLine(bottomLeft, bottomRight);
+            Gizmos.DrawLine(bottomRight, topRight);
+            Gizmos.DrawLine(topRight, topLeft);
+            Gizmos.DrawLine(topLeft, bottomLeft);
+        }
+        private void ZoomBoundery()
+        {
+            if (m_MapMaxZoomBottomLeft == null || m_MapMaxZoomTopRight == null || !m_UseSeparateBoundaryForMaxZoom)
+                return;
+
+            Gizmos.color = Color.magenta;
+
+            Vector3 bottomLeft = m_MapMaxZoomBottomLeft.position;
+            Vector3 topRight = m_MapMaxZoomTopRight.position;
 
             Vector3 bottomRight = new Vector3(topRight.x, bottomLeft.y, bottomLeft.z);
             Vector3 topLeft = new Vector3(bottomLeft.x, topRight.y, bottomLeft.z);
