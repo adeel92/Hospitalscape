@@ -221,12 +221,22 @@ namespace Isometric.Player
             }
         }
 
-        public void HideAllVisibleItems(float duration)
+        public void HideAllThrowableItems(float duration)
+        {
+            PlayerTrayHandler trayHandler = GetVisibleTrayHandler();
+            trayHandler.HideAllThrowableItems(duration);
+        }
+
+        public void HideAllItems(float duration)
         {
             PlayerTrayHandler trayHandler = GetVisibleTrayHandler();
             trayHandler.HideAllItems(duration);
         }
-
+        public void ShowAllItems(float duration)
+        {
+            PlayerTrayHandler trayHandler = GetVisibleTrayHandler();
+            trayHandler.ShowAllItems(duration);
+        }
 
         /*public List<GameObject> RemoveItem(string key)
         {
@@ -244,7 +254,5 @@ namespace Isometric.Player
                 return null;
             }
         }*/
-
-
     }
 }

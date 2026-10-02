@@ -27,12 +27,14 @@ namespace Isometric.Player
         public UnityEvent OnSpeedBoosterDectivated;
         private string m_DefaultSortingLayer;
         private int m_DefaultSortingOrder;
+        private Coroutine WaitForNoTaskReactionCoroutine = null;
 
         [Header("---Paramaters---")]
         [SerializeField] float m_WalkSpeed;
         private float m_DefaultWalkSpeed;
         [SerializeField] int m_HoldingCapacity;
         [SerializeField] float m_WalkBoosterSpeed;
+        [SerializeField] float m_NoTaskReactionDelay = 10f;
 
         public void SetupForMenu()
         {
@@ -74,7 +76,8 @@ namespace Isometric.Player
             m_DefaultSortingOrder = m_SortingGroup.sortingOrder;
             m_TrayController.Setup(m_HoldingCapacity);
 
-            //m_AnimatorController.PlayHappyWave();
+            m_AnimatorController.PlayHappyWave();
+            WaitForNoTaskReactionCoroutine = StartCoroutine(WaitForNoTaskReaction(3f));
         }
 
         private void OnEnable()
@@ -107,6 +110,16 @@ namespace Isometric.Player
             GlobalEventHolder.OnGameWon -= OnGameWon;
             GlobalEventHolder.OnGameLost -= OnGameLost;
             GlobalEventHolder.OnTaskAssigned -= OnTaskAssigned;
+        }
+
+        private IEnumerator WaitForNoTaskReaction(float initialDelay)
+        {
+            yield return new WaitForSeconds(initialDelay);
+            while (true)
+            {
+                yield return new WaitForSeconds(m_NoTaskReactionDelay);
+                m_AnimatorController.PlayNeutralWave();
+            }
         }
 
         private void OnStartingFirstTask()
@@ -166,6 +179,12 @@ namespace Isometric.Player
         {
             GlobalEventHolder.OnPlayerStopMoving?.Invoke();
             m_AnimatorController.PlayIdle();
+            if(WaitForNoTaskReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForNoTaskReactionCoroutine);
+                WaitForNoTaskReactionCoroutine = null;
+            }
+            WaitForNoTaskReactionCoroutine = StartCoroutine(WaitForNoTaskReaction(0f));
         }
 
 
@@ -188,6 +207,11 @@ namespace Isometric.Player
 
         private void OnTaskAssigned()
         {
+            if(WaitForNoTaskReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForNoTaskReactionCoroutine);
+                WaitForNoTaskReactionCoroutine = null;
+            }
             SoundManager.PlaySound(SoundType.TaskAssigned);
         }
 
@@ -264,7 +288,7 @@ namespace Isometric.Player
 
         public void HideAllVisibleDataConsumables(float duration)
         {
-            m_TrayController.HideAllVisibleItems(duration);
+            m_TrayController.HideAllThrowableItems(duration);
         }
 
         public void EngageInteractable(PathDirection direction)

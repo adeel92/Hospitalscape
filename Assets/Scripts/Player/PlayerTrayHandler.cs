@@ -266,7 +266,7 @@ namespace Isometric.Player
             }
         }
         
-        public void HideAllItems(float duration)
+        public void HideAllThrowableItems(float duration)
         {
             if (m_CurrentTray != null)
             {
@@ -279,6 +279,35 @@ namespace Isometric.Player
                     foreach (var spriteRenderer in holdTransform.GetComponentsInChildren<SpriteRenderer>())
                     {
                         spriteRenderer.DOFade(0f, duration);
+                    }
+                }
+            }
+        }
+
+        public void HideAllItems(float duration)
+        {
+            if (m_CurrentTray != null)
+            {
+                foreach (var item in m_CurrentTray.TrayHolder)
+                {
+                    Transform holdTransform = item.Hold;
+                    foreach (var spriteRenderer in holdTransform.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        spriteRenderer.DOFade(0f, duration);
+                    }
+                }
+            }
+        }
+        public void ShowAllItems(float duration)
+        {
+            if (m_CurrentTray != null)
+            {
+                foreach (var item in m_CurrentTray.TrayHolder)
+                {
+                    Transform holdTransform = item.Hold;
+                    foreach (var spriteRenderer in holdTransform.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        spriteRenderer.DOFade(1f, duration);
                     }
                 }
             }

@@ -49,10 +49,22 @@ namespace Isometric.Player
             m_Animator.Play(GetStateName(PlayerAnimatorState.WhatCanIDo));
         }
 
+        public void PlayNoTaskReaction()
+        {
+            m_CurrentWalkingDirection = PathDirection.None;
+            m_Animator.Play(GetStateName(PlayerAnimatorState.NeutralWave));
+        }
+
         public void PlayHappyWave()
         {
             m_CurrentWalkingDirection = PathDirection.None;
             m_Animator.Play(GetStateName(PlayerAnimatorState.HappyWave));
+        }
+
+        public void PlayNeutralWave()
+        {
+            m_CurrentWalkingDirection = PathDirection.None;
+            m_Animator.Play(GetStateName(PlayerAnimatorState.NeutralWave));
         }
 
         public void PlayHappyWon()
@@ -148,6 +160,7 @@ namespace Isometric.Player
         WorkLeft,
         HappyWave,
         HappyWon,
-        SadLost
+        SadLost,
+        NeutralWave
     }
 }
