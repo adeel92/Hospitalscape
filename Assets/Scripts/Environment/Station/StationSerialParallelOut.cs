@@ -31,7 +31,7 @@ namespace Isometric.Environment
             [Header("-start processing and send final duration and sending currently holding (Capacity)")]
             public UnityEvent<float, float> OnDurationStart;
             public UnityEvent OnDurationComplete;
-            public UnityEvent OnOrderOutSuccesful;
+            // public UnityEvent OnOrderOutSuccesful;
         }
 
         [Serializable]
@@ -72,15 +72,23 @@ namespace Isometric.Environment
             public UnityEvent OnHasUpgradedGameplay;
 
             [Header("---Upgrade Properties---")]
+            public int IDIndex;
             public float DurationProperty;
-            private float DurationFillCounter = 0;
+            // private float DurationFillCounter = 0;
+            [AllowNesting, ReadOnly, SerializeField]
             private bool IsProcessing = false;
 
             public int CapacityProperty = 3;
+            public int CostProperty;
             [AllowNesting, ReadOnly]
             public int CurrentlyHolding = 3;
-
-            public int CostProperty;
+            public UnityEvent<int> OnProcessingStart;
+            public UnityEvent<bool> OnIsHolding;
+            public UnityEvent OnOrderFromWorkerToMachine;
+            public UnityEvent<float> OnDurationStart;
+            public UnityEvent<int> OnDurationComplete;
+            public UnityEvent OnOrderFromMachineToWorker;
+            public UnityEvent OnOrderFromWorkerToOutputTray;
 
             public StationSerialParallelOut Station;
 
@@ -99,12 +107,17 @@ namespace Isometric.Environment
                         if (interactable.SendDataConsumable(OrderTypeOut, CostProperty))
                         {
                             CurrentlyHolding--;
-                            CurrentPropertyCallbackInfo.OnOrderOutSuccesful?.Invoke();
-                            CurrentPropertyCallbackInfo.OnSetDurationFillAmount?.Invoke(DurationFillCounter, CurrentlyHolding);
-                            if (IsProcessing)
+                            if (CurrentlyHolding <= 0) OnIsHolding?.Invoke(false);
+
+                            if(!IsProcessing) OnProcessingStart?.Invoke(IDIndex);
+
+                            IsProcessing = true;
+                            CurrentPropertyCallbackInfo.OnSetDurationFillAmount?.Invoke(0, CurrentlyHolding);
+                            // CurrentPropertyCallbackInfo.OnOrderOutSuccesful?.Invoke();
+                            /* if (IsProcessing)
                             {
                                 CurrentPropertyCallbackInfo.OnDurationStart?.Invoke(DurationProperty, CurrentlyHolding);
-                            }
+                            } */
                             TaskTrigger.SendTaskResult(TaskResult.Success);
                         }
                         else
@@ -117,10 +130,10 @@ namespace Isometric.Environment
                         TaskTrigger.SendTaskResult(TaskResult.Failed);
                     }
 
-                    if (CurrentlyHolding != CapacityProperty)
+                    /* if (CurrentlyHolding != CapacityProperty)
                     {
                         Station.ProcessStationInfo(this);
-                    }
+                    } */
                 }
                 else
                 {
@@ -128,15 +141,15 @@ namespace Isometric.Environment
                 }
             }
 
-            public void StartProcessing()
+            /* public void StartProcessing()
             {
                 if (CurrentPropertyCallbackInfo != null)
                 {
                     CoroutineManager.StartACoroutine(Processing());
                 }
-            }
+            } */
 
-            IEnumerator Processing()
+            /* IEnumerator Processing()
             {
                 IsProcessing = true;
                 CurrentPropertyCallbackInfo.OnDurationStart?.Invoke(DurationProperty, CurrentlyHolding);
@@ -153,6 +166,30 @@ namespace Isometric.Environment
                 CurrentlyHolding = CapacityProperty;
                 IsProcessing = false;
                 Station.ProcessedStationInfo(this);
+            } */
+
+            public void CallOnOrderFromWorkerToMachine()
+            {
+                OnOrderFromWorkerToMachine?.Invoke();
+                OnDurationStart?.Invoke(DurationProperty);
+                CoroutineManager.LateAction(() =>
+                {
+                    OnDurationComplete?.Invoke(IDIndex);
+                }, DurationProperty);
+            }
+
+            public void CallOnOrderFromMachineToWorker()
+            {
+                OnOrderFromMachineToWorker?.Invoke();
+            }
+
+            public void CallOnOrderFromWorkerToOutputTray()
+            {
+                CurrentPropertyCallbackInfo.OnSetDurationFillAmount?.Invoke(1, CurrentlyHolding);
+                OnOrderFromWorkerToOutputTray?.Invoke();
+                OnIsHolding?.Invoke(true);
+                CurrentlyHolding = CapacityProperty;
+                IsProcessing = false;
             }
         }
 
@@ -172,10 +209,11 @@ namespace Isometric.Environment
 
         //---Stations---
         [Header("-Delay Betweeen processing one of the OrderType")]
-        [SerializeField, Foldout(MetaStationsFoldOut)] float m_ProcessingDelay;
+        // [SerializeField, Foldout(MetaStationsFoldOut)] float m_ProcessingDelay;
+        [SerializeField, Foldout(MetaStationsFoldOut)] StationSerialParallelOutWorker m_StationSerialParallelOutWorker;
         [SerializeField, Foldout(MetaStationsFoldOut)] List<StationInfo> m_StationInfo;
-        private List<StationInfo> m_StationStack = new List<StationInfo>();
-        private bool m_IsProcessing = false;
+        // private List<StationInfo> m_StationStack = new List<StationInfo>();
+        // private bool m_IsProcessing = false;
 
 
         [ContextMenu("SetupForMenu")]
@@ -270,6 +308,7 @@ namespace Isometric.Environment
                     if (durationUpgrade != null)
                     {
                         stationInfo.DurationProperty = durationUpgrade.Upgrade[durationUpgrade.CurrentUpgradeIndex];
+                        // m_StationSerialParallelOutWorker.Setup(durationUpgrade.CurrentUpgradeIndex);
                     }
 
                     StationUpgrade costUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
@@ -376,6 +415,7 @@ namespace Isometric.Environment
             if (durationUpgrade != null)
             {
                 stationInfo.DurationProperty = durationUpgrade.Upgrade[durationUpgrade.CurrentUpgradeIndex];
+                m_StationSerialParallelOutWorker.Setup(durationUpgrade.CurrentUpgradeIndex);
             }
 
             StationUpgrade costUpgrade = stationData.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Cost);
@@ -415,7 +455,7 @@ namespace Isometric.Environment
             }
         }
 
-        private void ProcessStationInfo(StationInfo stationInfo)
+        /* private void ProcessStationInfo(StationInfo stationInfo)
         {
             if (!m_StationStack.Contains(stationInfo))
             {
@@ -430,9 +470,9 @@ namespace Isometric.Environment
                     }, m_ProcessingDelay);
                 }
             }
-        }
+        } */
 
-        private void ProcessedStationInfo(StationInfo stationInfo)
+        /* private void ProcessedStationInfo(StationInfo stationInfo)
         {
             m_StationStack.Remove(stationInfo);
 
@@ -448,6 +488,45 @@ namespace Isometric.Environment
             else
             {
                 m_IsProcessing = false;
+            }
+        } */
+
+        public void OrderToMachine(int IDIndex)
+        {
+            StationInfo stationInfo = m_StationInfo.Find((x) => x.IDIndex == IDIndex);
+            if (stationInfo != null)
+            {
+                stationInfo.CallOnOrderFromWorkerToMachine();
+            }
+            else
+            {
+                Debug.LogWarning(nameof(StationInfo) + " is null");
+            }
+        }
+
+        public void PickFromMachine(int IDIndex)
+        {
+            StationInfo stationInfo = m_StationInfo.Find((x) => x.IDIndex == IDIndex);
+            if (stationInfo != null)
+            {
+                stationInfo.CallOnOrderFromMachineToWorker();
+            }
+            else
+            {
+                Debug.LogWarning(nameof(StationInfo) + " is null");
+            }
+        }
+
+        public void OrderToOutputTray(int IDIndex)
+        {
+            StationInfo stationInfo = m_StationInfo.Find((x) => x.IDIndex == IDIndex);
+            if (stationInfo != null)
+            {
+                stationInfo.CallOnOrderFromWorkerToOutputTray();
+            }
+            else
+            {
+                Debug.LogWarning(nameof(StationInfo) + " is null");
             }
         }
     }
