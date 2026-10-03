@@ -29,6 +29,7 @@ namespace Isometric.Environment
         const string MetaSetupFoldOut = "---Setup---";
         [SerializeField, Foldout(MetaSetupFoldOut), Expandable] DataStation m_Data;
         [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
+        [SerializeField, Foldout(MetaSetupFoldOut)] StationSerialOrderInOutOnCustomerDemandWorker m_StationSerialOrderInOutOnCustomerDemandWorker;
         [SerializeField, Foldout(MetaSetupFoldOut)] MainServiceOrderUIController m_OrderUIController;
         [SerializeField, Foldout(MetaSetupFoldOut)] List<InputOrderInfo> m_InputOrderInfos = new();
         [Space(), SerializeField, Foldout(MetaSetupFoldOut), ReadOnly] List<InputOrderInfo> m_CurrentRequiredInputOrderInfo = new();
@@ -80,8 +81,14 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] int m_CapacityProperty = 3;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] int m_CostProperty = 3;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<int> OnDurationSetup;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnTakenInputOrderProcessingStart;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnQueuedInputOrderProcessingStart;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnOrderFromWorkerToMachine;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<float> OnDurationStart;
-        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent <List<MachineOutputInfo>> OnDurationComplete;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnOrderPickUpFromQueuedInputs;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnOrderPickUpFromMachine;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnOrderFromWorkerToOutputTray;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnInstantOrderComplete;
         // [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] List<StationOutInfo> m_StationOutInfo;
 
@@ -204,6 +211,7 @@ namespace Isometric.Environment
             if (upgradeDuration != null)
             {
                 m_DurationProperty = upgradeDuration.Upgrade[upgradeDuration.CurrentUpgradeIndex];
+                m_StationSerialOrderInOutOnCustomerDemandWorker.Setup(upgradeDuration.CurrentUpgradeIndex);
                 OnDurationSetup?.Invoke(upgradeDuration.CurrentUpgradeIndex);
             }
 
@@ -389,21 +397,60 @@ namespace Isometric.Environment
                     ResetPendingToProcessInputOrderInfo(pendingInputOrderInfo);
                 }
 
-                m_StartProcessCoroutine = StartCoroutine(StartProcess());
+                // m_StartProcessCoroutine = StartCoroutine(StartProcess());
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(StationSerialOrderInOutOnCustomerDemand)} -- There are no pending to process input orders available!");
             }
         }
 
         private IEnumerator StartProcess()
         {
-            m_IsProcessing = true;
+            // m_IsProcessing = true;
             OnDurationStart?.Invoke(m_DurationProperty);
             float totalDuration = m_DurationProperty + m_ExtraDurationForAnimation;
             yield return new WaitForSeconds(totalDuration);
+            List<MachineOutputInfo> machineOutputInfos = new();
+            machineOutputInfos = m_CurrentInputOrderInfosForProcessing.Select(info => new MachineOutputInfo
+            {
+                OutputOrderType = info.OutputOrderType,
+                OutputOrderDisplayObjPrefab = info.OutputOrderDisplayObjPrefab
+            }).ToList();
+            OnDurationComplete?.Invoke(machineOutputInfos);
+            // UpdateCurrentOutputOrdersForCustomerDemand();
+            // ResetProcess();
+            // CheckForPendingToProcessInputOrders();
+        }
 
-            OnDurationComplete?.Invoke();
+        public void OnOrderToMachine()
+        {
+            OnOrderFromWorkerToMachine?.Invoke();
+            m_StartProcessCoroutine = StartCoroutine(StartProcess());
+        }
+
+        public void OnPickFromQueuedInput()
+        {
+            OnOrderPickUpFromQueuedInputs.Invoke();
+            CheckForPendingToProcessInputOrders();
+        }
+
+        public void OnPickFromMachine()
+        {
+            OnOrderPickUpFromMachine?.Invoke();
+        }
+
+        public void OnOrderToOutputTray()
+        {
+            OnOrderFromWorkerToOutputTray?.Invoke();
             UpdateCurrentOutputOrdersForCustomerDemand();
             ResetProcess();
-            CheckForPendingToProcessInputOrders();
+            if (IsAnyPendingToProcessInputOrderAvailable())
+            {
+                m_IsProcessing = true;
+                OnQueuedInputOrderProcessingStart.Invoke();
+            }
+            // CheckForPendingToProcessInputOrders();
         }
 
         private void OnTaskStart(TaskTarget taskTarget)
@@ -436,7 +483,9 @@ namespace Isometric.Environment
 
                 if (!IsAnyPendingToProcessInputOrderAvailable() && !m_IsProcessing && hasProvidedInputOrder)
                 {
-                    m_StartProcessCoroutine = StartCoroutine(StartProcess());
+                    m_IsProcessing = true;
+                    OnTakenInputOrderProcessingStart?.Invoke();
+                    // m_StartProcessCoroutine = StartCoroutine(StartProcess());
                 }
 
                 if (IsAnyOutputOrderAvailable())
@@ -579,6 +628,13 @@ namespace Isometric.Environment
             [SerializeField] Transform m_OutputOrderHolder;
 
             public Transform OutputOrderHolder => m_OutputOrderHolder;
+        }
+
+        [Serializable]
+        public class MachineOutputInfo
+        {
+            [ReadOnly, AllowNesting] public DataConsumable OutputOrderType;
+            [ReadOnly, AllowNesting] public GameObject OutputOrderDisplayObjPrefab;
         }
     }
 }
