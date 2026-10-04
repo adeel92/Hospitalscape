@@ -10,7 +10,6 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Customer;
 using Isometric.PathSystem;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace Isometric.Environment
 {
@@ -19,6 +18,7 @@ namespace Isometric.Environment
         //---Setup---
         private const string MetaSetupFoldOut = "---Setup---";
         [SerializeField, Foldout(MetaSetupFoldOut), Expandable] DataStation m_Data;
+        [SerializeField, Foldout(MetaSetupFoldOut)] CounterTableWorker m_CounterTableWorker;
         [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
         [SerializeField, Foldout(MetaSetupFoldOut)] MainServiceOrderUIController m_OrderUIController;
 
@@ -51,9 +51,12 @@ namespace Isometric.Environment
         [Header("-Upgraded any of the properties"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnHasUpgradedGameplay;
 
+        //---Upgrade Properties---
+        const string MetaUpgradePropertiesFoldOut = "---Upgrade Properties---";
+        public float DurationProperty => m_DurationProperty;
+        [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] float m_DurationProperty;
 
         private const string MetaInteractiveFoldOut = "---Interactive---";
-        [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_OrderDecidingDelay;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_InstantOrderCompleteDelay = 2f;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] PathNode m_StandingNode;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] float m_CaptureDistance;
@@ -61,6 +64,11 @@ namespace Isometric.Environment
         [SerializeField, SortingLayer, Foldout(MetaInteractiveFoldOut)] string m_StandingSortingLayer;
         [SerializeField, Foldout(MetaInteractiveFoldOut)] int m_StandingSortingOrder;
         [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerSalonController m_CurrentSalonCustomer;
+        [Space, SerializeField, Foldout(MetaInteractiveFoldOut)] UnityEvent m_OnCustomerDropped;
+        [Space, SerializeField, Foldout(MetaInteractiveFoldOut)] UnityEvent m_OnCustomerExtraOrdersAsked;
+        [Space, SerializeField, Foldout(MetaInteractiveFoldOut)] UnityEvent m_OnDecidingCustomerFirstOrder;
+        [Space, SerializeField, Foldout(MetaInteractiveFoldOut)] UnityEvent m_OnCustomerFirstOrderDecided;
+        [Space, SerializeField, Foldout(MetaInteractiveFoldOut)] UnityEvent m_OnCustomerRemoved;
         // [SerializeField, Foldout(MetaInteractiveFoldOut), ReadOnly] CustomerCafeController m_CurrentCafeCustomer;
 
         private Coroutine m_DectectionUpdate = null;
@@ -131,7 +139,7 @@ namespace Isometric.Environment
             {
                 OnIsLockedGameplay?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked)
+            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
             {
                 OnIsUnlockdGameplay?.Invoke();
             }
@@ -158,6 +166,7 @@ namespace Isometric.Environment
                             });
                         }
 
+                        ApplyUpgradeProperties();
                         StartDetection();
                     }, m_CameraFocusDuration);
                 });
@@ -174,7 +183,19 @@ namespace Isometric.Environment
             }
 
             if(m_Data.StationData.IsUnlocked && !hasJustUnlocked)
+            {
+                ApplyUpgradeProperties();
                 StartDetection();
+            }
+        }
+
+        private void ApplyUpgradeProperties()
+        {
+            StationUpgrade upgradeDuration = m_Data.StationData.Upgrades.Find((x) => x.UpgradeType == PropertyUpgradeType.Duration);
+            if (upgradeDuration != null)
+            {
+                m_DurationProperty = upgradeDuration.Upgrade[upgradeDuration.CurrentUpgradeIndex];
+            }
         }
 
         private void OnEnable()
@@ -277,15 +298,18 @@ namespace Isometric.Environment
                 return;
 
             m_HasFirstOrderDecisionCallSent = true;
+            m_OnDecidingCustomerFirstOrder?.Invoke();
             CoroutineManager.LateAction(() =>
             {
                 OnTotalRevenueGenerated?.Invoke(m_TotalRevenue);
                 onWaitComplete?.Invoke();
-            }, m_OrderDecidingDelay);
+                m_OnCustomerFirstOrderDecided?.Invoke();
+            }, m_DurationProperty);
         }
 
         public void StartShowingOrders(Action onFirstOrderDecided)
         {
+            m_OnCustomerDropped?.Invoke();
             m_OnFirstOrderDecided = onFirstOrderDecided;
             ShowNextOrder();
         }
@@ -315,6 +339,7 @@ namespace Isometric.Environment
                     }
 
                     m_IsCustomerWaitingToBeServed = true;
+                    m_OnCustomerExtraOrdersAsked?.Invoke();
                 }
                 else
                 {
@@ -332,6 +357,8 @@ namespace Isometric.Environment
             m_TotalRevenue = 0;
             m_HasFirstOrderDecisionCallSent = false;
             // m_CurrentCafeCustomer = null;
+
+            m_OnCustomerRemoved?.Invoke();
 
             if (m_DectectionUpdate != null)
             {
