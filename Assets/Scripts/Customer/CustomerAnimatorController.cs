@@ -26,6 +26,7 @@ namespace Isometric.Customer
         public void PlayState(CustomerAnimatorState state)
         {
             string stateName = GetStateName(state);
+            Debug.Log("ADEEEL CUSTOMER 2: " + stateName);
             if (!string.IsNullOrEmpty(stateName))
             {
                 StopCallback();
@@ -138,6 +139,8 @@ namespace Isometric.Customer
         SteadyStandingLeft,
         SteadyStandingHappyLeft,
         SteadyWalkLeft,
-        StandingIdleNeutralUp
+        StandingIdleNeutralUp,
+        BedReliefReactionDown_A,
+        BedReliefReactionDown_B
     }
 }

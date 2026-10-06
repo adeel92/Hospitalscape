@@ -82,7 +82,7 @@ MonoBehaviour:
   m_ShowAngryReaction: 1
   m_MainServiceAngryAnimationState: 25
   m_ShowSatisfiedServiceReaction: 1
-  m_MainServiceSatisfiedAnimationStates: 1a0000001b000000
+  m_MainServiceSatisfiedAnimationStates: 26000000
   m_LeaveHappyAnimationState: 28
   m_MainServiceDetectionCooldownDuration: 0.06
   m_IsAlreadyDetectedByMainService: 0
@@ -206,6 +206,8 @@ MonoBehaviour:
     StateName: SteadyWalkingLeft
   - AnimatorState: 37
     StateName: StandingIdleNeutralUp
+  - AnimatorState: 38
+    StateName: BedReliefReactionDown-A
 --- !u!1 &6142434879831078360
 GameObject:
   m_ObjectHideFlags: 0

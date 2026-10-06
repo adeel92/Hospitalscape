@@ -65,9 +65,13 @@ namespace Isometric.Environment
             m_StationCustomerInHandler.OnInstantOrderComplete -= OnInstantOrderComplete;
         }
 
-		private void OnMenuSetupStart()
-		{
+        private void Awake()
+        {
 			SetTimerFill(0f);
+        }
+
+        private void OnMenuSetupStart()
+		{
 		}
 
 		private void OnGameplaySetupStart()

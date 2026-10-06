@@ -17,6 +17,11 @@ namespace Isometric.Environment
         [SerializeField] Animator m_Animator;
         [SerializeField] List<AnimatorStateInfo> m_AnimatorStatesInfo;
 
+        public void PlaySpawnLeft()
+        {
+            m_Animator.Play(GetStateName(CounterTableWorkerAnimatorStates.SpawnLeft));
+        }
+
         public void PlayIdleLeft()
         {
             m_Animator.Play(GetStateName(CounterTableWorkerAnimatorStates.IdleLeft));
@@ -53,6 +58,7 @@ namespace Isometric.Environment
         IdleDown,
         WorkingDown,
         IdleToWorkDown,
-        WorkToIdleDown
+        WorkToIdleDown,
+        SpawnLeft
     }
 }

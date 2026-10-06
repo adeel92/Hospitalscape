@@ -26,6 +26,12 @@ namespace Isometric.Environment
 
         private PathDirection m_CurrentWalkingDirection = PathDirection.None;
 
+        public void PlaySpawn()
+        {
+            m_CurrentWalkingDirection = PathDirection.None;
+            m_Animator.Play(GetStateName(StationSerialOrderInOutOnCustomerDemandWorkerAnimatorStates.SpawnRight));
+        }
+
         public void PlayIdle()
         {
             m_CurrentWalkingDirection = PathDirection.None;
@@ -140,5 +146,6 @@ namespace Isometric.Environment
         WalkHoldingLeft,
         WalkHoldingUp,
         WorkingUp,
+        SpawnRight
     }
 }

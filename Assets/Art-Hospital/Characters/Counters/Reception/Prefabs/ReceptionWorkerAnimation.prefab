@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 81687756758054472}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.61, y: -3.74, z: 0}
-  m_LocalScale: {x: 1.1542319, y: 1.1542319, z: 1.1542319}
+  m_LocalPosition: {x: -0.59, y: -3.91, z: 0}
+  m_LocalScale: {x: 1.0675145, y: 1.0675145, z: 1.0675145}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3084781378348717118}
@@ -1731,11 +1731,11 @@ Transform:
   m_GameObject: {fileID: 3470415294023996640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: -4.26, z: 0}
-  m_LocalScale: {x: 1.1084583, y: 1.1084583, z: 1.1084583}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1432206854806231345}
+  m_Father: {fileID: 6601280533720115998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8964632524472589233
 SpriteRenderer:
@@ -2374,6 +2374,38 @@ Transform:
   - {fileID: 3593842576108722656}
   m_Father: {fileID: 4316872511832356357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4551497338962593667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6601280533720115998}
+  m_Layer: 0
+  m_Name: chair-holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6601280533720115998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551497338962593667}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.42000008, y: -4.26, z: 0}
+  m_LocalScale: {x: 1.1084459, y: 1.1084459, z: 1.1084459}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5571975040177027725}
+  m_Father: {fileID: 1432206854806231345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4572474404844362096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,7 +2463,7 @@ Transform:
   m_GameObject: {fileID: 4666764019954518492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.66, y: 6.05, z: 0}
+  m_LocalPosition: {x: -2.9, y: 5.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2651,8 +2683,8 @@ Transform:
   m_GameObject: {fileID: 4980226280919352092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: -3.08, z: 0}
-  m_LocalScale: {x: 0.95139, y: 0.95139, z: 0.95139}
+  m_LocalPosition: {x: -0.54835, y: -3.15, z: 0}
+  m_LocalScale: {x: 0.8657681, y: 0.8657681, z: 0.8657681}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4316872511832356357}
@@ -2800,12 +2832,12 @@ Transform:
   m_GameObject: {fileID: 5159480855825796828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.57, y: 6.71, z: 0}
+  m_LocalPosition: {x: -2.76, y: 6.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2818353233161149487}
-  - {fileID: 5571975040177027725}
+  - {fileID: 6601280533720115998}
   - {fileID: 1472529297207673504}
   m_Father: {fileID: 3797710119622477950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3397,6 +3429,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b380960eff9c8864fa1267cfa44874c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OnIsLockedGameplay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnIsUnlockedGameplay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6363859152775613687}
+        m_TargetAssemblyTypeName: Isometric.Environment.CounterTableWorkerAnimatorController,
+          Assembly-CSharp
+        m_MethodName: PlayIdleLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnHasJustUnlockedGameplay:
+    m_PersistentCalls:
+      m_Calls: []
   m_AnimatorController: {fileID: 6363859152775613687}
   m_CounterController: {fileID: 0}
 --- !u!114 &6363859152775613687
@@ -3423,6 +3477,8 @@ MonoBehaviour:
     StateName: IdleToWorkDown
   - AnimatorState: 4
     StateName: WorkToIdleDown
+  - AnimatorState: 5
+    StateName: SpawnLeft
 --- !u!1 &6415343681777303387
 GameObject:
   m_ObjectHideFlags: 0

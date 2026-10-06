@@ -21,5 +21,20 @@ public static class TransformResetShortcut
             EditorUtility.SetDirty(t);
         }
     }
+
+    [Shortcut("Custom/Reset Position")]
+    private static void ResetPosition()
+    {
+        if (Selection.transforms == null || Selection.transforms.Length == 0)
+            return;
+
+        foreach (Transform t in Selection.transforms)
+        {
+            Undo.RecordObject(t, "Reset Pos");
+
+            t.localPosition = Vector3.zero;
+            EditorUtility.SetDirty(t);
+        }
+    }
 }
 #endif

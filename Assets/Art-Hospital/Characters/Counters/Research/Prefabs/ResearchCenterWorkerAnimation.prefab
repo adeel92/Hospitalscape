@@ -6611,6 +6611,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc682f267f46ff4486369f07f2fc81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OnIsLockedGameplay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnIsUnlockedGameplay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2665872005919545217}
+        m_TargetAssemblyTypeName: Isometric.Environment.StationSerialOrderInOutOnCustomerDemandWorkerAnimatorController,
+          Assembly-CSharp
+        m_MethodName: PlayIdle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnHasJustUnlockedGameplay:
+    m_PersistentCalls:
+      m_Calls: []
   m_DefaultNode: {fileID: 0}
   m_CurrentNode: {fileID: 0}
   OutputTrayNode: {fileID: 0}
@@ -6752,6 +6774,8 @@ MonoBehaviour:
     StateName: HoldWalkingUp
   - AnimatorState: 9
     StateName: WorkingUp
+  - AnimatorState: 10
+    StateName: SpawnRight
 --- !u!1 &6368460504440415638
 GameObject:
   m_ObjectHideFlags: 0

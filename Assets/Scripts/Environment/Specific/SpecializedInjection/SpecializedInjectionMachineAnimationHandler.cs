@@ -31,7 +31,7 @@ namespace Isometric.Environment
         private void Awake()
         {
             m_StationSerialOrderInOut.ExtraDurationForAnimation = m_DelayBeforeTimerStarts;
-            ResetTimer();
+            ResetTimer(false);
         }
 
         // OnDurationStart
@@ -70,7 +70,7 @@ namespace Isometric.Environment
         public void PlayMachineInitAnimation()
         {
             m_MachineAnimationHandler.PlayState(StationSerialOrderInOutItemAnimatorStates.Init, false, null, null);
-            ResetTimer();
+            ResetTimer(true);
         }
 
         private IEnumerator StartTimer(float duration)
@@ -89,7 +89,7 @@ namespace Isometric.Environment
             }
         }
 
-        private void ResetTimer()
+        private void ResetTimer(bool useResetDuration)
         {
             if(m_FillCoroutine != null)
             {
@@ -98,7 +98,16 @@ namespace Isometric.Environment
             }
             foreach (SpriteRenderer spriteRenderer in m_FillSpriteRenderers)
             {
-                spriteRenderer.DOFade(0f, m_FillResetDuration);
+                if (useResetDuration)
+                {
+                    spriteRenderer.DOFade(0f, m_FillResetDuration);
+                }
+                else
+                {
+                    Color color = spriteRenderer.color;
+                    color.a = 0f;
+                    spriteRenderer.color = color;
+                }
             }
         }
 

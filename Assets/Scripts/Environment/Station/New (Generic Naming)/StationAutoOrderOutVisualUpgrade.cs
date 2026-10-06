@@ -176,7 +176,7 @@ namespace Isometric.Environment
             {
                 OnIsLockedGameplay?.Invoke();
             }
-            else if (m_Data.StationData.IsUnlocked)
+            else if (m_Data.StationData.IsUnlocked && !m_Data.StationData.HasJustUnlocked)
             {
                 OnIsUnlockdGameplay?.Invoke();
             }

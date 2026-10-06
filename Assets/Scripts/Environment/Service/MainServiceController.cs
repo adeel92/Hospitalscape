@@ -47,6 +47,7 @@ namespace Isometric.Environment
 
         public MainServiceCustomerHandler CustomerHandler => m_CustomerHandler;
         [SerializeField] MainServiceCustomerHandler m_CustomerHandler;
+        [SerializeField] bool m_DoSetupCustomerHandlerOnHasJustUnlocked = true;
         [SerializeField] SpriteFillController m_SpriteFillController;
         [SerializeField] SpriteRenderer m_MainServiceAreaCloth;
         [SerializeField] SpriteRenderer m_OrderSymbol;
@@ -164,7 +165,8 @@ namespace Isometric.Environment
                 OnHasJustUnlocked?.Invoke();
                 m_Data.SalonChairData.HasJustUnlocked = false;
                 m_Data.Save();
-                m_CustomerHandler.SetupForGameplay();
+                if(m_DoSetupCustomerHandlerOnHasJustUnlocked)
+                    m_CustomerHandler.SetupForGameplay();
             }
 
             m_SpriteFillController.SetFillAmount(0);
