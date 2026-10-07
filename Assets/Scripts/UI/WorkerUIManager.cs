@@ -4,9 +4,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using NaughtyAttributes;
 using Arc;
 using Isometric.Data;
+using NaughtyAttributes;
 
 
 namespace Isometric.UI
@@ -27,14 +27,25 @@ namespace Isometric.UI
         [SerializeField] Button m_NewWorkerAndWorkerOrderUnlockingButton;
 
         [Header("---Worker Quantity Upgrade---")]
-        [SerializeField] GameObject m_WorkerQuantityUpgradePopup;
-        [SerializeField] PlayDoTweenSequence m_WorkerQuantityUpgradePopupOpeningSequence;
-        [SerializeField] PlayDoTweenSequence m_WorkerQuantityUpgradePopupClosingSequence;
-        [SerializeField] Transform m_WorkerQuantityUpgradeUIPanelHolder;
-        [SerializeField] WorkerQuantityUpgradeUIPanel m_WorkerQuantityUpgradeUIPanelPrefab;
+        //---Choice
+        [SerializeField] bool m_UseChoiceBasedWorkerQuantityUpgrade = true;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] GameObject m_WorkerQuantityUpgradePopup;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] PlayDoTweenSequence m_WorkerQuantityUpgradePopupOpeningSequence;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] PlayDoTweenSequence m_WorkerQuantityUpgradePopupClosingSequence;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] Transform m_WorkerQuantityUpgradeUIPanelHolder;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] WorkerQuantityUpgradeUIPanel m_WorkerQuantityUpgradeUIPanelPrefab;
         private WorkerQuantityUpgradeUIPanel m_SelectedWorkerQuantityUpgradeUIPanel = null;
-        [SerializeField] GameObject m_TickButton;
-        [SerializeField] GameObject m_TickButtonUnclickble;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] GameObject m_TickButton;
+        [SerializeField, NaughtyAttributes.ShowIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] GameObject m_TickButtonUnclickble;
+
+        //---Without Choice
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] GameObject m_WorkerQuantityUpgradeNoChoicePopup;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] PlayDoTweenSequence m_WorkerQuantityUpgradeNoChoicePopupOpeningSequence;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] PlayDoTweenSequence m_WorkerQuantityUpgradeNoChoicePopupClosingSequence;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] Image m_UpgradedWorkerImage;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] Image m_UpgradedWorkerSymbolImage;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] Image m_UpgradedWorkerTypeImage;
+        [SerializeField, HideIf(nameof(m_UseChoiceBasedWorkerQuantityUpgrade))] Button m_WorkerQuantityUpgradeUnlockingButton;
 
         [Header("---Just New Worker Unlocking---")]
         [SerializeField] GameObject m_NewWorkerPopup;
@@ -93,23 +104,86 @@ namespace Isometric.UI
 
         public bool CheckNextWorkerQuantityUpgrade()
         {
-            foreach (Transform child in m_WorkerQuantityUpgradeUIPanelHolder.transform)
+            if (m_UseChoiceBasedWorkerQuantityUpgrade)
             {
-                Destroy(child.gameObject);
+                foreach (Transform child in m_WorkerQuantityUpgradeUIPanelHolder.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+
+                Tuple<bool, List<WorkerQuantityUpgradeUIPanel>> workerQuantityUpgrade = m_DataMapUpdate.GetWorkerQuantityUpgrade(this, m_WorkerQuantityUpgradeUIPanelHolder, m_WorkerQuantityUpgradeUIPanelPrefab);
+
+                if (workerQuantityUpgrade.Item1 == true)
+                {
+                    m_TickButton.SetActive(false);
+                    m_TickButtonUnclickble.SetActive(true);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
-            Tuple<bool, List<WorkerQuantityUpgradeUIPanel>> workerQuantityUpgrade = m_DataMapUpdate.GetWorkerQuantityUpgrade(this, m_WorkerQuantityUpgradeUIPanelHolder, m_WorkerQuantityUpgradeUIPanelPrefab);
-
-            if (workerQuantityUpgrade.Item1 == true)
+            else
             {
-                m_TickButton.SetActive(false);
-                m_TickButtonUnclickble.SetActive(true);
-                return true;
+                List<Tuple<Sprite, Sprite, Sprite, Action>> noChoiceWorkerQuantityUpgrades = m_DataMapUpdate.GetNoChoiceWorkerQuantityUpgrade();
+                if (noChoiceWorkerQuantityUpgrades != null && noChoiceWorkerQuantityUpgrades.Count > 0)
+                {
+                    Tuple<Sprite, Sprite, Sprite, Action> noChoiceWorkerQuantityUpgrade = noChoiceWorkerQuantityUpgrades[0];
+
+                    m_UpgradedWorkerImage.sprite = noChoiceWorkerQuantityUpgrade.Item1;
+                    m_UpgradedWorkerSymbolImage.sprite = noChoiceWorkerQuantityUpgrade.Item2;
+                    //m_NewWorkerTypeImage.sprite = noChoiceWorkerQuantityUpgrade.Item3;
+
+                    Action callback = noChoiceWorkerQuantityUpgrade.Item4;
+
+                    m_WorkerQuantityUpgradeUnlockingButton.onClick.RemoveAllListeners();
+                    m_WorkerQuantityUpgradeUnlockingButton.onClick.AddListener(() =>
+                    {
+                        callback?.Invoke();
+                        UIManager.HasNextWorkerQuanityUpgrade(false);
+                    });
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public void SelectWorkerQuantityUpgradePopup(Action callback)
+        {
+            if (m_UseChoiceBasedWorkerQuantityUpgrade)
+            {
+                OpenWorkerQuantityUpgradePopup(callback);
             }
             else
             {
-                return false;
+                OpenWorkerQuantityUpgradeNoChoicePopup(callback);
             }
+        }
+
+        public void OpenWorkerQuantityUpgradeNoChoicePopup(Action callback)
+        {
+            m_Popup.SetActive(true);
+            m_WorkerQuantityUpgradeNoChoicePopup.SetActive(true);
+            m_WorkerQuantityUpgradeNoChoicePopupOpeningSequence.PlaySequence(() => 
+            {
+                callback?.Invoke();
+            });
+        }
+
+        public void CloceWorkerQuantityUpgradeNoChoicePopup(Action callback)
+        {
+            m_WorkerQuantityUpgradeNoChoicePopupClosingSequence.PlaySequence(() =>
+            {
+                m_WorkerQuantityUpgradeNoChoicePopup.SetActive(false);
+                m_Popup.SetActive(false);
+                callback?.Invoke();
+            });
         }
 
         public void OpenWorkerQuantityUpgradePopup(Action callback)
@@ -144,7 +218,7 @@ namespace Isometric.UI
 
         public void OnCloseNewWorkerPopup()
         {
-            UIManager.HasNextWorkerQuanityUpgrade();
+            UIManager.HasNextWorkerQuanityUpgrade(true);
         }
 
         public void CloseNewWorkerPopup(Action onComplete)

@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EditKey: 0
   m_Station:
     StationName: 16
-    IsUnlocked: 0
+    IsUnlocked: 1
     HasJustUnlocked: 0
     HasUpgraded: 0
     EditDefaultValues: 1
@@ -29,10 +29,15 @@ MonoBehaviour:
       CurrentUpgradeIndex: 0
       Upgrade:
       - 6
-      - 4.2
-      - 2.94
-      - 2.058
-      - 1.4406
+      - 5.1
+      - 4.08
+      - 3.06
+      - 2.142
+    - UpgradeType: 1
+      EditUpgradeIndex: 0
+      CurrentUpgradeIndex: 0
+      Upgrade:
+      - 1
     - UpgradeType: 2
       EditUpgradeIndex: 0
       CurrentUpgradeIndex: 0
@@ -43,8 +48,3 @@ MonoBehaviour:
       - 10
       - 12
       - 14
-    - UpgradeType: 1
-      EditUpgradeIndex: 0
-      CurrentUpgradeIndex: 0
-      Upgrade:
-      - 1

@@ -31,6 +31,8 @@ namespace Isometric.Environment
         private DataStation m_Data;
         [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
         [SerializeField, Foldout(MetaSetupFoldOut)] DataConsumable m_OrderTypeIn;
+        [SerializeField, Foldout(MetaSetupFoldOut)] bool m_AddInputOrderCostProperty = false;
+        [SerializeField, Foldout(MetaSetupFoldOut), ReadOnly, ShowIf(nameof(m_AddInputOrderCostProperty))] int m_InputOrderCostProperty = 0;
 
         //---Menu Calls---
         const string MetaMenuCallsFoldOut = "---Menu Calls---";
@@ -202,6 +204,8 @@ namespace Isometric.Environment
             {
                 m_CostProperty = Mathf.RoundToInt(upgradeCost.Upgrade[upgradeCost.CurrentUpgradeIndex]);
             }
+
+            m_InputOrderCostProperty = 0;
         }
 
         private void OnEnable()
@@ -225,8 +229,13 @@ namespace Isometric.Environment
 
                 if (stationOutInfos.Count <= 1 && m_IsProcessing == false)
                 {
-                    if (interactable.GetDataConsumable(m_OrderTypeIn).Item1)
+                    var items = interactable.GetDataConsumable(m_OrderTypeIn);
+                    if (items.Item1)
                     {
+                        if (m_AddInputOrderCostProperty)
+                        {
+                            m_InputOrderCostProperty = items.Item2;
+                        }
                         gotNextFoodType = true;
                     }
                 }
@@ -235,7 +244,7 @@ namespace Isometric.Environment
                 {
                     if (item.IsHolding)
                     {
-                        if (interactable.SendDataConsumable(item.OrderOutType, m_CostProperty))
+                        if (interactable.SendDataConsumable(item.OrderOutType, m_CostProperty + m_InputOrderCostProperty))
                         {
                             item.IsHolding = false;
                             item.OnOrderOutSuccesful?.Invoke();

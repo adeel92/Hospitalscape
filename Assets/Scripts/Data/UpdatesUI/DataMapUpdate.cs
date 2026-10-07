@@ -728,6 +728,61 @@ namespace Isometric.Data
             }
         }
 
+        public List<Tuple<Sprite, Sprite, Sprite, Action>> GetNoChoiceWorkerQuantityUpgrade()
+        {
+            int level = DataManager.CurrentMapLevelIndex + 1;
+
+            bool shouldShow = false;
+            string key = "";
+            foreach (var workerCapacityUpgradeInfo in m_WorkerUpdateInfo.WorkersUpgradeQuantityInfo)
+            {
+                if (workerCapacityUpgradeInfo.ShowAtLevel <= level
+                   && DataManager.GetBool(workerCapacityUpgradeInfo.Key, false) == false)
+                {
+                    shouldShow = true;
+                    key = workerCapacityUpgradeInfo.Key;
+                    break;
+                }
+            }
+
+            if (shouldShow)
+            {
+                List<Tuple<Sprite, Sprite, Sprite, Action>> upgradeWorkers = new List<Tuple<Sprite, Sprite, Sprite, Action>>();
+
+                foreach (var workerUnlockingInfo in m_WorkerUpdateInfo.WorkersUnlockingInfo)
+                {
+                    WorkerOrderData workerOrderData = workerUnlockingInfo.Data.WorkerOrderData;
+                    if (workerOrderData.IsUnlocked
+                        && workerOrderData.WorkerQunaityUpgradeIndex < workerOrderData.WorkerQunaityUpgrades.Count - 1)
+                    {
+                        Action onUpgradeCallback = () =>
+                        {
+                            workerOrderData.WorkerQunaityUpgradeIndex++;
+                            workerOrderData.HasJustUpgraded = true;
+                            workerUnlockingInfo.Data.Save();
+                            DataManager.SetBool(key, true);
+                        };
+
+                        Tuple<Sprite, Sprite, Sprite, Action> upgradeWorker = new Tuple<Sprite, Sprite, Sprite, Action>
+                        (
+                            workerUnlockingInfo.Worker2Sprite,
+                            workerUnlockingInfo.WorkerOrderSymbolSprite,
+                            workerUnlockingInfo.WorkerTypeSprite,
+                            onUpgradeCallback
+                        );
+
+                        upgradeWorkers.Add(upgradeWorker);
+                    }
+                }
+
+                return upgradeWorkers;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public List<WorkerUpgradePanelUI> GetAndSetWorkerUpgradePanels(Transform holder)
         {
             List<WorkerUpgradePanelUI> workerUpgradePanelsUI = new List<WorkerUpgradePanelUI>();

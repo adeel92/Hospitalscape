@@ -155,7 +155,7 @@ namespace Isometric.UI
                 {
                     HideMenu(() =>
                     {
-                        s_Instance.m_WorkerUIManager.OpenWorkerQuantityUpgradePopup(() =>
+                        s_Instance.m_WorkerUIManager.SelectWorkerQuantityUpgradePopup(() =>
                         {
                             UIInteractionOn();
                         });
@@ -304,7 +304,7 @@ namespace Isometric.UI
             });
         }
 
-        public static void HasNextWorkerQuanityUpgrade()
+        public static void HasNextWorkerQuanityUpgrade(bool usingChoiceBased)
         {
             if (s_Instance == null)
             {
@@ -313,11 +313,22 @@ namespace Isometric.UI
             }
 
             UIInteractionOff();
-            s_Instance.m_WorkerUIManager.CloseNewWorkerPopup(() =>
+            if (usingChoiceBased)
             {
-                UIInteractionOn();
-                WorkerManager.Setup();
-            });
+                s_Instance.m_WorkerUIManager.CloseNewWorkerPopup(() =>
+                {
+                    UIInteractionOn();
+                    WorkerManager.Setup();
+                });
+            }
+            else
+            {
+                s_Instance.m_WorkerUIManager.CloceWorkerQuantityUpgradeNoChoicePopup(() =>
+                {
+                    UIInteractionOn();
+                    WorkerManager.Setup();
+                });
+            }
         }
 
         public static void SetupForGameplay()
