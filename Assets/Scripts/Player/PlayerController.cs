@@ -218,7 +218,7 @@ namespace Isometric.Player
         private void OnGameWon()
         {
             GlobalEventHolder.OnCurrentTaskTargetCancleImmediately?.Invoke();
-            SoundManager.PlaySound(SoundType.CrowdCheering);
+            // SoundManager.PlaySound(SoundType.CrowdCheering);
             m_AnimatorController.PlayHappyWon();
         }
 

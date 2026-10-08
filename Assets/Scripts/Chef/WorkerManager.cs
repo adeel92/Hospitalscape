@@ -130,7 +130,7 @@ namespace Isometric.Worker
                 {
                     if (workerInfo.IsUnlocked && !workerInfo.IsBusy)
                     {
-                        SoundManager.PlaySound(SoundType.WorkerBell);
+                        // SoundManager.PlaySound(SoundType.WorkerBell);
 
                         workerInfo.IsBusy = true;
                         workerInfo.OnIsBusy?.Invoke();
@@ -163,7 +163,7 @@ namespace Isometric.Worker
                 {
                     if (workerInfo.IsUnlocked && !workerInfo.IsBusy)
                     {
-                        SoundManager.PlaySound(SoundType.WorkerBell);
+                        // SoundManager.PlaySound(SoundType.WorkerBell);
 
                         workerInfo.IsBusy = true;
                         workerInfo.OnIsBusy?.Invoke();

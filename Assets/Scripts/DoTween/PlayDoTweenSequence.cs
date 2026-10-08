@@ -214,6 +214,83 @@ namespace Arc
             return tweenSequence;
         }
 
+        public Sequence PlaySequence(Action onStart, Action onComplete)
+        {
+            Stop();
+
+            tweenSequence = DOTween.Sequence();
+
+
+            foreach (var tweenInfo in tweensInfo)
+            {
+                if (tweenInfo.tweenType == TweenType.Move)
+                {
+                    HandleMoveTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.Rotate)
+                {
+                    HandleRotateTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.Scale)
+                {
+                    HandleScaleTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.AnchorMove)
+                {
+                    HandleAnchorMoveTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.AnchorSizeDelta)
+                {
+                    HandleAnchorSizeDeltaTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.Fade)
+                {
+                    HandleFadeTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.Callback)
+                {
+                    HandleCallbackTweenInfo(tweenInfo, tweenSequence);
+                }
+                else if (tweenInfo.tweenType == TweenType.Interval)
+                {
+                    HandleIntervalTweenInfo(tweenInfo, tweenSequence);
+                }
+            }
+
+            tweenSequence.SetUpdate(ignoreTimeScale);
+            if (/* Application.isPlaying &&  */shouldLoop)
+            {
+                tweenSequence.SetLoops(loopCount, loopType);
+            }
+            tweenSequence.OnStart(() =>
+            {
+                if (SequenceCallBacksInfo != null && SequenceCallBacksInfo.CallBacksInfo != null)
+                {
+                    foreach (var callback in SequenceCallBacksInfo.CallBacksInfo) { if (callback.callbackTrigger == CallbackTrigger.OnStart) { callback.Callback?.Invoke(); } }
+                }
+
+                onStart?.Invoke();
+            })
+            .OnUpdate(() =>
+            {
+                if (SequenceCallBacksInfo != null && SequenceCallBacksInfo.CallBacksInfo != null)
+                {
+                    foreach (var callback in SequenceCallBacksInfo.CallBacksInfo) { if (callback.callbackTrigger == CallbackTrigger.OnUpdate) { callback.Callback?.Invoke(); } }
+                }
+            })
+            .OnComplete(() =>
+            {
+                if (SequenceCallBacksInfo != null && SequenceCallBacksInfo.CallBacksInfo != null)
+                {
+                    foreach (var callback in SequenceCallBacksInfo.CallBacksInfo) { if (callback.callbackTrigger == CallbackTrigger.OnComplete) { callback.Callback?.Invoke(); } }
+                }
+
+                onComplete?.Invoke();
+            });
+
+            return tweenSequence;
+        }
+
         public void Stop()
         {
 #if UNITY_EDITOR

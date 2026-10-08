@@ -401,7 +401,8 @@ namespace Isometric.Sound
         CrowdCheering,
         SmallWin,
         MediumReward,
-        BigReward
+        BigReward,
+        ConfettiBlast
     }
 
     public enum SoundCategroy

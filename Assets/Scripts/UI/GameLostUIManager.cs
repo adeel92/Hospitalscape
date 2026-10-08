@@ -231,14 +231,21 @@ namespace Isometric.UI
             m_CoinCollectabeCountText.text = originalCoinCurrency.ToString();
 
             UIManager.UIInteractionOff();
-            m_CoinCurrency.DOAnchorPos(m_CoinCurrencyEndPosition, m_CoinCurrencyMoveDuration)
-               .OnComplete(() =>
-               {
-                   CoinCollection(m_CoinCollectabeStartPosition.position, originalCoinCurrency, addedCoinCurrency, () =>
-                   {
-                       UIManager.RestartGame();
-                   });
-               }).SetEase(Ease.OutBack).SetUpdate(true);
+            if(coins > 0)
+            {
+                m_CoinCurrency.DOAnchorPos(m_CoinCurrencyEndPosition, m_CoinCurrencyMoveDuration)
+                .OnComplete(() =>
+                {
+                    CoinCollection(m_CoinCollectabeStartPosition.position, originalCoinCurrency, addedCoinCurrency, () =>
+                    {
+                        UIManager.RestartGame();
+                    });
+                }).SetEase(Ease.OutBack).SetUpdate(true);
+            }
+            else
+            {
+                UIManager.RestartGame();
+            }
         }
 
 

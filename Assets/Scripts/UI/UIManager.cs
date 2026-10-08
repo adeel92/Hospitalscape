@@ -459,6 +459,9 @@ namespace Isometric.UI
                 return;
             }
 
+            SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
+            SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
+            
             UpgradePopupUIManager upgradePopupUIManager = GetPopup<UpgradePopupUIManager>();
             if (upgradePopupUIManager != null)
             {
@@ -501,6 +504,8 @@ namespace Isometric.UI
                 {
                     LoadingUIManager.ShowLoadingScreen(() =>
                     {
+                        SoundManager.StopSound(SoundType.GameMusic1);
+                        SoundManager.PlaySound(SoundType.MenuMusic1, true, false);
                         SetupForMenu();
                     }, () =>
                     {

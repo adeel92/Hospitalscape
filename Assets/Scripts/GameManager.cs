@@ -110,8 +110,8 @@ namespace Isometric
             CameraController.SetEnvironemntInteractiblity(true);
             
 
-            SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
-            SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
+            // SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
+            // SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
 
             int level = DataManager.CurrentMapLevelIndex + 1;
             FirebaseManager.LogEvent("Level_" + level + "_", FirebaseLogType.GameStart);

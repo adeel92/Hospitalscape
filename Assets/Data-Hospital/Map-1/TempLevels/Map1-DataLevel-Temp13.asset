@@ -20,9 +20,12 @@ MonoBehaviour:
     NumberOfCustomersToServe: 0
   m_Key1TargetValue: 60
   m_Key2TargetValue: 80
-  m_LevelConstraintInfos: []
+  m_LevelConstraintInfos:
+  - ConstraintType: 0
+    TimeConstraints: 90
+    NumberOfCustomers: 0
   m_LevelDifficulty: 1
-  m_HasNewCustomer: 1
+  m_HasNewCustomer: 0
   m_NewCustomersInfo:
     NewCustomersInfo: 
   m_CustomerSalonSequence: 0

@@ -1,5 +1,6 @@
 using Arc;
 using DG.Tweening;
+using Isometric.Sound;
 using UnityEngine;
 
 namespace Isometric.Environment
@@ -37,7 +38,13 @@ namespace Isometric.Environment
         {
             if(m_DesignSelectedSequence != null)
             {
-                m_DesignSelectedSequence.PlaySequence();
+                m_DesignSelectedSequence.PlaySequence(() =>
+                {
+                    SoundManager.PlaySound(SoundType.SmallWin);
+                }, () =>
+                {
+                    SoundManager.PlaySound(SoundType.ConfettiBlast);
+                });
             }
         }
 
