@@ -84,6 +84,7 @@ namespace Isometric.Customer
         private bool m_WaitFrozen = false;
         private bool m_IsAboutToLeaveUnserved = false;
         private bool m_IsOnPatienceChair = false;
+        private int m_FingerIdOnDragBegin = -1;
 
         public CustomerFirstOrderInfo CustomerFirstSalonOrder => m_CustomerFirstSalonOrder;
         
@@ -340,6 +341,12 @@ namespace Isometric.Customer
         #region Picked
         public void OnDragBegin()
         {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                m_FingerIdOnDragBegin = touch.fingerId;
+            }
+
             m_IsPickedUp = true;
             SetSortingLayer(m_PickedUpSortingLayer, 0);
             if (m_IsOnSalonChair)
@@ -353,7 +360,32 @@ namespace Isometric.Customer
 
         public void OnDrag()
         {
-            Vector3 pickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 screenPosition = Vector3.zero;
+            screenPosition = Input.mousePosition;
+
+            #if !UNITY_EDITOR
+            if (Input.touchCount > 0)
+            {
+                bool foundActiveTouch = false;
+
+                for (int i = 0; i < Input.touchCount; i++)
+                {
+                    Touch touch = Input.GetTouch(i);
+
+                    if (touch.fingerId == m_FingerIdOnDragBegin)
+                    {
+                        screenPosition = touch.position;
+                        foundActiveTouch = true;
+                        break;
+                    }
+                }
+
+                if (!foundActiveTouch)
+                    return;
+            }
+            #endif
+            
+            Vector3 pickedPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             pickedPosition.z = m_PickedUpZAxis;
 
             if (!m_IsOnSalonChair)
@@ -420,6 +452,7 @@ namespace Isometric.Customer
         
         public void OnDragEnd()
         {
+            m_FingerIdOnDragBegin = -1;
             m_IsPickedUp = false;
             if (!m_IsOnSalonChair)
             {
