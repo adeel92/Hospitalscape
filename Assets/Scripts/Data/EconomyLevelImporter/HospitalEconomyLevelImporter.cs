@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using NaughtyAttributes;
 using UnityEngine;
@@ -21,11 +22,11 @@ namespace Isometric.Data
         [SerializeField] private Object m_WorkbookAsset;
         [SerializeField] private string m_LevelSheetName = "HospitalLevels";
         [SerializeField, Min(1)] private int m_MinLevelToImport = 1;
-        [SerializeField, Min(1)] private int m_MaxLevelToImport = 60;
+        [SerializeField, Min(1)] private int m_MaxLevelToImport = 40;
 
         [Header("Output")]
         [SerializeField] private Object m_OutputFolderAsset;
-        [SerializeField] private string m_AssetNamePrefix = "Map1-DataLevel";
+        [SerializeField] private string m_AssetNamePrefix = "Map1-DataLevel-";
 
         [Header("Defaults")]
         [SerializeField] private List<LevelCustomerPrefabMapping> m_CustomerPrefabMappings = new List<LevelCustomerPrefabMapping>();
@@ -33,6 +34,10 @@ namespace Isometric.Data
         [SerializeField] private CustomerSequenceType m_DefaultCustomerSequence = CustomerSequenceType.Default;
         [SerializeField] private int m_DefaultKey1TargetValue;
         [SerializeField] private int m_DefaultKey2TargetValue;
+
+        [Header("Spawn Delay")]
+        [SerializeField] private float m_CustomerQueueSpawnMinDelay = 4;
+        [SerializeField] private float m_CustomerQueueSpawnMaxDelay = 8;
 
         [Header("Difficulty Mapping")]
         [SerializeField] private List<DifficultyMapping> m_DifficultyMappings = new List<DifficultyMapping>();
@@ -96,8 +101,11 @@ namespace Isometric.Data
             int importedLevels = 0;
             foreach (WorkbookRow row in rows)
             {
-                if (!TryParseInt(row.Get("stage_id"), out int stageId))
+                string levelValue = row.Get("LEVEL");
+
+                if (!TryParseInt(levelValue, out int stageId))
                 {
+                    Debug.LogWarning($"ADEEL 1 - LEVEL value: '{levelValue ?? "NULL"}'");
                     continue;
                 }
 
@@ -105,6 +113,7 @@ namespace Isometric.Data
                 int maxLevel = Mathf.Max(m_MinLevelToImport, m_MaxLevelToImport);
                 if (stageId < minLevel || stageId > maxLevel)
                 {
+                    Debug.LogWarning($"ADEEL 2 - stageId: {stageId}");
                     continue;
                 }
 
@@ -151,7 +160,7 @@ namespace Isometric.Data
 
             foreach (WorkbookRow row in rows)
             {
-                if (!TryParseInt(row.Get("stage_id"), out int stageId))
+                if (!TryParseInt(row.Get("LEVEL"), out int stageId))
                 {
                     continue;
                 }
@@ -185,8 +194,10 @@ namespace Isometric.Data
             SetLevelConstraints(serializedObject, row);
             SetLevelDifficulty(serializedObject, stageId);
 
-            serializedObject.FindProperty("m_Key1TargetValue").intValue = m_DefaultKey1TargetValue;
-            serializedObject.FindProperty("m_Key2TargetValue").intValue = m_DefaultKey2TargetValue;
+            serializedObject.FindProperty("m_Key1TargetValue").intValue =
+                ParseIntOrDefault(row.Get("KEY 1 VALUE"), m_DefaultKey1TargetValue);
+            serializedObject.FindProperty("m_Key2TargetValue").intValue =
+                ParseIntOrDefault(row.Get("KEY 2 VALUE"), m_DefaultKey2TargetValue);
             serializedObject.FindProperty("m_HasNewCustomer").boolValue = newlyUnlockedCustomers.Count > 0;
             serializedObject.FindProperty("m_CustomerSalonSequence").enumValueIndex = (int)m_DefaultCustomerSequence;
             SerializedProperty newCustomersProperty = serializedObject.FindProperty("m_NewCustomersInfo").FindPropertyRelative("NewCustomersInfo");
@@ -203,7 +214,7 @@ namespace Isometric.Data
             customersProperty.arraySize = 0;
 
             int customerWriteIndex = 0;
-            for (int customerIndex = 1; customerIndex <= 20; customerIndex++)
+            for (int customerIndex = 1; customerIndex <= 31; customerIndex++)
             {
                 ImportedCustomer importedCustomer = ParseCustomer(
                     row,
@@ -216,9 +227,10 @@ namespace Isometric.Data
                     continue;
                 }
 
+                bool isFirstCustomer = customerIndex == 1;
                 customersProperty.InsertArrayElementAtIndex(customerWriteIndex);
                 SerializedProperty customerProperty = customersProperty.GetArrayElementAtIndex(customerWriteIndex);
-                WriteCustomer(customerProperty, importedCustomer);
+                WriteCustomer(customerProperty, importedCustomer, isFirstCustomer);
                 customerWriteIndex++;
             }
 
@@ -229,8 +241,8 @@ namespace Isometric.Data
         {
             SerializedProperty levelGoalProperty = serializedObject.FindProperty("m_LevelGoal");
 
-            int coinGoal = ParseIntOrDefault(row.Get("goal_coins"));
-            int customerGoal = ParseIntOrDefault(row.Get("goal_customers_target"));
+            int coinGoal = ParseIntOrDefault(row.Get("LEVEL GOAL(COINS)"));
+            int customerGoal = ParseIntOrDefault(row.Get("LEVEL GOAL(PATIENTS)"));
 
             if (customerGoal > 0)
             {
@@ -251,9 +263,9 @@ namespace Isometric.Data
             SerializedProperty constraintsProperty = serializedObject.FindProperty("m_LevelConstraintInfos");
             constraintsProperty.arraySize = 0;
 
-            int timeLimit = ParseIntOrDefault(row.Get("goal_time_seconds"));
-            int customerLimit = ParseIntOrDefault(row.Get("goal_customers_limit"));
-            bool noLoseCustomers = ParseBool(row.Get("goal_no_lose_customers"));
+            int timeLimit = ParseIntOrDefault(row.Get("TIME LIMIT CONSTRAINT"));
+            int customerLimit = ParseIntOrDefault(row.Get("PATIENT LIMIT CONSTRAINT"));
+            bool noLoseCustomers = ParseBool(row.Get("DON'T LOSE PATIENT CONSTRAINT"));
 
             int writeIndex = 0;
 
@@ -305,15 +317,17 @@ namespace Isometric.Data
             PrefabShufflePool<CustomerSalonController> salonPrefabPool,
             IDictionary<string, string> missingMappings)
         {
-            string firstOrderLabel = row.Get($"customer_{customerIndex}_first_order");
-            string ordersValue = row.Get($"customer_{customerIndex}_orders");
-            string spawnTimeValue = row.Get($"customer_{customerIndex}_spawn_time");
-            string undecidedValue = row.Get($"customer_{customerIndex}_use_reception");
+            string firstOrderLabel = row.Get($"CUSTOMER {customerIndex} DOCTOR COLOR");
+            string ordersValue = row.Get($"CUSTOMER {customerIndex} ORDERS");
+            string undecidedValue = row.Get($"CUSTOMER {customerIndex} USE RECEPTION");
+            string receptionOrdersValue = row.Get($"CUSTOMER {customerIndex} RECEPTION ORDER");
 
+            // mrcHefF
             bool hasAnyData =
                 !string.IsNullOrWhiteSpace(firstOrderLabel) ||
                 !string.IsNullOrWhiteSpace(ordersValue) ||
-                !string.IsNullOrWhiteSpace(spawnTimeValue);
+                !string.IsNullOrWhiteSpace(undecidedValue) ||
+                !string.IsNullOrWhiteSpace(receptionOrdersValue);
 
             if (!hasAnyData)
             {
@@ -329,37 +343,34 @@ namespace Isometric.Data
 
             ImportedCustomer importedCustomer = new ImportedCustomer
             {
-                QueueSpawnDelay = ParseFloatOrDefault(spawnTimeValue),
-                IsFirstOrderUndecided = ParseBool(undecidedValue),
+                IsFirstOrderUndecided = undecidedValue.Equals("yes", StringComparison.OrdinalIgnoreCase),
                 CustomerCommonSetting = m_DefaultSalonCommonSetting,
                 SalonPrefab = salonPrefabPool.Next(),
                 FirstOrder = firstOrderMapping.FirstOrderConsumable
             };
 
-            List<DataConsumable> followUpOrders = new List<DataConsumable>();
-            foreach (string orderToken in SplitCommaSeparatedValues(ordersValue))
-            {
-                OrderMapping orderMapping = FindOrderMapping(orderToken);
-                if (orderMapping == null || orderMapping.Consumable == null)
-                {
-                    missingMappings[$"Missing follow-up mapping: {orderToken}"] = $"customer_{customerIndex}_orders";
-                    continue;
-                }
-
-                followUpOrders.Add(orderMapping.Consumable);
-            }
+            List<DataConsumable> followUpOrders = ParseOrderConsumables(
+                ordersValue,
+                $"CUSTOMER {customerIndex} ORDERS",
+                "follow-up",
+                missingMappings);
 
             importedCustomer.FollowUpOrderGroups = BuildOrderGroups(followUpOrders, stageId, customerIndex);
+            importedCustomer.CounterOrders = ParseOrderConsumables(
+                receptionOrdersValue,
+                $"CUSTOMER {customerIndex} RECEPTION ORDER",
+                "reception",
+                missingMappings);
 
             return importedCustomer;
         }
 
-        private void WriteCustomer(SerializedProperty customerProperty, ImportedCustomer customer)
+        private void WriteCustomer(SerializedProperty customerProperty, ImportedCustomer customer, bool isFirstCustomer)
         {
             customerProperty.FindPropertyRelative("Customer").enumValueIndex = (int)CustomerType.Salon;
             customerProperty.FindPropertyRelative("CustomerSalonPrefab").objectReferenceValue = customer.SalonPrefab;
             customerProperty.FindPropertyRelative("CustomerCommonSettings").objectReferenceValue = customer.CustomerCommonSetting;
-            customerProperty.FindPropertyRelative("QueueSpawnDelay").floatValue = customer.QueueSpawnDelay;
+            customerProperty.FindPropertyRelative("QueueSpawnDelay").floatValue = isFirstCustomer ? 0f : Mathf.Round(UnityEngine.Random.Range(m_CustomerQueueSpawnMinDelay, m_CustomerQueueSpawnMaxDelay) * 10f) / 10f;
             customerProperty.FindPropertyRelative("IsCustomerVIP").boolValue = false;
             customerProperty.FindPropertyRelative("IsFirstOrderUndecided").boolValue = customer.IsFirstOrderUndecided;
 
@@ -377,6 +388,17 @@ namespace Isometric.Data
             else
             {
                 firstOrdersProperty.arraySize = 0;
+            }
+
+            SerializedProperty counterOrdersConsumableProperty = customerProperty
+                .FindPropertyRelative("CustomerCounterOrderInfo")
+                .FindPropertyRelative("OrdersConsumable");
+
+            counterOrdersConsumableProperty.arraySize = customer.CounterOrders.Count;
+            for (int orderIndex = 0; orderIndex < customer.CounterOrders.Count; orderIndex++)
+            {
+                counterOrdersConsumableProperty.GetArrayElementAtIndex(orderIndex).objectReferenceValue =
+                    customer.CounterOrders[orderIndex];
             }
 
             SerializedProperty bundlesProperty = customerProperty.FindPropertyRelative("CustomerOrderBundles");
@@ -405,16 +427,43 @@ namespace Isometric.Data
             }
         }
 
+        private List<DataConsumable> ParseOrderConsumables(
+            string ordersValue,
+            string columnName,
+            string orderKind,
+            IDictionary<string, string> missingMappings)
+        {
+            List<DataConsumable> orders = new List<DataConsumable>();
+            foreach (string orderToken in SplitCommaSeparatedValues(ordersValue))
+            {
+                if (IsEmptyOrderToken(orderToken))
+                {
+                    continue;
+                }
+
+                OrderMapping orderMapping = FindOrderMapping(orderToken);
+                if (orderMapping == null || orderMapping.Consumable == null)
+                {
+                    missingMappings[$"Missing {orderKind} mapping: {orderToken}"] = columnName;
+                    continue;
+                }
+
+                orders.Add(orderMapping.Consumable);
+            }
+
+            return orders;
+        }
+
         private FirstOrderMapping FindFirstOrderMapping(string label)
         {
             return m_FirstOrderMappings.Find(item =>
-                string.Equals(item.Label, label, StringComparison.OrdinalIgnoreCase));
+                string.Equals(NormalizeMappingLabel(item.Label), NormalizeMappingLabel(label), StringComparison.OrdinalIgnoreCase));
         }
 
         private OrderMapping FindOrderMapping(string label)
         {
             return m_OrderMappings.Find(item =>
-                string.Equals(item.Label, label, StringComparison.OrdinalIgnoreCase));
+                string.Equals(NormalizeMappingLabel(item.Label), NormalizeMappingLabel(label), StringComparison.OrdinalIgnoreCase));
         }
 
         private PrefabShufflePool<CustomerSalonController> CreateSalonPrefabPool(int stageId)
@@ -523,6 +572,27 @@ namespace Isometric.Data
             }
         }
 
+        private static bool IsEmptyOrderToken(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return true;
+            }
+
+            string trimmed = value.Trim();
+            return trimmed.All(character => character == '.');
+        }
+
+        private static string NormalizeMappingLabel(string label)
+        {
+            if (string.IsNullOrWhiteSpace(label))
+            {
+                return string.Empty;
+            }
+
+            return string.Join(" ", label.Trim().Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries));
+        }
+
         private static string GetAssetPath(Object asset, string fieldName)
         {
             if (asset == null)
@@ -612,9 +682,9 @@ namespace Isometric.Data
         {
             public CustomerSalonController SalonPrefab;
             public CustomerCommonSetting CustomerCommonSetting;
-            public float QueueSpawnDelay;
             public bool IsFirstOrderUndecided;
             public DataConsumable FirstOrder;
+            public List<DataConsumable> CounterOrders = new List<DataConsumable>();
             public List<List<DataConsumable>> FollowUpOrderGroups = new List<List<DataConsumable>>();
         }
 
@@ -732,12 +802,25 @@ namespace Isometric.Data
                     return new List<WorkbookRow>();
                 }
 
-                Dictionary<int, string> headerMap = rows[0]
-                    .Where(pair => !string.IsNullOrWhiteSpace(pair.Value))
-                    .ToDictionary(pair => ColumnNameToIndex(pair.Key), pair => pair.Value, EqualityComparer<int>.Default);
+                int headerRowIndex = FindHeaderRowIndex(rows);
+                if (headerRowIndex < 0)
+                {
+                    throw new InvalidOperationException(
+                        "Could not find a level header row. Expected headers such as 'stage_id' or 'LEVEL'.");
+                }
+
+                Dictionary<int, string> headerMap = new Dictionary<int, string>();
+                foreach (KeyValuePair<string, string> headerCell in rows[headerRowIndex])
+                {
+                    string normalizedHeader = NormalizeHeader(headerCell.Value);
+                    if (!string.IsNullOrWhiteSpace(normalizedHeader))
+                    {
+                        headerMap[ColumnNameToIndex(headerCell.Key)] = normalizedHeader;
+                    }
+                }
 
                 List<WorkbookRow> workbookRows = new List<WorkbookRow>();
-                for (int rowIndex = 1; rowIndex < rows.Count; rowIndex++)
+                for (int rowIndex = headerRowIndex + 1; rowIndex < rows.Count; rowIndex++)
                 {
                     Dictionary<string, string> rowData = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                     foreach (KeyValuePair<string, string> cell in rows[rowIndex])
@@ -753,6 +836,115 @@ namespace Isometric.Data
                 }
 
                 return workbookRows;
+            }
+
+            private static int FindHeaderRowIndex(List<Dictionary<string, string>> rows)
+            {
+                for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
+                {
+                    HashSet<string> normalizedHeaders = new HashSet<string>(
+                        rows[rowIndex]
+                            .Values
+                            .Select(NormalizeHeader)
+                            .Where(header => !string.IsNullOrWhiteSpace(header)),
+                        StringComparer.OrdinalIgnoreCase);
+
+                    if (normalizedHeaders.Contains("LEVEL") &&
+                        (normalizedHeaders.Contains("LEVEL GOAL(COINS)") ||
+                         normalizedHeaders.Contains("LEVEL GOAL(PATIENTS)") ||
+                         normalizedHeaders.Contains("CUSTOMER 1 ORDERS")))
+                    {
+                        return rowIndex;
+                    }
+                }
+
+                return -1;
+            }
+
+            private static string NormalizeHeader(string header)
+            {
+                if (string.IsNullOrWhiteSpace(header))
+                {
+                    return string.Empty;
+                }
+
+                string trimmedHeader = header.Trim();
+                string compactHeader = Regex.Replace(trimmedHeader.ToLowerInvariant(), @"[^a-z0-9]+", " ").Trim();
+                compactHeader = Regex.Replace(compactHeader, @"\s+", " ");
+
+                switch (compactHeader)
+                {
+                    case "stage id":
+                    case "level":
+                        return "LEVEL";
+                    case "no of patients":
+                    case "no of customers":
+                    case "customer count":
+                    case "patient count":
+                        return "customer_count";
+                    case "level goal patients":
+                    case "level goal customers":
+                    case "goal customers target":
+                        return "LEVEL GOAL(PATIENTS)";
+                    case "level goal coins":
+                    case "goal coins":
+                        return "LEVEL GOAL(COINS)";
+                    case "key 1 value":
+                    case "key1 target value":
+                    case "key 1 target value":
+                        return "KEY 1 VALUE";
+                    case "key 2 value":
+                    case "key2 target value":
+                    case "key 2 target value":
+                        return "KEY 2 VALUE";
+                    case "time limit constraint":
+                    case "goal time seconds":
+                        return "TIME LIMIT CONSTRAINT";
+                    case "patient limit constraint":
+                    case "customer limit constraint":
+                    case "goal customers limit":
+                        return "PATIENT LIMIT CONSTRAINT";
+                    case "don t lose patient constraint":
+                    case "dont lose patient constraint":
+                    case "do not lose patient constraint":
+                    case "don t lose customer constraint":
+                    case "dont lose customer constraint":
+                    case "do not lose customer constraint":
+                    case "goal no lose customers":
+                        return "DON'T LOSE PATIENT CONSTRAINT";
+                }
+
+                Match customerMatch = Regex.Match(
+                    compactHeader,
+                    @"^customer\s+(\d+)\s+(.+)$",
+                    RegexOptions.IgnoreCase);
+                if (customerMatch.Success)
+                {
+                    string customerIndex = customerMatch.Groups[1].Value;
+                    string customerField = customerMatch.Groups[2].Value;
+                    switch (customerField)
+                    {
+                        case "orders":
+                            return $"CUSTOMER {customerIndex} ORDERS";
+                        case "doctor color":
+                        case "doctor colour":
+                        case "first order":
+                            return $"CUSTOMER {customerIndex} DOCTOR COLOR";
+                        case "use reception":
+                            return $"CUSTOMER {customerIndex} USE RECEPTION";
+                        case "reception order":
+                        case "reception orders":
+                        case "counter order":
+                        case "counter orders":
+                            return $"CUSTOMER {customerIndex} RECEPTION ORDER";
+                        case "status":
+                            return $"CUSTOMER {customerIndex} STATUS";
+                        case "spawn time":
+                            return $"customer_{customerIndex}_spawn_time";
+                    }
+                }
+
+                return Regex.Replace(compactHeader, @"\s+", "_");
             }
 
             private static string GetWorksheetPath(ZipArchive archive, string sheetName)

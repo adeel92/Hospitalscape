@@ -15,15 +15,15 @@ MonoBehaviour:
   m_EditComment: 0
   m_Comment: Imported from workbook stage 26
   m_LevelGoal:
-    GoalType: 1
-    NumberCoinsToCollect: 0
-    NumberOfCustomersToServe: 12
-  m_Key1TargetValue: 13
-  m_Key2TargetValue: 14
+    GoalType: 0
+    NumberCoinsToCollect: 586
+    NumberOfCustomersToServe: 0
+  m_Key1TargetValue: 688
+  m_Key2TargetValue: 736
   m_LevelConstraintInfos:
-  - ConstraintType: 1
-    TimeConstraints: 0
-    NumberOfCustomers: 14
+  - ConstraintType: 0
+    TimeConstraints: 155
+    NumberOfCustomers: 0
   m_LevelDifficulty: 6
   m_HasNewCustomer: 0
   m_NewCustomersInfo:
@@ -38,23 +38,119 @@ MonoBehaviour:
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
     QueueSpawnDelay: 0
     IsCustomerVIP: 0
+    IsFirstOrderUndecided: 1
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 7.4
+    IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 010dd0f11ca397945908bed80b70c7cc, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 4d84bbf5d80a07f4da85e3346ee25243, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 2395870444964790180, guid: a647dae0f0444bd4bb426f4479716cbd, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 5.8
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 5.1
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 2e8e22d7b54380646b96bb34773f90ac, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
-    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 3
+    QueueSpawnDelay: 7.4
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 1
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 910f315cecb347b42ba95c5c972a43ca, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 5.9
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: e7d15a8ea050bf343a9a1fff07fb6f72, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 5.6
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 1
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
@@ -62,145 +158,200 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 1d0b70385715087408fe77a07f3e819c, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 4.5
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 910f315cecb347b42ba95c5c972a43ca, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 2395870444964790180, guid: a647dae0f0444bd4bb426f4479716cbd, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 8
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 010dd0f11ca397945908bed80b70c7cc, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
     QueueSpawnDelay: 6
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
-  - Customer: 0
-    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
-    CustomerCafePrefab: {fileID: 0}
-    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
-    IsCustomerVIP: 0
-    IsFirstOrderUndecided: 0
-    CustomerFirstOrdersInfoHolder:
-      CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
-    CustomerOrderBundles:
-    - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 4.7
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
+      - OrderConsumable: {fileID: 11400000, guid: 010dd0f11ca397945908bed80b70c7cc, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
+        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
+        - {fileID: 11400000, guid: 1d0b70385715087408fe77a07f3e819c, type: 2}
   - Customer: 0
-    CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
+    CustomerSalonPrefab: {fileID: 5275518852732708029, guid: 9939f85d3fe21f04e8c45e342c8ee42d, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 14
+    QueueSpawnDelay: 5.7
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
-    CustomerFirstOrdersInfoHolder:
-      CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
-    CustomerOrderBundles:
-    - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 8facc7188036905458efb917d4c57c88, type: 2}
-  - Customer: 0
-    CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
-    CustomerCafePrefab: {fileID: 0}
-    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 14
-    IsCustomerVIP: 0
-    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+        - {fileID: 11400000, guid: 2e8e22d7b54380646b96bb34773f90ac, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
-        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
-    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 5.6
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 910f315cecb347b42ba95c5c972a43ca, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 24c1d316e6ad26a48aa0e9929cc28218, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 6.1
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
-        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 4
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: e7d15a8ea050bf343a9a1fff07fb6f72, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 2395870444964790180, guid: a647dae0f0444bd4bb426f4479716cbd, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 6.4
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
-    CustomerFirstOrdersInfoHolder:
-      CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
-    CustomerOrderBundles:
-    - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-  - Customer: 0
-    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
-    CustomerCafePrefab: {fileID: 0}
-    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 14
-    IsCustomerVIP: 0
-    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
   - Customer: 0
-    CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
+    CustomerSalonPrefab: {fileID: 5275518852732708029, guid: 9939f85d3fe21f04e8c45e342c8ee42d, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 14
+    QueueSpawnDelay: 7.2
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
+      - OrderConsumable: {fileID: 11400000, guid: 010dd0f11ca397945908bed80b70c7cc, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 5.5
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
         - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
@@ -208,45 +359,35 @@ MonoBehaviour:
     CustomerSalonPrefab: {fileID: 5275518852732708029, guid: 9939f85d3fe21f04e8c45e342c8ee42d, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 7.8
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
+    CustomerFirstOrdersInfoHolder:
+      CustomerFirstOrdersInfo:
+      - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
+    CustomerOrderBundles:
+    - CustomerOrdersInfo:
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+  - Customer: 0
+    CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
+    CustomerCafePrefab: {fileID: 0}
+    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
+    QueueSpawnDelay: 6
+    IsCustomerVIP: 0
+    IsFirstOrderUndecided: 0
+    CustomerCounterOrderInfo:
+      OrdersConsumable: []
     CustomerFirstOrdersInfoHolder:
       CustomerFirstOrdersInfo:
       - OrderConsumable: {fileID: 11400000, guid: dc2ba81e05bc9ea41b25eda3c50b20d2, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
-  - Customer: 0
-    CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
-    CustomerCafePrefab: {fileID: 0}
-    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
-    IsCustomerVIP: 0
-    IsFirstOrderUndecided: 0
-    CustomerFirstOrdersInfoHolder:
-      CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
-    CustomerOrderBundles:
-    - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
-  - Customer: 0
-    CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
-    CustomerCafePrefab: {fileID: 0}
-    CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 14
-    IsCustomerVIP: 0
-    IsFirstOrderUndecided: 0
-    CustomerFirstOrdersInfoHolder:
-      CustomerFirstOrdersInfo:
-      - OrderConsumable: {fileID: 11400000, guid: c8ca6dc7ca1a93d4d8b7fdbf212f4432, type: 2}
-    CustomerOrderBundles:
-    - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-        - {fileID: 11400000, guid: 51e83cbe4dfaf3e43a0ab98b2938379e, type: 2}
-  m_PatienceWeatherData: []
+        - {fileID: 11400000, guid: 1d0b70385715087408fe77a07f3e819c, type: 2}
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
+  m_PatienceWeatherData:
+  - ActivationDelay: 10
+  - ActivationDelay: 76

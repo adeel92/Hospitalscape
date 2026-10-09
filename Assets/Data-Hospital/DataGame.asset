@@ -16,11 +16,11 @@ MonoBehaviour:
   m_EditKey: 0
   m_GameData:
     EditValues: 0
-    CoinCurrency: 372
-    GemCurrency: 0
-    StarCurrency: 0
-    KeyCurrency: 4
-    HeartCurrency: 5
+    CoinCurrency: 292
+    GemCurrency: 1
+    StarCurrency: 1
+    KeyCurrency: 2
+    HeartCurrency: 100
     HeartTimeCurrency: 0
     HeartRefillTime: 5
     CurrentMapType: 0
@@ -31,28 +31,62 @@ MonoBehaviour:
       DataMap: {fileID: 11400000, guid: aa2b660e84b15de4fae228573f10a6a9, type: 2}
       EditDefaultValue: 0
       IsUnlockedDefaultValue: 1
-    TimeFrozeBooster: 4
-    WaitressSpeedBooster: 4
-    InstanceOrderFillBooster: 4
+    TimeFrozeBooster: 6
+    WaitressSpeedBooster: 6
+    InstanceOrderFillBooster: 3
     NoAdsPurchase: 0
     EditGeneralData: 0
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-08-05T18:31:15.2402059Z
+        Value: 2026-10-09T20:28:16.9462653Z
       - Key: HeartCurrency_ShouldBeMinusOne
         Value: False
-      - Key: NewCustomer1
-        Value: True
-      - Key: NewCusomter2
-        Value: True
       - Key: Notification_Upgrade_Player_0
         Value: True
       - Key: Notification_Upgrade_Player_1
         Value: False
-      - Key: Notification_Upgrade_Salon_Chair_0
+      - Key: Notification_Upgrade_Hospital_Bed_0
+        Value: False
+      - Key: Notification_Upgrade_Worker_1
+        Value: False
+      - Key: Notification_Upgrade_Worker_2
+        Value: False
+      - Key: Notification_Upgrade_Worker_3
+        Value: False
+      - Key: Notification_Upgrade_Worker_4
+        Value: False
+      - Key: Notification_Upgrade_Worker_5
+        Value: False
+      - Key: Notification_Upgrade_Station_Pharmacy_0
+        Value: False
+      - Key: Notification_Upgrade_Station_MRI_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Water_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Report_0
+        Value: False
+      - Key: Notification_Upgrade_Station_SpecializedInjection_0
+        Value: False
+      - Key: Notification_Upgrade_Station_ReceptionArea_0
+        Value: False
+      - Key: Notification_Upgrade_Station_BioLab_0
+        Value: False
+      - Key: Notification_Upgrade_Station_XRay_0
+        Value: False
+      - Key: Notification_Upgrade_Station_ECG_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Pharmacy_1
+        Value: False
+      - Key: Notification_Upgrade_Station_MRI_1
+        Value: False
+      - Key: Notification_Upgrade_Station_NormalInjection_1
         Value: False
       - Key: Notification_Upgrade_Station_RawGauze_1
+        Value: False
+      - Key: Notification_Upgrade_Station_XRay_1
+        Value: False
+      - Key: Notification_Upgrade_Station_ECG_1
         Value: False
       - Key: Sound
         Value: True
@@ -122,20 +156,16 @@ MonoBehaviour:
         Value: 0
       - Key: Map1-Achievement16CollectionKey
         Value: False
-      - Key: Notification_Upgrade_Worker_5
-        Value: False
-      - Key: Notification_Upgrade_Worker_2
-        Value: False
-      - Key: Notification_Upgrade_Station_Pharmacy_0
-        Value: False
-      - Key: Notification_Upgrade_Station_Pharmacy_1
-        Value: False
-    EditDefaultValues: 1
+      - Key: NewCustomer1
+        Value: True
+      - Key: NewCusomter2
+        Value: True
+    EditDefaultValues: 0
     CoinCurrencyDefaultValue: 100
     GemCurrencyDefaultValue: 1
     StarCurrencyDefaultValue: 1
     KeyCurrencyDefaultValue: 0
-    HeartCurrencyDefaultValue: 100
+    HeartCurrencyDefaultValue: 5
     HeartTimeCurrencyDefaultValue: 0
     CurrentMapTypeDefaultValue: 0
     TimeFrozeBoosterDefaultValue: 6
