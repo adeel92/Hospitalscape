@@ -21,6 +21,9 @@ namespace Isometric.UI
         [SerializeField] TextMeshProUGUI m_LevelText;
         [SerializeField] GameObject m_SoundOffObj;
         [SerializeField] GameObject m_MusicOffObj;
+        [Space, SerializeField] GameObject m_PauseButtonObj;
+        [SerializeField] PlayDoTweenSequence m_PauseButtonOpeningSequence; 
+        [SerializeField] PlayDoTweenSequence m_PauseButtonClosingSequence;
         private bool m_IsSoundOn;
         private bool m_IsMusicOn;
 
@@ -69,6 +72,23 @@ namespace Isometric.UI
             });
         }
 
+        public void ShowPauseButton(Action onComplete)
+        {
+            m_PauseButtonObj.SetActive(true);
+            m_PauseButtonOpeningSequence.PlaySequence(() =>
+            {
+                onComplete?.Invoke();
+            });
+        }
+        public void HidePauseButton(Action onComplete)
+        {
+            m_PauseButtonClosingSequence.PlaySequence(() =>
+            {
+                m_PauseButtonObj.SetActive(false);
+                onComplete?.Invoke();
+            });
+        }
+        
         public void OnPauseButton()
         {
             GlobalEventHolder.OnPlayerStopMoving?.Invoke();

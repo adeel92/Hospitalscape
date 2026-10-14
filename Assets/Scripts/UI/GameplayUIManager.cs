@@ -24,6 +24,10 @@ namespace Isometric.UI
         [Serializable]
         private class GameplayGoalInfo
         {
+            [Header("---UI---")]
+            public PlayDoTweenSequence GameplayUIOpeningSequence;
+            public PlayDoTweenSequence GameplayUIClosingSequence;
+            
             [Header("---Target---")]
             public GameObject CoinTarget;
             public GameObject CustomerTarget;
@@ -298,6 +302,32 @@ namespace Isometric.UI
             {
                 m_GoalPopupInfo.GoalPopup.SetActive(false);
                 m_GoalCanvas.SetActive(false);
+                onComplete?.Invoke();
+            });
+        }
+
+        public void OpenGameplayUI(Action onStart, Action onComplete)
+        {
+            if (!m_GameplayCanvas.activeSelf)
+            {
+                m_GameplayCanvas.SetActive(true);
+                m_GameplayGoalInfo.GameplayUIOpeningSequence.PlaySequence(onStart, () =>
+                {
+                    m_GameplayGoalInfo.CustomerConstraintHolderAnimator.SetTrigger(m_GameplayGoalInfo.CustomerConstraintHolderActiveState);
+                    onComplete?.Invoke();
+                });
+            }
+            else
+            {
+                onComplete?.Invoke();
+            }
+        }
+
+        public void CloseGameplayUI(Action onStart, Action onComplete)
+        {
+            m_GameplayGoalInfo.GameplayUIClosingSequence.PlaySequence(onStart, () =>
+            {
+                m_GameplayCanvas.SetActive(false);
                 onComplete?.Invoke();
             });
         }

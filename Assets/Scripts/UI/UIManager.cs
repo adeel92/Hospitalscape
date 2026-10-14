@@ -192,7 +192,7 @@ namespace Isometric.UI
                     {
                         SoundManager.PlaySound(SoundType.Reward);
                     },
-                    CheckNextUpdatable);
+                    CheckNextGameplayUpdatable);
 
                 s_Instance.m_GameplayItemRewardInfo = null;
                 Debug.Log($"ADEEL: Gameplay currency reward active!");
@@ -208,11 +208,18 @@ namespace Isometric.UI
                     {
                         CoroutineManager.LateAction(() =>
                         {
-                            UIInteractionOff();
                             // GameManager.PauseGame();
-                            GetPopup<GameplayItemUnlockingUIManager>().OpenPopup(() =>
+                            UIInteractionOff();
+                            GetPopup<GameplayUIManager>().CloseGameplayUI(() =>
                             {
-                                UIInteractionOn();
+                                GetPopup<PauseUIManager>().HidePauseButton(null);
+                                GetPopup<BoosterUIManager>().HideBoosterButtons(null);
+                            }, () =>
+                            {
+                                GetPopup<GameplayItemUnlockingUIManager>().OpenPopup(() =>
+                                {
+                                    UIInteractionOn();
+                                });
                             });
                         }, 0.5f);
                         Debug.Log($"ADEEL: Gameplay unlockable reward active!");
@@ -224,16 +231,23 @@ namespace Isometric.UI
                 }
             }
             else
-            { 
+            {
                 s_Instance.SetupGameAfterUpdates();
             }
         }
 
         private void SetupGameAfterUpdates()
         {
-            UIInteractionOn();
-            GameManager.UnPauseGame();
-            GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
+            GetPopup<GameplayUIManager>().OpenGameplayUI(() =>
+            {
+                GetPopup<PauseUIManager>().ShowPauseButton(null);
+                GetPopup<BoosterUIManager>().ShowBoosterButtons(null);
+            }, () =>
+            {
+                UIInteractionOn();
+                GameManager.UnPauseGame();
+                GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
+            });
             Debug.Log($"ADEEL: No Gameplay reward active!");
         }
 

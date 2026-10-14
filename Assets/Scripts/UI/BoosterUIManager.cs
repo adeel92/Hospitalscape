@@ -8,6 +8,7 @@ using TMPro;
 using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.Customer;
+using Arc;
 
 namespace Isometric.UI
 {
@@ -39,6 +40,8 @@ namespace Isometric.UI
 
         [SerializeField] DataMapUpdate m_DataMapUpdate;
         [SerializeField] GameObject m_Popup;
+        [SerializeField] PlayDoTweenSequence m_BoosterButtonsOpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_BoosterButtonsClosingSequence;
         [SerializeField] List<BoosterButtonInfo> m_BoostersButtonInfo;
         [SerializeField] Transform m_InstanceOrderStartPosition;
         [SerializeField] float m_InstanceOrderFillDuration;
@@ -119,6 +122,24 @@ namespace Isometric.UI
         {
             m_Popup.SetActive(false);
             onComplete?.Invoke();
+        }
+
+        public void ShowBoosterButtons(Action onComplete)
+        {
+            m_Popup.SetActive(true);
+            m_BoosterButtonsOpeningSequence.PlaySequence(() =>
+            {
+                onComplete?.Invoke();
+            });
+        }
+
+        public void HideBoosterButtons(Action onComplete)
+        {
+            m_BoosterButtonsClosingSequence.PlaySequence(() =>
+            {
+                m_Popup.SetActive(false);
+                onComplete?.Invoke();
+            });
         }
 
         private void OnBoosterActivation(BoosterButtonInfo boosterButtonInfo)

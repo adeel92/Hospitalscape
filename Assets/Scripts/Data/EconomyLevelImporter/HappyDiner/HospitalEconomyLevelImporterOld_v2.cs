@@ -32,7 +32,7 @@ namespace Isometric.Data
 
 {
 
-    public class HospitalEconomyLevelImporterOld : MonoBehaviour
+    public class HospitalEconomyLevelImporterOld_v2 : MonoBehaviour
 
     {
 
@@ -371,10 +371,9 @@ namespace Isometric.Data
             SetLevelDifficulty(serializedObject, stageId);
 
 
+            serializedObject.FindProperty("m_Key1TargetValue").intValue = ParseIntOrDefault(row.Get("key_1_value"));
 
-            serializedObject.FindProperty("m_Key1TargetValue").intValue = m_DefaultKey1TargetValue;
-
-            serializedObject.FindProperty("m_Key2TargetValue").intValue = m_DefaultKey2TargetValue;
+            serializedObject.FindProperty("m_Key2TargetValue").intValue = ParseIntOrDefault(row.Get("key_2_value"));
 
             serializedObject.FindProperty("m_HasNewCustomer").boolValue = newlyUnlockedCustomers.Count > 0;
 
@@ -618,8 +617,9 @@ namespace Isometric.Data
 
             string spawnTimeValue = row.Get($"customer_{customerIndex}_spawn_time");
 
-            string undecidedValue = row.Get($"customer_{customerIndex}_use_reception");
+            string undecidedValue = row.Get($"customer_{customerIndex}_counter_order");
 
+            string receptionOrdersValue = row.Get($"customer_{customerIndex}_counter_order");
 
 
             bool hasAnyData =
@@ -628,8 +628,11 @@ namespace Isometric.Data
 
                 !string.IsNullOrWhiteSpace(ordersValue) ||
 
-                !string.IsNullOrWhiteSpace(spawnTimeValue);
+                !string.IsNullOrWhiteSpace(spawnTimeValue) ||
 
+                !string.IsNullOrWhiteSpace(undecidedValue) ||
+
+                !string.IsNullOrWhiteSpace(receptionOrdersValue);
 
 
             if (!hasAnyData)
@@ -662,7 +665,7 @@ namespace Isometric.Data
 
                 QueueSpawnDelay = ParseFloatOrDefault(spawnTimeValue),
 
-                IsFirstOrderUndecided = ParseBool(undecidedValue),
+                IsFirstOrderUndecided = !string.IsNullOrWhiteSpace(undecidedValue),
 
                 CustomerCommonSetting = m_DefaultSalonCommonSetting,
 
@@ -672,15 +675,38 @@ namespace Isometric.Data
 
             };
 
+            List<DataConsumable> followUpOrders = ParseOrderConsumables(
+                firstOrderMapping,
+                ordersValue,
+                customerIndex,
+                missingMappings);
+
+            importedCustomer.FollowUpOrderGroups = BuildOrderGroups(followUpOrders, stageId, customerIndex);
+
+            importedCustomer.CounterOrders = ParseOrderConsumables(
+                firstOrderMapping,
+                receptionOrdersValue,
+                customerIndex,
+                missingMappings);
 
 
+            return importedCustomer;
+
+        }
+
+        private List<DataConsumable> ParseOrderConsumables(
+            FirstOrderMapping firstOrderMapping,
+            string ordersValue,
+            int customerIndex,
+            IDictionary<string, string> missingMappings)
+        {
             List<DataConsumable> followUpOrders = new List<DataConsumable>();
 
             foreach (string orderToken in SplitCommaSeparatedValues(ordersValue))
 
             {
 
-                OrderMapping orderMapping = FindOrderMapping(orderToken);
+                OrderMapping orderMapping = FindOrderMapping(firstOrderMapping, orderToken);
 
                 if (orderMapping == null || orderMapping.Consumable == null)
 
@@ -698,16 +724,8 @@ namespace Isometric.Data
 
             }
 
-
-
-            importedCustomer.FollowUpOrderGroups = BuildOrderGroups(followUpOrders, stageId, customerIndex);
-
-
-
-            return importedCustomer;
-
+            return followUpOrders;
         }
-
 
 
         private void WriteCustomer(SerializedProperty customerProperty, ImportedCustomer customer)
@@ -758,6 +776,16 @@ namespace Isometric.Data
 
             }
 
+            SerializedProperty counterOrdersConsumableProperty = customerProperty
+                .FindPropertyRelative("CustomerCounterOrderInfo")
+                .FindPropertyRelative("OrdersConsumable");
+
+            counterOrdersConsumableProperty.arraySize = customer.CounterOrders.Count;
+            for (int orderIndex = 0; orderIndex < customer.CounterOrders.Count; orderIndex++)
+            {
+                counterOrdersConsumableProperty.GetArrayElementAtIndex(orderIndex).objectReferenceValue =
+                    customer.CounterOrders[orderIndex];
+            }
 
 
             SerializedProperty bundlesProperty = customerProperty.FindPropertyRelative("CustomerOrderBundles");
@@ -824,10 +852,13 @@ namespace Isometric.Data
 
 
 
-        private OrderMapping FindOrderMapping(string label)
+        private OrderMapping FindOrderMapping(FirstOrderMapping firstOrderMapping, string label)
 
         {
-
+            if (label == "diagnostic report")
+            {
+                label += $" {firstOrderMapping.Label}";
+            }
             return m_OrderMappings.Find(item =>
 
                 string.Equals(item.Label, label, StringComparison.OrdinalIgnoreCase));
@@ -1232,6 +1263,7 @@ namespace Isometric.Data
 
             public DataConsumable FirstOrder;
 
+            public List<DataConsumable> CounterOrders = new List<DataConsumable>();
             public List<List<DataConsumable>> FollowUpOrderGroups = new List<List<DataConsumable>>();
 
         }

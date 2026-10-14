@@ -16,8 +16,8 @@ MonoBehaviour:
   m_EditKey: 0
   m_GameData:
     EditValues: 0
-    CoinCurrency: 100
-    GemCurrency: 1
+    CoinCurrency: 99999
+    GemCurrency: 9999
     StarCurrency: 1
     KeyCurrency: 0
     HeartCurrency: 5
@@ -39,11 +39,11 @@ MonoBehaviour:
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-10-12T13:53:33.9549540Z
+        Value: 2026-10-14T14:40:56.2827102Z
       - Key: HeartCurrency_ShouldBeMinusOne
-        Value: False
-      - Key: Notification_Upgrade_Player_0
         Value: True
+      - Key: Notification_Upgrade_Player_0
+        Value: False
       - Key: Notification_Upgrade_Player_1
         Value: False
       - Key: Notification_Upgrade_Hospital_Bed_0
@@ -60,29 +60,35 @@ MonoBehaviour:
         Value: False
       - Key: Notification_Upgrade_Station_Pharmacy_0
         Value: False
+      - Key: Notification_Upgrade_Station_SpecializedInjection_0
+        Value: False
       - Key: Notification_Upgrade_Station_MRI_0
         Value: False
-      - Key: Notification_Upgrade_Station_Water_0
+      - Key: Notification_Upgrade_Station_BioLab_0
         Value: False
       - Key: Notification_Upgrade_Station_Report_0
         Value: False
-      - Key: Notification_Upgrade_Station_SpecializedInjection_0
-        Value: False
       - Key: Notification_Upgrade_Station_ReceptionArea_0
         Value: False
-      - Key: Notification_Upgrade_Station_BioLab_0
+      - Key: Notification_Upgrade_Station_Water_0
         Value: False
       - Key: Notification_Upgrade_Station_XRay_0
         Value: False
       - Key: Notification_Upgrade_Station_ECG_0
         Value: False
+      - Key: Notification_Upgrade_Station_NormalInjection_RawGauze_0
+        Value: False
       - Key: Notification_Upgrade_Station_Pharmacy_1
+        Value: False
+      - Key: Notification_Upgrade_Station_SpecializedInjection_1
         Value: False
       - Key: Notification_Upgrade_Station_MRI_1
         Value: False
-      - Key: Notification_Upgrade_Station_NormalInjection_1
+      - Key: Notification_Upgrade_Station_BioLab_1
         Value: False
-      - Key: Notification_Upgrade_Station_RawGauze_1
+      - Key: Notification_Upgrade_Station_Report_1
+        Value: False
+      - Key: Notification_Upgrade_Station_Water_1
         Value: False
       - Key: Notification_Upgrade_Station_XRay_1
         Value: False
@@ -156,19 +162,17 @@ MonoBehaviour:
         Value: 0
       - Key: Map1-Achievement16CollectionKey
         Value: False
-      - Key: Notification_Upgrade_Station_NormalInjection_RawGauze_0
-        Value: True
     EditDefaultValues: 1
-    CoinCurrencyDefaultValue: 99999
-    GemCurrencyDefaultValue: 9999
-    StarCurrencyDefaultValue: 1
+    CoinCurrencyDefaultValue: 0
+    GemCurrencyDefaultValue: 0
+    StarCurrencyDefaultValue: 0
     KeyCurrencyDefaultValue: 0
     HeartCurrencyDefaultValue: 5
     HeartTimeCurrencyDefaultValue: 0
     CurrentMapTypeDefaultValue: 0
-    TimeFrozeBoosterDefaultValue: 6
-    WaitressSpeedBoosterDefaultValue: 6
-    InstanceOrderFillBoosterDefaultValue: 3
+    TimeFrozeBoosterDefaultValue: 4
+    WaitressSpeedBoosterDefaultValue: 4
+    InstanceOrderFillBoosterDefaultValue: 4
     NoAdsPurchaseDefaultValue: 0
   m_MapsInfo:
   - Type: 0
