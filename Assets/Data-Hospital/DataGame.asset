@@ -16,11 +16,11 @@ MonoBehaviour:
   m_EditKey: 0
   m_GameData:
     EditValues: 0
-    CoinCurrency: 292
+    CoinCurrency: 100
     GemCurrency: 1
     StarCurrency: 1
-    KeyCurrency: 2
-    HeartCurrency: 100
+    KeyCurrency: 0
+    HeartCurrency: 5
     HeartTimeCurrency: 0
     HeartRefillTime: 5
     CurrentMapType: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-10-09T20:28:16.9462653Z
+        Value: 2026-10-12T13:53:33.9549540Z
       - Key: HeartCurrency_ShouldBeMinusOne
         Value: False
       - Key: Notification_Upgrade_Player_0
@@ -156,13 +156,11 @@ MonoBehaviour:
         Value: 0
       - Key: Map1-Achievement16CollectionKey
         Value: False
-      - Key: NewCustomer1
+      - Key: Notification_Upgrade_Station_NormalInjection_RawGauze_0
         Value: True
-      - Key: NewCusomter2
-        Value: True
-    EditDefaultValues: 0
-    CoinCurrencyDefaultValue: 100
-    GemCurrencyDefaultValue: 1
+    EditDefaultValues: 1
+    CoinCurrencyDefaultValue: 99999
+    GemCurrencyDefaultValue: 9999
     StarCurrencyDefaultValue: 1
     KeyCurrencyDefaultValue: 0
     HeartCurrencyDefaultValue: 5

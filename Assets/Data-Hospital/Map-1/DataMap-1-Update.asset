@@ -1291,12 +1291,13 @@ MonoBehaviour:
     UnlockingGemReward: 0
     StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: b0d1304964d4d274997526b3705b5393, type: 2}
-    DependentsUpgradableData: []
+    DependentsUpgradableData:
+    - {fileID: 11400000, guid: ab3743dc1a1b1bf439fd6586579df7d3, type: 2}
     UnlockingLevelNumber: 6
     UnlockingOrder: 4
     IsUnlockUIRequired: 1
     RequiredStars: 0
-    Preview: {fileID: 21300000, guid: 6de9c2b85a70d5e468c5c5c8dddd2f86, type: 3}
+    Preview: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
     NameDiscption: Antiviral Injection
     Discription: Antiviral Injection is available now!
     UnlockingCoinReward: 0
@@ -1304,11 +1305,10 @@ MonoBehaviour:
     StationUpgradeInfo:
     - UpgradeType: 1
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Injection Income
-      BasePreviewSprite: {fileID: 21300000, guid: 6de9c2b85a70d5e468c5c5c8dddd2f86, type: 3}
-      InfoDiscriptionText: Increase the revenue of Antiviral Injection Machine to
-        earn more coins!
-      NotifationSeenKey: Notification_Upgrade_Station_NormalInjection_1
+      HeaderText: Tools Income
+      BasePreviewSprite: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
+      InfoDiscriptionText: Increase the revenue of Tool Machine to earn more coins!
+      NotifationSeenKey: Notification_Upgrade_Station_NormalInjection_RawGauze_0
       PropertyUpgradesInfo:
       - UpdateType: 2
         RequiredCoins: 0
@@ -1578,56 +1578,7 @@ MonoBehaviour:
     Discription: Gauze is available now!
     UnlockingCoinReward: 0
     UnlockingGemReward: 0
-    StationUpgradeInfo:
-    - UpgradeType: 1
-      StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Gauze Income
-      BasePreviewSprite: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
-      InfoDiscriptionText: Increase the revenue of Gauze Machine to earn more coins!
-      NotifationSeenKey: Notification_Upgrade_Station_RawGauze_1
-      PropertyUpgradesInfo:
-      - UpdateType: 2
-        RequiredCoins: 0
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1000
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1300
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1600
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 1900
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 2200
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
-      - UpdateType: 2
-        RequiredCoins: 2500
-        RequiredGems: 0
-        PropertyUpgradeNameText: Increase Revenue
-        UsePreviewSprite: 0
-        PreviewSprite: {fileID: 0}
+    StationUpgradeInfo: []
   - Data: {fileID: 11400000, guid: 80077fd78e1e1fd429ef8926f43c8e8a, type: 2}
     DependentsUpgradableData: []
     UnlockingLevelNumber: 31

@@ -276,6 +276,7 @@ namespace Isometric.UI
             {
                 int? coins = null;
                 int? gems = null;
+                int? speedBooster = null;
 
                 if (keyCollectionReward.HasCoinReward)
                 {
@@ -289,6 +290,12 @@ namespace Isometric.UI
                     DataManager.GemCurrency += keyCollectionReward.GemReward;
                 }
 
+                if (keyCollectionReward.HasSpeedBoosterReward)
+                {
+                    speedBooster = keyCollectionReward.SpeedBoosterReward;
+                    DataManager.WaitressSpeedBoosterCount += keyCollectionReward.SpeedBoosterReward;
+                }
+
                 DataManager.KeyCurrency -= m_RequiredKeysToOpenChestBoxReward;
                 DataManager.SaveData();
 
@@ -299,7 +306,7 @@ namespace Isometric.UI
                 {
                     UIManager.SetRewardCollectionPopupMessage("Tap to Collect!", RewardCollectionTextPoistion.FarDownMiddle);
                     UIManager.OpenRewardCollectionPopup(coins, gems,
-                        null, null, null, null, null,
+                        null, null, null, speedBooster, null,
                         () =>
                         {
                             SoundManager.PlaySound(SoundType.Reward);
@@ -398,5 +405,8 @@ namespace Isometric.UI
         public bool HasGemReward;
         [AllowNesting, NaughtyAttributes.ShowIf(nameof(HasGemReward))]
         public int GemReward;
+        public bool HasSpeedBoosterReward;
+        [AllowNesting, NaughtyAttributes.ShowIf(nameof(HasSpeedBoosterReward))]
+        public int SpeedBoosterReward;
     }
 }
