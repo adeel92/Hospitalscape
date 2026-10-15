@@ -198,14 +198,16 @@ namespace Isometric.Environment
         public UnityEvent OnIsLockedMenu;
         [Header("-Station is unlocked (called if any of the sub-stations are unlocked not on first time unlocking)"), Foldout(MetaMenuCallsFoldOut)]
         public UnityEvent OnIsUnlockdMenu;
-        [Header("-On Unlocking any of the sub-stations for the first time (called only once)"), Foldout(MetaMenuCallsFoldOut)]
-        public UnityEvent OnHasUnlockedMenu;
+        // [Header("-On Unlocking any of the sub-stations for the first time (called only once)"), Foldout(MetaMenuCallsFoldOut)]
+        // public UnityEvent OnHasUnlockedMenu;
 
         //---Gameplay Calls---
         [Header("-Station is locked (not called if any of the sub-stations are unlocked)"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsLockedGameplay;
         [Header("-Station is unlocked (called if any of the sub-stations are unlocked not on first time unlocking)"), Foldout(MetaGameplayCallsFoldOut)]
         public UnityEvent OnIsUnlockdGameplay;
+        [Header("-On Unlocking any of the sub-stations for the first time (called only once)"), Foldout(MetaGameplayCallsFoldOut)]
+        public UnityEvent OnHasUnlockedGameplay;
 
         //---Stations---
         [Header("-Delay Betweeen processing one of the OrderType")]
@@ -219,7 +221,7 @@ namespace Isometric.Environment
         [ContextMenu("SetupForMenu")]
         public void SetupForMenu()
         {
-            int numberOfStationsUnlocked = 0;
+            /* int numberOfStationsUnlocked = 0;
             bool justUnlocked = false;
             foreach (var subStation in m_StationInfo)
             {
@@ -249,6 +251,24 @@ namespace Isometric.Environment
             else if(numberOfStationsUnlocked > 0)
             {
                 OnIsUnlockdMenu?.Invoke();
+            } */
+
+            bool stationsUnlocked = false;
+            foreach (var subStation in m_StationInfo)
+            {
+                if (subStation.m_Data.StationData.IsUnlocked)
+                {
+                    stationsUnlocked = true;
+                }
+            }
+
+            if (stationsUnlocked == false)
+            {
+                OnIsLockedGameplay?.Invoke();
+            }
+            else if (stationsUnlocked == true)
+            {
+                OnIsUnlockdGameplay?.Invoke();
             }
 
 
@@ -337,7 +357,39 @@ namespace Isometric.Environment
         [ContextMenu("SetupForGameplay")]
         public void SetupForGameplay()
         {
-            bool stationsUnlocked = false;
+            int numberOfStationsUnlocked = 0;
+            bool justUnlocked = false;
+            foreach (var subStation in m_StationInfo)
+            {
+                if (subStation.m_Data.StationData.HasJustUnlocked)
+                {
+                    justUnlocked = true;
+                }
+                if (subStation.m_Data.StationData.IsUnlocked)
+                {
+                    numberOfStationsUnlocked++;
+                }
+            }
+
+            // Debug.Log($"ADEEL No. of stations unlocked: {numberOfStationsUnlocked}");
+
+            if (numberOfStationsUnlocked <= 0)
+            {
+                OnIsLockedGameplay?.Invoke();
+            }
+            else if (numberOfStationsUnlocked == 1 && justUnlocked)
+            {
+                CoroutineManager.LateAction(() =>
+                {
+                    OnHasUnlockedGameplay?.Invoke();
+                }, 1f);
+            }
+            else if(numberOfStationsUnlocked > 0)
+            {
+                OnIsUnlockdGameplay?.Invoke();
+            }
+
+           /*  bool stationsUnlocked = false;
             foreach (var subStation in m_StationInfo)
             {
                 if (subStation.m_Data.StationData.IsUnlocked)
@@ -353,7 +405,7 @@ namespace Isometric.Environment
             else if (stationsUnlocked == true)
             {
                 OnIsUnlockdGameplay?.Invoke();
-            }
+            } */
 
             foreach (var stationInfo in m_StationInfo)
             {

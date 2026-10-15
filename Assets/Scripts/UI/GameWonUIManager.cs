@@ -28,6 +28,7 @@ namespace Isometric.UI
         [SerializeField] GameObject m_Key2;
         [SerializeField] RectTransform m_ContinueButton;
         [SerializeField] RectTransform m_VideoButton;
+        [SerializeField] TextMeshProUGUI m_VideoRewardText;
         [SerializeField] GameObject m_OuterParticles;
 
         [Header("---Currency---")]
@@ -73,6 +74,7 @@ namespace Isometric.UI
             SoundManager.StopFadeOut(SoundType.GameMusic1, 0.3f, false);
             SoundManager.PlaySound(SoundType.GameWon, false, false);
 
+            m_VideoRewardText.text = $"+{Mathf.RoundToInt(LevelManager.GetCollectedCoins() * 0.3f)}";
             m_VideoButton.gameObject.SetActive(true);
             m_ContinueButton.gameObject.SetActive(true);
 

@@ -21,7 +21,11 @@ namespace Isometric.Environment
             public UnityEvent OnOrderPutDown;
         }
 
-        [SerializeField] PathNode m_DefaultNode;
+        [SerializeField] UnityEvent m_OnIsLockedGameplay;
+        [SerializeField] UnityEvent m_OnIsUnlockedGameplay;
+        [SerializeField] UnityEvent m_OnHasJustUnlockedGameplay;
+
+        [Space, SerializeField] PathNode m_DefaultNode;
         [SerializeField] PathNode m_CurrentNode;
         [SerializeField, ReadOnly] float m_WalkSpeed = 1;
         [SerializeField] List<float> m_WalkSpeeds;
@@ -47,6 +51,22 @@ namespace Isometric.Environment
             }
 
             m_AnimatorController.PlayIdle();
+        }
+
+        public void OnLocked()
+        {
+            gameObject.SetActive(false);
+            m_OnIsLockedGameplay?.Invoke();
+        }
+        public void OnUnlocked()
+        {
+            gameObject.SetActive(true);
+            m_OnIsUnlockedGameplay?.Invoke();
+        }
+        public void OnHasJustUnlocked()
+        {
+            gameObject.SetActive(true);
+            m_OnHasJustUnlockedGameplay?.Invoke();
         }
 
         private void GoToDefaultNode()

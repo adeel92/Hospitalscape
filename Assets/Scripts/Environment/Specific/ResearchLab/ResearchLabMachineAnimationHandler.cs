@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -10,7 +11,15 @@ namespace Isometric.Environment
 
         [Header("---Animation Handlers---")]
         [SerializeField] StationSerialOrderInOutItemAnimationHandler m_MachineAnimationHandler;
+        [SerializeField] List<float> m_ProductionSpeedMultiplierValues = new();
         
+
+        // OnDurationSetup
+        public void SetProductionSpeed(int durationUpgradeIndex)
+        {
+            float speedMultiplier = m_ProductionSpeedMultiplierValues[durationUpgradeIndex];
+            m_MachineAnimationHandler.SetProductionSpeed(speedMultiplier);
+        }
 
         // OnDurationStart
         public void PlayProcess()

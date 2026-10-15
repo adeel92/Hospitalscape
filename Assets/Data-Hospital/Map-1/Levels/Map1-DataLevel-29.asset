@@ -18,11 +18,11 @@ MonoBehaviour:
     GoalType: 0
     NumberCoinsToCollect: 660
     NumberOfCustomersToServe: 0
-  m_Key1TargetValue: 810
-  m_Key2TargetValue: 950
+  m_Key1TargetValue: 750
+  m_Key2TargetValue: 850
   m_LevelConstraintInfos:
   - ConstraintType: 0
-    TimeConstraints: 140
+    TimeConstraints: 160
     NumberOfCustomers: 0
   m_LevelDifficulty: 6
   m_HasNewCustomer: 0
@@ -84,7 +84,6 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
-        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -135,9 +134,7 @@ MonoBehaviour:
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: e7d15a8ea050bf343a9a1fff07fb6f72, type: 2}
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -157,7 +154,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -207,8 +204,6 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 2395870444964790180, guid: a647dae0f0444bd4bb426f4479716cbd, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -237,9 +232,6 @@ MonoBehaviour:
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
-        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
-      - OrdersConsumable:
         - {fileID: 11400000, guid: 891b872600e266740a317feab3143659, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
@@ -258,6 +250,4 @@ MonoBehaviour:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 24c1d316e6ad26a48aa0e9929cc28218, type: 2}
   m_PatienceWeatherData: []

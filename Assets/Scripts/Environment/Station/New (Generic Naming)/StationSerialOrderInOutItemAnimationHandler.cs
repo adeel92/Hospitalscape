@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Isometric.Environment
@@ -9,7 +10,13 @@ namespace Isometric.Environment
     {
         [SerializeField] List<AnimatorTriggerInfo> m_AnimatorTriggerInfo;
         [Space, SerializeField] Animator m_Animator;
+        [SerializeField, ReadOnly] string m_ProductionSpeedMultiplier = "ProductionSpeed";
 
+
+        public void SetProductionSpeed(float value)
+        {
+            m_Animator.SetFloat(m_ProductionSpeedMultiplier, value);
+        }
 
         public void PlayState(StationSerialOrderInOutItemAnimatorStates state, bool playDirectly, Action onStartCallback, Action onCompleteCallback)
         {

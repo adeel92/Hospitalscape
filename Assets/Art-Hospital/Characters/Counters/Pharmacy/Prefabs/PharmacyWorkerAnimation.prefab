@@ -6908,10 +6908,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9cce92583e65a418d954ec5237ecb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DefaultNode: {fileID: 0}
   m_CurrentNode: {fileID: 0}
   m_WalkSpeed: 1
   m_WalkSpeeds:
-  - 2
+  - 1.5
   - 3
   m_AnimatorController: {fileID: 4295532827743222597}
   m_Station: {fileID: 0}
@@ -7115,7 +7116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 3870359706676296597}
-  m_WalkSpeedMultiplier: 0.5
+  m_WalkSpeedMultiplier: 0.65
   m_HoldWalk: 0
   m_AnimatorStatesInfo:
   - AnimatorState: 0
