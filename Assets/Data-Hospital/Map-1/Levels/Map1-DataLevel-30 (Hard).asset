@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf04eab851616641b73b8c4d6eb9849, type: 3}
-  m_Name: Map1-DataLevel-30
+  m_Name: Map1-DataLevel-30 (Hard)
   m_EditorClassIdentifier: 
   m_EditComment: 0
   m_Comment: Imported from workbook stage 30
@@ -18,8 +18,8 @@ MonoBehaviour:
     GoalType: 0
     NumberCoinsToCollect: 660
     NumberOfCustomersToServe: 0
-  m_Key1TargetValue: 770
-  m_Key2TargetValue: 900
+  m_Key1TargetValue: 830
+  m_Key2TargetValue: 970
   m_LevelConstraintInfos:
   - ConstraintType: 1
     TimeConstraints: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   m_HasNewCustomer: 0
   m_NewCustomersInfo:
     NewCustomersInfo: 
-  m_CustomerSalonSequence: 0
+  m_CustomerSalonSequence: 3
   m_CustomerSalonSequencesInfo:
     CustomerSequences: []
   m_CustomersData:
@@ -121,7 +121,7 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
-        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
@@ -141,7 +141,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 8943702386046539095, guid: 7646fd7065002e54cb6d077b0b10192a, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
+        - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
         - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}

@@ -16,19 +16,19 @@ MonoBehaviour:
   m_Comment: Imported from workbook stage 41
   m_LevelGoal:
     GoalType: 0
-    NumberCoinsToCollect: 848
+    NumberCoinsToCollect: 744
     NumberOfCustomersToServe: 0
-  m_Key1TargetValue: 1050
-  m_Key2TargetValue: 1300
+  m_Key1TargetValue: 852
+  m_Key2TargetValue: 1094
   m_LevelConstraintInfos:
   - ConstraintType: 0
-    TimeConstraints: 160
+    TimeConstraints: 175
     NumberOfCustomers: 0
   m_LevelDifficulty: 9
   m_HasNewCustomer: 0
   m_NewCustomersInfo:
     NewCustomersInfo: 
-  m_CustomerSalonSequence: 0
+  m_CustomerSalonSequence: 3
   m_CustomerSalonSequencesInfo:
     CustomerSequences: []
   m_CustomersData:
@@ -66,7 +66,7 @@ MonoBehaviour:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 108e5f51756831d4fb660c47db2f76ad, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 108e5f51756831d4fb660c47db2f76ad, type: 2}
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 1523045034070096599, guid: d5425a1bb766ec44a9dc054a44138056, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
     CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 40
+    QueueSpawnDelay: 16
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 1
     CustomerCounterOrderInfo:
@@ -134,8 +134,6 @@ MonoBehaviour:
       - OrderConsumable: {fileID: 11400000, guid: 1c72e6026cde40b408af547afdd7dad0, type: 2}
     CustomerOrderBundles:
     - CustomerOrdersInfo:
-      - OrdersConsumable:
-        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
         - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
@@ -197,14 +195,13 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
-        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 108e5f51756831d4fb660c47db2f76ad, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 2395870444964790180, guid: a647dae0f0444bd4bb426f4479716cbd, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 12
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
     CustomerCounterOrderInfo:
@@ -217,7 +214,7 @@ MonoBehaviour:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 6099938eeeb92a7439066de096e9ae75, type: 2}
+        - {fileID: 11400000, guid: 5ac03b66ff1c27c488cbe96e808229fe, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 7961904783899314037, guid: 1f103d84115bb124d93c2a5b3c51bf66, type: 3}
     CustomerCafePrefab: {fileID: 0}
@@ -233,8 +230,6 @@ MonoBehaviour:
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
-      - OrdersConsumable:
         - {fileID: 11400000, guid: 669b25e1d2d82154b8d9cacca2f61480, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
@@ -242,7 +237,7 @@ MonoBehaviour:
     CustomerSalonPrefab: {fileID: 6324352538180858915, guid: 445ca47c333afcc4eba2e5092d7eb364, type: 3}
     CustomerCafePrefab: {fileID: 0}
     CustomerCommonSettings: {fileID: 11400000, guid: 12e32a863d11d2a458d7cc71ef9229f2, type: 2}
-    QueueSpawnDelay: 8
+    QueueSpawnDelay: 12
     IsCustomerVIP: 0
     IsFirstOrderUndecided: 0
     CustomerCounterOrderInfo:
@@ -254,10 +249,8 @@ MonoBehaviour:
     - CustomerOrdersInfo:
       - OrdersConsumable:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
-      - OrdersConsumable:
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
-      - OrdersConsumable:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
   m_PatienceWeatherData: []
