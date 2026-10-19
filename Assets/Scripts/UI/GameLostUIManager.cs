@@ -127,7 +127,7 @@ namespace Isometric.UI
             m_ContinueButton.gameObject.SetActive(true);
             m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
             int coins = Mathf.RoundToInt(LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier);
-            int rewardCoins = coins * m_VideoReward /* - coins */;
+            int rewardCoins = coins * m_VideoReward - coins;
             m_RewardButtonText.text = "+" + rewardCoins;
             m_GameLostPopup.SetActive(true);
             m_OpeningSequence.PlaySequence(() =>
