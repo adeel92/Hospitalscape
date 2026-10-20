@@ -7,6 +7,7 @@ using TMPro;
 using Arc;
 using Isometric.Data;
 using Isometric.Cam;
+using Isometric.Sound;
 
 namespace Isometric.UI
 {
@@ -199,6 +200,8 @@ namespace Isometric.UI
                             {
                                 UIManager.UIInteractionOn();
                                 UIManager.SetupForGameplay();
+                                SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
+                                SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
                             });
                         });
                         /* CameraController.SetupForGameplay(() =>
@@ -231,6 +234,8 @@ namespace Isometric.UI
                 }, () =>
                 {
                     UIManager.OpenUpgradePopup();
+                    SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
+                    SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
                 });
             });
         }

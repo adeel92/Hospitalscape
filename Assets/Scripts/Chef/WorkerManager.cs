@@ -42,7 +42,7 @@ namespace Isometric.Worker
             }
         }
 
-        public static void Setup()
+        public static void SetupForMenu()
         {
             if (s_Instance == null)
             {
@@ -83,6 +83,53 @@ namespace Isometric.Worker
                             UIManager.CheckNextUpdatable();
                         }, s_Instance.m_WorkerOrderUpgradeDuration);
                     }
+
+                    int quantityIndex = temWorkerOrderData.WorkerQunaityUpgradeIndex;
+                    int workerQuantity = temWorkerOrderData.WorkerQunaityUpgrades[quantityIndex].Quantity;
+
+                    int workerQuantityCounter = 0;
+                    foreach (var workerInfo in WorkerOrderInfo.WorkerInfos)
+                    {
+                        if (workerQuantity > workerQuantityCounter)
+                        {
+                            workerInfo.IsUnlocked = true;
+                            workerInfo.OrderCost = temWorkerOrderData.OrderCost;
+                            workerInfo.ServingDuration = s_Instance.GetWorkerServingDuration(temWorkerOrderData);
+                            workerInfo.OnIsUnlocked?.Invoke();
+                            workerInfo.WorkerController.Setup(s_Instance.m_StartNode, workerInfo.ServingDuration, workerInfo.OrderCost);
+                        }
+                        else
+                        {
+                            workerInfo.OnLocked?.Invoke();
+                            workerInfo.IsUnlocked = false;
+                        }
+                        workerQuantityCounter++;
+                    }
+
+                }
+                else
+                {
+                    WorkerOrderInfo.IsUnlocked = false;
+                    WorkerOrderInfo.OnLocked?.Invoke();
+                }
+            }
+        }
+
+        public static void SetupForGameplay()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            foreach (var WorkerOrderInfo in s_Instance.m_WorkerOrderInfos)
+            {
+                WorkerOrderData temWorkerOrderData = WorkerOrderInfo.Data.WorkerOrderData;
+                if (temWorkerOrderData.IsUnlocked)
+                {
+                    WorkerOrderInfo.IsUnlocked = true;
+                    WorkerOrderInfo.OnUnlocked?.Invoke();
 
                     int quantityIndex = temWorkerOrderData.WorkerQunaityUpgradeIndex;
                     int workerQuantity = temWorkerOrderData.WorkerQunaityUpgrades[quantityIndex].Quantity;
@@ -354,7 +401,7 @@ namespace Isometric.Worker
         [ContextMenu("TestSetup")]
         private void TestSetup()
         {
-            Setup();
+            SetupForMenu();
         }
         #endregion
     }

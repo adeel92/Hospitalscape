@@ -248,8 +248,8 @@ namespace Isometric.Customer
                 m_AnimatorController.PlayState(CustomerAnimatorState.SittingDown, () =>
                 {
                     m_AnimatorController.PlayState(CustomerAnimatorState.SittingIdleNeurtalDown);
-                    EnablePickupCollider(PickupColliderType.Sitting);
                 });
+                EnablePickupCollider(PickupColliderType.Sitting);
                 m_SalonWaitCorotoine = StartCoroutine(SalonWaitCorotine());
             }
             else
@@ -724,8 +724,8 @@ namespace Isometric.Customer
                 else
                 {
                     PlaySalonAnimationState();
+                    EnablePickupCollider(PickupColliderType.Standing);
                 }
-                EnablePickupCollider(PickupColliderType.Standing);
                 // m_PickUp.SetActive(true);
             }
         }

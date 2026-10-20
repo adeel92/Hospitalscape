@@ -218,7 +218,7 @@ namespace Isometric.Data
         public bool IsUnlocked;
         [AllowNesting, EnableIf(nameof(EditValues))]
         public int LevelIndex;
-        [AllowNesting, EnableIf(nameof(EditValues)), ReadOnly]
+        [AllowNesting, EnableIf(nameof(EditValues))/* , ReadOnly */]
         public int LevelNumber = 1;
 
         [Space, Header("---Default Values---")]

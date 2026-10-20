@@ -314,7 +314,7 @@ namespace Isometric.UI
             s_Instance.m_WorkerUIManager.CloseNewWorkerAndWorkerOrderPopup(() =>
             {
                 UIInteractionOn();
-                WorkerManager.Setup();
+                WorkerManager.SetupForMenu();
             });
         }
 
@@ -332,7 +332,7 @@ namespace Isometric.UI
                 s_Instance.m_WorkerUIManager.CloseNewWorkerPopup(() =>
                 {
                     UIInteractionOn();
-                    WorkerManager.Setup();
+                    WorkerManager.SetupForMenu();
                 });
             }
             else
@@ -340,7 +340,7 @@ namespace Isometric.UI
                 s_Instance.m_WorkerUIManager.CloceWorkerQuantityUpgradeNoChoicePopup(() =>
                 {
                     UIInteractionOn();
-                    WorkerManager.Setup();
+                    WorkerManager.SetupForMenu();
                 });
             }
         }
@@ -472,9 +472,6 @@ namespace Isometric.UI
                 PrintNullInstanceError();
                 return;
             }
-
-            SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
-            SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
             
             UpgradePopupUIManager upgradePopupUIManager = GetPopup<UpgradePopupUIManager>();
             if (upgradePopupUIManager != null)
@@ -518,13 +515,13 @@ namespace Isometric.UI
                 {
                     LoadingUIManager.ShowLoadingScreen(() =>
                     {
-                        SoundManager.StopSound(SoundType.GameMusic1);
-                        SoundManager.PlaySound(SoundType.MenuMusic1, true, false);
                         SetupForMenu();
                     }, () =>
                     {
                         CameraController.SetEnvironemntInteractiblity(true);
                         UIInteractionOn();
+                        SoundManager.StopSound(SoundType.GameMusic1);
+                        SoundManager.PlaySound(SoundType.MenuMusic1, true, false);
                     });
                 });
                 /* upgradePopupUIManager.ClosePopup(() =>

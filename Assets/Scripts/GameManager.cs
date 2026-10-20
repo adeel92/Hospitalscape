@@ -48,7 +48,7 @@ namespace Isometric
 
             CameraController.SetEnvironemntInteractiblity(false);
             UIManager.Setup();
-            WorkerManager.Setup();
+            WorkerManager.SetupForMenu();
             EnvironmentWorkerManager.Setup();
             PlayerManager.SetupForMenu();
 
@@ -82,7 +82,7 @@ namespace Isometric
             //Order Matters
             EnvironmentManager.SetupForMenu();
             PlayerManager.SetupForMenu();
-            WorkerManager.Setup();
+            WorkerManager.SetupForMenu();
 
             CameraController.Interactability(false);
             CameraController.SetupForMenu(() => 
@@ -107,6 +107,7 @@ namespace Isometric
             CustomerManager.Setup();
             CustomerPatienceManager.Setup();
             PlayerManager.SetupForGameplay();
+            WorkerManager.SetupForGameplay();
             CameraController.SetEnvironemntInteractiblity(true);
             
 
