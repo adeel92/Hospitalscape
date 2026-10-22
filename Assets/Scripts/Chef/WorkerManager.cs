@@ -27,7 +27,7 @@ namespace Isometric.Worker
         [SerializeField] PathNode m_StartNode;
 
         [Header("---Door---")]
-        [SerializeField] PathNode m_DoorNode;
+        [SerializeField] List<PathNode> m_DoorNodes = new();
         [SerializeField] DoorAnimatorController m_DoorController;
 
         [SerializeField, ReadOnly] 
@@ -274,7 +274,7 @@ namespace Isometric.Worker
                 return;
             }
 
-            if (enteredNode == s_Instance.m_DoorNode)
+            if (s_Instance.m_DoorNodes.Count > 0 && s_Instance.m_DoorNodes.Contains(enteredNode)/*  enteredNode == s_Instance.m_DoorNode */)
             {
                 s_Instance.m_WorkerCloseToTheDoor.Remove(workerController);
                 if (s_Instance.m_WorkerCloseToTheDoor.Count <= 0)
@@ -292,7 +292,7 @@ namespace Isometric.Worker
                 return;
             }
 
-            if (leaveingNode == s_Instance.m_DoorNode)
+            if (s_Instance.m_DoorNodes.Count > 0 && s_Instance.m_DoorNodes.Contains(leaveingNode) /* leaveingNode == s_Instance.m_DoorNode */)
             {
                 s_Instance.m_WorkerCloseToTheDoor.Add(workerController);
                 s_Instance.m_DoorController.OpenDoor();
