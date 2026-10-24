@@ -86,6 +86,8 @@ namespace Isometric.UI
             }
 
             Debug.Log($"ADEEL LOADING 6");
+            Debug.Log($"ADEEL LOADING 6 (timescale): {Time.timeScale}");
+            Time.timeScale = 1f;    // mrcHefF
             m_LoadingBarFillImage.DOFillAmount(1f, m_LoadingDuration).OnComplete(() =>
             {
                 Debug.Log($"ADEEL LOADING 8");

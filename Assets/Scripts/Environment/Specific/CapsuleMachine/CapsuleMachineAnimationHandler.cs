@@ -14,17 +14,17 @@ namespace Isometric.Environment
         [Space, SerializeField] ParticlesEnabler m_MachineParticlesEnabler;
 
         
-        // OnDurationComplete
+        // OnDurationStart
         public void PlayCapsuleProductionAnimation(float duration)
         {
             AnimatorTriggerInfo triggerInfo = GetTriggerInfo(CapsuleMachineAnimatorStates.Produce);
             if(triggerInfo == null)
             {
-                Debug.LogWarning($"TriggerInfo for {CapsuleMachineAnimatorStates.Produce} state not found in AnimatorStateInfo of {nameof(RawGauzeMachineAnimationHandler)}!");
+                Debug.LogWarning($"TriggerInfo for {CapsuleMachineAnimatorStates.Produce} state not found in AnimatorStateInfo of {nameof(CapsuleMachineAnimationHandler)}!");
             }
             if(string.IsNullOrEmpty(triggerInfo.StateName))
             {
-                Debug.LogWarning($"StateName for {CapsuleMachineAnimatorStates.Produce} state not found in AnimatorStateInfo of {nameof(RawGauzeMachineAnimationHandler)}!");
+                Debug.LogWarning($"StateName for {CapsuleMachineAnimatorStates.Produce} state not found in AnimatorStateInfo of {nameof(CapsuleMachineAnimationHandler)}!");
             }
             
             if (duration <= 0f)

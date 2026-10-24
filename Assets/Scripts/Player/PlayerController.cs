@@ -27,6 +27,7 @@ namespace Isometric.Player
         public UnityEvent OnSpeedBoosterDectivated;
         private string m_DefaultSortingLayer;
         private int m_DefaultSortingOrder;
+        private Coroutine WaitForGreetingReactionCoroutine = null;
         private Coroutine WaitForNoTaskReactionCoroutine = null;
 
         [Header("---Paramaters---")]
@@ -34,6 +35,7 @@ namespace Isometric.Player
         private float m_DefaultWalkSpeed;
         [SerializeField] int m_HoldingCapacity;
         [SerializeField] float m_WalkBoosterSpeed;
+        [SerializeField] List<float> m_GreetingReactionDelays = new();
         [SerializeField] float m_NoTaskReactionDelay = 10f;
 
         public void SetupForMenu()
@@ -76,8 +78,7 @@ namespace Isometric.Player
             m_DefaultSortingOrder = m_SortingGroup.sortingOrder;
             m_TrayController.Setup(m_HoldingCapacity);
 
-            m_AnimatorController.PlayHappyWave();
-            WaitForNoTaskReactionCoroutine = StartCoroutine(WaitForNoTaskReaction(3f));
+            WaitForGreetingReactionCoroutine = StartCoroutine(WaitForGreetingReaction());
         }
 
         private void OnEnable()
@@ -112,6 +113,18 @@ namespace Isometric.Player
             GlobalEventHolder.OnTaskAssigned -= OnTaskAssigned;
         }
 
+        private IEnumerator WaitForGreetingReaction()
+        {
+            if(m_GreetingReactionDelays != null && m_GreetingReactionDelays.Count > 0)
+            {
+                while (true)
+                {
+                    m_AnimatorController.PlayHappyWave();
+                    float delay = m_GreetingReactionDelays[UnityEngine.Random.Range(0, m_GreetingReactionDelays.Count)];
+                    yield return new WaitForSeconds(delay);
+                }
+            }
+        }
         private IEnumerator WaitForNoTaskReaction(float initialDelay)
         {
             yield return new WaitForSeconds(initialDelay);
@@ -125,6 +138,11 @@ namespace Isometric.Player
         private void OnStartingFirstTask()
         {
             GlobalEventHolder.OnPlayerStartedMoving?.Invoke();
+            if(WaitForGreetingReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForGreetingReactionCoroutine);
+                WaitForGreetingReactionCoroutine = null;
+            }
         }
 
         private void OnGoingToNode(PathNode node1, PathNode node2)

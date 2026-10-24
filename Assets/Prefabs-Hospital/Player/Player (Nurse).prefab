@@ -147,7 +147,11 @@ MonoBehaviour:
   m_WalkSpeed: 4
   m_HoldingCapacity: 1
   m_WalkBoosterSpeed: 7
-  m_NoTaskReactionDelay: 10
+  m_GreetingReactionDelays:
+  - 6.25
+  - 7.25
+  - 8.25
+  m_NoTaskReactionDelay: 7
 --- !u!114 &292868809771183688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +194,8 @@ MonoBehaviour:
     StateName: SadLost
   - AnimatorState: 13
     StateName: WaveNeutral
+  - AnimatorState: 14
+    StateName: StraightIdleWithoutTray
   m_WalkSpeedMultiplier: 1.65
 --- !u!114 &5624676387509974311
 MonoBehaviour:

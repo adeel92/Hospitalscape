@@ -161,6 +161,7 @@ namespace Isometric.Player
         HappyWave,
         HappyWon,
         SadLost,
-        NeutralWave
+        NeutralWave,
+        IdleWithoutTray
     }
 }

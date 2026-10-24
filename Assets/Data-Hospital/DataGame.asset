@@ -39,21 +39,61 @@ MonoBehaviour:
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-10-20T14:14:44.9998470Z
+        Value: 2026-10-23T18:27:38.2632626Z
       - Key: HeartCurrency_ShouldBeMinusOne
-        Value: False
+        Value: True
       - Key: Notification_Upgrade_Player_0
         Value: True
       - Key: Notification_Upgrade_Player_1
-        Value: True
+        Value: False
       - Key: Notification_Upgrade_Hospital_Bed_0
-        Value: True
+        Value: False
       - Key: Notification_Upgrade_Worker_1
-        Value: True
+        Value: False
       - Key: Notification_Upgrade_Worker_2
-        Value: True
+        Value: False
+      - Key: Notification_Upgrade_Worker_3
+        Value: False
+      - Key: Notification_Upgrade_Worker_4
+        Value: False
+      - Key: Notification_Upgrade_Worker_5
+        Value: False
+      - Key: Notification_Upgrade_Station_Pharmacy_0
+        Value: False
+      - Key: Notification_Upgrade_Station_SpecializedInjection_0
+        Value: False
+      - Key: Notification_Upgrade_Station_MRI_0
+        Value: False
+      - Key: Notification_Upgrade_Station_BioLab_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Report_0
+        Value: False
+      - Key: Notification_Upgrade_Station_ReceptionArea_0
+        Value: False
+      - Key: Notification_Upgrade_Station_Water_0
+        Value: False
+      - Key: Notification_Upgrade_Station_XRay_0
+        Value: False
+      - Key: Notification_Upgrade_Station_ECG_0
+        Value: False
       - Key: Notification_Upgrade_Station_NormalInjection_RawGauze_0
-        Value: True
+        Value: False
+      - Key: Notification_Upgrade_Station_Pharmacy_1
+        Value: False
+      - Key: Notification_Upgrade_Station_SpecializedInjection_1
+        Value: False
+      - Key: Notification_Upgrade_Station_MRI_1
+        Value: False
+      - Key: Notification_Upgrade_Station_BioLab_1
+        Value: False
+      - Key: Notification_Upgrade_Station_Report_1
+        Value: False
+      - Key: Notification_Upgrade_Station_Water_1
+        Value: False
+      - Key: Notification_Upgrade_Station_XRay_1
+        Value: False
+      - Key: Notification_Upgrade_Station_ECG_1
+        Value: False
       - Key: Sound
         Value: True
       - Key: Music
@@ -122,73 +162,9 @@ MonoBehaviour:
         Value: 0
       - Key: Map1-Achievement16CollectionKey
         Value: False
-      - Key: NewCustomer3
-        Value: True
-      - Key: Notification_Upgrade_Station_Pharmacy_0
-        Value: True
-      - Key: Notification_Upgrade_Station_Pharmacy_1
-        Value: True
-      - Key: Notification_Upgrade_Worker_3
-        Value: True
-      - Key: NewCustomer4
-        Value: True
-      - Key: Map1-WorkerQuantityUpgrade1
-        Value: True
-      - Key: NewCustomer5
-        Value: True
-      - Key: Notification_Upgrade_Station_SpecializedInjection_0
-        Value: True
-      - Key: Notification_Upgrade_Station_SpecializedInjection_1
-        Value: True
-      - Key: Map1-WorkerQuantityUpgrade2
-        Value: True
-      - Key: Notification_Upgrade_Station_MRI_0
-        Value: True
-      - Key: Notification_Upgrade_Station_MRI_1
-        Value: True
-      - Key: Notification_Upgrade_Station_Chair_0
-        Value: True
-      - Key: Notification_Upgrade_Station_Television_0
-        Value: True
-      - Key: Notification_Upgrade_Station_BookShelf_0
-        Value: True
-      - Key: Map1-WorkerQuantityUpgrade3
-        Value: True
-      - Key: NewCustomer6
-        Value: True
-      - Key: Notification_Upgrade_Station_BioLab_0
-        Value: True
-      - Key: Notification_Upgrade_Station_BioLab_1
-        Value: True
-      - Key: Notification_Upgrade_Station_Report_0
-        Value: True
-      - Key: Notification_Upgrade_Station_Report_1
-        Value: True
-      - Key: Notification_Upgrade_Worker_4
-        Value: True
-      - Key: Map1-WorkerQuantityUpgrade4
-        Value: True
-      - Key: Notification_Upgrade_Station_ReceptionArea_0
-        Value: True
-      - Key: Notification_Upgrade_Station_Water_0
-        Value: True
-      - Key: Notification_Upgrade_Station_XRay_0
-        Value: True
-      - Key: Notification_Upgrade_Station_Water_1
-        Value: True
-      - Key: Notification_Upgrade_Station_XRay_1
-        Value: True
-      - Key: Notification_Upgrade_Worker_5
-        Value: True
-      - Key: Map1-WorkerQuantityUpgrade5
-        Value: True
-      - Key: Notification_Upgrade_Station_ECG_0
-        Value: True
-      - Key: Notification_Upgrade_Station_ECG_1
-        Value: True
-    EditDefaultValues: 0
-    CoinCurrencyDefaultValue: 0
-    GemCurrencyDefaultValue: 0
+    EditDefaultValues: 1
+    CoinCurrencyDefaultValue: 99999
+    GemCurrencyDefaultValue: 5000
     StarCurrencyDefaultValue: 0
     KeyCurrencyDefaultValue: 0
     HeartCurrencyDefaultValue: 5

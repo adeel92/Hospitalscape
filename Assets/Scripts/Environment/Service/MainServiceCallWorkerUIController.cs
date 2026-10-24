@@ -14,9 +14,11 @@ namespace Isometric.Environment
         private class WorkerOrderInfo
         {
             public DataConsumable WorkerOrder;
+            public SpriteRenderer WorkerSymbolBg;
+            public Sprite WorkerSymbolBgSprite;
             public SpriteRenderer WorkerSymbol;
-            public Sprite WorkerAvailableSprite;
             public Sprite WorkerBusySprite;
+            public Sprite WorkerAvailableSprite;
         }
 
         [SerializeField, ReadOnly] MainServiceController m_MainServiceController;
@@ -47,11 +49,11 @@ namespace Isometric.Environment
             {
                 if (workerOrderInfo.WorkerOrder == firstOrder)
                 {
-                    workerOrderInfo.WorkerSymbol.gameObject.SetActive(true);
+                    workerOrderInfo.WorkerSymbolBg.gameObject.SetActive(true);
                 }
                 else
                 {
-                    workerOrderInfo.WorkerSymbol.gameObject.SetActive(false);
+                    workerOrderInfo.WorkerSymbolBg.gameObject.SetActive(false);
                 }
             }
         }
@@ -84,6 +86,7 @@ namespace Isometric.Environment
             {
                 if (workerOrderInfo.WorkerOrder == orderType)
                 {
+                    workerOrderInfo.WorkerSymbolBg.sprite = workerOrderInfo.WorkerSymbolBgSprite;
                     workerOrderInfo.WorkerSymbol.sprite = workerOrderInfo.WorkerAvailableSprite;
                     break;
                 }
