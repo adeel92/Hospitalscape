@@ -129,6 +129,9 @@ MonoBehaviour:
   callType: 2
   ignoreTimeScale: 0
   killOnDisable: 1
+  shouldLoop: 0
+  loopType: 0
+  loopCount: -1
   tweensInfo:
   - insertionType: 0
     insertPostion: 0
@@ -292,6 +295,9 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+  editorPreviewInvokeCallbacks: 0
+  editorPreviewSpeed: 1
+  editorPreviewLoop: 0
 --- !u!114 &5106909925284963345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +313,9 @@ MonoBehaviour:
   callType: 2
   ignoreTimeScale: 0
   killOnDisable: 1
+  shouldLoop: 0
+  loopType: 0
+  loopCount: -1
   tweensInfo:
   - insertionType: 0
     insertPostion: 0
@@ -370,6 +379,9 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+  editorPreviewInvokeCallbacks: 0
+  editorPreviewSpeed: 1
+  editorPreviewLoop: 0
 --- !u!1 &5533029868759976548
 GameObject:
   m_ObjectHideFlags: 0
@@ -5177,7 +5189,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 286585975
+  m_SortingLayerID: -885496167
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0

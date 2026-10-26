@@ -65,7 +65,7 @@ namespace Isometric.Environment
         }
         public void OnHasJustUnlocked()
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(false);
             m_OnHasJustUnlockedGameplay?.Invoke();
         }
 

@@ -6,7 +6,7 @@ using Isometric.UI;
 using Isometric.Data;
 using Isometric.Cam;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart1 : TutorialContainer
     {

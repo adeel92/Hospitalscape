@@ -65,6 +65,7 @@ namespace Isometric.Tutorial
 
             focusImage.transform.position = focusPosition;
             focusImage.transform.localScale = scale;
+            s_Instnace.m_CanvasGroup.alpha = 1f;
 
             FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
             if (focusInfo != null)
@@ -100,6 +101,7 @@ namespace Isometric.Tutorial
 
             focusImage.transform.position = focusPosition;
             focusImage.transform.localScale = scale;
+            s_Instnace.m_CanvasGroup.alpha = 1f;
 
             FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
             if (focusInfo != null)

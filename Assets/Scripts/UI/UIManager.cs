@@ -247,6 +247,7 @@ namespace Isometric.UI
                 UIInteractionOn();
                 GameManager.UnPauseGame();
                 GameManager.SetupForGameplay(); // Start level setups after unlocking all gameplay items
+                TutorialManager.PlayTutorial(TutorialCallType.GameplayStart);
             });
             Debug.Log($"ADEEL: No Gameplay reward active!");
         }
@@ -395,8 +396,6 @@ namespace Isometric.UI
                 {
                     UIInteractionOn();
                     GameManager.UnPauseGame();
-
-                    TutorialManager.PlayTutorial(TutorialCallType.GameplayStart);
                     CheckNextGameplayUpdatable();
                 });
             }

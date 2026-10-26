@@ -60,6 +60,10 @@ namespace Isometric
                 {
                     UIManager.CheckNextUpdatable();
                 }
+                else
+                {
+                    UIManager.UIInteractionOn();
+                }
             });
 
             SoundManager.SetMusic(DataManager.GetBool(SoundCategroy.Music.ToString(), true));

@@ -27,6 +27,7 @@ namespace Isometric.Player
         public UnityEvent OnSpeedBoosterDectivated;
         private string m_DefaultSortingLayer;
         private int m_DefaultSortingOrder;
+        private bool m_PauseGreetingReaction = false;
         private Coroutine WaitForGreetingReactionCoroutine = null;
         private Coroutine WaitForNoTaskReactionCoroutine = null;
 
@@ -119,7 +120,10 @@ namespace Isometric.Player
             {
                 while (true)
                 {
-                    m_AnimatorController.PlayHappyWave();
+                    if (!m_PauseGreetingReaction)
+                    {
+                        m_AnimatorController.PlayHappyWave();
+                    }
                     float delay = m_GreetingReactionDelays[UnityEngine.Random.Range(0, m_GreetingReactionDelays.Count)];
                     yield return new WaitForSeconds(delay);
                 }
@@ -133,6 +137,15 @@ namespace Isometric.Player
                 yield return new WaitForSeconds(m_NoTaskReactionDelay);
                 m_AnimatorController.PlayNeutralWave();
             }
+        }
+
+        public void PauseGreetingReaction()
+        {
+            m_PauseGreetingReaction = true;
+        }
+        public void UnpauseGreetingReaction()
+        {
+            m_PauseGreetingReaction = false;
         }
 
         private void OnStartingFirstTask()

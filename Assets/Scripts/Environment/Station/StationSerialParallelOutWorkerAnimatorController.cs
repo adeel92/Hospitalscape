@@ -26,6 +26,14 @@ namespace Isometric.Environment
 
         private PathDirection m_CurrentWalkingDirection = PathDirection.None;
 
+
+        public void PlaySpawn(bool fadeSpawn)
+        {
+            m_CurrentWalkingDirection = PathDirection.None;
+            StationSerialParallelOutChefAnimatorState state = fadeSpawn ? StationSerialParallelOutChefAnimatorState.FadeSpawnDown : StationSerialParallelOutChefAnimatorState.SpawnDown;
+            m_Animator.Play(GetStateName(state));
+        }
+
         public void PlayIdle()
         {
             m_CurrentWalkingDirection = PathDirection.None;
@@ -140,5 +148,7 @@ namespace Isometric.Environment
         WalkHoldingLeft,
         WalkHoldingUp,
         WorkingUp,
+        SpawnDown,
+        FadeSpawnDown
     }
 }

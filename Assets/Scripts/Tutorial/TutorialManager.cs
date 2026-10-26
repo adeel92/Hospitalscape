@@ -16,6 +16,9 @@ namespace Isometric.Tutorial
         [SerializeField] GameObject m_TutorialTextCanvas;
         [SerializeField] GameObject m_TutorialTextDown;
         [SerializeField] GameObject m_TutorialTextUp;
+        [SerializeField] GameObject m_TapToContinueTextCanvas;
+        [SerializeField] GameObject m_TapToContinueTextDown;
+        [SerializeField] GameObject m_TapToContinueTextUp;
         [SerializeField] List<TutorialInfo> m_TutorialsInfo;
         TutorialInfo m_CurrentTutorial = null;
 
@@ -115,7 +118,6 @@ namespace Isometric.Tutorial
                 s_Instance.m_TutorialTextDown.SetActive(true);
             }
         }
-
         public static void DeactivateTutorailText()
         {
             if (s_Instance == null)
@@ -127,6 +129,40 @@ namespace Isometric.Tutorial
             s_Instance.m_TutorialTextCanvas.SetActive(false);
             s_Instance.m_TutorialTextDown.SetActive(false);
             s_Instance.m_TutorialTextUp.SetActive(false);
+        }
+
+        public static void ActivateTapToContinueText(TutorailTextPosition textPosition)
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            s_Instance.m_TapToContinueTextCanvas.SetActive(true);
+            s_Instance.m_TapToContinueTextDown.SetActive(false);
+            s_Instance.m_TapToContinueTextUp.SetActive(false);
+
+            if (textPosition == TutorailTextPosition.Up)
+            {
+                s_Instance.m_TapToContinueTextUp.SetActive(true);
+            }
+            else
+            {
+                s_Instance.m_TapToContinueTextDown.SetActive(true);
+            }
+        }
+        public static void DeactivateTapToContinueText()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            s_Instance.m_TapToContinueTextCanvas.SetActive(false);
+            s_Instance.m_TapToContinueTextDown.SetActive(false);
+            s_Instance.m_TapToContinueTextUp.SetActive(false);
         }
 
         private static void PrintNullInstanceError()
@@ -164,6 +200,7 @@ namespace Isometric.Tutorial
         public virtual void Stop()
         {
             TutorialManager.DeactivateTutorailText();
+            TutorialManager.DeactivateTapToContinueText();
             TutorialManager.TutorialComplete(this);
         }
     }
