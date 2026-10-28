@@ -64,6 +64,11 @@ namespace Isometric.Environment
         private CustomerSalonController m_CurrentCustomer;
         public CustomerSalonController CurrentCustomer => m_CurrentCustomer;
 
+        private bool m_HasCustomerTreatmentStarted;
+        public bool HasCustomerTreatmentStarted => m_HasCustomerTreatmentStarted;
+
+        public float DurationProperty => m_DurationProperty;
+
         [SerializeField, ReadOnly] float m_BeforeCustomerSettleDelay = 0f;
         [SerializeField, ReadOnly] float m_BeforeServiceStartDelay = 0f; 
         [SerializeField, ReadOnly] float m_BeforeCustomerLeaveDelay = 0f;
@@ -172,6 +177,7 @@ namespace Isometric.Environment
 
         private IEnumerator StartingCustomer()
         {
+            m_HasCustomerTreatmentStarted = true;
             float waitCounter = 0;
             int customerAnimationInfoIndex = 0;
 
@@ -212,6 +218,7 @@ namespace Isometric.Environment
             //m_CurrentCustomer.PerformanceDone(m_CostProperty);
             OnCustomerLeft?.Invoke();
             CustomerLeaves();
+            m_HasCustomerTreatmentStarted = false;
         }
 
         public void CustomerLeaves()

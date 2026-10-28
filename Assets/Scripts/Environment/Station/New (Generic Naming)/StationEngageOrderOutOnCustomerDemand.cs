@@ -61,6 +61,8 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<float> OnDurationStart;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
 
+        public float DurationProperty => m_DurationProperty;
+
         //---Engege---
         const string MetaEngegeFoldOut = "---Engege---";
         [SerializeField, Foldout(MetaEngegeFoldOut)] UnityEvent OnEngegeSuccesful;

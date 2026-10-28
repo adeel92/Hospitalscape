@@ -26,6 +26,7 @@ namespace Isometric.Tutorial
         [SerializeField] float m_TableFocusSize;
         [SerializeField] Vector2 m_TableOffset;
         [SerializeField] GameObject m_DialogStep2;
+        [SerializeField] MainServiceCustomerHandler m_TargetBed;
         [SerializeField] List<MainServiceCustomerHandler> m_Beds;
         [SerializeField] GameObject m_GestureStep2;
 
@@ -124,17 +125,19 @@ namespace Isometric.Tutorial
 
         IEnumerator Steping2()
         {
-            foreach (var bed in m_Beds)
+            /* foreach (var bed in m_Beds)
             {
                 bed.TutorialLock(false);
-            }
+            } */
+
+            m_TargetBed.TutorialLock(false);
 
             yield return new WaitWhile(() => m_TargetCustomer.IsCustomerOnSalonChair() == false);
 
             m_DialogStep2.SetActive(false);
             m_GestureStep2.SetActive(false);
             TutorialFocusManager.RemoveBackgroundButtonCallback();
-            TutorialFocusManager.StopAllFocus();
+            TutorialFocusManager.StopAllFocusInstantly();
 
             Step3();
         }
@@ -164,7 +167,7 @@ namespace Isometric.Tutorial
         public void Step4Delayed()
         {
             CameraController.SetEnvironemntInteractiblity(true);
-            
+
             TutorialFocusManager.FocusAtPosition(m_InjectionEventTriggerStep4.transform.position, m_InjectionStationFocusOffset, Vector2.one * m_InjectionStationFocusSize, FocusShapeType.Circle);
             m_DialogStep4.SetActive(true);
             m_GestureStep4.SetActive(true);
@@ -269,6 +272,10 @@ namespace Isometric.Tutorial
             TutorialFocusManager.RemoveBackgroundButtonCallback();
             TutorialFocusManager.StopAllFocus();
 
+            foreach (var bed in m_Beds)
+            {
+                bed.TutorialLock(false);
+            }
             CustomerManager.CustomerGenerationOn();
             UIManager.UIInteractionOn();
             CameraController.SetEnvironemntInteractiblity(true);

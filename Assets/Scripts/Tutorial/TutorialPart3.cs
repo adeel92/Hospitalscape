@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Isometric.UI;
 using Isometric.Cam;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart3 : TutorialContainer
     {

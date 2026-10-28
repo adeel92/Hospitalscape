@@ -24,8 +24,18 @@ namespace Isometric.UI
             public UnityEvent OnFillStart;
             public UnityEvent OnFillEnd;
             public TextMeshProUGUI CountText;
+            public TextMeshProUGUI FreeText;
+            [AllowNesting, ReadOnly] public bool IsFreeBoosterActive = false;
             [AllowNesting, ReadOnly, HideIf(nameof(BoosterType), BoosterType.InstanceOrderFill)]
             public float AppliedDuration;
+            [Space] public List<FreeBoosterInfo> FreeBoosterInfos = new();
+        }
+
+        [Serializable]
+        public class FreeBoosterInfo
+        {
+            public MapType MapType;
+            public int LevelIndex;
         }
 
         [Serializable]
@@ -51,7 +61,9 @@ namespace Isometric.UI
 
         public override void Setup()
         {
-            int level = DataManager.CurrentMapLevelIndex + 1;
+            MapType currentMapType = DataManager.CurrentMapType;
+            int currentLevelIndex = DataManager.CurrentMapLevelIndex;
+            int level = currentLevelIndex + 1;
             List<BoosterInfo> boostersInfo = m_DataMapUpdate.GetBoostersInfo();
 
             foreach (var boostersButtonInfo in m_BoostersButtonInfo)
@@ -79,6 +91,14 @@ namespace Isometric.UI
                         boostersButtonInfo.CountText.text = DataManager.InstanceOrderFillBoosterCount.ToString();
                         boostersButtonInfo.ActivationButton.onClick.RemoveAllListeners();
                         boostersButtonInfo.ActivationButton.onClick.AddListener(() => OnBoosterActivation(boostersButtonInfo));
+                    }
+
+                    var freeBoosterInfo = boostersButtonInfo.FreeBoosterInfos.Find((x) => x.MapType == currentMapType && x.LevelIndex == currentLevelIndex);
+                    if(freeBoosterInfo != null)
+                    {
+                        boostersButtonInfo.CountText.gameObject.SetActive(false);
+                        boostersButtonInfo.FreeText.gameObject.SetActive(true);
+                        boostersButtonInfo.IsFreeBoosterActive = true;
                     }
                 }
                 else
@@ -142,14 +162,33 @@ namespace Isometric.UI
             });
         }
 
+        public bool IsBoosterFreeOptionActive(BoosterType boosterType)
+        {
+            BoosterButtonInfo boosterButtonInfo = m_BoostersButtonInfo.Find(x => x.BoosterType == boosterType);
+            if(boosterButtonInfo != null)
+            {
+                return boosterButtonInfo.IsFreeBoosterActive;
+            }
+            return false;
+        }
+
         private void OnBoosterActivation(BoosterButtonInfo boosterButtonInfo)
         {
             if (boosterButtonInfo.BoosterType == BoosterType.TimeFroze)
             {
-                if (DataManager.TimeFrozeBoosterCount > 0)
+                if (DataManager.TimeFrozeBoosterCount > 0 || boosterButtonInfo.IsFreeBoosterActive)
                 {
-                    DataManager.TimeFrozeBoosterCount--;
-                    DataManager.SaveData();
+                    if (!boosterButtonInfo.IsFreeBoosterActive)
+                    {
+                        DataManager.TimeFrozeBoosterCount--;
+                        DataManager.SaveData();
+                    }
+                    else
+                    {
+                        boosterButtonInfo.CountText.gameObject.SetActive(true);
+                        boosterButtonInfo.FreeText.gameObject.SetActive(false);
+                        boosterButtonInfo.IsFreeBoosterActive = false;
+                    }
 
                     boosterButtonInfo.CountText.text = DataManager.TimeFrozeBoosterCount.ToString();
                     boosterButtonInfo.ActivationButton.enabled = false;
@@ -164,10 +203,19 @@ namespace Isometric.UI
             }
             else if (boosterButtonInfo.BoosterType == BoosterType.WaitressSpeed)
             {
-                if (DataManager.WaitressSpeedBoosterCount > 0)
+                if (DataManager.WaitressSpeedBoosterCount > 0 || boosterButtonInfo.IsFreeBoosterActive)
                 {
-                    DataManager.WaitressSpeedBoosterCount--;
-                    DataManager.SaveData();
+                    if (!boosterButtonInfo.IsFreeBoosterActive)
+                    {
+                        DataManager.WaitressSpeedBoosterCount--;
+                        DataManager.SaveData();
+                    }
+                    else
+                    {
+                        boosterButtonInfo.CountText.gameObject.SetActive(true);
+                        boosterButtonInfo.FreeText.gameObject.SetActive(false);
+                        boosterButtonInfo.IsFreeBoosterActive = false;
+                    }
 
                     boosterButtonInfo.CountText.text = DataManager.WaitressSpeedBoosterCount.ToString();
                     boosterButtonInfo.ActivationButton.enabled = false;
@@ -185,10 +233,19 @@ namespace Isometric.UI
                 List<Tuple<CustomerSalonController, List<Tuple<DataConsumable, Vector3>>>> customersOrderInfo = CustomerManager.GetCurrentWaitressOrders();
                 if (customersOrderInfo != null && customersOrderInfo.Count > 0)
                 {
-                    if (DataManager.InstanceOrderFillBoosterCount > 0)
+                    if (DataManager.InstanceOrderFillBoosterCount > 0 || boosterButtonInfo.IsFreeBoosterActive)
                     {
-                        DataManager.InstanceOrderFillBoosterCount--;
-                        DataManager.SaveData();
+                        if (!boosterButtonInfo.IsFreeBoosterActive)
+                        {
+                            DataManager.InstanceOrderFillBoosterCount--;
+                            DataManager.SaveData();
+                        }
+                        else
+                        {
+                            boosterButtonInfo.CountText.gameObject.SetActive(true);
+                            boosterButtonInfo.FreeText.gameObject.SetActive(false);
+                            boosterButtonInfo.IsFreeBoosterActive = false;
+                        }
 
                         boosterButtonInfo.CountText.text = DataManager.InstanceOrderFillBoosterCount.ToString();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Isometric.UI;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart4 : TutorialContainer
     {

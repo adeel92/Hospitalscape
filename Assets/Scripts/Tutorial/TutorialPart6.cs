@@ -8,7 +8,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Customer;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart6 : TutorialContainer
     {

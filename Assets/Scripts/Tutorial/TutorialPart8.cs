@@ -7,7 +7,7 @@ using Isometric.UI;
 using Isometric.Customer;
 using Isometric.Environment;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart8 : TutorialContainer
     {

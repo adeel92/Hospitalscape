@@ -8,7 +8,7 @@ using Isometric.Cam;
 using Isometric.Customer;
 using Isometric.Environment;
 
-namespace Isometric.Tutorial
+namespace Isometric.Tutorial.Old
 {
     public class TutorialPart14 : TutorialContainer
     {

@@ -290,6 +290,37 @@ namespace Isometric.Tutorial
 
         }
 
+        public static void StopAllFocusInstantly()
+        {
+            if (s_Instnace == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            if(s_Instnace.m_FocusDisablingSequence != null)
+            {
+                s_Instnace.m_FocusDisablingSequence.Kill();
+            }
+
+            s_Instnace.m_CanvasGroup.alpha = 0f;
+            foreach (var focus in s_Instnace.m_Focuses)
+            {
+                if (focus.Item1 != null)
+                {
+                    Destroy(focus.Item1.gameObject);
+                }
+
+                if (focus.Item2 != null)
+                {
+                    s_Instnace.StopCoroutine(focus.Item2);
+                }
+            }
+
+            s_Instnace.m_Focuses = new List<Tuple<Transform, Coroutine>>();
+            s_Instnace.m_Holder.SetActive(false);
+        }
+
 
         IEnumerator FocusingAtTransform(Image focusImage, Transform target, Vector2 offset)
         {
@@ -303,6 +334,17 @@ namespace Isometric.Tutorial
 
                 yield return null;
             }
+        }
+
+        public static float GetFocusDisableDuration()
+        {
+            if (s_Instnace == null)
+            {
+                PrintNullInstanceError();
+                return 0f;
+            }
+
+            return s_Instnace.m_FocusDisableDuration;
         }
 
         private static void PrintNullInstanceError()
