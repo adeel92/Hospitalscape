@@ -34,6 +34,23 @@ namespace Isometric.Tutorial
 
         [SerializeField, ReadOnly] private PlayerUpgradePanelUI m_PlayerUpgradePanelUI;
 
+        private void OnEnable()
+        {
+            m_UpgradePopupUIManager.OnUpgradePopupOpened += SetUpgradeRecommendationOption;
+        }
+        private void OnDisable()
+        {
+            m_UpgradePopupUIManager.OnUpgradePopupOpened -= SetUpgradeRecommendationOption;
+        }
+
+        private void SetUpgradeRecommendationOption()
+        {
+            if (DataManager.GetBool(m_KeySubPart1, false) == false)
+            {
+                m_UpgradePopupUIManager.SetShowUpgradeRecommendationOption(false);
+            }
+        }
+
         public override void Play()
         {
             if (DataManager.GetBool(m_KeySubPart1, false) == false)
@@ -101,6 +118,7 @@ namespace Isometric.Tutorial
             m_DialogStep3.SetActive(false);
             m_GestureTapStep3.SetActive(false);
 
+            m_UpgradePopupUIManager.SetShowUpgradeRecommendationOption(true);
             m_UpgradePopupUIManager.ScrollRectOn();
             Stop();
         }

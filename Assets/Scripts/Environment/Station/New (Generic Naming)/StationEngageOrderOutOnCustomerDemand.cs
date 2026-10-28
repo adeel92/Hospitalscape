@@ -60,8 +60,10 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<int> OnDurationSetup;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent<float> OnDurationStart;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
+        private bool m_IsProcessing;
 
         public float DurationProperty => m_DurationProperty;
+        public bool IsProcessing => m_IsProcessing;
 
         //---Engege---
         const string MetaEngegeFoldOut = "---Engege---";
@@ -298,6 +300,7 @@ namespace Isometric.Environment
 
         private IEnumerator TaskProcess(IEnvironmentInteractable interactable)
         {
+            m_IsProcessing = true;
             interactable.EngageInteractable(m_EngageDirection);
             OnProcessStart?.Invoke();
 
@@ -312,6 +315,7 @@ namespace Isometric.Environment
             OnOrderOutSuccesful?.Invoke();
             RemoveDemandedCustomer();
             OnProcessComplete?.Invoke();
+            m_IsProcessing = false;
             m_TaskTrigger.SendTaskResult(TaskResult.Success);
         }
 
@@ -329,6 +333,7 @@ namespace Isometric.Environment
             yield return new WaitForSeconds(m_DelayBeforeInstantServiceComplete);
             RemoveAllDemandedCustomers();
             m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+            m_IsProcessing = false;
             OnInstantProcessComplete?.Invoke();
         }
 

@@ -28,7 +28,7 @@ MonoBehaviour:
   m_HasNewCustomer: 0
   m_NewCustomersInfo:
     NewCustomersInfo: 
-  m_CustomerSalonSequence: 3
+  m_CustomerSalonSequence: 0
   m_CustomerSalonSequencesInfo:
     CustomerSequences: []
   m_CustomersData:
@@ -47,7 +47,7 @@ MonoBehaviour:
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
+        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
       - OrdersConsumable:
         - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
         - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
@@ -66,8 +66,11 @@ MonoBehaviour:
     CustomerOrderBundles:
     - CustomerOrdersInfo:
       - OrdersConsumable:
-        - {fileID: 11400000, guid: 001cc6cf4e74b5e4f89307f6e8d3edb7, type: 2}
         - {fileID: 11400000, guid: 575c28ec9379d3b43a432b3fe3eddbb8, type: 2}
+        - {fileID: 11400000, guid: f10e568f7a80e6347b13ab3189b7a8a4, type: 2}
+      - OrdersConsumable:
+        - {fileID: 11400000, guid: 71beead9baa04b54ba495ef2431b351c, type: 2}
+        - {fileID: 11400000, guid: d4de9131a4289714882889955441805e, type: 2}
   - Customer: 0
     CustomerSalonPrefab: {fileID: 5275518852732708029, guid: 9939f85d3fe21f04e8c45e342c8ee42d, type: 3}
     CustomerCafePrefab: {fileID: 0}

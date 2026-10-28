@@ -81,6 +81,7 @@ namespace Isometric.Environment
 
 
         public Action<int> OnTotalRevenueGenerated;
+        public UnityEvent OnCustomerDropped => m_OnCustomerDropped;
 
 
         [ContextMenu("SetupForMenu")]

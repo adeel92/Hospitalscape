@@ -15,6 +15,8 @@ namespace Isometric.Tutorial
         [SerializeField] GameObject m_Holder;
 
         [Header("---Step1---")]
+        [SerializeField] PlayerController m_PlayerController;
+        [SerializeField] PlayerAnimatorController m_PlayerAnimatorController;
         [SerializeField] DataConsumable m_OrderType;
         [SerializeField] float m_Step1FocusDelay;
         [SerializeField] float m_PlayerFocusScale;
@@ -32,6 +34,8 @@ namespace Isometric.Tutorial
 
         public override void Play()
         {
+            m_PlayerController.PauseGreetingReaction();
+            m_PlayerAnimatorController.PlayIdle();
             LevelManager.SetTimerLock(true);
             GlobalEventHolder.OnCustomerWaitFreeze?.Invoke(true);
             TutorialManager.ActivateTutorailText(TutorailTextPosition.Up);
@@ -49,7 +53,6 @@ namespace Isometric.Tutorial
             m_Holder.SetActive(true);
             m_Step1Dialog.SetActive(true);
 
-            TutorialFocusManager.StopAllFocus();
             TutorialFocusManager.RemoveBackgroundButtonCallback();
             TutorialFocusManager.FocusAtTransform(player.transform, m_PlayerFocusOffset, Vector2.one * m_PlayerFocusScale, FocusShapeType.Circle);
             TutorialManager.ActivateTapToContinueText(TutorailTextPosition.Down);
@@ -66,7 +69,7 @@ namespace Isometric.Tutorial
             m_GestureTap.SetActive(true);
             CameraController.SetEnvironemntInteractiblity(true);
 
-            m_TrashEventEntry = m_TrashEventTrigger.triggers.Find((x) => x.eventID == EventTriggerType.PointerDown);
+            m_TrashEventEntry = m_TrashEventTrigger.triggers.Find((x) => x.eventID == EventTriggerType.PointerClick);
             if (m_TrashEventEntry != null)
             {
                 m_TrashEventEntry.callback.AddListener(Step3);
@@ -88,6 +91,7 @@ namespace Isometric.Tutorial
             TutorialFocusManager.StopAllFocus();
             UIManager.UIInteractionOn();
             CustomerManager.CustomerGenerationOn();
+            m_PlayerController.UnpauseGreetingReaction();
 
             LevelManager.SetTimerLock(false);
             GlobalEventHolder.OnCustomerWaitFreeze?.Invoke(false);

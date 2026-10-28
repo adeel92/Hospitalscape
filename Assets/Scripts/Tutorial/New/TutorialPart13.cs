@@ -260,6 +260,8 @@ namespace Isometric.Tutorial
             m_DialogStep5.SetActive(false);
             m_PatientSampleCollider.enabled = false;
 
+            TutorialFocusManager.StopAllFocus();
+
             TutorialFocusManager.RemoveBackgroundButtonCallback();
             CameraController.SetEnvironemntInteractiblity(false);
 
@@ -292,10 +294,13 @@ namespace Isometric.Tutorial
             m_DialogStep6.SetActive(false);
             m_GestureStep6.SetActive(false);
 
+            TutorialFocusManager.StopAllFocus();
+
             CameraController.SetEnvironemntInteractiblity(false);
 
             CoroutineManager.LateAction(() =>
             {
+                TutorialFocusManager.FocusAtPosition(m_ResearchCenterTrigger.transform.position, m_ResearchCenterOffset, Vector2.one * m_ResearchCenterSize, FocusShapeType.Circle);
                 m_DialogStep7.SetActive(true);
                 CoroutineManager.LateAction(Step8, m_ResearchStation.DurationProperty + 2f);
             }, 2.75f);

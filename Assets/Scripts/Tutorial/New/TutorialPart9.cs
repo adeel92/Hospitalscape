@@ -63,6 +63,10 @@ namespace Isometric.Tutorial
         [SerializeField] StationSerialOrderInOut m_SpecializedInjectionStation;
         [SerializeField] GameObject m_DialogStep7;
 
+        [Header("---Step8---")]
+        [SerializeField] GameObject m_DialogStep8;
+        [SerializeField] GameObject m_GestureStep8;
+
 
         [Header("---Step9---")]
         // [SerializeField] float m_Step9Delay;
@@ -103,7 +107,7 @@ namespace Isometric.Tutorial
                 }
             }
 
-            TutorialManager.ActivateTutorailText(TutorailTextPosition.Down);
+            TutorialManager.ActivateTutorailText(TutorailTextPosition.Up);
             CustomerManager.CustomerGenerationOff();
 
             yield return new WaitForSeconds(m_CustomerFocusDelay);
@@ -255,15 +259,22 @@ namespace Isometric.Tutorial
                 m_SpecializedInjectionTriggerEntery = null;
             }
 
+            TutorialFocusManager.StopAllFocus();
             m_DialogStep6.SetActive(false);
             m_GestureStep6.SetActive(false);
             m_SpecializedInjectionCollider.enabled = false;
-
             CameraController.SetEnvironemntInteractiblity(false);
 
+            StartCoroutine(Stepping7());
+        }
+        private IEnumerator Stepping7()
+        {
+            yield return new WaitWhile(() => m_SpecializedInjectionStation.IsProcessing == false);
+
+            TutorialFocusManager.FocusAtPosition(m_SpecializedInjectionTrigger.transform.position, m_SpecializedInjectionOffset, Vector2.one * m_SpecializedInjectionSize, FocusShapeType.Circle);
             m_DialogStep7.SetActive(true);
 
-            CoroutineManager.LateAction(Step8, m_SpecializedInjectionStation.DurationProperty + 1f);
+            CoroutineManager.LateAction(Step8, m_SpecializedInjectionStation.DurationProperty + 0.5f);
             // CoroutineManager.LateAction(Step8, m_GuazeMachineStation.DurationProperty + 0.5f);
         }
 
@@ -272,8 +283,8 @@ namespace Isometric.Tutorial
             m_DialogStep7.SetActive(false);
             CameraController.SetEnvironemntInteractiblity(true);
 
-            m_DialogStep6.SetActive(true);
-            m_GestureStep6.SetActive(true);
+            m_DialogStep8.SetActive(true);
+            m_GestureStep8.SetActive(true);
             m_SpecializedInjectionCollider.enabled = true;
 
             m_SpecializedInjectionTriggerEntery = m_SpecializedInjectionTrigger.triggers.Find((x) => x.eventID == EventTriggerType.PointerClick);
@@ -292,8 +303,8 @@ namespace Isometric.Tutorial
                 m_SpecializedInjectionTriggerEntery = null;
             }
 
-            m_DialogStep6.SetActive(false);
-            m_GestureStep6.SetActive(false);
+            m_DialogStep8.SetActive(false);
+            m_GestureStep8.SetActive(false);
             m_SpecializedInjectionCollider.enabled = false;
 
             TutorialFocusManager.StopAllFocusInstantly();

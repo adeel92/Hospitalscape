@@ -49,6 +49,7 @@ namespace Isometric.Tutorial
         [SerializeField] Vector2 m_VitaminsFocusOffset;
 
         [Header("---Step5---")]
+        [SerializeField] float m_DelayStep5;
         [SerializeField] GameObject m_DialogStep5;
 
         [Header("---Step6---")]
@@ -218,11 +219,14 @@ namespace Isometric.Tutorial
 
         public void Step5()
         {
-            TutorialFocusManager.RemoveBackgroundButtonCallback();
-            TutorialFocusManager.FocusAtPosition(m_BedFocus.position, m_BedFocusOffset, Vector2.one * m_BedFocusScale, FocusShapeType.Circle);
-            m_DialogStep5.SetActive(true);
-            TutorialFocusManager.SetBackgroundButtonCallback(Step6);
-            TutorialManager.ActivateTapToContinueText(TutorailTextPosition.Down);
+            CoroutineManager.LateAction(() =>
+            {
+                TutorialFocusManager.RemoveBackgroundButtonCallback();
+                TutorialFocusManager.FocusAtPosition(m_BedFocus.position, m_BedFocusOffset, Vector2.one * m_BedFocusScale, FocusShapeType.Circle);
+                m_DialogStep5.SetActive(true);
+                TutorialFocusManager.SetBackgroundButtonCallback(Step6);
+                TutorialManager.ActivateTapToContinueText(TutorailTextPosition.Down);
+            }, m_DelayStep5);
         }
 
         public void Step6()
@@ -305,6 +309,11 @@ namespace Isometric.Tutorial
             m_DialogStep8.SetActive(false);
             m_GestureStep8.SetActive(false);
             m_Holder.SetActive(false);
+
+            foreach (var bed in m_Beds)
+            {
+                bed.TutorialLock(false);
+            }
 
             foreach (var collider in m_OtherColliders)
             {

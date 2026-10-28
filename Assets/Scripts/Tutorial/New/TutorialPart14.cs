@@ -55,8 +55,8 @@ namespace Isometric.Tutorial
         [SerializeField] Vector2 m_ReportGeneratorFocusOffset;
 
         [Header("---Step6---")]
-        [SerializeField] float m_DelayStep6;
         [SerializeField] GameObject m_DialogStep6;
+        [SerializeField] GameObject m_DialogStep6Hold;
         [SerializeField] GameObject m_GestureStep6;
         
         private PlayerController player = null;
@@ -234,6 +234,7 @@ namespace Isometric.Tutorial
             m_DialogStep5.SetActive(false);
             m_GestureStep5.SetActive(false);
             m_ReportGeneratorCollider.enabled = false;
+            TutorialFocusManager.StopAllFocus();
 
             Step6();
         }
@@ -241,24 +242,31 @@ namespace Isometric.Tutorial
         public void Step6()
         {
             CameraController.SetEnvironemntInteractiblity(false);
+            StartCoroutine(Stepping6());
+        }
+        IEnumerator Stepping6()
+        {
+            yield return new WaitWhile(() => m_ReportGeneratorStation.IsProcessing == false);
+
+            m_DialogStep6Hold.SetActive(true);
+            TutorialFocusManager.FocusAtPosition(m_ReportGeneratorTrigger.transform.position, m_ReportGeneratorFocusOffset, Vector2.one * m_ReportGeneratorFocusScale, FocusShapeType.Circle);
+
             CoroutineManager.LateAction(() =>
             {
-                CoroutineManager.LateAction(() =>
-                {
-                    TutorialFocusManager.StopAllFocusInstantly();
-                    CameraController.SetEnvironemntInteractiblity(true);
-                    TutorialFocusManager.FocusAtPosition(m_BedTrigger.transform.position, m_BedFocusOffset, Vector2.one * m_BedFocusScale, FocusShapeType.Circle);
-                    m_DialogStep6.SetActive(true);
-                    m_GestureStep6.SetActive(true);
-                    m_BedCollider.enabled = true;
+                CameraController.SetEnvironemntInteractiblity(true);
+                TutorialFocusManager.StopAllFocusInstantly();
+                TutorialFocusManager.FocusAtPosition(m_BedTrigger.transform.position, m_BedFocusOffset, Vector2.one * m_BedFocusScale, FocusShapeType.Circle);
+                m_DialogStep6Hold.SetActive(false);
+                m_DialogStep6.SetActive(true);
+                m_GestureStep6.SetActive(true);
+                m_BedCollider.enabled = true;
 
-                    m_BedTriggerEntry = m_BedTrigger.triggers.Find((x) => x.eventID == EventTriggerType.PointerClick);
-                    if (m_BedTriggerEntry != null)
-                    {
-                        m_BedTriggerEntry.callback.AddListener(Step7);
-                    }
-                }, m_ReportGeneratorStation.DurationProperty + 0.75f);
-            }, m_DelayStep6);
+                m_BedTriggerEntry = m_BedTrigger.triggers.Find((x) => x.eventID == EventTriggerType.PointerClick);
+                if (m_BedTriggerEntry != null)
+                {
+                    m_BedTriggerEntry.callback.AddListener(Step7);
+                }
+            }, m_ReportGeneratorStation.DurationProperty + 0.5f);
         }
 
         public void Step7(BaseEventData eventData)
@@ -274,6 +282,11 @@ namespace Isometric.Tutorial
             m_DialogStep6.SetActive(false);
             m_GestureStep6.SetActive(false);
             m_Holder.SetActive(false);
+
+            foreach (var bed in m_Beds)
+            {
+                bed.TutorialLock(false);
+            }
 
             foreach (var collider in m_OtherColliders)
             {

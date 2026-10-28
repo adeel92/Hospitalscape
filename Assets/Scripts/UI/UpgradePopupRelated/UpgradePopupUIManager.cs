@@ -65,6 +65,7 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] DataMapUpdate m_DataMapUpdate;
         [SerializeField] DataUpgradeRecommendation m_DataUpgradeRecommendation;
+        [SerializeField, ReadOnly] bool m_ShowUpgradeRecommendation = true;
         [SerializeField] ScrollRect m_ScrollRect;
         [SerializeField] Transform m_PanelHolder;
         [SerializeField] GameObject m_FirstHolding;
@@ -99,6 +100,8 @@ namespace Isometric.UI
         [SerializeField] GameObject m_MapCompletePopup;
         [SerializeField] PlayDoTweenSequence m_MapCompleteOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_MapCompleteClosingSequence;
+
+        public Action OnUpgradePopupOpened;
 
 
         private List<PlayerUpgradePanelUI> m_PlayerUpgradePanelsUI;
@@ -286,9 +289,18 @@ namespace Isometric.UI
             ResetScroll();
         }
 
+        public void SetShowUpgradeRecommendationOption(bool show)
+        {
+            m_ShowUpgradeRecommendation = show;
+        }
+
         public void SetupUpgradeRecommendation(bool shouldScrollFocus)
         {
             // if (Tutorial.TutorialManager.IsInTutorial()) return;
+            if(!m_ShowUpgradeRecommendation)
+            {
+                return;
+            }
 
             List<PlayerUpgradePanelUI> temPlayerUpgradePanelsUI = GlobalFunctions.ListShallowCopy(m_PlayerUpgradePanelsUI);
             ChairCapacityUpgradePanelUI temChairCapacityUpgradePanelUI = null;
@@ -341,6 +353,7 @@ namespace Isometric.UI
             m_OpeningSequence.PlaySequence(() =>
             {
                 callback?.Invoke();
+                OnUpgradePopupOpened?.Invoke();
                 SetupUpgradeRecommendation(true);
             });
         }

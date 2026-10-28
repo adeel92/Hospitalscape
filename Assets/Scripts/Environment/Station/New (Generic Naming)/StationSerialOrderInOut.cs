@@ -83,6 +83,8 @@ namespace Isometric.Environment
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] UnityEvent OnDurationComplete;
         [SerializeField, Foldout(MetaUpgradePropertiesFoldOut)] List<StationOutInfo> m_StationOutInfo;
 
+        public bool IsProcessing => m_IsProcessing;
+
         [ContextMenu("SetupForMenu")]
         public void SetupForMenu()
         {

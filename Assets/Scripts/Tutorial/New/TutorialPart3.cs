@@ -27,6 +27,7 @@ namespace Isometric.Tutorial
         public void PlayStep1()
         {
             UIManager.UIInteractionOn();
+            m_Canvas.SetActive(true);
             m_DialogScreen1.SetActive(true);
             ShowMenuPlayButtonFocus();
         }
