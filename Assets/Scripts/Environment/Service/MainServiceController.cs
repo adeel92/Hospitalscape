@@ -97,6 +97,8 @@ namespace Isometric.Environment
         [Header("---Main Service Area Clean Complete---")]
         public UnityEvent OnMainServiceAreaCleanComplete;
 
+        public Action<List<DataConsumable>> OnOrderItemsDelivered;
+
         private WorkerController m_CurrentWorkerServing = null;
 
         private int m_OrderIndexNumber = 0;
@@ -378,6 +380,7 @@ namespace Isometric.Environment
                     && m_IsCustomerWaitingToBeServed
                     && !m_IsPlayerOrdersLocked)
                 {
+                    List<DataConsumable> deliveredOrders = new List<DataConsumable>();
                     List<DataConsumable> currentOrders = new List<DataConsumable>();
                     m_CurrentOrderItems = new List<DataConsumable>();
                     bool hasBeenServedSomething = false;
@@ -391,6 +394,7 @@ namespace Isometric.Environment
                                 m_TotalRevenue += items.Item2;
                                 currentOrder.HasBeenServed = true;
                                 hasBeenServedSomething = true;
+                                deliveredOrders.Add(currentOrder.Order);
                             }
                             else
                             {
@@ -398,6 +402,11 @@ namespace Isometric.Environment
                                 m_CurrentOrderItems.Add(currentOrder.Order);
                             }
                         }
+                    }
+
+                    if (hasBeenServedSomething)
+                    {
+                        OnOrderItemsDelivered?.Invoke(deliveredOrders);
                     }
 
 

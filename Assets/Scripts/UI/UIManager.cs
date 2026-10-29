@@ -34,6 +34,8 @@ namespace Isometric.UI
         private Queue<bool> m_MenuStamps = new Queue<bool>();
         private Queue<bool> m_CameraInteractionStamps = new Queue<bool>();
 
+        public Action OnMenuShownAfterUpdatables;
+
         private void Awake()
         {
             if (s_Instance == null)
@@ -168,6 +170,7 @@ namespace Isometric.UI
                 {
                     CameraController.Interactability(true);
                     UIInteractionOn();
+                    s_Instance.OnMenuShownAfterUpdatables?.Invoke();
                 });
             }
         }

@@ -73,6 +73,7 @@ namespace Isometric.UI
         [SerializeField] Ease m_ScrollEase;
         [SerializeField] float m_ContentAutoSelectOffset = 50f; // Offset to adjust selection trigger
         [SerializeField] TextMeshProUGUI m_LevelText;
+        [SerializeField] GameObject m_LevelDifficultyHolder;
         [SerializeField] TextMeshProUGUI m_LevelDifficultyText;
         [SerializeField] GameObject m_PlayButton;
         [SerializeField] GameObject m_PlayLockedButton;
@@ -719,6 +720,10 @@ namespace Isometric.UI
         #endregion
 
         #region Helper
+        public GameObject GetLevelDifficultyHolder()
+        {
+            return m_LevelDifficultyHolder;
+        }
 
         public Transform GetPanelAtSiblingIndex(int index)
         {
