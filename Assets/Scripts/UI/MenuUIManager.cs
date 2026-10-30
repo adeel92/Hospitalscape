@@ -196,11 +196,11 @@ namespace Isometric.UI
                             LoadingUIManager.ShowLoadingScreen(() =>
                             {
                                 CameraController.SetupForGameplay(null);
+                                SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
                             }, () =>
                             {
                                 UIManager.UIInteractionOn();
                                 UIManager.SetupForGameplay();
-                                SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
                                 SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
                             });
                         });
@@ -231,10 +231,10 @@ namespace Isometric.UI
                     CameraController.SetEnvironemntInteractiblity(false);
                     CameraController.Interactability(false);
                     CameraController.SetupForGameplay(null);
+                    SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
                 }, () =>
                 {
                     UIManager.OpenUpgradePopup();
-                    SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
                     SoundManager.PlaySoundFadeIn(SoundType.GameMusic1, 0.3f, true, false);
                 });
             });

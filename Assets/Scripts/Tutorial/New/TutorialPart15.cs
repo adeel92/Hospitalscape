@@ -215,7 +215,7 @@ namespace Isometric.Tutorial
         {
             if (m_CounterTableTriggerEntery != null)
             {
-                m_CounterTableTriggerEntery.callback.RemoveListener(Step4Next);
+                m_CounterTableTriggerEntery.callback.RemoveListener(Step5Next);
                 m_CounterTableTriggerEntery = null;
             }
 

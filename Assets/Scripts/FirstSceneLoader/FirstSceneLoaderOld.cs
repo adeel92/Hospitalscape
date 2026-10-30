@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Arc
 {
-    public class FirstSceneLoader : MonoBehaviour
+    public class FirstSceneLoaderOld : MonoBehaviour
     {
         [SerializeField] float m_Delay = 2f; // Delay before loading the next scene
         [SerializeField] string m_NextSceneName = "NextScene"; // Name of the next scene to load

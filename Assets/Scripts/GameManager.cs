@@ -41,19 +41,24 @@ namespace Isometric
                 yield break;
             }
 
+            yield return new WaitUntil(() => {return !LoadingUIManager.IsSceneLoadingInProcess();});
+
             //Order Matters
             LevelManager.Setup();
             EnvironmentManager.SetupForMenu();
-            yield return new WaitUntil(() => {return !LoadingUIManager.IsLoadingActive();});
 
             CameraController.SetEnvironemntInteractiblity(false);
             UIManager.Setup();
+            
+            yield return new WaitUntil(() => {return !LoadingUIManager.IsLoadingScreenActive();});
+            
             WorkerManager.SetupForMenu();
             EnvironmentWorkerManager.Setup();
             PlayerManager.SetupForMenu();
 
             UIManager.UIInteractionOff();
             CameraController.Interactability(false);
+
             CameraController.SetupForMenu(() =>
             {
                 if (!TutorialManager.PlayTutorial(TutorialCallType.BeforeNextUpdatable))
@@ -65,6 +70,7 @@ namespace Isometric
                     UIManager.UIInteractionOn();
                 }
             });
+
 
             SoundManager.SetMusic(DataManager.GetBool(SoundCategroy.Music.ToString(), true));
             SoundManager.SetSound(DataManager.GetBool(SoundCategroy.Sound.ToString(), true));

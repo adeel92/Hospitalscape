@@ -71,6 +71,7 @@ namespace Isometric.UI
         [Serializable]
         private class OfferInfo
         {
+            public bool ShowOffer = true;
             public GameObject Panel;
             public PlayDoTweenSequence OpeningSequence;
             public PlayDoTweenSequence ClosingSequence;
@@ -230,7 +231,10 @@ namespace Isometric.UI
                 });
             }
 
-            m_OfferInfo.Panel.SetActive(true);
+            if (m_OfferInfo.ShowOffer)
+            {
+                m_OfferInfo.Panel.SetActive(true);
+            }
 
             m_OfferInfo.TimeChanceSymbolHolder.SetActive(false);
             m_OfferInfo.PatienceChanceSymbolHolder.SetActive(false);

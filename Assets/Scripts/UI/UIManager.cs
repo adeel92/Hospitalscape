@@ -517,13 +517,13 @@ namespace Isometric.UI
                 {
                     LoadingUIManager.ShowLoadingScreen(() =>
                     {
+                        SoundManager.StopFadeOut(SoundType.GameMusic1, 0.3f, false);
                         SetupForMenu();
                     }, () =>
                     {
                         CameraController.SetEnvironemntInteractiblity(true);
                         UIInteractionOn();
-                        SoundManager.StopSound(SoundType.GameMusic1);
-                        SoundManager.PlaySound(SoundType.MenuMusic1, true, false);
+                        SoundManager.PlaySoundFadeIn(SoundType.MenuMusic1, 0.3f, true, false);
                     });
                 });
                 /* upgradePopupUIManager.ClosePopup(() =>
@@ -969,6 +969,7 @@ namespace Isometric.UI
             GameManager.UnPauseGame();
             // DOTween.KillAll();
             CoroutineManager.StopAllCoroutine();
+            SoundManager.StopFadeOut(SoundType.GameMusic1, 0.3f, false);
             LoadingUIManager.LoadScene(s_Instance.m_SceneName);
             // SceneManager.LoadScene(s_Instance.m_SceneName);
         }

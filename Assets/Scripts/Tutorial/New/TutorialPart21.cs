@@ -22,11 +22,13 @@ namespace Isometric.Tutorial
         [SerializeField] Vector2 m_ArrowOffset;
 
         private MainServiceCustomerHandler m_TargetCustomerHandler;
+        private Coroutine m_CheckForOrderDeliveryCoroutine = null;
         private bool m_HasTargetOrderDelivered = false;
         
 
         public override void Play()
         {
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFillBoosterUsed;
             StartCoroutine(CheckForTargetOrderQuery());
         }
         
@@ -77,7 +79,7 @@ namespace Isometric.Tutorial
             m_GestureTap.SetActive(true);
             m_GestureArrow.transform.position = (Vector2)m_TargetCustomerHandler.transform.position + m_ArrowOffset;
             m_GestureArrow.SetActive(true);
-            StartCoroutine(CheckForOrderDelivery());
+            m_CheckForOrderDeliveryCoroutine = StartCoroutine(CheckForOrderDelivery());
         }
 
         private IEnumerator CheckForOrderDelivery()
@@ -97,11 +99,22 @@ namespace Isometric.Tutorial
 
         private void End()
         {
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFillBoosterUsed;
             m_GestureTap.SetActive(false);
             m_GestureArrow.SetActive(false);
             m_Holder.SetActive(false);
             m_HasTargetOrderDelivered = false;
             Stop();
+        }
+
+        private void OnInstantOrderFillBoosterUsed()
+        {
+            if(m_CheckForOrderDeliveryCoroutine != null)
+            {
+                StopCoroutine(m_CheckForOrderDeliveryCoroutine);
+                m_CheckForOrderDeliveryCoroutine = null;
+                End();
+            }
         }
     }
 }

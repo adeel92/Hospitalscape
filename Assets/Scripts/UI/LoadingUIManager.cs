@@ -28,7 +28,8 @@ namespace Isometric.UI
         [SerializeField] Vector2 m_CharacterStartAnchorPosition;
         [SerializeField] PlayDoTween m_CharacterHolderTween;
 
-        [ReadOnly, Space, SerializeField] bool m_IsLoading = false;
+        [ReadOnly, Space, SerializeField] bool m_IsLoadingScreenActive = false;
+        [ReadOnly, Space, SerializeField] bool m_IsSceneLoadingInProcess = false;
 
         private void Awake()
         {
@@ -57,7 +58,7 @@ namespace Isometric.UI
                 return;
             }
 
-            if (s_Instance.m_IsLoading)
+            if (s_Instance.m_IsLoadingScreenActive)
                 return;
 
             s_Instance.StartCoroutine(s_Instance.LoadSceneRoutine(sceneName));
@@ -65,19 +66,24 @@ namespace Isometric.UI
         private IEnumerator LoadSceneRoutine(string sceneName)
         {
             AsyncOperation loadingOperation = null;
-            m_IsLoading = true;
+            m_IsSceneLoadingInProcess = true;
+            m_IsLoadingScreenActive = true;
+            GameManager.PauseGame();
             CameraController.SetEnvironemntInteractiblity(false);
+
             Debug.Log($"ADEEL LOADING 1");
+
             OpenPopup(() =>
             {
                 Debug.Log($"ADEEL LOADING 3");
-                DOTween.KillAll();
                 Debug.Log($"ADEEL LOADING 4");
+                // TweenDiagnostics.LogActiveTweens("Before Kill");
+                DOTween.KillAll();
+                // TweenDiagnostics.LogActiveTweens("After Kill");
                 loadingOperation = SceneManager.LoadSceneAsync(sceneName);
             });
 
             Debug.Log($"ADEEL LOADING 2");
-            yield return null;
 
             while (loadingOperation == null || !loadingOperation.isDone)
             {
@@ -85,9 +91,16 @@ namespace Isometric.UI
                 yield return null;
             }
 
+            yield return new WaitUntil(() => InternetUIManager.IsInternetAvailable());
+
+            DOTween.KillAll();
+            GameManager.UnPauseGame();
+            m_IsSceneLoadingInProcess = false;
+            // TweenDiagnostics.LogActiveTweens("After Scene Load");
+
             Debug.Log($"ADEEL LOADING 6");
-            Debug.Log($"ADEEL LOADING 6 (timescale): {Time.timeScale}");
-            Time.timeScale = 1f;    // mrcHefF
+            // Debug.Log($"ADEEL LOADING 6 (timescale): {Time.timeScale}");
+            // Time.timeScale = 1f;    // mrcHefF
             m_LoadingBarFillImage.DOFillAmount(1f, m_LoadingDuration).OnComplete(() =>
             {
                 Debug.Log($"ADEEL LOADING 8");
@@ -97,8 +110,27 @@ namespace Isometric.UI
                 });
             });
             Debug.Log($"ADEEL LOADING 7");
-            s_Instance.StartCoroutine(s_Instance.ShowCharacter());
+            // s_Instance.StartCoroutine(s_Instance.ShowCharacter());
         }
+
+        /* private IEnumerator LoadSceneRoutine(string sceneName)
+        {
+            m_IsLoading = true;
+
+            CameraController.SetEnvironemntInteractiblity(false);
+
+            yield return null;
+
+            TweenDiagnostics.LogActiveTweens("Before Kill");
+
+            DOTween.KillAll();
+
+            TweenDiagnostics.LogActiveTweens("After Kill");
+
+            SceneManager.LoadScene(sceneName);
+
+            m_IsLoading = false;
+        } */
 
         /// <summary>
         /// Opens a loading screen with opened callback and closes it automatically after an inside loading duration followed by a closed callback.
@@ -111,21 +143,21 @@ namespace Isometric.UI
                 return;
             }
 
-            if (s_Instance.m_IsLoading)
+            if (s_Instance.m_IsLoadingScreenActive)
                 return;
 
-            s_Instance.m_IsLoading = true;
+            s_Instance.m_IsLoadingScreenActive = true;
             OpenPopup(() =>
             {
                 s_Instance.m_LoadingBarFillImage.DOFillAmount(1f, s_Instance.m_LoadingDuration).OnComplete(() =>
                 {
                     ClosePopup(() =>
                     {
-                        s_Instance.HideCharacter();
+                        // s_Instance.HideCharacter();
                         closedCallback?.Invoke();
                     });
                 });
-                s_Instance.StartCoroutine(s_Instance.ShowCharacter());
+                // s_Instance.StartCoroutine(s_Instance.ShowCharacter());
                 openedCallback?.Invoke();
             });
         }
@@ -179,13 +211,13 @@ namespace Isometric.UI
             {
                 s_Instance.m_Popup.SetActive(false);
                 UIManager.UIInteractionOn();
-                s_Instance.m_IsLoading = false;
+                s_Instance.m_IsLoadingScreenActive = false;
                 s_Instance.m_LoadingCamera.gameObject.SetActive(false);
                 callback?.Invoke();
             });
         }
 
-        public static bool IsLoadingActive()
+        public static bool IsLoadingScreenActive()
         {
             if (s_Instance == null)
             {
@@ -193,8 +225,19 @@ namespace Isometric.UI
                 return false;
             }
 
-            return s_Instance.m_IsLoading;
+            return s_Instance.m_IsLoadingScreenActive;
         }
+        public static bool IsSceneLoadingInProcess()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return false;
+            }
+
+            return s_Instance.m_IsSceneLoadingInProcess;
+        }
+        
         public static float GetLoadingDuration()
         {
             if (s_Instance == null)

@@ -25,11 +25,13 @@ namespace Isometric.Tutorial
         [SerializeField] float m_GestureDragMoveDuration;
 
         private MainServiceCustomerHandler m_TargetCustomerHandler;
+        private Coroutine m_CheckForOrderDeliveryCoroutine = null;
         private bool m_HasCustomerDroppedOnStation = false;
         
 
         public override void Play()
         {
+            GlobalEventHolder.OnInstanceOrderFillBooster += OnInstantOrderFillBoosterUsed;
             StartCoroutine(CheckForTargetOrderQuery());
         }
         
@@ -83,7 +85,7 @@ namespace Isometric.Tutorial
             {
                 m_GestureDragTrailRenderer.Clear();
             });
-            StartCoroutine(CheckForOrderDelivery());
+            m_CheckForOrderDeliveryCoroutine = StartCoroutine(CheckForOrderDelivery());
         }
 
         private IEnumerator CheckForOrderDelivery()
@@ -100,11 +102,22 @@ namespace Isometric.Tutorial
 
         private void End()
         {
+            GlobalEventHolder.OnInstanceOrderFillBooster -= OnInstantOrderFillBoosterUsed;
             m_GestureDrag.transform.DOKill();
             m_GestureDrag.SetActive(false);
             m_Holder.SetActive(false);
             m_HasCustomerDroppedOnStation = false;
             Stop();
+        }
+
+        private void OnInstantOrderFillBoosterUsed()
+        {
+            if(m_CheckForOrderDeliveryCoroutine != null)
+            {
+                StopCoroutine(m_CheckForOrderDeliveryCoroutine);
+                m_CheckForOrderDeliveryCoroutine = null;
+                End();
+            }
         }
     }
 }
