@@ -123,7 +123,7 @@ namespace Isometric.UI
         {
             SoundManager.PlaySound(SoundType.GameLost, false, false);
 
-            m_RewardButton.gameObject.SetActive(true);
+            // m_RewardButton.gameObject.SetActive(true);
             m_ContinueButton.gameObject.SetActive(true);
             m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
             int coins = Mathf.RoundToInt(LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier);

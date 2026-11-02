@@ -90,6 +90,7 @@ namespace Isometric
             }
 
             //Order Matters
+            EnvironmentItemsDisabler.EnableItemsForMenu();
             EnvironmentManager.SetupForMenu();
             PlayerManager.SetupForMenu();
             WorkerManager.SetupForMenu();

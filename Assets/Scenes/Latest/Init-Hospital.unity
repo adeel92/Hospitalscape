@@ -453,6 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Delay: 1.5
   m_MinimumLoadingDuration: 3
+  m_LoadingScreenCloseDelay: 1
   m_NextSceneName: Game-Hospital
   m_IsLogsEnabled: 1
   m_LoadingScreen: {fileID: 361438033}
@@ -565,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73214e946dcdc04ba0713fbe338bb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_StopGameOnNoInternet: 0
   m_InternetCheckInterval: 1
   m_InternetPopup: {fileID: 1612006273}
 --- !u!4 &1476240860

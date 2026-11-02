@@ -10,6 +10,7 @@ namespace Isometric.UI
         private static InternetUIManager s_Instance;
 
         [Header("---Settings---")]
+        [SerializeField] bool m_StopGameOnNoInternet = true;
         [SerializeField] float m_InternetCheckInterval = 2f;
 
         [Header("---UI---")]
@@ -33,7 +34,7 @@ namespace Isometric.UI
 
         private void Start()
         {
-            if (s_Instance != this)
+            if (s_Instance != this || !m_StopGameOnNoInternet)
                 return;
 
             CheckInternetStatus();
@@ -53,6 +54,17 @@ namespace Isometric.UI
 
         public static bool IsInternetAvailable()
         {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return true;
+            }
+
+            if (!s_Instance.m_StopGameOnNoInternet)
+            {
+                return true;
+            }
+
             return Application.internetReachability != NetworkReachability.NotReachable;
         }
 
@@ -81,6 +93,11 @@ namespace Isometric.UI
         {
             if (s_Instance == this)
                 s_Instance = null;
+        }
+
+        private static void PrintNullInstanceError()
+        {
+            Debug.LogWarning("Instance of " + nameof(InternetUIManager) + " is null");
         }
     }
 }

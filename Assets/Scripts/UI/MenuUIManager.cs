@@ -8,6 +8,7 @@ using Arc;
 using Isometric.Data;
 using Isometric.Cam;
 using Isometric.Sound;
+using Isometric.Environment;
 
 namespace Isometric.UI
 {
@@ -195,6 +196,7 @@ namespace Isometric.UI
                         {
                             LoadingUIManager.ShowLoadingScreen(() =>
                             {
+                                EnvironmentItemsDisabler.DisableItemsForGameplay();
                                 CameraController.SetupForGameplay(null);
                                 SoundManager.StopFadeOut(SoundType.MenuMusic1, 0.3f, false);
                             }, () =>
@@ -228,6 +230,7 @@ namespace Isometric.UI
             {
                 LoadingUIManager.ShowLoadingScreen(() =>
                 {
+                    EnvironmentItemsDisabler.DisableItemsForGameplay();
                     CameraController.SetEnvironemntInteractiblity(false);
                     CameraController.Interactability(false);
                     CameraController.SetupForGameplay(null);
