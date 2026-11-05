@@ -479,11 +479,13 @@ namespace Isometric.Environment
                     else
                     {
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionWrongOrder);
                     }
                 }
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionHasNoOrder);
                 }
             }
             else

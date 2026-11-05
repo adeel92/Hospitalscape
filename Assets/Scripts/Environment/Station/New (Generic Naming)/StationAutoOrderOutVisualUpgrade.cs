@@ -8,6 +8,8 @@ using Isometric.Data;
 using Isometric.TaskSystem;
 using Isometric.Cam;
 using Isometric.UI;
+using Isometric.Player;
+using Isometric.Tutorial;
 
 namespace Isometric.Environment
 {
@@ -293,6 +295,14 @@ namespace Isometric.Environment
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
                         return;
                     }
+                    else
+                    {
+                        PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
+                    }
+                }
+                else if(m_IsProcessing == true)
+                {
+                    GlobalEventHolder.OnHintByKey?.Invoke(HintKey.DispenserProcessing);
                 }
             }
             

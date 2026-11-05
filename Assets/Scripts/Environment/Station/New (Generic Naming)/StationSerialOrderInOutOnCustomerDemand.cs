@@ -10,6 +10,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Tutorial;
 using System.Linq;
+using Isometric.Player;
 
 namespace Isometric.Environment
 {
@@ -502,6 +503,7 @@ namespace Isometric.Environment
                         }
                         else
                         {
+                            PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                             break;
                         }
                     }

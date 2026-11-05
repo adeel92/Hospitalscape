@@ -17,6 +17,13 @@ namespace Isometric.UI
     {
         private static UpgradePopupUIManager s_Instance;
 
+        [Serializable]
+        private class UpgradeRecommendationHideInfo
+        {
+            public MapType MapType;
+            public int LevelIndex;
+        }
+
         private enum SideButtonType
         {
             Staff, Stations, Reveneu, Patience
@@ -65,7 +72,8 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] DataMapUpdate m_DataMapUpdate;
         [SerializeField] DataUpgradeRecommendation m_DataUpgradeRecommendation;
-        [SerializeField, ReadOnly] bool m_ShowUpgradeRecommendation = true;
+        // [SerializeField, ReadOnly] bool m_ShowUpgradeRecommendation = true;
+        [SerializeField] List<UpgradeRecommendationHideInfo> m_UpgradeRecommendationHideInfo = new();
         [SerializeField] ScrollRect m_ScrollRect;
         [SerializeField] Transform m_PanelHolder;
         [SerializeField] GameObject m_FirstHolding;
@@ -290,15 +298,17 @@ namespace Isometric.UI
             ResetScroll();
         }
 
-        public void SetShowUpgradeRecommendationOption(bool show)
-        {
-            m_ShowUpgradeRecommendation = show;
-        }
-
         public void SetupUpgradeRecommendation(bool shouldScrollFocus)
         {
             // if (Tutorial.TutorialManager.IsInTutorial()) return;
-            if(!m_ShowUpgradeRecommendation)
+            bool hideRecommendations = false;
+            if(m_UpgradeRecommendationHideInfo.Count > 0)
+            {
+                MapType currentMapType = DataManager.CurrentMapType;
+                int levelIndex = DataManager.CurrentMapLevelIndex;
+                hideRecommendations = m_UpgradeRecommendationHideInfo.Find(x => x.MapType == currentMapType && x.LevelIndex == levelIndex) != null;
+            }
+            if(hideRecommendations)
             {
                 return;
             }

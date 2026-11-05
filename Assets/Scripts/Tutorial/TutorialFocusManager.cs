@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Rendering;
+using NaughtyAttributes;
 
 namespace Isometric.Tutorial
 {
@@ -16,7 +17,17 @@ namespace Isometric.Tutorial
         private class FocusInfo
         {
             public FocusShapeType ShapeType;
-            public Sprite ShapeSprite;
+            public TutorialSoftFocus TutorialFocusWithoutBorderPrefab;
+            public TutorialSoftFocus TutorialFocusWithBorderPrefab;
+            // public Sprite ShapeSprite;
+        }
+
+        [Serializable]
+        private class OutputFocusDetail
+        {
+            public TutorialSoftFocus TutorialFocus;
+            public Coroutine FocusCoroutine;
+            // public bool HasExternalTween;
         }
 
         [SerializeField] GameObject m_Holder;
@@ -24,17 +35,20 @@ namespace Isometric.Tutorial
         [SerializeField] Button m_BackgroundButton;
         [SerializeField] Transform m_FocusHolder;
         //[SerializeField] Image m_FocusImage;
-        [SerializeField] Image m_FocusImagePrefab;
-        public List<Tuple<Transform, Coroutine>> m_Focuses = new List<Tuple<Transform, Coroutine>>();
+        // [SerializeField] Image m_FocusImagePrefab;
+        // public List<Tuple<Transform, Coroutine>> m_Focuses = new List<Tuple<Transform, Coroutine>>();
+        [SerializeField, ReadOnly] List<OutputFocusDetail> m_Focuses = new();
         [SerializeField] List<FocusInfo> m_FocusInfos;
 
-        [Header("---Tween Smoothness---")]
+        [Header("---Background Tween Smoothness---")]
         [SerializeField] CanvasGroup m_CanvasGroup;
         [SerializeField] float m_FocusDisableDuration = 0.15f;
         [SerializeField] float m_BackgroundAlpha = 0.9f;
         [SerializeField] float m_BackgroundTweenDuration = 0.2f;
+
+        /* [Header("---Focus Image Tween Smoothness---\n(Use this when external tween sequence for focus image is not present)")]
         [SerializeField] Ease m_FocusImageEaseType = Ease.InBack;
-        [SerializeField] float m_FocusImageTweenDuration = 0.15f;
+        [SerializeField] float m_FocusImageTweenDuration = 0.2f; */
         private Sequence m_FocusEnablingSequence = null;
         private Sequence m_FocusDisablingSequence = null;
 
@@ -47,7 +61,10 @@ namespace Isometric.Tutorial
             }
         }
 
-        public static Transform FocusAtPosition(Vector2 position, Vector2 offset, Vector2 scale, FocusShapeType shapeType)
+        /// <summary>
+        /// This soft mask focus displays the background directly without smoothness and keep the focus image at a fixed position
+        /// </summary>
+        public static Transform FocusAtPosition(Vector2 position, Vector2 offset, Vector2 scale, FocusShapeType shapeType, bool useBorderType = false)
         {
             if (s_Instnace == null)
             {
@@ -57,71 +74,42 @@ namespace Isometric.Tutorial
 
             s_Instnace.m_Holder.SetActive(true);
 
-            Image focusImage = Instantiate(s_Instnace.m_FocusImagePrefab, s_Instnace.m_FocusHolder);
+            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
+            TutorialSoftFocus focusPrefab = useBorderType ? focusInfo.TutorialFocusWithBorderPrefab : focusInfo.TutorialFocusWithoutBorderPrefab;
+            TutorialSoftFocus tutorialFocus = Instantiate(focusPrefab, s_Instnace.m_FocusHolder);
+            // Image focusImage = tutorialFocus.FocusImage;
 
-            Vector3 focusPosition = focusImage.transform.position;
+            Vector3 focusPosition = tutorialFocus.transform.position;
             focusPosition.x = position.x + offset.x;
             focusPosition.y = position.y + offset.y;
 
-            focusImage.transform.position = focusPosition;
-            focusImage.transform.localScale = scale;
+            tutorialFocus.transform.position = focusPosition;
+            tutorialFocus.transform.localScale = scale;
             s_Instnace.m_CanvasGroup.alpha = 1f;
 
-            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
-            if (focusInfo != null)
+            /* if (focusInfo != null)
             {
                 focusImage.sprite = focusInfo.ShapeSprite;
-            }
+            } */
 
-
-            Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, null);
-
-            s_Instnace.m_Focuses.Add(focus);
-
-
-            return focusImage.transform;
-        }
-
-
-        public static Transform FocusAtTransform(Transform target, Vector2 offset, Vector2 scale, FocusShapeType shapeType)
-        {
-            if (s_Instnace == null)
+            OutputFocusDetail outputFocus = new()
             {
-                PrintNullInstanceError();
-                return null;
-            }
+                TutorialFocus = tutorialFocus,
+                FocusCoroutine = null,
+                // HasExternalTween = false  
+            };
+            // Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, null);
 
-            s_Instnace.m_Holder.SetActive(true);
+            s_Instnace.m_Focuses.Add(outputFocus);
+            tutorialFocus.PlayEnablingTween(null, null);
 
-            Image focusImage = Instantiate(s_Instnace.m_FocusImagePrefab, s_Instnace.m_FocusHolder);
-
-            Vector3 focusPosition = focusImage.transform.position;
-            focusPosition.x = target.position.x + offset.x;
-            focusPosition.y = target.position.y + offset.y;
-
-            focusImage.transform.position = focusPosition;
-            focusImage.transform.localScale = scale;
-            s_Instnace.m_CanvasGroup.alpha = 1f;
-
-            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
-            if (focusInfo != null)
-            {
-                focusImage.sprite = focusInfo.ShapeSprite;
-            }
-
-            Coroutine focusCorotine = s_Instnace.StartCoroutine(s_Instnace.FocusingAtTransform(focusImage, target, offset));
-
-            Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, focusCorotine);
-
-            s_Instnace.m_Focuses.Add(focus);
-
-            return focusImage.transform;
+            return tutorialFocus.transform;
         }
 
         /// <summary>
-        /// This soft mask focus uses DOTween to display the background and focus UI with smoothness
+        /// This soft mask focus uses DOTween to display the background with smoothness and keep the focus image at a fixed position
         /// </summary>
-        public static Transform FocusAtTransform(Transform target, Vector2 offset, Vector2 scale, FocusShapeType shapeType, Action onFocusStart, Action onFocusComplete)
+        public static Transform FocusAtPosition(Vector2 position, Vector2 offset, Vector2 scale, FocusShapeType shapeType, Action onFocusStart, Action onFocusComplete, bool useBorderType = false)
         {
             if (s_Instnace == null)
             {
@@ -136,53 +124,183 @@ namespace Isometric.Tutorial
 
             s_Instnace.m_Holder.SetActive(true);
 
-            Image focusImage = Instantiate(s_Instnace.m_FocusImagePrefab, s_Instnace.m_FocusHolder);
+            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
+            TutorialSoftFocus focusPrefab = useBorderType ? focusInfo.TutorialFocusWithBorderPrefab : focusInfo.TutorialFocusWithoutBorderPrefab;
+            TutorialSoftFocus tutorialFocus = Instantiate(focusPrefab, s_Instnace.m_FocusHolder);
+            // Image focusImage = tutorialFocus.FocusImage;
 
-            Vector3 focusPosition = focusImage.transform.position;
+            Vector3 focusPosition = tutorialFocus.transform.position;
+            focusPosition.x = position.x + offset.x;
+            focusPosition.y = position.y + offset.y;
+
+            tutorialFocus.transform.position = focusPosition;
+            tutorialFocus.transform.localScale = scale;
+            
+            Color backgroundColor = s_Instnace.m_BackgroundImage.color;
+            backgroundColor.a = 0f;
+            s_Instnace.m_BackgroundImage.color = backgroundColor;
+            s_Instnace.m_CanvasGroup.alpha = 1f;
+
+            /* if (focusInfo != null)
+            {
+                focusImage.sprite = focusInfo.ShapeSprite;
+            } */
+
+            OutputFocusDetail outputFocus = new()
+            {
+                TutorialFocus = tutorialFocus,
+                FocusCoroutine = null,
+                // HasExternalTween = false  
+            };
+            // Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, null);
+
+            s_Instnace.m_Focuses.Add(outputFocus);
+            
+            s_Instnace.m_FocusEnablingSequence = DOTween.Sequence();
+            s_Instnace.m_FocusEnablingSequence.SetUpdate(true);
+
+            /* s_Instnace.m_FocusEnablingSequence.InsertCallback(0,
+                () => { onFocusStart?.Invoke(); }
+            ); */
+
+            s_Instnace.m_FocusEnablingSequence.Insert(0,
+                s_Instnace.m_BackgroundImage.DOFade(s_Instnace.m_BackgroundAlpha, s_Instnace.m_BackgroundTweenDuration)
+            );
+
+            /* s_Instnace.m_FocusEnablingSequence.Insert(0,
+                tutorialFocus.transform.DOScale(scale, s_Instnace.m_FocusImageTweenDuration).SetEase(s_Instnace.m_FocusImageEaseType)
+            ); */
+
+            /* s_Instnace.m_FocusEnablingSequence.OnComplete(() =>
+            {
+                onFocusComplete?.Invoke();
+            }); */
+
+            tutorialFocus.PlayEnablingTween(onFocusStart, onFocusComplete);
+
+            return tutorialFocus.transform;
+        }
+
+        /// <summary>
+        /// This soft mask focus displays the background directly without smoothness and let the focus image follow the target transform
+        /// </summary>
+        public static Transform FocusAtTransform(Transform target, Vector2 offset, Vector2 scale, FocusShapeType shapeType, bool useBorderType = false)
+        {
+            if (s_Instnace == null)
+            {
+                PrintNullInstanceError();
+                return null;
+            }
+
+            s_Instnace.m_Holder.SetActive(true);
+
+            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
+            TutorialSoftFocus focusPrefab = useBorderType ? focusInfo.TutorialFocusWithBorderPrefab : focusInfo.TutorialFocusWithoutBorderPrefab;
+            TutorialSoftFocus tutorialFocus = Instantiate(focusPrefab, s_Instnace.m_FocusHolder);
+
+            Vector3 focusPosition = tutorialFocus.transform.position;
             focusPosition.x = target.position.x + offset.x;
             focusPosition.y = target.position.y + offset.y;
 
-            focusImage.transform.position = focusPosition;
-            focusImage.transform.localScale = scale + (Vector2.one * 0.35f);
+            tutorialFocus.transform.position = focusPosition;
+            tutorialFocus.transform.localScale = scale;
+            s_Instnace.m_CanvasGroup.alpha = 1f;
+
+            /* if (focusInfo != null)
+            {
+                focusImage.sprite = focusInfo.ShapeSprite;
+            } */
+
+            Coroutine focusCorotine = s_Instnace.StartCoroutine(s_Instnace.FocusingAtTransform(tutorialFocus.transform, target, offset));
+
+            OutputFocusDetail outputFocus = new()
+            {
+                TutorialFocus = tutorialFocus,
+                FocusCoroutine = focusCorotine,
+                // HasExternalTween = false
+            };
+            // Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, focusCorotine);
+
+            s_Instnace.m_Focuses.Add(outputFocus);
+            tutorialFocus.PlayEnablingTween(null, null);
+
+            return tutorialFocus.transform;
+        }
+
+        /// <summary>
+        /// This soft mask focus uses DOTween to display the background with smoothness and let the focus image follow the target transform
+        /// </summary>
+        public static Transform FocusAtTransform(Transform target, Vector2 offset, Vector2 scale, FocusShapeType shapeType, Action onFocusStart, Action onFocusComplete, bool useBorderType = false)
+        {
+            if (s_Instnace == null)
+            {
+                PrintNullInstanceError();
+                return null;
+            }
+
+            if(s_Instnace.m_FocusEnablingSequence != null)
+            {
+                s_Instnace.m_FocusEnablingSequence.Kill();    
+            }
+
+            s_Instnace.m_Holder.SetActive(true);
+
+            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
+            TutorialSoftFocus focusPrefab = useBorderType ? focusInfo.TutorialFocusWithBorderPrefab : focusInfo.TutorialFocusWithoutBorderPrefab;
+            TutorialSoftFocus tutorialFocus = Instantiate(focusPrefab, s_Instnace.m_FocusHolder);
+
+            Vector3 focusPosition = tutorialFocus.transform.position;
+            focusPosition.x = target.position.x + offset.x;
+            focusPosition.y = target.position.y + offset.y;
+
+            tutorialFocus.transform.position = focusPosition;
+            tutorialFocus.transform.localScale = scale /* + (Vector2.one * 0.35f) */;
 
             Color backgroundColor = s_Instnace.m_BackgroundImage.color;
             backgroundColor.a = 0f;
             s_Instnace.m_BackgroundImage.color = backgroundColor;
             s_Instnace.m_CanvasGroup.alpha = 1f;
 
-            FocusInfo focusInfo = s_Instnace.m_FocusInfos.Find((x) => x.ShapeType == shapeType);
-            if (focusInfo != null)
+            /* if (focusInfo != null)
             {
                 focusImage.sprite = focusInfo.ShapeSprite;
-            }
+            } */
 
-            Coroutine focusCorotine = s_Instnace.StartCoroutine(s_Instnace.FocusingAtTransform(focusImage, target, offset));
+            Coroutine focusCorotine = s_Instnace.StartCoroutine(s_Instnace.FocusingAtTransform(tutorialFocus.transform, target, offset));
 
-            Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, focusCorotine);
+            OutputFocusDetail outputFocus = new()
+            {
+                TutorialFocus = tutorialFocus,
+                FocusCoroutine = focusCorotine,
+                // HasExternalTween = useExternalTween
+            };
+            // Tuple<Transform, Coroutine> focus = new Tuple<Transform, Coroutine>(focusImage.transform, focusCorotine);
 
-            s_Instnace.m_Focuses.Add(focus);
-
+            s_Instnace.m_Focuses.Add(outputFocus);
+            
             s_Instnace.m_FocusEnablingSequence = DOTween.Sequence();
             s_Instnace.m_FocusEnablingSequence.SetUpdate(true);
 
-            s_Instnace.m_FocusEnablingSequence.InsertCallback(0,
+            /* s_Instnace.m_FocusEnablingSequence.InsertCallback(0,
                 () => { onFocusStart?.Invoke(); }
-            );
+            ); */
 
             s_Instnace.m_FocusEnablingSequence.Insert(0,
                 s_Instnace.m_BackgroundImage.DOFade(s_Instnace.m_BackgroundAlpha, s_Instnace.m_BackgroundTweenDuration)
             );
 
-            s_Instnace.m_FocusEnablingSequence.Insert(0,
-                focusImage.transform.DOScale(scale, s_Instnace.m_FocusImageTweenDuration).SetEase(s_Instnace.m_FocusImageEaseType)
-            );
+            /* s_Instnace.m_FocusEnablingSequence.Insert(0,
+                tutorialFocus.transform.DOScale(scale, s_Instnace.m_FocusImageTweenDuration).SetEase(s_Instnace.m_FocusImageEaseType)
+            ); */
 
-            s_Instnace.m_FocusEnablingSequence.OnComplete(() =>
+            /* s_Instnace.m_FocusEnablingSequence.OnComplete(() =>
             {
                 onFocusComplete?.Invoke();
-            });
+            }); */
 
-            return focusImage.transform;
+            tutorialFocus.PlayEnablingTween(onFocusStart, onFocusComplete);
+
+            return tutorialFocus.transform;
         }
 
         public static void SetBackgroundButtonCallback(Action backgroundClickCallback)
@@ -215,7 +333,7 @@ namespace Isometric.Tutorial
                 return;
             }
 
-            var focus = s_Instnace.m_Focuses.Find((x) => x.Item1 == focusTarget);
+            var outputFocus = s_Instnace.m_Focuses.Find((x) => x.TutorialFocus == focusTarget);
             
             if(s_Instnace.m_FocusDisablingSequence != null)
             {
@@ -229,19 +347,19 @@ namespace Isometric.Tutorial
             );
             s_Instnace.m_FocusDisablingSequence.OnComplete(() =>
             {
-                if (focus != null)
+                if (outputFocus != null)
                 {
-                    if (focus.Item1 != null)
+                    if (outputFocus.TutorialFocus != null)
                     {
-                        Destroy(focus.Item1.gameObject);
+                        Destroy(outputFocus.TutorialFocus.gameObject);
                     }
 
-                    if (focus.Item2 != null)
+                    if (outputFocus.FocusCoroutine != null)
                     {
-                        s_Instnace.StopCoroutine(focus.Item2);
+                        s_Instnace.StopCoroutine(outputFocus.FocusCoroutine);
                     }
 
-                    s_Instnace.m_Focuses.Remove(focus);
+                    s_Instnace.m_Focuses.Remove(outputFocus);
                 }
 
                 if (s_Instnace.m_Focuses.Count == 0)
@@ -271,23 +389,22 @@ namespace Isometric.Tutorial
             );
             s_Instnace.m_FocusDisablingSequence.OnComplete(() =>
             {
-                foreach (var focus in s_Instnace.m_Focuses)
+                foreach (var outputFocus in s_Instnace.m_Focuses)
                 {
-                    if (focus.Item1 != null)
+                    if (outputFocus.TutorialFocus != null)
                     {
-                        Destroy(focus.Item1.gameObject);
+                        Destroy(outputFocus.TutorialFocus.gameObject);
                     }
 
-                    if (focus.Item2 != null)
+                    if (outputFocus.FocusCoroutine != null)
                     {
-                        s_Instnace.StopCoroutine(focus.Item2);
+                        s_Instnace.StopCoroutine(outputFocus.FocusCoroutine);
                     }
                 }
 
-                s_Instnace.m_Focuses = new List<Tuple<Transform, Coroutine>>();
+                s_Instnace.m_Focuses = new();
                 s_Instnace.m_Holder.SetActive(false);
             });
-
         }
 
         public static void StopAllFocusInstantly()
@@ -304,33 +421,33 @@ namespace Isometric.Tutorial
             }
 
             s_Instnace.m_CanvasGroup.alpha = 0f;
-            foreach (var focus in s_Instnace.m_Focuses)
+            foreach (var outputFocus in s_Instnace.m_Focuses)
             {
-                if (focus.Item1 != null)
+                if (outputFocus.TutorialFocus != null)
                 {
-                    Destroy(focus.Item1.gameObject);
+                    Destroy(outputFocus.TutorialFocus.gameObject);
                 }
 
-                if (focus.Item2 != null)
+                if (outputFocus.FocusCoroutine != null)
                 {
-                    s_Instnace.StopCoroutine(focus.Item2);
+                    s_Instnace.StopCoroutine(outputFocus.FocusCoroutine);
                 }
             }
 
-            s_Instnace.m_Focuses = new List<Tuple<Transform, Coroutine>>();
+            s_Instnace.m_Focuses = new();
             s_Instnace.m_Holder.SetActive(false);
         }
 
 
-        IEnumerator FocusingAtTransform(Image focusImage, Transform target, Vector2 offset)
+        IEnumerator FocusingAtTransform(Transform focus, Transform target, Vector2 offset)
         {
             while (true)
             {
-                Vector3 focusPosition = focusImage.transform.position;
+                Vector3 focusPosition = focus.position;
                 focusPosition.x = target.position.x + offset.x;
                 focusPosition.y = target.position.y + offset.y;
 
-                focusImage.transform.position = focusPosition;
+                focus.position = focusPosition;
 
                 yield return null;
             }

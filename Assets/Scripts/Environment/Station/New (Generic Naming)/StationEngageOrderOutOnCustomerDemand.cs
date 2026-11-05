@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 using UnityEngine.Profiling;
 using Isometric.Customer;
 using System;
+using Isometric.Player;
 
 namespace Isometric.Environment
 {
@@ -290,11 +291,16 @@ namespace Isometric.Environment
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                 }
             }
             else
             {
                 m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                if (!HasAnyDemandedCustomer())
+                {
+                    GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.DiagnosisGenHasNoReport);
+                }
             }
         }
 

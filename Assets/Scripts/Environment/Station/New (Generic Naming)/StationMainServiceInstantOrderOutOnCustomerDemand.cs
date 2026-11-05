@@ -7,6 +7,7 @@ using Isometric.TaskSystem;
 using Isometric.UI;
 using System;
 using Isometric.Customer;
+using Isometric.Player;
 
 namespace Isometric.Environment
 {
@@ -271,6 +272,10 @@ namespace Isometric.Environment
                         OnFoodOutSuccesful?.Invoke();
                         isOutputSuccessfullySent = true;
                         m_CurrentOutputOrderInfos.RemoveAt(i);
+                    }
+                    else
+                    {
+                        PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                     }
                 }
 

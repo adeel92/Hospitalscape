@@ -7,6 +7,7 @@ using Isometric.Data;
 using Isometric.TaskSystem;
 using Isometric.Cam;
 using Isometric.UI;
+using Isometric.Player;
 
 namespace Isometric.Environment
 {
@@ -190,6 +191,7 @@ namespace Isometric.Environment
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                 }
             }
             else

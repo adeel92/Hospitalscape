@@ -10,6 +10,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Tutorial;
 using Unity.VisualScripting;
+using Isometric.Player;
 
 namespace Isometric.Environment
 {
@@ -240,6 +241,14 @@ namespace Isometric.Environment
                         }
                         gotNextFoodType = true;
                     }
+                    else
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjNeedsNormalInj);
+                    }
+                }
+                else if(m_IsProcessing == true)
+                {
+                    GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjProcessing);
                 }
 
                 foreach (var item in m_StationOutInfo)
@@ -252,6 +261,10 @@ namespace Isometric.Environment
                             item.OnOrderOutSuccesful?.Invoke();
                             isTaskSuccessful = true;
                             break;
+                        }
+                        else
+                        {
+                            PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                         }
                     }
                 }

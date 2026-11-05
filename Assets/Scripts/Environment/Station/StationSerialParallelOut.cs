@@ -9,6 +9,7 @@ using Isometric.TaskSystem;
 using Isometric.PathSystem;
 using Isometric.Cam;
 using Isometric.UI;
+using Isometric.Player;
 
 
 namespace Isometric.Environment
@@ -123,11 +124,26 @@ namespace Isometric.Environment
                         else
                         {
                             TaskTrigger.SendTaskResult(TaskResult.Failed);
+                            PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                         }
                     }
                     else
                     {
                         TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        switch (IDIndex)
+                        {
+                            case 1:
+                            GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.VitaminsProcessing);
+                            break;
+
+                            case 2:
+                            GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.CapsulesProcessing);
+                            break;
+
+                            case 3:
+                            GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.SyrupsProcessing);
+                            break;
+                        }
                     }
 
                     /* if (CurrentlyHolding != CapacityProperty)

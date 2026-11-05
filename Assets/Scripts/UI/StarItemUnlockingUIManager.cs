@@ -53,6 +53,9 @@ namespace Isometric.UI
         [ReadOnly, SerializeField] StartItemChoiceButtonUI m_CurrentSelectedChoiceButton;
         [SerializeField] Button m_ChoiceApplyButton;
 
+        public Action OnStarItemUnlockingPopupOpened;
+        public Action OnStarItemUnlockingPopupClosed;
+
         private StarItemInfo m_CurrentStarItemInfo = null;
 
         public override void Setup() {}
@@ -210,6 +213,7 @@ namespace Isometric.UI
             m_OpeningSequence.PlaySequence(() =>
             {
                 callback?.Invoke();
+                OnStarItemUnlockingPopupOpened?.Invoke();
             });
         }
 
@@ -221,6 +225,7 @@ namespace Isometric.UI
             {
                 m_Popup.SetActive(false);
                 callback?.Invoke();
+                OnStarItemUnlockingPopupClosed?.Invoke();
             });
         }
 

@@ -19,7 +19,9 @@ namespace Isometric.Tutorial
             public bool HasDataConsumableKey;
             [AllowNesting, ShowIf(nameof(HasDataConsumableKey))]
             public DataConsumable DataConsumable;
-            public UnityEvent OnHintCalled;
+            public UnityEvent<HintKey> OnHintCalledWithKey;
+            [AllowNesting, ShowIf(nameof(HasDataConsumableKey))]
+            public UnityEvent<DataConsumable> OnHintCalledWithConsumable;
         }
 
         [SerializeField] List<HintInfo> m_HintsInfo;
@@ -52,10 +54,15 @@ namespace Isometric.Tutorial
                 return;
             }
 
+            if (TutorialManager.IsInTutorial())
+            {
+                return;
+            }
+
             HintInfo hintInfo = s_Instance.m_HintsInfo.Find((x) => x.HintKey == hintKey);
             if (hintInfo != null)
             {
-                hintInfo.OnHintCalled?.Invoke();
+                hintInfo.OnHintCalledWithKey?.Invoke(hintKey);
             }
         }
 
@@ -67,10 +74,15 @@ namespace Isometric.Tutorial
                 return;
             }
 
+            if (TutorialManager.IsInTutorial())
+            {
+                return;
+            }
+
             HintInfo hintInfo = s_Instance.m_HintsInfo.Find((x) => x.DataConsumable == dataConsumable);
             if (hintInfo != null)
             {
-                hintInfo.OnHintCalled?.Invoke();
+                hintInfo.OnHintCalledWithConsumable?.Invoke(dataConsumable);
             }
         }
 
@@ -82,20 +94,26 @@ namespace Isometric.Tutorial
 
     public enum HintKey
     {
-        WorkerOrderFacial,
-        WorkerOrderHairCut,
-        WorkerOrderHairDye,
-        WorkerOrderMakeup,
-        WorkerOrderManicurePedicure,
-        SaladFood,
-        SaladBarFood,
-        CurlyFriesFood,
-        PopopCornFood,
-        FriesFood,
-        FishCookedFood,
-        FishRawFood,
-        IceCreamFood,
-        SodaFood,
-        Performance
+        None,
+        TrayOutOfSpace,
+        ResearchCenterNeedsSample,
+        ResearchCenterProcessing,
+        ResearchCenterHasNoReport,
+        SpecializedInjProcessing,
+        SpecializedInjNeedsNormalInj,
+        DispenserProcessing,
+        VitaminsProcessing,
+        CapsulesProcessing,
+        SyrupsProcessing,
+        DiagnosisGenHasNoReport,
+        ReceptionHasNoOrder,
+        ReceptionWrongOrder,
+        YellowDoctorUnavailable,
+        BlueDoctorUnavailable,
+        GreenDoctorUnavailable,
+        PurpleDoctorUnavailable,
+        RedDoctorUnavailable,
+        BedHasNoTask,
+        BedWrongOrder,
     }
 }

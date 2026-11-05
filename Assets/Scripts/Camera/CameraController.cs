@@ -680,6 +680,7 @@ namespace Isometric.Cam
             return Mathf.Min(maxZoomWidth, maxZoomHeight);
         }
 
+
         private void OnDrawGizmos()
         {
             MenuZoomBoundery();

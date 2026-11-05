@@ -249,6 +249,16 @@ namespace Isometric.Player
         private void OnGameWon()
         {
             GlobalEventHolder.OnCurrentTaskTargetCancleImmediately?.Invoke();
+            if(WaitForGreetingReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForGreetingReactionCoroutine);
+                WaitForGreetingReactionCoroutine = null;
+            }
+            if(WaitForNoTaskReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForNoTaskReactionCoroutine);
+                WaitForNoTaskReactionCoroutine = null;
+            }
             // SoundManager.PlaySound(SoundType.CrowdCheering);
             m_AnimatorController.PlayHappyWon();
         }
@@ -256,10 +266,28 @@ namespace Isometric.Player
         private void OnGameLost()
         {
             GlobalEventHolder.OnCurrentTaskTargetCancleImmediately?.Invoke();
+            if(WaitForGreetingReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForGreetingReactionCoroutine);
+                WaitForGreetingReactionCoroutine = null;
+            }
+            if(WaitForNoTaskReactionCoroutine != null)
+            {
+                StopCoroutine(WaitForNoTaskReactionCoroutine);
+                WaitForNoTaskReactionCoroutine = null;
+            }
             m_AnimatorController.PlaySadLost();
         }
 
         #region Station Interactable
+        public void ShowOutOfCapacityHint()
+        {
+            if (!m_TrayController.HasCapacity())
+            {
+                GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrayOutOfSpace);
+            }
+        }
+
         public Tuple<bool, int> GetDataConsumable(DataConsumable dataConsumable)
         {
             if (m_TrayController.HasItem(dataConsumable.Key))

@@ -200,6 +200,11 @@ namespace Isometric.TaskSystem
             }
         }
 
+        public bool HasTasks()
+        {
+            return m_Tasks.Count > 0;
+        }
+
         public void DeleteAllTasks()
         {
             m_IsRunningTask = false;

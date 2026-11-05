@@ -34,23 +34,6 @@ namespace Isometric.Tutorial
         private Button m_WorkerUpgradePane2Button = null;
 
 
-        private void OnEnable()
-        {
-            m_UpgradePopupUIManager.OnUpgradePopupOpened += SetUpgradeRecommendationOption;
-        }
-        private void OnDisable()
-        {
-            m_UpgradePopupUIManager.OnUpgradePopupOpened -= SetUpgradeRecommendationOption;
-        }
-
-        private void SetUpgradeRecommendationOption()
-        {
-            if (DataManager.GetBool(m_TutorialKey, false) == false)
-            {
-                m_UpgradePopupUIManager.SetShowUpgradeRecommendationOption(false);
-            }
-        }
-
         public override void Play()
         {
             Step1();
@@ -178,7 +161,6 @@ namespace Isometric.Tutorial
             m_WorkerUpgradePane2Button.onClick.RemoveListener(Complete);
 
             m_UpgradePopupUIManager.ScrollRectOn();
-            m_UpgradePopupUIManager.SetShowUpgradeRecommendationOption(true);
             TutorialFocusManager.StopAllFocus();
 
             m_DialogStep2.SetActive(false);

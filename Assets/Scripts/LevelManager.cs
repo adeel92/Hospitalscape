@@ -5,7 +5,6 @@ using NaughtyAttributes;
 using Isometric.Data;
 using Isometric.UI;
 using Isometric.Cam;
-using Unity.VisualScripting.Dependencies.NCalc;
 
 namespace Isometric
 { 
@@ -429,6 +428,16 @@ namespace Isometric
         #endregion
 
         #region Helper
+        public static bool HasGameEnded()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return false;
+            }
+
+            return s_Instance.m_HasGameWon || s_Instance.m_HasGameLost;
+        }
 
         public static int GetTargetValue()
         {

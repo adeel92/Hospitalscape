@@ -165,6 +165,17 @@ namespace Isometric.Tutorial
             s_Instance.m_TapToContinueTextUp.SetActive(false);
         }
 
+        public static bool IsInTutorial()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return false;
+            }
+            
+            return s_Instance.m_CurrentTutorial != null;
+        }
+
         private static void PrintNullInstanceError()
         {
             Debug.LogWarning("Instance of " + nameof(TutorialManager) + " is null");

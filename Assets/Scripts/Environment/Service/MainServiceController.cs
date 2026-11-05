@@ -39,6 +39,11 @@ namespace Isometric.Environment
         [SerializeField] PathNode m_WorkerServeNode;
 
         [SerializeField] TaskTrigger m_TaskTrigger;
+        [SerializeField] bool m_UseStandingNode;
+        [SerializeField, ShowIf(nameof(m_UseStandingNode))] PathNode m_StandingNode;
+        [SerializeField, ShowIf(nameof(m_UseStandingNode))] float m_DelayBeforeStandingNodeOnSuccess = 1f;
+        [SerializeField, ShowIf(nameof(m_UseStandingNode))] float m_DelayBeforeStandingNodeOnFailure = 1.35f;
+        
 
         public UnityEvent OnIsLocked;
         [Header("-Unlocking for the first time")]
@@ -438,6 +443,7 @@ namespace Isometric.Environment
                         CoroutineManager.LateAction(ShowNextOrder, m_WaitDuration);
 
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                        TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Success);
                     }
                     else if (hasBeenServedSomething == true)
                     {
@@ -457,6 +463,7 @@ namespace Isometric.Environment
                         CheckChairLeaveOrder();
 
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                        TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Success);
                     }
                     else
                     {
@@ -467,7 +474,9 @@ namespace Isometric.Environment
                                 GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
                             }
                         }
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.BedWrongOrder);
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Failed);
                         Debug.Log("ADEEL TASK FAILED 1");
                     }
 
@@ -497,18 +506,59 @@ namespace Isometric.Environment
                                 m_CustomerHandler.PillowAnimationHandler.PlayCleaned(null);
                             }, false);
                         }, true);
+                        TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Success);
                     }, m_CleaningDuration);
                 }
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.BedHasNoTask);
+                    TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Failed);
                     Debug.Log("ADEEL TASK FAILED 2");
                 }
             }
             else
             {
                 m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Failed);
                 Debug.Log("ADEEL TASK FAILED 3");
+            }
+        }
+
+        private void TaskTargetTryToMoveToStandingNode(TaskTarget taskTarget, TaskResult taskResult)
+        {
+            if (m_UseStandingNode
+                && m_StandingNode.TryGetComponent(out TaskEmptyTrigger taskEmptyTrigger))
+            {
+                if(taskResult == TaskResult.Success)
+                {
+                    StartCoroutine(TaskTargetTryToMoveToStandingNodeAfterDelay(m_DelayBeforeStandingNodeOnSuccess, taskTarget, taskEmptyTrigger));
+                }
+                else
+                {
+                    StartCoroutine(TaskTargetTryToMoveToStandingNodeAfterDelay(m_DelayBeforeStandingNodeOnFailure, taskTarget, taskEmptyTrigger));
+                }
+            }
+        }
+
+        IEnumerator TaskTargetTryToMoveToStandingNodeAfterDelay(float delay, TaskTarget taskTarget, TaskEmptyTrigger taskEmptyTrigger)
+        {
+            float delayCounter = 0;
+            while (delayCounter < delay)
+            {
+                yield return null;
+
+                if (taskTarget.HasTasks() || LevelManager.HasGameEnded())
+                {
+                    yield break;
+                }
+
+                delayCounter += Time.deltaTime;
+            }
+
+            if (!taskTarget.HasTasks() && !LevelManager.HasGameEnded())
+            {
+                taskEmptyTrigger.OnClicked();
             }
         }
 

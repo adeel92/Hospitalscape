@@ -46,12 +46,21 @@ namespace Isometric.TaskSystem
         [SerializeField] PathNode m_Node;
         public PathNode Node => m_Node;
 
+        public Action OnTriggerClicked;
+
         private void OnEnable(){}
 
         public void OnClicked()
         {
             if (!enabled) return;
             GlobalEventHolder.OnTaskAssigned?.Invoke();
+            TaskTarget.InsertTask(this);
+            OnTriggerClicked?.Invoke();
+        }
+
+        public void OnClickedWithOutGlobalEvent()
+        {
+            if (!enabled) return;
             TaskTarget.InsertTask(this);
         }
 
