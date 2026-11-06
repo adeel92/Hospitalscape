@@ -10,6 +10,7 @@ using Isometric.PathSystem;
 using Isometric.Environment;
 using Isometric.Data;
 using Isometric.Sound;
+using MoreMountains.NiceVibrations;
 
 namespace Isometric.Player
 {
@@ -298,6 +299,7 @@ namespace Isometric.Player
             if (m_TrayController.HasItem(dataConsumable.Key))
             {
                 SoundManager.PlaySound(SoundType.TaskInteractions);
+                // MMVibrationManager.Haptic(HapticTypes.MediumImpact, false, true, this);
                 return m_TrayController.RemoveItem(dataConsumable.Key);
             }
             else
@@ -313,6 +315,7 @@ namespace Isometric.Player
                 SoundManager.PlaySound(SoundType.TaskInteractions);
                 m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, dataConsumable.IsThrowable, itemCost);
                 GlobalEventHolder.OnTrayItemPicked?.Invoke(dataConsumable);
+                // MMVibrationManager.Haptic(HapticTypes.MediumImpact, false, true, this);
                 return true;
             }
             else
