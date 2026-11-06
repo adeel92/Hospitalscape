@@ -73,10 +73,10 @@ namespace Isometric.Environment
                             TaskTrigger.SendTaskResult(TaskResult.Success);
                             return;
                         }
-                        else
+                        /* else
                         {
                             GlobalEventHolder.OnHintByConsumable?.Invoke(FoodInType);
-                        }
+                        } */
                     }
                 }
                 

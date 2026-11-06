@@ -29,7 +29,7 @@ namespace Isometric.Tutorial
         }
 
         // [SerializeField] TaskTrigger m_TargetTaskTrigger;
-        [SerializeField] List<SimpleHintInfo> m_HintInfos = new();
+        [SerializeField] protected List<SimpleHintInfo> m_HintInfos = new();
 
         protected SimpleHintInfo m_CurrentHintInfo = null;
         protected bool m_IsShowing;
@@ -95,7 +95,7 @@ namespace Isometric.Tutorial
             m_CurrentHintInfo =  simpleHintInfo;
             Invoke(nameof(EnableTargetHint), simpleHintInfo.ShowDelay);
         }
-        private void EnableTargetHint()
+        protected void EnableTargetHint()
         {
             if (m_CurrentHintInfo.HasAnimator)
             {

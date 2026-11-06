@@ -221,10 +221,10 @@ namespace Isometric.Environment
                     m_TaskTrigger.SendTaskResult(TaskResult.Success);
                     return;
                 }
-                else
+                /* else
                 {
                     GlobalEventHolder.OnHintByConsumable?.Invoke(m_FoodTypeIn);
-                }
+                } */
             }
             
             m_TaskTrigger.SendTaskResult(TaskResult.Failed);

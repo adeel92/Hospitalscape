@@ -227,6 +227,7 @@ namespace Isometric.Environment
             {
                 bool isTaskSuccessful = false;
                 bool gotNextFoodType = false;
+                bool sentOutputFoodType = false;
 
                 List<StationOutInfo> stationOutInfos = m_StationOutInfo.FindAll((x) => x.IsHolding == true);
 
@@ -241,14 +242,6 @@ namespace Isometric.Environment
                         }
                         gotNextFoodType = true;
                     }
-                    else
-                    {
-                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjNeedsNormalInj);
-                    }
-                }
-                else if(m_IsProcessing == true)
-                {
-                    GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjProcessing);
                 }
 
                 foreach (var item in m_StationOutInfo)
@@ -259,12 +252,9 @@ namespace Isometric.Environment
                         {
                             item.IsHolding = false;
                             item.OnOrderOutSuccesful?.Invoke();
+                            sentOutputFoodType = true;
                             isTaskSuccessful = true;
                             break;
-                        }
-                        else
-                        {
-                            PlayerManager.GetPlayerAtIndex(0).ShowOutOfCapacityHint();
                         }
                     }
                 }
@@ -300,11 +290,27 @@ namespace Isometric.Environment
                 }
                 else
                 {
-                    GlobalEventHolder.OnHintByConsumable?.Invoke(m_OrderTypeIn);
+                    m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    PlayerController playerController = PlayerManager.GetPlayerAtIndex(0);
+                    if(!gotNextFoodType && !m_IsProcessing && !sentOutputFoodType && playerController.CanCarryItem())
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjNeedsNormalInj);
+                    }
+                    else if(!gotNextFoodType && m_IsProcessing && !sentOutputFoodType)
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjProcessing);
+                    }
+                    else if(!gotNextFoodType && !m_IsProcessing && !sentOutputFoodType && !playerController.CanCarryItem())
+                    {
+                        playerController.ShowOutOfCapacityHint();
+                    }
+                    return;
                 }
             }
-            
-            m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+            else
+            {
+                m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+            }
         }
     }
 }

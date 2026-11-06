@@ -44,6 +44,14 @@ namespace Isometric.Environment
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    if (interactable.IsCarryingAnyDataConsumable())
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrashNoThrowableItem);
+                    }
+                    else
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrashNothingToDiscard);
+                    }
                 }
             }
             else

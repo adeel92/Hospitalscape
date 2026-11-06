@@ -30,6 +30,7 @@ namespace Isometric.Environment
         const string MetaSetupFoldOut = "---Setup---";
         [SerializeField, Foldout(MetaSetupFoldOut), Expandable] DataStation m_Data;
         [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
+        [SerializeField, Foldout(MetaSetupFoldOut)] MainServiceStationsHolder m_MainServiceStationsHolder;
         [SerializeField, Foldout(MetaSetupFoldOut)] StationSerialOrderInOutOnCustomerDemandWorker m_StationSerialOrderInOutOnCustomerDemandWorker;
         [SerializeField, Foldout(MetaSetupFoldOut)] MainServiceOrderUIController m_OrderUIController;
         [SerializeField, Foldout(MetaSetupFoldOut)] List<InputOrderInfo> m_InputOrderInfos = new();
@@ -516,7 +517,18 @@ namespace Isometric.Environment
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
-                    // GlobalEventHolder.OnHintByConsumable?.Invoke(m_OrderTypeIn);
+                    if (m_MainServiceStationsHolder.DoAnyMainServiceHaveInstantOrderOutAvailable())
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterNeedsSample);
+                    }
+                    else if (m_IsProcessing)
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterProcessing);
+                    }
+                    else
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterHasNoReport);
+                    }
                 }
             }
             else

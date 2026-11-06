@@ -240,7 +240,7 @@ namespace Isometric.Environment
             }
             else
             {
-                GlobalEventHolder.OnHintByConsumable?.Invoke(dataConsumable);
+                // GlobalEventHolder.OnHintByConsumable?.Invoke(dataConsumable);
             }
         }
 
@@ -432,7 +432,7 @@ namespace Isometric.Environment
                         {
                             if (currentOrder.HasBeenServed == false)
                             {
-                                GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
+                                // GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
                             }
                         }
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);

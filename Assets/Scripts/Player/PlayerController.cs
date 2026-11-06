@@ -288,6 +288,11 @@ namespace Isometric.Player
             }
         }
 
+        public bool CanCarryItem()
+        {
+            return m_TrayController.HasCapacity();
+        }
+
         public Tuple<bool, int> GetDataConsumable(DataConsumable dataConsumable)
         {
             if (m_TrayController.HasItem(dataConsumable.Key))

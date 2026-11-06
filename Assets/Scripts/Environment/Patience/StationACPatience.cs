@@ -155,9 +155,13 @@ namespace Isometric.Environment
                     }
 
                     m_CoolAirEffectStopCorotine = CoroutineManager.LateAction(() => OnDeactivation?.Invoke(), m_CoolAirEffectDuration);
+                    m_TaskTrigger.SendTaskResult(TaskResult.Success);
                 }
-
-                m_TaskTrigger.SendTaskResult(TaskResult.Success);
+                else
+                {
+                    m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                    GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ACNotRequired);
+                }
             }
             else
             {

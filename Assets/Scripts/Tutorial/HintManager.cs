@@ -115,5 +115,9 @@ namespace Isometric.Tutorial
         RedDoctorUnavailable,
         BedHasNoTask,
         BedWrongOrder,
+        TrashNothingToDiscard,
+        TrashNoThrowableItem,
+        ACNotRequired,
+        ReceptionHasNoTask
     }
 }

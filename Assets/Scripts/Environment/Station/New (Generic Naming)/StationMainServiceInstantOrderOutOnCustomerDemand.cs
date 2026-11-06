@@ -254,7 +254,7 @@ namespace Isometric.Environment
             m_CurrentCustomerFirstOrderInfo = null;
         }
 
-        private bool HasAnyDemandedCustomer()
+        public bool HasAnyDemandedCustomer()
         {
             return m_CurrentOutputOrderInfos.Count > 0;
         }

@@ -478,14 +478,28 @@ namespace Isometric.Environment
                     }
                     else
                     {
-                        m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        foreach (var currentOrder in m_CurrentOrdersInfo)
+                        {
+                            if (currentOrder.HasBeenServed == false)
+                            {
+                                GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
+                            }
+                        }
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionWrongOrder);
+                        m_TaskTrigger.SendTaskResult(TaskResult.Failed);
                     }
                 }
                 else
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
-                    GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionHasNoOrder);
+                    if(m_CurrentSalonCustomer == null)
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionHasNoTask);
+                    }
+                    else
+                    {
+                        GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionHasNoOrder);
+                    }
                 }
             }
             else

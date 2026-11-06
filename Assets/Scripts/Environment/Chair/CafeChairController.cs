@@ -362,7 +362,7 @@ namespace Isometric.Environment
                         {
                             if (currentOrder.HasBeenServed == false)
                             {
-                                GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
+                                // GlobalEventHolder.OnHintByConsumable?.Invoke(currentOrder.Order);
                             }
                         }
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
