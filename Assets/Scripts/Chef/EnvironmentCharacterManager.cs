@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using Isometric.Customer;
 using UnityEngine;
 
 namespace Isometric.Environment.Worker
 {
-    public class EnvironmentWorkerManager : MonoBehaviour
+    public class EnvironmentCharacterManager : MonoBehaviour
     {
-        private static EnvironmentWorkerManager s_Instance;
+        private static EnvironmentCharacterManager s_Instance;
 
         [SerializeField] List<EnvironmentWorkerController> m_WorkerControllers = new();
+        [SerializeField] List<EnvironmentCustomerController> m_CustomerControllers = new();
         
 
         private void Awake()
@@ -30,11 +32,16 @@ namespace Isometric.Environment.Worker
             {
                 workerController.Setup();
             }
+
+            foreach(EnvironmentCustomerController customerController in s_Instance.m_CustomerControllers)
+            {
+                customerController.Setup();
+            }
         }
 
         private static void PrintNullInstanceError()
         {
-            Debug.LogWarning("Instance of " + nameof(EnvironmentWorkerManager) + " is null");
+            Debug.LogWarning("Instance of " + nameof(EnvironmentCharacterManager) + " is null");
         }
     }
 }

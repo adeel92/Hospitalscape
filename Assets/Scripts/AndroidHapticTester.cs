@@ -17,7 +17,9 @@ public class AndroidHapticTester : MonoBehaviour
     [SerializeField] int patternAmplitude = 150;
 
     [Header("---Runtime Controls---")]
-    [SerializeField] TMP_InputField pulseDurationInput;
+    [SerializeField] TMP_InputField simpleDurationInput;
+    [SerializeField] TMP_InputField simpleAmplitudeInput;
+    [Space, SerializeField] TMP_InputField pulseDurationInput;
     [SerializeField] TMP_InputField pauseDurationInput;
     [SerializeField] TMP_InputField pulseCountInput;
     [SerializeField] TMP_InputField amplitudeInput;
@@ -56,6 +58,15 @@ public class AndroidHapticTester : MonoBehaviour
         MMNVAndroid.AndroidVibrate(pattern, amplitudes, -1);
     }
 
+    public void ApplySimpleDuration()
+    {
+        if (long.TryParse(simpleDurationInput.text, out long value))
+        {
+            simpleDuration = System.Math.Max(1, value);
+            Debug.Log($"Simple Duration: {simpleDuration} ms");
+        }
+    }
+
     public void ApplyPulseDuration()
     {
         if (long.TryParse(pulseDurationInput.text, out long value))
@@ -80,6 +91,15 @@ public class AndroidHapticTester : MonoBehaviour
         {
             pulseCount = Mathf.Max(1, value);
             Debug.Log($"Pulse Count: {pulseCount}");
+        }
+    }
+
+    public void ApplySimpleAmplitude()
+    {
+        if (int.TryParse(simpleAmplitudeInput.text, out int value))
+        {
+            simpleAmplitude = Mathf.Clamp(value, 0, 255);
+            Debug.Log($"Simple Amplitude: {simpleAmplitude}");
         }
     }
 

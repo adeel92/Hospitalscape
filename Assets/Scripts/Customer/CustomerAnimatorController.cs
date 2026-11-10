@@ -141,6 +141,15 @@ namespace Isometric.Customer
         SteadyWalkLeft,
         StandingIdleNeutralUp,
         BedReliefReactionDown_A,
-        BedReliefReactionDown_B
+        BedReliefReactionDown_B,
+        OuterSittingIdleNeurtalDown,
+        StandingIdleNeutralDown,
+        OuterWorkingUp,
+        OuterDrinkingLeft,
+        OuterTalkingRight,
+        OuterTalkingLeft,
+        OuterBedIdleDown,
+        StandingIdleNeutralLeft,
+        SittingDrinkingDown,
     }
 }

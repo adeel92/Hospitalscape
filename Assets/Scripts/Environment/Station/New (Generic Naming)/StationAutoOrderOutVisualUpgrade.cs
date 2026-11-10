@@ -10,6 +10,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Player;
 using Isometric.Tutorial;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -303,6 +304,7 @@ namespace Isometric.Environment
                 else if(m_IsProcessing == true)
                 {
                     GlobalEventHolder.OnHintByKey?.Invoke(HintKey.DispenserProcessing);
+                    VibrationManager.Play(HapticType.TaskFailNormalHint);
                 }
             }
             

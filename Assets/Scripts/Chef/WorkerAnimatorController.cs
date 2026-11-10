@@ -13,9 +13,16 @@ namespace Isometric.Worker
         private static readonly int WalkLeft = Animator.StringToHash("WalkLeft");
 
         private static readonly int IdleUp = Animator.StringToHash("IdleUp");
+        private static readonly int OuterIdleUp = Animator.StringToHash("OuterIdleUp");
         private static readonly int IdleDown = Animator.StringToHash("IdleDown");
+        private static readonly int OuterIdleDown = Animator.StringToHash("OuterIdleDown");
         private static readonly int IdleRight = Animator.StringToHash("IdleRight");
+        private static readonly int OuterIdleRight = Animator.StringToHash("OuterIdleRight");
         private static readonly int IdleLeft = Animator.StringToHash("IdleLeft");
+        private static readonly int OuterIdleLeft = Animator.StringToHash("OuterIdleLeft");
+
+        private static readonly int OuterTalkRight = Animator.StringToHash("OuterTalkRight");
+        private static readonly int OuterTalkDown = Animator.StringToHash("OuterTalkDown");
 
         private static readonly int WorkRight = Animator.StringToHash("WorkRight");
         private static readonly int ServeRight = Animator.StringToHash("ServeRight");
@@ -82,7 +89,7 @@ namespace Isometric.Worker
             }
         }
 
-        public void PlayIdleAnimation(PathDirection direction)
+        public void PlayIdleAnimation(PathDirection direction, bool forOuterEnviro)
         {
             switch (direction)
             {
@@ -92,7 +99,8 @@ namespace Isometric.Worker
                         m_CurrentWalkingDirection = PathDirection.None;
                         m_CurrentIdleDirection = PathDirection.Up;
                         m_Animator.SetBool(Idle, false);
-                        m_Animator.SetTrigger(IdleUp);
+                        int id = forOuterEnviro ? OuterIdleUp : IdleUp;
+                        m_Animator.SetTrigger(id);
                     }
                     break;
                 case PathDirection.Down:
@@ -101,7 +109,8 @@ namespace Isometric.Worker
                         m_CurrentWalkingDirection = PathDirection.None;
                         m_CurrentIdleDirection = PathDirection.Down;
                         m_Animator.SetBool(Idle, false);
-                        m_Animator.SetTrigger(IdleDown);
+                        int id = forOuterEnviro ? OuterIdleDown : IdleDown;
+                        m_Animator.SetTrigger(id);
                     }
                     break;
                 case PathDirection.Left:
@@ -110,7 +119,8 @@ namespace Isometric.Worker
                         m_CurrentWalkingDirection = PathDirection.None;
                         m_CurrentIdleDirection = PathDirection.Left;
                         m_Animator.SetBool(Idle, false);
-                        m_Animator.SetTrigger(IdleLeft);
+                        int id = forOuterEnviro ? OuterIdleLeft : IdleLeft;
+                        m_Animator.SetTrigger(id);
                     }
                     break;
                 case PathDirection.Right:
@@ -119,9 +129,35 @@ namespace Isometric.Worker
                         m_CurrentWalkingDirection = PathDirection.None;
                         m_CurrentIdleDirection = PathDirection.Right;
                         m_Animator.SetBool(Idle, false);
-                        m_Animator.SetTrigger(IdleRight);
+                        int id = forOuterEnviro ? OuterIdleRight : IdleRight;
+                        m_Animator.SetTrigger(id);
                     }
                     break;
+            }
+        }
+
+        public void PlayTalkAnimation(PathDirection direction)
+        {
+            m_CurrentWalkingDirection = PathDirection.None;
+            m_CurrentIdleDirection = PathDirection.None;
+
+            switch (direction)
+            {
+                case PathDirection.Up:
+                break;
+
+                case PathDirection.Down:
+                m_Animator.SetBool(Idle, false);
+                m_Animator.SetTrigger(OuterTalkDown);
+                break;
+
+                case PathDirection.Left:
+                break;
+
+                case PathDirection.Right:
+                m_Animator.SetBool(Idle, false);
+                m_Animator.SetTrigger(OuterTalkRight);
+                break;
             }
         }
 

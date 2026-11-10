@@ -46,6 +46,7 @@ namespace Isometric
             //Order Matters
             LevelManager.Setup();
             EnvironmentManager.SetupForMenu();
+            EnvironmentCharacterManager.Setup();
 
             CameraController.SetEnvironemntInteractiblity(false);
             UIManager.Setup();
@@ -53,7 +54,6 @@ namespace Isometric
             yield return new WaitUntil(() => {return !LoadingUIManager.IsLoadingScreenActive();});
             
             WorkerManager.SetupForMenu();
-            EnvironmentWorkerManager.Setup();
             PlayerManager.SetupForMenu();
 
             UIManager.UIInteractionOff();

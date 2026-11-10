@@ -5,6 +5,13 @@ namespace CustomVibrations
 {
     public class NiceVibrationsAdapter : MonoBehaviour
     {
+        public void PlayPreset(HapticTypes presetHapticType)
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            MMVibrationManager.Haptic(presetHapticType);
+#endif
+        }
+
         public void PlaySimple(long duration, int amplitude)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR

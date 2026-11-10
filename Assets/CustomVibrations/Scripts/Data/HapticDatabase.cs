@@ -119,6 +119,17 @@ namespace CustomVibrations
 
     public enum HapticType
     {
-        DemoHapticType
+        DemoHapticType,
+        TaskFailNormalHint,
+        TaskFailConsumableHint,
+        TrashThrow,
+        GameplayInteractableItemTap,
+        PickItem,
+        DropItem,
+        MainServiceCleaningComplete,
+        LevelLostReaction,
+        LevelWonReaction,
+        CustomerPick,
+        CustomerDrop
     }
 }

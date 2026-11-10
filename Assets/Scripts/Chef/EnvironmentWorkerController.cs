@@ -6,14 +6,17 @@ using Isometric.Worker;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace Isometric.Environment.Worker
 {
     public class EnvironmentWorkerController : MonoBehaviour
     {
         [Header("---Setup---")]
-        [SerializeField] PathNode m_StartNode;
-        [SerializeField] WorkerAnimatorController m_AnimatorController;
+        [SerializeField] bool m_AlwaysUnlocked;
+        [SerializeField, ReadOnly, HideIf(nameof(m_AlwaysUnlocked))] bool m_IsUnlocked;
+        [Space, SerializeField] PathNode m_StartNode;
+        [SerializeField] EnvironmentWorkerAnimatorController m_AnimatorController;
         [SerializeField] SortingGroup m_SortingGroup;
         [SerializeField] float m_WalkSpeed;
 
@@ -49,7 +52,21 @@ namespace Isometric.Environment.Worker
                     case ActionType.Idle:
                     m_AnimatorController.PlayIdleAnimation(m_CurrentActionInfo.ActionDirection);
                     break;
+
+                    case ActionType.IdleTalk:
+                    m_AnimatorController.PlayTalkAnimation(m_CurrentActionInfo.ActionDirection);
+                    break;
+
+                    case ActionType.IdleDrink:
+                    m_AnimatorController.PlayDrinkAnimation(m_CurrentActionInfo.ActionDirection);
+                    break;
+
+                    case ActionType.IdleWork:
+                    m_AnimatorController.PlayWorkAnimation(m_CurrentActionInfo.ActionDirection);
+                    break;
                 }
+                
+                m_CurrentActionInfo.ActionStartEvent?.Invoke();
 
                 if (!m_CurrentActionInfo.doLoop)
                 {
@@ -100,6 +117,8 @@ namespace Isometric.Environment.Worker
         private IEnumerator EndNodeAction()
         {
             yield return new WaitForSeconds(m_CurrentActionInfo.ActionDuration);
+            m_CurrentActionInfo.ActionEndEvent?.Invoke();
+            
             if (m_RandomizeActions)
             {
                 if(m_ActionInfos.Count > 1)
@@ -208,9 +227,9 @@ namespace Isometric.Environment.Worker
         public enum ActionType
         {
             Idle,
-            IdleGossip,
+            IdleTalk,
             IdleDrink,
-            IdleLook,
+            IdleWork,
         }
 
         [Serializable]
@@ -219,6 +238,8 @@ namespace Isometric.Environment.Worker
             public ActionType ActionType;
             public PathNode ActionNode;
             public PathDirection ActionDirection;
+            public UnityEvent ActionStartEvent;
+            public UnityEvent ActionEndEvent;
             public bool doLoop = false;
             [AllowNesting, HideIf(nameof(doLoop))]
             public float ActionDuration = 5f;

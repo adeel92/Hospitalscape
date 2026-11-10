@@ -11,6 +11,7 @@ using Isometric.UI;
 using Isometric.Tutorial;
 using Unity.VisualScripting;
 using Isometric.Player;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -295,10 +296,12 @@ namespace Isometric.Environment
                     if(!gotNextFoodType && !m_IsProcessing && !sentOutputFoodType && playerController.CanCarryItem())
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjNeedsNormalInj);
+                        VibrationManager.Play(HapticType.TaskFailConsumableHint);
                     }
                     else if(!gotNextFoodType && m_IsProcessing && !sentOutputFoodType)
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(HintKey.SpecializedInjProcessing);
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
                     else if(!gotNextFoodType && !m_IsProcessing && !sentOutputFoodType && !playerController.CanCarryItem())
                     {

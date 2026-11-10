@@ -11,6 +11,7 @@ using Isometric.PathSystem;
 using Isometric.Data;
 using Isometric.Worker;
 using Isometric.Customer;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -262,6 +263,7 @@ namespace Isometric.Environment
             else
             {
                 GlobalEventHolder.OnHintByConsumable?.Invoke(dataConsumable);
+                VibrationManager.Play(HapticType.TaskFailConsumableHint);
             }
         }
 
@@ -477,6 +479,7 @@ namespace Isometric.Environment
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.BedWrongOrder);
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
                         TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Failed);
+                        VibrationManager.Play(HapticType.TaskFailConsumableHint);
                         Debug.Log("ADEEL TASK FAILED 1");
                     }
 
@@ -506,6 +509,7 @@ namespace Isometric.Environment
                                 m_CustomerHandler.PillowAnimationHandler.PlayCleaned(null);
                             }, false);
                         }, true);
+                        VibrationManager.Play(HapticType.MainServiceCleaningComplete);
                         TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Success);
                     }, m_CleaningDuration);
                 }
@@ -514,6 +518,7 @@ namespace Isometric.Environment
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
                     GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.BedHasNoTask);
                     TaskTargetTryToMoveToStandingNode(taskTarget, TaskResult.Failed);
+                    VibrationManager.Play(HapticType.TaskFailNormalHint);
                     Debug.Log("ADEEL TASK FAILED 2");
                 }
             }

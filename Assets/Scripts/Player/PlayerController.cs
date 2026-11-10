@@ -11,6 +11,7 @@ using Isometric.Environment;
 using Isometric.Data;
 using Isometric.Sound;
 using MoreMountains.NiceVibrations;
+using CustomVibrations;
 
 namespace Isometric.Player
 {
@@ -245,6 +246,7 @@ namespace Isometric.Player
                 WaitForNoTaskReactionCoroutine = null;
             }
             SoundManager.PlaySound(SoundType.TaskAssigned);
+            VibrationManager.Play(HapticType.GameplayInteractableItemTap);
         }
 
         private void OnGameWon()
@@ -262,6 +264,7 @@ namespace Isometric.Player
             }
             // SoundManager.PlaySound(SoundType.CrowdCheering);
             m_AnimatorController.PlayHappyWon();
+            VibrationManager.Play(HapticType.LevelWonReaction);
         }
 
         private void OnGameLost()
@@ -278,6 +281,7 @@ namespace Isometric.Player
                 WaitForNoTaskReactionCoroutine = null;
             }
             m_AnimatorController.PlaySadLost();
+            VibrationManager.Play(HapticType.LevelLostReaction);
         }
 
         #region Station Interactable
@@ -286,6 +290,7 @@ namespace Isometric.Player
             if (!m_TrayController.HasCapacity())
             {
                 GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrayOutOfSpace);
+                VibrationManager.Play(HapticType.TaskFailConsumableHint);
             }
         }
 
@@ -299,7 +304,7 @@ namespace Isometric.Player
             if (m_TrayController.HasItem(dataConsumable.Key))
             {
                 SoundManager.PlaySound(SoundType.TaskInteractions);
-                // MMVibrationManager.Haptic(HapticTypes.MediumImpact, false, true, this);
+                VibrationManager.Play(HapticType.DropItem);
                 return m_TrayController.RemoveItem(dataConsumable.Key);
             }
             else
@@ -313,9 +318,9 @@ namespace Isometric.Player
             if (m_TrayController.HasCapacity())
             {
                 SoundManager.PlaySound(SoundType.TaskInteractions);
+                VibrationManager.Play(HapticType.PickItem);
                 m_TrayController.AddItem(dataConsumable.Key, dataConsumable.ConsumableTrayPrefab, dataConsumable.IsThrowable, itemCost);
                 GlobalEventHolder.OnTrayItemPicked?.Invoke(dataConsumable);
-                // MMVibrationManager.Haptic(HapticTypes.MediumImpact, false, true, this);
                 return true;
             }
             else

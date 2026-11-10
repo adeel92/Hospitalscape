@@ -13,6 +13,7 @@ using UnityEngine.Profiling;
 using Isometric.Customer;
 using System;
 using Isometric.Player;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -300,6 +301,7 @@ namespace Isometric.Environment
                 if (!HasAnyDemandedCustomer())
                 {
                     GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.DiagnosisGenHasNoReport);
+                    VibrationManager.Play(HapticType.TaskFailNormalHint);
                 }
             }
         }

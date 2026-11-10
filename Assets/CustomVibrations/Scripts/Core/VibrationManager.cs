@@ -53,6 +53,35 @@ namespace CustomVibrations
             }
         }
 
+        /// <summary>
+        /// Play vibration by using the preset haptic values (by NiceVibrations) without any customization.
+        /// </summary>
+        public static void Play(MoreMountains.NiceVibrations.HapticTypes presetHapticType)
+        {
+            if (instance == null)
+            {
+                PrintNullInstanceError();
+                return;
+            }
+
+            if (!instance.isVibrationEnabled)
+            {
+                Debug.Log($"Vibration is not enabled!", instance); 
+                return;
+            }
+
+            if (instance.niceVibrationsAdapter == null)
+            {
+                Debug.LogWarning($"NiceVibrationAdapter is null!", instance);
+                return;
+            }
+            
+
+        }
+
+        /// <summary>
+        /// Play vibration by using the custom HapticType and HapticConfiguration inside HapticDatabase.
+        /// </summary>
         public static void Play(HapticType hapticType)
         {
             if (instance == null)

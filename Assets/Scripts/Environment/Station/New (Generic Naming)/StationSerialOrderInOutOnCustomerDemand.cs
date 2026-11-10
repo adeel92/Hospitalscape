@@ -11,6 +11,7 @@ using Isometric.UI;
 using Isometric.Tutorial;
 using System.Linq;
 using Isometric.Player;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -520,14 +521,17 @@ namespace Isometric.Environment
                     if (m_MainServiceStationsHolder.DoAnyMainServiceHaveInstantOrderOutAvailable())
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterNeedsSample);
+                        VibrationManager.Play(HapticType.TaskFailConsumableHint);
                     }
                     else if (m_IsProcessing)
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterProcessing);
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
                     else
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(HintKey.ResearchCenterHasNoReport);
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
                 }
             }

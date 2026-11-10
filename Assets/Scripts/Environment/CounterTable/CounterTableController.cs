@@ -10,6 +10,7 @@ using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Customer;
 using Isometric.PathSystem;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -487,6 +488,7 @@ namespace Isometric.Environment
                         }
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionWrongOrder);
                         m_TaskTrigger.SendTaskResult(TaskResult.Failed);
+                        VibrationManager.Play(HapticType.TaskFailConsumableHint);
                     }
                 }
                 else
@@ -500,6 +502,7 @@ namespace Isometric.Environment
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ReceptionHasNoOrder);
                     }
+                    VibrationManager.Play(HapticType.TaskFailNormalHint);
                 }
             }
             else

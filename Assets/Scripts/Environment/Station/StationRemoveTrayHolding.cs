@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Isometric.TaskSystem;
 using Isometric.PathSystem;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -47,10 +48,12 @@ namespace Isometric.Environment
                     if (interactable.IsCarryingAnyDataConsumable())
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrashNoThrowableItem);
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
                     else
                     {
                         GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.TrashNothingToDiscard);
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
                 }
             }
@@ -58,6 +61,11 @@ namespace Isometric.Environment
             {
                 m_TaskTrigger.SendTaskResult(TaskResult.Failed);
             }
+        }
+
+        public void PlayThrowVibration()
+        {
+            VibrationManager.Play(HapticType.TrashThrow);
         }
     }
 

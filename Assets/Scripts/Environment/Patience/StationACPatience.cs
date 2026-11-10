@@ -8,6 +8,7 @@ using Isometric.TaskSystem;
 using Isometric.Customer;
 using Isometric.Cam;
 using Isometric.UI;
+using CustomVibrations;
 
 namespace Isometric.Environment
 {
@@ -161,6 +162,7 @@ namespace Isometric.Environment
                 {
                     m_TaskTrigger.SendTaskResult(TaskResult.Failed);
                     GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.ACNotRequired);
+                    VibrationManager.Play(HapticType.TaskFailNormalHint);
                 }
             }
             else

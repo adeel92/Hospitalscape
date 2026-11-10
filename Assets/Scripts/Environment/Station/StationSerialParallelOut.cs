@@ -10,6 +10,7 @@ using Isometric.PathSystem;
 using Isometric.Cam;
 using Isometric.UI;
 using Isometric.Player;
+using CustomVibrations;
 
 
 namespace Isometric.Environment
@@ -144,6 +145,7 @@ namespace Isometric.Environment
                             GlobalEventHolder.OnHintByKey?.Invoke(Tutorial.HintKey.SyrupsProcessing);
                             break;
                         }
+                        VibrationManager.Play(HapticType.TaskFailNormalHint);
                     }
 
                     /* if (CurrentlyHolding != CapacityProperty)
