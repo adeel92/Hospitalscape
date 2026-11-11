@@ -10,6 +10,7 @@ namespace Isometric.Environment.Worker
 
         [SerializeField] List<EnvironmentWorkerController> m_WorkerControllers = new();
         [SerializeField] List<EnvironmentCustomerController> m_CustomerControllers = new();
+        [SerializeField] List<EnvironmentVehicleController> m_VehicleControllers = new();
         
 
         private void Awake()
@@ -36,6 +37,11 @@ namespace Isometric.Environment.Worker
             foreach(EnvironmentCustomerController customerController in s_Instance.m_CustomerControllers)
             {
                 customerController.Setup();
+            }
+
+            foreach(EnvironmentVehicleController vehicleController in s_Instance.m_VehicleControllers)
+            {
+                vehicleController.Setup();
             }
         }
 

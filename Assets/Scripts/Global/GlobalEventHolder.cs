@@ -18,6 +18,9 @@ namespace Isometric
         public static Action<double> OnHeartTimeCurrencyUpdate;
 
         //---Gameplay---
+        public static Action OnMenuEnvironmentShown;
+        public static Action OnMenuEnvironmentHidden;
+        
         public static Action<int> OnCoinsCollected;
 
         public static Action OnCustomerEntered;

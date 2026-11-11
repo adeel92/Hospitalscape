@@ -225,7 +225,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Idle
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: OuterWorkingUp
+    m_ConditionEvent: OuterWorkUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7165957308622324106}
@@ -401,7 +401,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Idle
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: OuterWorkingLeft
+    m_ConditionEvent: OuterWorkLeft
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7903492568171150}
@@ -486,13 +486,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: OuterWorkingLeft
+  - m_Name: OuterWorkLeft
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: OuterWorkingUp
+  - m_Name: OuterWorkUp
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

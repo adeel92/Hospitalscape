@@ -15,6 +15,7 @@ namespace Isometric.Environment.Worker
         [Header("---Setup---")]
         [SerializeField] bool m_AlwaysUnlocked;
         [SerializeField, ReadOnly, HideIf(nameof(m_AlwaysUnlocked))] bool m_IsUnlocked;
+        [SerializeField] bool m_StartActionOnSetup = true;
         [Space, SerializeField] PathNode m_StartNode;
         [SerializeField] EnvironmentWorkerAnimatorController m_AnimatorController;
         [SerializeField] SortingGroup m_SortingGroup;
@@ -35,12 +36,40 @@ namespace Isometric.Environment.Worker
 
         public void Setup()
         {
+            GlobalEventHolder.OnMenuEnvironmentHidden += ResetBehaviourOnMenuHidden;
+            GlobalEventHolder.OnMenuEnvironmentShown += RestartBehaviourOnMenuShown;
+
+            SetupController();
+        }
+
+        private void OnDestroy()
+        {
+            GlobalEventHolder.OnMenuEnvironmentHidden -= ResetBehaviourOnMenuHidden;
+            GlobalEventHolder.OnMenuEnvironmentShown -= RestartBehaviourOnMenuShown;
+        }
+
+        private void SetupController()
+        {
             m_DefaultSortingLayer = m_SortingGroup.sortingLayerName;
             m_DefaultSortingOrder = m_SortingGroup.sortingOrder;
             m_CurrentNode = m_StartNode;
             m_CurrentActionIndex = 0;
             m_CurrentActionInfo = m_ActionInfos[m_CurrentActionIndex];
-            StartNodeAction();
+            transform.position = m_CurrentNode.transform.position;
+            
+            if (m_AlwaysUnlocked || m_IsUnlocked)
+            {
+                gameObject.SetActive(true);
+                if (m_StartActionOnSetup)
+                {
+                    StartNodeAction();
+                }
+            }
+            else
+            {
+                m_IsUnlocked = false;
+                gameObject.SetActive(false);
+            }
         }
 
         private void StartNodeAction()
@@ -75,7 +104,10 @@ namespace Isometric.Environment.Worker
                         StopCoroutine(m_EndActionCoroutine);
                         m_EndActionCoroutine = null;
                     }
-                    m_EndActionCoroutine = StartCoroutine(EndNodeAction());
+                    if (isActiveAndEnabled)
+                    {
+                        m_EndActionCoroutine = StartCoroutine(EndNodeAction());
+                    }
                 }
             }
             else
@@ -166,7 +198,39 @@ namespace Isometric.Environment.Worker
             ActionInfo actionInfo = m_ActionInfos[UnityEngine.Random.Range(0, m_ActionInfos.Count)];
             return actionInfo;
         }
+
+        // Can be utilized if it is locked initially and unlocked at runtime
+        public void SetStatusToUnlock(bool doStartNodeAction)
+        {
+            m_IsUnlocked = true;
+            if (doStartNodeAction)
+            {
+                gameObject.SetActive(true);
+                StartNodeAction();
+            }
+        }
+
+        private void ResetBehaviourOnMenuHidden()
+        {
+            if (m_AlwaysUnlocked || m_IsUnlocked)
+            {
+                PathTraverserExtension.StopTargetImmediately(transform);
+                if(m_EndActionCoroutine != null)
+                {
+                    StopCoroutine(m_EndActionCoroutine);
+                    m_EndActionCoroutine = null;
+                }
+            }
+        }
+        private void RestartBehaviourOnMenuShown()
+        {
+            if (m_AlwaysUnlocked || m_IsUnlocked)
+            {
+                SetupController();
+            }
+        }
         
+        #region Backup
         /* private void CheckForNextTraverseEndNode()
         {
             PathNode pathNode = GetRandomTraverseEndNode();
@@ -222,6 +286,7 @@ namespace Isometric.Environment.Worker
             pathNode = m_TraverseEndNodes[UnityEngine.Random.Range(0, m_TraverseEndNodes.Count)];
             return pathNode;
         } */
+        #endregion
 
 
         public enum ActionType

@@ -38,6 +38,8 @@ namespace Isometric.Environment
                     item.SetActive(true);
                 }
             }
+
+            GlobalEventHolder.OnMenuEnvironmentShown?.Invoke();
         }
         public static void DisableItemsForGameplay()
         {
@@ -51,6 +53,8 @@ namespace Isometric.Environment
             {
                 return;
             }
+
+            GlobalEventHolder.OnMenuEnvironmentHidden?.Invoke();
 
             if(s_Instance.m_ItemsToDisableForGameplay != null && s_Instance.m_ItemsToDisableForGameplay.Count > 0)
             {

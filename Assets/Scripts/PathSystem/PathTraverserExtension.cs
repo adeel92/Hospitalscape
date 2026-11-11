@@ -90,7 +90,7 @@ namespace Isometric.PathSystem
             }
             else
             {
-                Debug.LogError("The nodes do not have the same PathController!");
+                Debug.LogError($"The nodes do not have the same PathController! -- GameObject: {target.name}");
             }
         }
 
