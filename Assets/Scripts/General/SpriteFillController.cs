@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Isometric
@@ -83,6 +84,40 @@ namespace Isometric
             }
 
             spriteMaterial.SetFloat("_FillAmount", fillAmountTo);
+        }
+
+        /// <summary>
+        /// Changes the color of fill sprite instantly
+        /// </summary>
+        public void SetFillColor(Color targetColor)
+        {
+            targetSprite.color = targetColor;
+        }
+
+        /// <summary>
+        /// Changes the color of fill sprite smoothly using DOTween Linear EaseType
+        /// </summary>
+        public void SetFillColor(Color targetColor, float duration)
+        {
+            targetSprite.DOColor(targetColor, duration);
+        }
+
+        /// <summary>
+        /// Sets the alpha/fade of fill sprite instantly
+        /// </summary>
+        public void SetFillAlphaValue(float alphaValue)
+        {
+            Color color = targetSprite.color;
+            color.a = alphaValue;
+            targetSprite.color = color;
+        }
+
+        /// <summary>
+        /// Sets the alpha/fade of fill sprite using DOTween Linear EaseType
+        /// </summary>
+        public void SetFillAlphaValue(float alphaValue, float duration)
+        {
+            targetSprite.DOFade(alphaValue, duration);
         }
     }
 }

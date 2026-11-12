@@ -521,7 +521,7 @@ namespace Isometric.UI
                         SetupForMenu();
                     }, () =>
                     {
-                        CameraController.SetEnvironemntInteractiblity(true);
+                        // CameraController.SetEnvironemntInteractiblity(true);
                         UIInteractionOn();
                         SoundManager.PlaySoundFadeIn(SoundType.MenuMusic1, 0.3f, true, false);
                     });

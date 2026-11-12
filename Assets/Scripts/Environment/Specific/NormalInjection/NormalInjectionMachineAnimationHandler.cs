@@ -12,12 +12,17 @@ namespace Isometric.Environment
         [SerializeField] Animator m_Animator;
         [SerializeField] List<AnimatorTriggerInfo> m_AnimatorTriggerInfo;
         [SerializeField] float m_DelayBeforeNextProductionAnimation = 0.75f;
+        [SerializeField, ReadOnly] bool m_HasItem = false;
         [SerializeField, ReadOnly] bool m_IsAlreadyProducing;
 
         
         // OnOrderOutSuccessful
         public void PlayGauzeProductionAnimation()
         {
+            if (m_HasItem)
+            {
+                return;
+            }
             StartCoroutine(PlayState(NormalInjectionMachineAnimatorStates.Produce));
         }
 
@@ -48,6 +53,7 @@ namespace Isometric.Environment
             m_IsAlreadyProducing = true;
             ResetAllTriggers();
             m_Animator.SetTrigger(triggerInfo.ParameterName);
+            m_HasItem = true;
             
             yield return new WaitForSeconds(m_DelayBeforeNextProductionAnimation);
             m_IsAlreadyProducing = false;
@@ -73,6 +79,11 @@ namespace Isometric.Environment
         {
             AnimatorTriggerInfo stateInfo = m_AnimatorTriggerInfo.Find(info => info.AnimatorState == state);
             return stateInfo?.ParameterName;
+        }
+
+        public void OnItemPicked()
+        {
+            m_HasItem = false;
         }
 
         [Serializable]

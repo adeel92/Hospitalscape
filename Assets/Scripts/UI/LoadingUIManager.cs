@@ -104,10 +104,11 @@ namespace Isometric.UI
             m_LoadingBarFillImage.DOFillAmount(1f, m_LoadingDuration).OnComplete(() =>
             {
                 Debug.Log($"ADEEL LOADING 8");
-                ClosePopup(() =>
+                ClosePopup(null);
+                /* ClosePopup(() =>
                 {
                     CameraController.SetEnvironemntInteractiblity(true);
-                });
+                }); */
             });
             Debug.Log($"ADEEL LOADING 7");
             // s_Instance.StartCoroutine(s_Instance.ShowCharacter());

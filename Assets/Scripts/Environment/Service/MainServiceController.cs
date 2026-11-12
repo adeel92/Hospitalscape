@@ -54,8 +54,10 @@ namespace Isometric.Environment
         public MainServiceCustomerHandler CustomerHandler => m_CustomerHandler;
         [SerializeField] MainServiceCustomerHandler m_CustomerHandler;
         [SerializeField] bool m_DoSetupCustomerHandlerOnHasJustUnlocked = true;
-        [SerializeField] SpriteFillController m_SpriteFillController;
-        [SerializeField] SpriteRenderer m_MainServiceAreaCloth;
+        [Space, SerializeField] SpriteFillController m_MainServiceCleanSpriteFillController;
+        [SerializeField] SpriteFillController m_MainServiceDirtySpriteFillController;
+        [SerializeField] float m_FillColorChangeDuration = 0.5f;
+        [Space, SerializeField] SpriteRenderer m_MainServiceAreaCloth;
         [SerializeField] SpriteRenderer m_OrderSymbol;
         [SerializeField] List<MainServiceAreaClothInfo> m_MainServiceAreaClothsInfo;
         [SerializeField] PathDirection m_CleaningDirection;
@@ -149,7 +151,7 @@ namespace Isometric.Environment
                 m_Data.Save();
             }
 
-            m_SpriteFillController.SetFillAmount(0);
+            m_MainServiceCleanSpriteFillController.SetFillAmount(0);
             m_CallWorkerUIController.Setup(this);
             m_IsPlayerOrdersLocked = false;
 
@@ -177,7 +179,7 @@ namespace Isometric.Environment
                     m_CustomerHandler.SetupForGameplay();
             }
 
-            m_SpriteFillController.SetFillAmount(0);
+            m_MainServiceCleanSpriteFillController.SetFillAmount(0);
             m_CallWorkerUIController.Setup(this);
             m_IsPlayerOrdersLocked = false;
 
@@ -320,11 +322,11 @@ namespace Isometric.Environment
             // m_CustomerHandler.GetCurrentCustomer().SetMainServiceAnimationState();
             if (hasExtraOrder == false)
             {
-                m_SpriteFillController.StartFill(0, 1, m_WorkerServingDuration);
+                m_MainServiceCleanSpriteFillController.StartFill(0, 1, m_WorkerServingDuration);
             }
             else
             {
-                m_SpriteFillController.StartFill(0, m_BaseWorkerServeFill, m_WorkerServingDuration);
+                m_MainServiceCleanSpriteFillController.StartFill(0, m_BaseWorkerServeFill, m_WorkerServingDuration);
             }
 
             CoroutineManager.LateAction(ShowNextOrder, m_WorkerServingDuration);
@@ -438,7 +440,7 @@ namespace Isometric.Environment
                             GlobalEventHolder.OnCoinsCollected?.Invoke(m_PerOrderTipVIP);
                         }
 
-                        m_SpriteFillController.StartFill(fillFrom, fillTo, m_WaitDuration);
+                        m_MainServiceCleanSpriteFillController.StartFill(fillFrom, fillTo, m_WaitDuration);
 
                         GlobalEventHolder.OnCustomerOrderServed?.Invoke();
                         OnCustomerOrderServed?.Invoke();
@@ -487,6 +489,7 @@ namespace Isometric.Environment
                 else if(m_IsSalonChairDirty)
                 {
                     OnMainServiceAreaCleanStart?.Invoke();
+                    m_MainServiceDirtySpriteFillController.StartFill(1f, 0f, m_CleaningDuration);
                     interactable.EngageInteractable(m_CleaningDirection);
                     m_CustomerHandler.DirtyBlanketAnimationHandler.PlayCleaning(() =>
                     {
@@ -496,8 +499,11 @@ namespace Isometric.Environment
                     CoroutineManager.LateAction(() =>
                     {
                         m_IsSalonChairBeingCleaned = false;
-                        m_SpriteFillController.DOKill();
-                        m_SpriteFillController.SetFillAmount(0);
+                        m_MainServiceCleanSpriteFillController.DOKill();
+                        m_MainServiceCleanSpriteFillController.SetFillAmount(0);
+                        m_MainServiceCleanSpriteFillController.SetFillAlphaValue(1f);
+                        m_MainServiceDirtySpriteFillController.SetFillAlphaValue(0f);
+                        m_MainServiceDirtySpriteFillController.SetFillAmount(1);
                         m_IsSalonChairDirty = false;
                         OnMainServiceAreaCleanComplete?.Invoke();
                         m_TaskTrigger.SendTaskResult(TaskResult.Success);
@@ -594,7 +600,6 @@ namespace Isometric.Environment
             m_TotalRevenue = 0;
             m_IsCustomerSitting = false;
 
-
             m_CurrentWorkerServing.GetSortingGroup().enabled = true;
             m_CurrentWorkerServing.transform.SetParent(null);
             m_CurrentWorkerServing.ServeComplete();
@@ -602,6 +607,8 @@ namespace Isometric.Environment
             OnCustomerServeComplete?.Invoke();
             m_CustomerHandler.CustomerLeaves();
             m_IsSalonChairDirty = true;
+            m_MainServiceCleanSpriteFillController.SetFillAlphaValue(0f, m_FillColorChangeDuration);
+            m_MainServiceDirtySpriteFillController.SetFillAlphaValue(1f, m_FillColorChangeDuration);
         }
         
 
@@ -654,7 +661,7 @@ namespace Isometric.Environment
             }
 
             fillFrom = fillFrom < 0 ? 0 : fillFrom;
-            m_SpriteFillController.StartFill(fillFrom, fillTo, 0.1f);
+            m_MainServiceCleanSpriteFillController.StartFill(fillFrom, fillTo, 0.1f);
 
             OnCustomerComesBackAfterLeaveOrder?.Invoke();
         }
@@ -730,7 +737,7 @@ namespace Isometric.Environment
                         GlobalEventHolder.OnCoinsCollected?.Invoke(m_PerOrderTipVIP);
                     }
 
-                    m_SpriteFillController.StartFill(fillFrom, fillTo, m_WaitDuration);
+                    m_MainServiceCleanSpriteFillController.StartFill(fillFrom, fillTo, m_WaitDuration);
                     CoroutineManager.LateAction(ShowNextOrder, m_WaitDuration);
                 }
                 else if (hasBeenServedSomething == true)
