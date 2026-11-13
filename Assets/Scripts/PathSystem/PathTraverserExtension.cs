@@ -16,6 +16,7 @@ namespace Isometric.PathSystem
             public Transform Target;
             public Sequence Sequence;
             public bool ShouldStop = false;
+            public float BaseSpeed = 1f;
         }
 
         private static List<TargetData> s_Targets = new List<TargetData>();
@@ -27,7 +28,7 @@ namespace Isometric.PathSystem
         /// <param name="onComplete"> Called when reaching the last possbile node
         /// Note (it will going to send the last reached node even if the traverse is canceled)
         public static void MoveTarget(Transform target, PathNode nodeA, PathNode nodeB, float speed,
-                                        Action<PathNode, PathNode> onTravelToNode, 
+                                        Action<PathNode, PathNode> onTravelToNode,
                                         Action<PathNode> onComplete)
         {
             if (nodeA.PathController == nodeB.PathController)
@@ -40,6 +41,7 @@ namespace Isometric.PathSystem
                     targetData.Target = target;
                     targetData.Sequence = moveSequence;
                     targetData.ShouldStop = false;
+                    targetData.BaseSpeed = speed;
                     s_Targets.Add(targetData);
 
                     PathController pathController = nodeA.PathController;
@@ -90,7 +92,7 @@ namespace Isometric.PathSystem
             }
             else
             {
-                Debug.LogError($"The nodes do not have the same PathController! -- GameObject: {target.name}");
+                Debug.LogError("The nodes do not have the same PathController!");
             }
         }
 
@@ -115,6 +117,7 @@ namespace Isometric.PathSystem
                     targetData.Target = target;
                     targetData.Sequence = moveSequence;
                     targetData.ShouldStop = false;
+                    targetData.BaseSpeed = speed;
                     s_Targets.Add(targetData);
 
                     PathController pathController = nodeA.PathController;
@@ -190,5 +193,35 @@ namespace Isometric.PathSystem
             }
         }
 
+        /// <summary>
+        /// Updates the movement speed of a target that is currently traversing a path.
+        /// Works by rescaling the running DOTween Sequence's timeScale relative to the
+        /// original speed it was started with, so remaining segments (including the one
+        /// currently mid-flight) immediately speed up or slow down - no need to know
+        /// node distances or restart the tween.
+        /// </summary>
+        /// <param name="target">The target whose speed should be updated (same Transform passed to MoveTarget)</param>
+        /// <param name="newSpeed">The new speed, in the same units used for the original MoveTarget speed param</param>
+        /// <returns>True if a traversing target was found and updated, false otherwise</returns>
+        public static bool SetTargetSpeed(Transform target, float newSpeed)
+        {
+            TargetData targetData = s_Targets.Find((x) => x.Target == target);
+            if (targetData == null)
+            {
+                Debug.LogWarning("Target is not currently traversing a path");
+                return false;
+            }
+
+            if (newSpeed <= 0f)
+            {
+                Debug.LogWarning("New speed must be greater than 0");
+                return false;
+            }
+
+            // timeScale is relative to the speed the sequence's durations were built with.
+            // e.g. if the sequence was built at speed 2 and we want speed 4, timeScale = 2 (twice as fast).
+            targetData.Sequence.timeScale = newSpeed / targetData.BaseSpeed;
+            return true;
+        }
     }
 }

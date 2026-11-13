@@ -170,6 +170,14 @@ namespace Isometric.UI
                 {
                     CameraController.Interactability(true);
                     UIInteractionOn();
+
+                    // Doing so the upgrade popup can re-setup and hold newly unlocked or upgraded workers UI too
+                    if(s_Instance.m_WorkerUIManager.HasNextWorkerAndWorkerOrderUnlocked || s_Instance.m_WorkerUIManager.HasNextWorkerQuanityUpgraded)
+                    {
+                        s_Instance.m_WorkerUIManager.ResetWorkerUnlockedAndUpgradedStatus();
+                        GetPopup<UpgradePopupUIManager>().Setup();
+                    }
+                    
                     s_Instance.OnMenuShownAfterUpdatables?.Invoke();
                 });
             }

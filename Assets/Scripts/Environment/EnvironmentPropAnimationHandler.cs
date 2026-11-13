@@ -81,5 +81,6 @@ namespace Isometric.Environment
         Enable,
         Display,
         Sway,
+        Unlock,
     }
 }

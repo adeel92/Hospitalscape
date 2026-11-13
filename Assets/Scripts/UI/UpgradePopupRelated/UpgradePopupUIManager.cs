@@ -110,6 +110,23 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_MapCompleteOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_MapCompleteClosingSequence;
 
+        [Header("---Target Info---")]
+        [SerializeField] GameObject m_TargetInfoPopup;
+        [SerializeField] PlayDoTweenSequence m_TargetInfoPopupOpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_TargetInfoPopupClosingSequence;
+        [SerializeField] ChildResizer m_GoalChildResizer;
+        [SerializeField] GameObject m_GoalPlayButtonObj;
+        [SerializeField] GameObject m_GoalCrossButtonObj;
+        [SerializeField] GameObject m_CoinTargetHolder;
+        [SerializeField] TextMeshProUGUI m_CoinTargetText;
+        [SerializeField] GameObject m_CustomerTargetHolder;
+        [SerializeField] TextMeshProUGUI m_CustomerTargetText;
+        [SerializeField] GameObject m_TimeConstraintHolder;
+        [SerializeField] TextMeshProUGUI m_TimerConstraintText;
+        [SerializeField] GameObject m_CustomerConstraintHolder;
+        [SerializeField] TextMeshProUGUI m_CustomerConstraintText;
+        [SerializeField] GameObject m_DoNotLoseCustomerConstraint;
+
         public Action OnUpgradePopupOpened;
 
 
@@ -295,7 +312,59 @@ namespace Isometric.UI
                 m_PlayLockedButton.SetActive(true);
             }
 
+            SetupTargetGoal();
             ResetScroll();
+        }
+
+        private void SetupTargetGoal()
+        {
+            DataLevel dataLevel = DataManager.GetCurrentDataLevel();
+
+            m_GoalPlayButtonObj.SetActive(false);
+            m_GoalCrossButtonObj.SetActive(true);
+            m_CoinTargetHolder.SetActive(false);
+            m_CustomerTargetHolder.SetActive(false);
+
+            m_TimeConstraintHolder.SetActive(false);
+            m_CustomerConstraintHolder.SetActive(false);
+            m_DoNotLoseCustomerConstraint.SetActive(false);
+
+            if (dataLevel != null)
+            {
+                if (dataLevel.LevelGoal.GoalType == LevelGoalType.CollectCoins)
+                {
+                    m_CoinTargetHolder.SetActive(true);
+                    m_CoinTargetText.text = dataLevel.LevelGoal.NumberCoinsToCollect.ToString();
+                }
+                else if (dataLevel.LevelGoal.GoalType == LevelGoalType.ServeCustomers)
+                {
+                    m_CustomerTargetHolder.SetActive(true);
+                    m_CustomerTargetText.text = dataLevel.LevelGoal.NumberOfCustomersToServe.ToString();
+                }
+
+                foreach (var levelConstraintInfo in dataLevel.LevelConstraintInfos)
+                {
+                    if (levelConstraintInfo.ConstraintType == LevelConstraintType.TimeConstraint
+                        && m_TimeConstraintHolder.activeSelf == false)
+                    {
+                        m_TimeConstraintHolder.SetActive(true);
+                        m_TimerConstraintText.text = levelConstraintInfo.TimeConstraints.FormatTimeMSS();
+                    }
+                    else if (levelConstraintInfo.ConstraintType == LevelConstraintType.NumberOfCustomers
+                        && m_CustomerConstraintHolder.activeSelf == false)
+                    {
+                        m_CustomerConstraintHolder.SetActive(true);
+                        m_CustomerConstraintText.text = levelConstraintInfo.NumberOfCustomers.FormatNumberMB();
+                    }
+                    else if (levelConstraintInfo.ConstraintType == LevelConstraintType.DoNotLoseCustomer
+                        && m_DoNotLoseCustomerConstraint.activeSelf == false)
+                    {
+                        m_DoNotLoseCustomerConstraint.SetActive(true);
+                    }
+                }
+
+                m_GoalChildResizer.Resize();
+            }
         }
 
         public void SetupUpgradeRecommendation(bool shouldScrollFocus)
@@ -700,6 +769,30 @@ namespace Isometric.UI
             m_InfoPopupClosingSequence.PlaySequence(() =>
             {
                 m_InfoPopup.SetActive(false);
+                UIManager.UIInteractionOn();
+            });
+        }
+        #endregion
+
+        #region Target Info Popup
+        public void OpenTargetInfoPopup()
+        {
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            UIManager.UIInteractionOff();
+            m_TargetInfoPopup.SetActive(true);
+            m_TargetInfoPopupOpeningSequence.PlaySequence(() =>
+            {
+                UIManager.UIInteractionOn();
+            });
+        }
+
+        public void CloseTargetInfoPopup()
+        {
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            UIManager.UIInteractionOff();
+            m_TargetInfoPopupClosingSequence.PlaySequence(() =>
+            {
+                m_TargetInfoPopup.SetActive(false);
                 UIManager.UIInteractionOn();
             });
         }

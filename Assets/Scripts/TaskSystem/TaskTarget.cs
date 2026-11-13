@@ -174,6 +174,12 @@ namespace Isometric.TaskSystem
                 tasks.RemoveAt(0);
                 UpdateTasksNumber();
                 m_IsRunningTask = false;
+
+                // mrcHefF
+                if(tasks.Count == 0)
+                {
+                    m_HasStartedFirstTask = false;
+                }
             }
             else
             {

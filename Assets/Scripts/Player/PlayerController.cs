@@ -228,13 +228,14 @@ namespace Isometric.Player
                 OnSpeedBoosterActivated?.Invoke();
                 m_WalkSpeed = m_WalkBoosterSpeed;
                 m_TaskTarget.SetPathTraverseSpeed(m_WalkSpeed);
-
+                PathTraverserExtension.SetTargetSpeed(transform, m_WalkSpeed);
             }
             else
             {
                 OnSpeedBoosterDectivated?.Invoke();
                 m_WalkSpeed = m_DefaultWalkSpeed;
                 m_TaskTarget.SetPathTraverseSpeed(m_WalkSpeed);
+                PathTraverserExtension.SetTargetSpeed(transform, m_WalkSpeed);
             }
         }
 

@@ -55,6 +55,8 @@ namespace Arc
             public float endFadeTweenValue = 1;
             [ShowIf(nameof(tweenType), TweenType.Fade)]
             public bool useForAllChilds = false;
+            [ShowIf(nameof(useForAllChilds), true)]
+            public bool useForAllInactiveChilds = false;
 
             [ShowIf(nameof(tweenType), TweenType.Move, TweenType.Rotate, TweenType.Scale, TweenType.AnchorMove, TweenType.Fade,  TweenType.AnchorSizeDelta)]
             public CallBacksContainer tweenCallBacksContainer;
@@ -80,6 +82,9 @@ namespace Arc
             public UnityEvent Callback;
         }
 
+        /* public bool useSequenceStartDelay = false;
+        [ShowIf(nameof(useSequenceStartDelay), true), Min(0f)]
+        public float sequenceStartDelay = 0.05f; */
         public CallType callType;
         public bool ignoreTimeScale;
         public bool killOnDisable = false;
@@ -100,6 +105,7 @@ namespace Arc
 #endif
 
         Sequence tweenSequence = null;
+        // Tween m_DelayedStartTween;
 
 #if UNITY_EDITOR
         private bool editorPreviewIsRunning;
@@ -136,8 +142,26 @@ namespace Arc
 
         public void PlaySequence()
         {
+            /* if (useSequenceStartDelay && sequenceStartDelay > 0f)
+            {
+                Stop();
+
+                m_DelayedStartTween = DOVirtual.DelayedCall(
+                    sequenceStartDelay,
+                    OnDelayedStartCompleted,
+                    ignoreTimeScale
+                );
+                return;
+            } */
+
             PlaySequence(null);
         }
+
+        /* private void OnDelayedStartCompleted()
+        {
+            m_DelayedStartTween = null;
+            PlaySequence(null);
+        } */
 
         public Sequence PlaySequence(Action onComplete)
         {
@@ -293,13 +317,17 @@ namespace Arc
 
         public void Stop()
         {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
                 StopEditorPreview(false, true);
                 return;
             }
-#endif
+        #endif
+
+            /* m_DelayedStartTween?.Kill();
+            m_DelayedStartTween = null; */
+
             KillSequence();
         }
 
@@ -445,7 +473,8 @@ namespace Arc
             {
                 bool hasGraphics = false;
                 bool isFirst = true;
-                foreach (var graphic in target.GetComponentsInChildren<Graphic>())
+                bool useForInactiveChilds = tweenInfo.useForAllInactiveChilds;
+                foreach (var graphic in target.GetComponentsInChildren<Graphic>(useForInactiveChilds))
                 {
                     if (tweenInfo.useStartFadeTweenValue)
                     {
@@ -493,7 +522,7 @@ namespace Arc
                 if (hasGraphics == false)
                 {
                     isFirst = true;
-                    foreach (var spriteRenderer in target.GetComponentsInChildren<SpriteRenderer>())
+                    foreach (var spriteRenderer in target.GetComponentsInChildren<SpriteRenderer>(useForInactiveChilds))
                     {
                         if (tweenInfo.useStartFadeTweenValue)
                         {
@@ -954,6 +983,18 @@ namespace Arc
             string propertyPath = property.propertyPath; // e.g., "tweensInfo.Array.data[0].playFromStartValue"
             string parentPath = propertyPath.Substring(0, propertyPath.LastIndexOf('.')); // Extract parent path
             return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}");
+
+            /* string propertyPath = property.propertyPath;
+            int separatorIndex = propertyPath.LastIndexOf('.');
+
+            // Support top-level properties
+            if (separatorIndex < 0)
+                return property.serializedObject.FindProperty(conditionPath);
+
+            // Support nested properties
+            string parentPath = propertyPath.Substring(0, separatorIndex);
+
+            return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}"); */
         }
 
         private bool ShouldShowField(UnityEditor.SerializedProperty conditionProperty, object[] expectedValues)
@@ -1058,6 +1099,18 @@ namespace Arc
             string propertyPath = property.propertyPath; // e.g., "tweensInfo.Array.data[0].playFromStartValue"
             string parentPath = propertyPath.Substring(0, propertyPath.LastIndexOf('.')); // Extract parent path
             return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}");
+
+            /* string propertyPath = property.propertyPath;
+            int separatorIndex = propertyPath.LastIndexOf('.');
+
+            // Handle top-level properties
+            if (separatorIndex < 0)
+                return property.serializedObject.FindProperty(conditionPath);
+
+            // Handle nested properties
+            string parentPath = propertyPath.Substring(0, separatorIndex);
+
+            return property.serializedObject.FindProperty($"{parentPath}.{conditionPath}"); */
         }
 
         private bool ShouldShowField(UnityEditor.SerializedProperty conditionProperty, object[] expectedValues)

@@ -23,6 +23,7 @@ namespace Isometric.Environment
         const string MetaSetupFoldOut = "---Setup---";
         [SerializeField, Foldout(MetaSetupFoldOut), Expandable] DataStation m_Data;
         [SerializeField, Foldout(MetaSetupFoldOut)] TaskTrigger m_TaskTrigger;
+        [SerializeField, Foldout(MetaSetupFoldOut)] Transform m_TaskNumberGridTransform;
         [SerializeField, Foldout(MetaSetupFoldOut)] List<DataConsumable> m_OrderTypes;
         [SerializeField, Foldout(MetaSetupFoldOut)] List<MainServiceController> m_MainServiceControllers = new();
         [SerializeField, Foldout(MetaSetupFoldOut)] PathDirection m_EngageDirection;
@@ -288,6 +289,10 @@ namespace Isometric.Environment
                 if (interactable.SendDataConsumable(currentDemandedCustomerInfo.CustomerOrderItem, m_CostProperty))
                 {
                     m_TaskProcess = StartCoroutine(TaskProcess(interactable));
+                    /* if(m_TaskNumberGridTransform != null && m_TaskNumberGridTransform.childCount > 0)
+                    {
+                        m_TaskNumberGridTransform.GetChild(0).gameObject.SetActive(false);
+                    } */
                 }
                 else
                 {

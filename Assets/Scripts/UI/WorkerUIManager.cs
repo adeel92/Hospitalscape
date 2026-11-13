@@ -53,6 +53,19 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_NewWorkerPopupClosingSequence;
         [SerializeField] Image m_NewWorkerPopupWorkerImage;
 
+        [Space, SerializeField, ReadOnly] bool m_HasNextWorkerAndWorkerOrderUnlocked = false;
+        [SerializeField, ReadOnly] bool m_HasNextWorkerQuanityUpgraded = false;
+
+        public bool HasNextWorkerAndWorkerOrderUnlocked => m_HasNextWorkerAndWorkerOrderUnlocked;
+        public bool HasNextWorkerQuanityUpgraded => m_HasNextWorkerQuanityUpgraded;
+
+
+        public void ResetWorkerUnlockedAndUpgradedStatus()
+        {
+            m_HasNextWorkerAndWorkerOrderUnlocked = false;
+            m_HasNextWorkerQuanityUpgraded = false;
+        }
+
         public bool CheckNextWorkerAndWorkerOrderUnlockable()
         {
             List<Tuple<Sprite, Sprite, Sprite, Action>> nextWorkerAndAndWorkerUnlockble = m_DataMapUpdate.GetNewWorkerAndWorkerOrderUnlockable();
@@ -71,6 +84,7 @@ namespace Isometric.UI
                 m_NewWorkerAndWorkerOrderUnlockingButton.onClick.AddListener(() =>
                 {
                     callback?.Invoke();
+                    m_HasNextWorkerAndWorkerOrderUnlocked = true;
                     UIManager.HasNextWorkerAndWorkerOrderUnlocked();
                 });
 
@@ -117,6 +131,7 @@ namespace Isometric.UI
                 {
                     m_TickButton.SetActive(false);
                     m_TickButtonUnclickble.SetActive(true);
+                    m_HasNextWorkerQuanityUpgraded = true;
                     return true;
                 }
                 else

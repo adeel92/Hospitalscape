@@ -88,6 +88,8 @@ namespace Isometric.UI
             public PlayDoTweenSequence GoalOpeningSequence;
             public PlayDoTweenSequence GoalClosingSequence;
             public ChildResizer m_GoalChildResizer;
+            public GameObject m_PlayButtonObj;
+            public GameObject m_CrossButtonObj;
 
             [Header("---Target Earn Coins---")]
             public GameObject CoinTargetHolder;
@@ -251,6 +253,8 @@ namespace Isometric.UI
         {
             DataLevel dataLevel = DataManager.GetCurrentDataLevel();
 
+            m_GoalPopupInfo.m_PlayButtonObj.SetActive(true);
+            m_GoalPopupInfo.m_CrossButtonObj.SetActive(false);
             m_GoalPopupInfo.CoinTargetHolder.SetActive(false);
             m_GoalPopupInfo.CustomersTargetHolder.SetActive(false);
             m_GoalPopupInfo.TimeConstraintHolder.SetActive(false);

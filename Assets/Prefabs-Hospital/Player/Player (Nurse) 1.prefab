@@ -1,0 +1,2547 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4740684781038628020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5528633611698903161}
+  - component: {fileID: 4980223426443478794}
+  m_Layer: 0
+  m_Name: SimpleHintTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5528633611698903161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4740684781038628020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 1.72, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4762634901944704234}
+  m_Father: {fileID: 4984833476900618036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4980223426443478794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4740684781038628020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584ec82cb9024a949868eae8ce0701b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HintInfos:
+  - HintKey: 1
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1864960565623560886}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1864960565623560886}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 5
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7302313796318572129}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7302313796318572129}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 6
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4236081637514676745}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4236081637514676745}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 7
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1864428044766573059}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1864428044766573059}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 8
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7341202957018274115}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7341202957018274115}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 9
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117200605077344557}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 117200605077344557}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 10
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1691507430651628760}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1691507430651628760}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 11
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8733194644633544760}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 8733194644633544760}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 12
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3961650993921417607}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3961650993921417607}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 13
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6141767260268798179}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6141767260268798179}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 19
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2596810168307392805}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2596810168307392805}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 20
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6141767260268798179}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6141767260268798179}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 21
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7636746182880238466}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7636746182880238466}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 22
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7693656566024994400}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7693656566024994400}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 23
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7816527341986761958}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7816527341986761958}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 2
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9101558273537229311}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 9101558273537229311}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 3
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1625177874267501443}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1625177874267501443}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 4
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1417958498522190792}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1417958498522190792}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - HintKey: 24
+    DataConsumable: {fileID: 0}
+    HasAnimator: 0
+    Animator: {fileID: 0}
+    AnimatorStateName: 
+    DisableAnimatorOnHide: 1
+    ShowDelay: 0
+    HideDelay: 1.45
+    OnHintShow:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2596810168307392805}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnHintHide:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7486919447442381155}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7886581068799931517}
+          m_TargetAssemblyTypeName: Arc.PlayDoTweenSequence, Assembly-CSharp
+          m_MethodName: PlaySequence
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2596810168307392805}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!1 &7564734642222429915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3940708440963970189}
+  - component: {fileID: 8175134146138811754}
+  m_Layer: 0
+  m_Name: TrayController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3940708440963970189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564734642222429915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4984833476900618036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8175134146138811754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564734642222429915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9187fb2a294904f468872928f56bf3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TraysHandler:
+  - TrayHandler: {fileID: 4530423423641501275}
+  - TrayHandler: {fileID: 3573945109948663486}
+  - TrayHandler: {fileID: 4771534052474856012}
+  - TrayHandler: {fileID: 5918263944874922948}
+  - TrayHandler: {fileID: 8402655717211812541}
+  - TrayHandler: {fileID: 5640730163557556817}
+  - TrayHandler: {fileID: 4957241808580625839}
+  - TrayHandler: {fileID: 3460491950039604430}
+--- !u!1 &8319105014486392471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4984833476900618036}
+  - component: {fileID: 546803771949748257}
+  - component: {fileID: 292868809771183688}
+  - component: {fileID: 5624676387509974311}
+  - component: {fileID: 2435768128969338346}
+  - component: {fileID: 8805562966159790257}
+  m_Layer: 0
+  m_Name: Player (Nurse) 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4984833476900618036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.29, y: 3.93, z: -0.05241761}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3940708440963970189}
+  - {fileID: 65312523221249354}
+  - {fileID: 6158120296533035913}
+  - {fileID: 732971710328191424}
+  - {fileID: 5528633611698903161}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546803771949748257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1b15380bb513846928a016cad21f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Data: {fileID: 11400000, guid: 07dfdb0dff14dc940bb791dce560399e, type: 2}
+  m_TaskTarget: {fileID: 5624676387509974311}
+  m_AnimatorController: {fileID: 292868809771183688}
+  m_TrayController: {fileID: 8175134146138811754}
+  m_SortingGroup: {fileID: 2349057008589509528}
+  m_TaskFailureDelay: 1.65
+  OnPropertyUpgraded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4135750898639071634}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3690620773965368253}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSpeedBoosterActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpeedBoosterDectivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_WalkSpeed: 4
+  m_HoldingCapacity: 1
+  m_WalkBoosterSpeed: 7
+  m_GreetingReactionDelays:
+  - 6.25
+  - 7.25
+  - 8.25
+  m_NoTaskReactionDelay: 7
+--- !u!114 &292868809771183688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3f00a44b003d243b4f2701001fbf9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 6597979190908916979}
+  m_AnimatorStatesInfo:
+  - AnimatorState: 0
+    StateName: StraightIdle
+  - AnimatorState: 1
+    StateName: WhatCanIDo
+  - AnimatorState: 2
+    StateName: UpWalking
+  - AnimatorState: 3
+    StateName: DownWalking
+  - AnimatorState: 4
+    StateName: RightWalking
+  - AnimatorState: 5
+    StateName: LeftWalking
+  - AnimatorState: 6
+    StateName: UpWorking
+  - AnimatorState: 7
+    StateName: TrashThrowDown
+  - AnimatorState: 8
+    StateName: RightWorking
+  - AnimatorState: 9
+    StateName: LeftStartWorking
+  - AnimatorState: 10
+    StateName: WaveHappy
+  - AnimatorState: 11
+    StateName: HappyWon
+  - AnimatorState: 12
+    StateName: SadLost
+  - AnimatorState: 13
+    StateName: WaveNeutral
+  - AnimatorState: 14
+    StateName: StraightIdleWithoutTray
+  m_WalkSpeedMultiplier: 1.65
+--- !u!114 &5624676387509974311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3f53040be4a9a45bc0dac79529de30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Type: 0
+  m_CurrentNode: {fileID: 0}
+  m_PathTraverseSpeed: 2
+  m_Tasks: []
+--- !u!60 &2435768128969338346
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.85}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -0.15234375, y: 0.97265625}
+      - {x: -0.29296875, y: 0.90234375}
+      - {x: -0.40234375, y: 0.79296875}
+      - {x: -0.47265625, y: 0.65234375}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: -0.47265625, y: -0.65234375}
+      - {x: -0.40234375, y: -0.79296875}
+      - {x: -0.29296875, y: -0.90234375}
+      - {x: -0.15234375, y: -0.97265625}
+      - {x: 0, y: -1}
+      - {x: 0.15234375, y: -0.97265625}
+      - {x: 0.29296875, y: -0.90234375}
+      - {x: 0.40234375, y: -0.79296875}
+      - {x: 0.47265625, y: -0.65234375}
+      - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 0.5}
+      - {x: 0.47265625, y: 0.65234375}
+      - {x: 0.40234375, y: 0.79296875}
+      - {x: 0.29296875, y: 0.90234375}
+      - {x: 0.15234375, y: 0.97265625}
+  m_UseDelaunayMesh: 0
+--- !u!114 &8805562966159790257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319105014486392471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5624676387509974311}
+          m_TargetAssemblyTypeName: Isometric.TaskSystem.TaskTarget, Assembly-CSharp
+          m_MethodName: SelectCurrentTaskTarget
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!1001 &4777160224540955421
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4984833476900618036}
+    m_Modifications:
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155686187214216170, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+      propertyPath: m_Name
+      value: CharacterNurse
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+--- !u!4 &65312523221249354 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4801937320987016791, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &2349057008589509528 stripped
+SortingGroup:
+  m_CorrespondingSourceObject: {fileID: 7120867273354313861, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3460491950039604430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8236453638115299283, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3573945109948663486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8345968139135063459, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4530423423641501275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8976991204275203398, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4771534052474856012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 34908503345869137, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4957241808580625839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 468454354488809138, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5640730163557556817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 868077466467332428, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5918263944874922948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1182762638672003289, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &6597979190908916979 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1863182875930134510, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8402655717211812541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3951868209605583264, guid: 67367a94214082d4f9913ef985a4d951, type: 3}
+  m_PrefabInstance: {fileID: 4777160224540955421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f00e88e4a8295e458b31922f32190f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &6543372291941456551
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4984833476900618036}
+    m_Modifications:
+    - target: {fileID: 511891739171372966, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_Name
+      value: UpgradeEffects
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.49885
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.49885
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.49885
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.05241761
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+--- !u!198 &4135750898639071634 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7182003260514874165, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+  m_PrefabInstance: {fileID: 6543372291941456551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6158120296533035913 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1132852832646746414, guid: 993709c9c0cd7fd47b2bd4036e89ccc7, type: 3}
+  m_PrefabInstance: {fileID: 6543372291941456551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7688175496847521054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5528633611698903161}
+    m_Modifications:
+    - target: {fileID: 1103614802660060253, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145855304831196031, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406082558894841126, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512886108332045537, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.05241761
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3635690661234563193, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578491938831291901, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764934747495533795, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_text
+      value: Need this
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798515565327515415, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808935336960286989, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 231
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650548327206556825, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715092450702648371, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8317626848278415133, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726985815535396566, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819231969054507566, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_Name
+      value: DialogHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952074465936443037, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9001365280761956815, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+--- !u!1 &117200605077344557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7715092450702648371, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417958498522190792 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8726985815535396566, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1625177874267501443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8952074465936443037, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1691507430651628760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9063656886109862342, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1864428044766573059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8317626848278415133, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1864960565623560886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8309221721105231784, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2596810168307392805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5672384849695003707, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3961650993921417607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6650548327206556825, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4236081637514676745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5798515565327515415, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4762634901944704234 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2930055365775059444, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6141767260268798179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4578491938831291901, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7302313796318572129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1145855304831196031, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7341202957018274115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1103614802660060253, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7486919447442381155 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 961240827633413245, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2de2c303a052f4c9e3581db95f187c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7636746182880238466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 237229324649950876, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7693656566024994400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 32854520466770814, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7816527341986761958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 488641475879025144, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7886581068799931517 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 559327419330625891, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2de2c303a052f4c9e3581db95f187c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8733194644633544760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1406082558894841126, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9101558273537229311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1512886108332045537, guid: 750511de0b89fdb44aa5dbb4c756cf46, type: 3}
+  m_PrefabInstance: {fileID: 7688175496847521054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8904807432192599098
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4984833476900618036}
+    m_Modifications:
+    - target: {fileID: 5119467933098489697, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_Name
+      value: UpgradAudioSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.02353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.02353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.02353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.05241761
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+--- !u!4 &732971710328191424 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8194355378412887546, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+  m_PrefabInstance: {fileID: 8904807432192599098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3690620773965368253 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5234171383750799239, guid: 516b42ebc58614047973f1ff07b25e05, type: 3}
+  m_PrefabInstance: {fileID: 8904807432192599098}
+  m_PrefabAsset: {fileID: 0}
