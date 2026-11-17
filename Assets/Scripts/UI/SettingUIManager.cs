@@ -6,6 +6,7 @@ using Isometric.Data;
 using Isometric.Sound;
 using Arc;
 using UnityEngine.Events;
+using CustomVibrations;
 
 namespace Isometric.UI
 {
@@ -16,11 +17,14 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] SlideButtonUI m_SoundSideButton;
         [SerializeField] SlideButtonUI m_MusicSideButton;
+        [SerializeField] SlideButtonUI m_VibrationSideButton;
 
         private bool m_IsSoundOn;
         private bool m_IsMusicOn;
+        private bool m_IsVibrationOn;
         public bool IsSoundOn => m_IsSoundOn;
         public bool IsMusicOn => m_IsMusicOn;
+        public bool IsVibrationOn => m_IsVibrationOn;
 
 
         public override void Setup()
@@ -31,6 +35,7 @@ namespace Isometric.UI
         {
             m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);   //mrcHefF
             m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);   //mrcHefF
+            m_IsVibrationOn = DataManager.GetBool(VibrationCategory.Vibration.ToString(), true);   //mrcHefF
 
             if(m_IsSoundOn)
             {
@@ -48,6 +53,15 @@ namespace Isometric.UI
             else
             {
                 m_MusicSideButton.SetOff(false);
+            }
+
+            if (m_IsVibrationOn)
+            {
+                m_VibrationSideButton.SetOn(false);
+            }
+            else
+            {
+                m_VibrationSideButton.SetOff(false);
             }
         }
 
@@ -106,6 +120,22 @@ namespace Isometric.UI
             SoundManager.SetMusic(false);
             m_IsMusicOn = false;
             DataManager.SetBool(SoundCategroy.Music.ToString(), m_IsMusicOn);
+        }
+
+        public void SetVibrationOn()
+        {
+            SoundManager.PlaySound(SoundType.ButtonSwitch);
+            VibrationManager.SetVibration(true);
+            m_IsVibrationOn = true;
+            DataManager.SetBool(VibrationCategory.Vibration.ToString(), m_IsVibrationOn);
+        }
+
+        public void SetVibrationOff()
+        {
+            SoundManager.PlaySound(SoundType.ButtonSwitch);
+            VibrationManager.SetVibration(false);
+            m_IsVibrationOn = false;
+            DataManager.SetBool(VibrationCategory.Vibration.ToString(), m_IsVibrationOn);
         }
 
         public void OnResetGameButton()

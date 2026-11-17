@@ -12,9 +12,10 @@ namespace CustomVibrations
         [SerializeField] NiceVibrationsAdapter niceVibrationsAdapter;
 
         [Header("---Settings---")]
-        [SerializeField] bool isVibrationEnabled = true;
+        [SerializeField] bool isVibrationAllowed = true;
 
         private Dictionary<HapticType, HapticConfiguration> hapticConfigurations = new();
+        public static bool IsVibrationOn { get; private set; }
 
 
         private void Awake()
@@ -54,6 +55,21 @@ namespace CustomVibrations
         }
 
         /// <summary>
+        /// Toggle vibration
+        /// </summary>
+        public static void SetVibration(bool value)
+        {
+            if(instance != null)
+            {
+                IsVibrationOn = value;
+            }
+            else
+            {
+                PrintNullInstanceError();
+            }
+        }
+
+        /// <summary>
         /// Play vibration by using the preset haptic values (by NiceVibrations) without any customization.
         /// </summary>
         public static void Play(MoreMountains.NiceVibrations.HapticTypes presetHapticType)
@@ -64,9 +80,15 @@ namespace CustomVibrations
                 return;
             }
 
-            if (!instance.isVibrationEnabled)
+            if (!instance.isVibrationAllowed)
             {
-                Debug.Log($"Vibration is not enabled!", instance); 
+                Debug.Log($"Vibration is not allowed!", instance); 
+                return;
+            }
+
+            if (!IsVibrationOn)
+            {
+                Debug.Log($"Vibration is not toggled on!", instance); 
                 return;
             }
 
@@ -90,9 +112,15 @@ namespace CustomVibrations
                 return;
             }
 
-            if (!instance.isVibrationEnabled)
+            if (!instance.isVibrationAllowed)
             {
                 Debug.Log($"Vibration is not enabled!", instance); 
+                return;
+            }
+
+            if (!IsVibrationOn)
+            {
+                Debug.Log($"Vibration is not toggled on!", instance); 
                 return;
             }
 
@@ -120,27 +148,6 @@ namespace CustomVibrations
             }
         }
 
-        public static void SetVibrationEnabled(bool isEnabled)
-        {
-            if (instance == null)
-            {
-                PrintNullInstanceError();
-                return;
-            }
-
-            instance.isVibrationEnabled = isEnabled;
-        }
-        public static bool IsVibrationEnabled()
-        {
-            if (instance == null)
-            {
-                PrintNullInstanceError();
-                return false;
-            }
-
-            return instance.isVibrationEnabled;
-        }
-
         private static void PrintNullInstanceError()
         {
             Debug.LogWarning("Instance of " + nameof(VibrationManager) + " is null");
@@ -151,5 +158,10 @@ namespace CustomVibrations
             if (instance == this)
                 instance = null;
         }
+    }
+
+    public enum VibrationCategory
+    {
+        Vibration,
     }
 }

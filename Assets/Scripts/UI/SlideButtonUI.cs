@@ -12,9 +12,10 @@ namespace Isometric.UI
     public class SlideButtonUI : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] float m_OnOffDuration;
-        [SerializeField] RectTransform m_Toggle;
+        [SerializeField] RectTransform m_ToggleHolder;
         [SerializeField] Vector2 m_ToggleOnPosition;
         [SerializeField] Vector2 m_ToggleOffPosition;
+        [SerializeField] Image m_ToggleOnImage, m_ToggleOffImage;
         [SerializeField] Image m_Fill;
         [SerializeField] float m_FillOnValue;
         [SerializeField] float m_FillOffValue;
@@ -40,10 +41,12 @@ namespace Isometric.UI
         public void SetOn(bool callEvent = true)
         {
             m_IsOn = true;
-            m_Toggle.DOKill();
-            m_Toggle.DOAnchorPos(m_ToggleOnPosition, m_OnOffDuration);
+            m_ToggleHolder.DOKill();
+            m_ToggleHolder.DOAnchorPos(m_ToggleOnPosition, m_OnOffDuration);
             m_Fill.DOKill();
             m_Fill.DOFillAmount(m_FillOnValue, m_OnOffDuration);
+            m_ToggleOnImage.DOKill();
+            m_ToggleOnImage.DOFade(1f, m_OnOffDuration);
 
             if(callEvent) OnToggleOn?.Invoke();
         }
@@ -51,10 +54,12 @@ namespace Isometric.UI
         public void SetOff(bool callEvent = true)
         {
             m_IsOn = false;
-            m_Toggle.DOKill();
-            m_Toggle.DOAnchorPos(m_ToggleOffPosition, m_OnOffDuration);
+            m_ToggleHolder.DOKill();
+            m_ToggleHolder.DOAnchorPos(m_ToggleOffPosition, m_OnOffDuration);
             m_Fill.DOKill();
             m_Fill.DOFillAmount(m_FillOffValue, m_OnOffDuration);
+            m_ToggleOnImage.DOKill();
+            m_ToggleOnImage.DOFade(0f, m_OnOffDuration);
 
             if(callEvent) OnToggleOff?.Invoke();
         }

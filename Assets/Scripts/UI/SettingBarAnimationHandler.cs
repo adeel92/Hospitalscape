@@ -62,6 +62,9 @@ public class SettingBarAnimationHandler : MonoBehaviour
             case SettingBarType.Sound:
             return m_SettingsUIManager.IsSoundOn;
 
+            case SettingBarType.Vibration:
+            return m_SettingsUIManager.IsVibrationOn;
+
             default:
             return true;
         }
@@ -80,6 +83,6 @@ public class SettingBarAnimationHandler : MonoBehaviour
 
     public enum SettingBarType
     {
-        Music, Sound
+        Music, Sound, Vibration
     }
 }

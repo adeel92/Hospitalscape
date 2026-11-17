@@ -6,6 +6,7 @@ using Arc;
 using Isometric.Data;
 using Isometric.Sound;
 using TMPro;
+using CustomVibrations;
 
 namespace Isometric.UI
 {
@@ -21,11 +22,13 @@ namespace Isometric.UI
         [SerializeField] TextMeshProUGUI m_LevelText;
         [SerializeField] GameObject m_SoundOffObj;
         [SerializeField] GameObject m_MusicOffObj;
+        [SerializeField] GameObject m_VibrationOffObj;
         [Space, SerializeField] GameObject m_PauseButtonObj;
         [SerializeField] PlayDoTweenSequence m_PauseButtonOpeningSequence; 
         [SerializeField] PlayDoTweenSequence m_PauseButtonClosingSequence;
         private bool m_IsSoundOn;
         private bool m_IsMusicOn;
+        private bool m_IsVibrationOn;
 
         [Header("---Warning---")]
         [SerializeField] GameObject m_WarningPopup;
@@ -40,8 +43,10 @@ namespace Isometric.UI
             m_LevelText.text = "Level " + (DataManager.CurrentMapLevelIndex + 1).ToString();
             m_IsSoundOn = DataManager.GetBool(SoundCategroy.Sound.ToString(), true);
             m_IsMusicOn = DataManager.GetBool(SoundCategroy.Music.ToString(), true);
+            m_IsVibrationOn = DataManager.GetBool(VibrationCategory.Vibration.ToString(), true);
             m_SoundOffObj.SetActive(!m_IsSoundOn);
             m_MusicOffObj.SetActive(!m_IsMusicOn);
+            m_VibrationOffObj.SetActive(!m_IsVibrationOn);
             m_Popup.SetActive(true);
         }
 
@@ -120,6 +125,14 @@ namespace Isometric.UI
             m_MusicOffObj.SetActive(!m_IsMusicOn);
             SoundManager.SetMusic(m_IsMusicOn);
             DataManager.SetBool(SoundCategroy.Music.ToString(), m_IsMusicOn);
+        }
+        public void ToggleVibration()
+        {
+            SoundManager.PlaySound(SoundType.ButtonSwitch);
+            m_IsVibrationOn = !m_IsVibrationOn;
+            m_VibrationOffObj.SetActive(!m_IsVibrationOn);
+            VibrationManager.SetVibration(m_IsVibrationOn);
+            DataManager.SetBool(VibrationCategory.Vibration.ToString(), m_IsVibrationOn);
         }
         #endregion
 
