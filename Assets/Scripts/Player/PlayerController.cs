@@ -173,6 +173,18 @@ namespace Isometric.Player
                 m_SortingGroup.sortingLayerName = sortingGroup.sortingLayerName;
                 m_SortingGroup.sortingOrder = sortingGroup.sortingOrder;
             }
+            else if (node2.TryGetComponent(out PathNodeSortingInfo sortingInfo))
+            {
+                if (sortingInfo.GetSortingLayer(node1) != null)
+                {
+                    m_SortingGroup.sortingLayerName = sortingInfo.GetSortingLayer(node1);
+                }
+
+                if (sortingInfo.GetOrderInLayer(node1) != null)
+                {
+                    m_SortingGroup.sortingOrder = (int)sortingInfo.GetOrderInLayer(node1);
+                }
+            }
             else
             {
                 m_SortingGroup.sortingLayerName = m_DefaultSortingLayer;
