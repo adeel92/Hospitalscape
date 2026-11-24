@@ -22,6 +22,9 @@ namespace Isometric
         public static Action OnMenuEnvironmentHidden;
         
         public static Action<int> OnCoinsCollected;
+        public static Action<int> OnServiceCoinsCollected;
+        public static Action<int> OnOrderCoinsCollected;
+        public static Action<int> OnTipCoinsCollected;
 
         public static Action OnCustomerEntered;
         public static Action OnCustomerServed;

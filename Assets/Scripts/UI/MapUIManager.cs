@@ -28,6 +28,7 @@ namespace Isometric.UI
             public TextMeshProUGUI SelectedLevelText;
             public GameObject Unselected;
             public TextMeshProUGUI UnselectedHeadingText;
+            public TextMeshProUGUI UnselectedLevelText;
             public GameObject ComingSoon;
             public Button SelectButton;
             [AllowNesting, ReadOnly]
@@ -62,35 +63,34 @@ namespace Isometric.UI
             {
                 m_MapPanelsInfo[i].Selected.SetActive(false);
                 m_MapPanelsInfo[i].Unselected.SetActive(false);
-                m_MapPanelsInfo[i].UnselectedHeadingText.gameObject.SetActive(false);
+                // m_MapPanelsInfo[i].UnselectedHeadingText.gameObject.SetActive(false);
                 m_MapPanelsInfo[i].ComingSoon.SetActive(false);
                 m_MapPanelsInfo[i].SelectButton.gameObject.SetActive(false);
 
                 if (m_MapPanelsInfo[i].IsCommingSoon)
                 {
-                    m_MapPanelsInfo[i].Unselected.SetActive(true);
+                    // m_MapPanelsInfo[i].Unselected.SetActive(true);
                     m_MapPanelsInfo[i].ComingSoon.SetActive(true);
                     m_MapPanelsInfo[i].IsUnlocked = false;
                 }
                 else
                 {
+                    int currentLevel = DataManager.CurrentMapTotalLevels <= DataManager.CurrentMapLevelIndex + 1? DataManager.CurrentMapTotalLevels : DataManager.CurrentMapLevelIndex + 1;
+                    int totalLevels = DataManager.CurrentMapTotalLevels;
+
                     if (mapType == m_MapPanelsInfo[i].MapType)
                     {
                         m_MapPanelsInfo[i].Selected.SetActive(true);
                         m_MapPanelsInfo[i].SelectedHeadingText.text = DataManager.GetMapName(mapType);
-                        int currentLevel = DataManager.CurrentMapTotalLevels <= DataManager.CurrentMapLevelIndex + 1? DataManager.CurrentMapTotalLevels : DataManager.CurrentMapLevelIndex + 1;
-                        int totalLevels = DataManager.CurrentMapTotalLevels;
-
                         m_MapPanelsInfo[i].SelectedLevelText.text = currentLevel + "/" + totalLevels;
-
                         m_MapPanelsInfo[i].IsUnlocked = DataManager.IsMapUnlocked(mapType);
-
                         m_MapPanelsInfo[i].SelectButton.gameObject.SetActive(true);
                     }
                     else
                     {
                         m_MapPanelsInfo[i].Unselected.SetActive(true);
                         m_MapPanelsInfo[i].UnselectedHeadingText.text = DataManager.GetMapName(m_MapPanelsInfo[i].MapType);
+                        m_MapPanelsInfo[i].UnselectedLevelText.text = currentLevel + "/" + totalLevels;
                         m_MapPanelsInfo[i].IsUnlocked = DataManager.IsMapUnlocked(m_MapPanelsInfo[i].MapType);
                     }
 

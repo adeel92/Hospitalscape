@@ -24,6 +24,9 @@ namespace Isometric
         [SerializeField, ReadOnly] int m_TargetKey2Counter;
 
         [SerializeField, ReadOnly] int m_CoinsCollectedCounter;
+        [SerializeField, ReadOnly] int m_ServiceCoinsCollectedCounter;
+        [SerializeField, ReadOnly] int m_OrderCoinsCollectedCounter;
+        [SerializeField, ReadOnly] int m_TipCoinsCollectedCounter;
         [SerializeField, ReadOnly] int m_CustomerServedCounter;
         [SerializeField, ReadOnly] int m_CustomerLostCounter;
 
@@ -68,6 +71,9 @@ namespace Isometric
             GlobalEventHolder.OnCustomerLost += OnCustomerLost;
 
             GlobalEventHolder.OnCoinsCollected += OnCoinsCollected;
+            GlobalEventHolder.OnServiceCoinsCollected += OnTreatmentCoinsCollected;
+            GlobalEventHolder.OnOrderCoinsCollected += OnOrderCoinsCollected;
+            GlobalEventHolder.OnTipCoinsCollected += OnTipCoinsCollected;
         }
 
         private void OnDisable()
@@ -78,6 +84,9 @@ namespace Isometric
             GlobalEventHolder.OnCustomerLost -= OnCustomerLost;
 
             GlobalEventHolder.OnCoinsCollected -= OnCoinsCollected;
+            GlobalEventHolder.OnServiceCoinsCollected -= OnTreatmentCoinsCollected;
+            GlobalEventHolder.OnOrderCoinsCollected -= OnOrderCoinsCollected;
+            GlobalEventHolder.OnTipCoinsCollected -= OnTipCoinsCollected;
         }
 
         public static void Setup()
@@ -210,6 +219,27 @@ namespace Isometric
                 }
 
                 m_CoinsCollectedCounter += collectedCoinsTarget;
+            }
+        }
+        private void OnTreatmentCoinsCollected(int collectedCoinsTarget)
+        {
+            if (m_HasGameLost == false && m_HasGameWon == false)
+            {
+                m_ServiceCoinsCollectedCounter += collectedCoinsTarget;
+            }
+        }
+        private void OnOrderCoinsCollected(int collectedCoinsTarget)
+        {
+            if (m_HasGameLost == false && m_HasGameWon == false)
+            {
+                m_OrderCoinsCollectedCounter += collectedCoinsTarget;
+            }
+        }
+        private void OnTipCoinsCollected(int collectedCoinsTarget)
+        {
+            if (m_HasGameLost == false && m_HasGameWon == false)
+            {
+                m_TipCoinsCollectedCounter += collectedCoinsTarget;
             }
         }
 
@@ -492,6 +522,36 @@ namespace Isometric
             }
 
             return s_Instance.m_CoinsCollectedCounter;
+        }
+        public static int GetServiceCollectedCoins()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return 0;
+            }
+
+            return s_Instance.m_ServiceCoinsCollectedCounter;
+        }
+        public static int GetOrderCollectedCoins()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return 0;
+            }
+
+            return s_Instance.m_OrderCoinsCollectedCounter;
+        }
+        public static int GetTipCollectedCoins()
+        {
+            if (s_Instance == null)
+            {
+                PrintNullInstanceError();
+                return 0;
+            }
+
+            return s_Instance.m_TipCoinsCollectedCounter;
         }
 
 

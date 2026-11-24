@@ -9,6 +9,7 @@ using Arc;
 using Isometric.Data;
 using Isometric.Reward;
 using Isometric.Sound;
+using UnityEngine.UI;
 
 namespace Isometric.UI
 {
@@ -21,7 +22,12 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_OpeningSequence;
         [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] string m_OpeningAnimatorState;
+        [SerializeField] TextMeshProUGUI m_LevelText;
         [SerializeField] TextMeshProUGUI m_CoinText;
+        [SerializeField] TextMeshProUGUI m_ServiceCoinText;
+        [SerializeField] TextMeshProUGUI m_OrderCoinText;
+        [SerializeField] TextMeshProUGUI m_TipCoinText;
+        [SerializeField] float m_CountDuration = 0.6f;
         [SerializeField] GameObject m_Key1Holder;
         [SerializeField] GameObject m_Key1;
         [SerializeField] GameObject m_Key2Holder;
@@ -51,6 +57,7 @@ namespace Isometric.UI
         [SerializeField] Vector3 m_CollectableEndSize;
 
         [Header("---Key Collection---")]
+        [SerializeField] Image m_RequiredKeysFillImage;
         [SerializeField] int m_RequiredKeysToOpenChestBoxReward;
         [SerializeField] TextMeshProUGUI m_NumberOfKeysText;
         [SerializeField] string m_OneKeyCollectionAnimatorState;
@@ -74,12 +81,23 @@ namespace Isometric.UI
             SoundManager.StopFadeOut(SoundType.GameMusic1, 0.3f, false);
             SoundManager.PlaySound(SoundType.GameWon, false, false);
 
-            m_VideoRewardText.text = $"+{Mathf.RoundToInt(LevelManager.GetCollectedCoins() * 0.3f)}";
+            // m_VideoRewardText.text = $"+{Mathf.RoundToInt(LevelManager.GetCollectedCoins() * 0.3f)}";
+            m_VideoRewardText.text = "+30%";
             m_VideoButton.gameObject.SetActive(true);
             m_ContinueButton.gameObject.SetActive(true);
 
             m_Popup.SetActive(true);
-            m_CoinText.text = LevelManager.GetCollectedCoins().ToString();
+            m_LevelText.text = (DataManager.CurrentMapLevelIndex + 1).ToString();
+
+            m_CoinText.text = "0";
+            m_ServiceCoinText.text = "0";
+            m_OrderCoinText.text = "0";
+            m_TipCoinText.text = "0";
+
+            /* m_CoinText.text = LevelManager.GetCollectedCoins().ToString();
+            m_ServiceCoinText.text = LevelManager.GetServiceCollectedCoins().ToString();
+            m_OrderCoinText.text = LevelManager.GetOrderCollectedCoins().ToString();
+            m_TipCoinText.text = LevelManager.GetTipCollectedCoins().ToString(); */
 
             m_CoinCurrency.anchoredPosition = m_CoinCurrencyStartPosition;
 
@@ -120,6 +138,55 @@ namespace Isometric.UI
             //     m_OpeningAnimator.enabled = false;
             //     onComplete?.Invoke();
             // });
+        }
+
+        public void UpdateFinalCoinText(bool doCounting)
+        {
+            if (!doCounting)
+            {
+                m_CoinText.text = LevelManager.GetCollectedCoins().ToString();
+                return;
+            }
+
+            int countFrom = 0;
+            int countTo = LevelManager.GetCollectedCoins();
+            m_CoinText.TextCounter(countFrom, countTo, m_CountDuration, CoroutineManager.Instance, false);
+        }
+        public void UpdateServiceCoinText(bool doCounting)
+        {
+            if (!doCounting)
+            {
+                m_ServiceCoinText.text = LevelManager.GetServiceCollectedCoins().ToString();
+                return;
+            }
+
+            int countFrom = 0;
+            int countTo = LevelManager.GetServiceCollectedCoins();
+            m_ServiceCoinText.TextCounter(countFrom, countTo, m_CountDuration, CoroutineManager.Instance, false);
+        }
+        public void UpdateOrderCoinText(bool doCounting)
+        {
+            if (!doCounting)
+            {
+                m_OrderCoinText.text = LevelManager.GetOrderCollectedCoins().ToString();
+                return;
+            }
+
+            int countFrom = 0;
+            int countTo = LevelManager.GetOrderCollectedCoins();
+            m_OrderCoinText.TextCounter(countFrom, countTo, m_CountDuration, CoroutineManager.Instance, false);
+        }
+        public void UpdateTipCoinText(bool doCounting)
+        {
+            if (!doCounting)
+            {
+                m_TipCoinText.text = LevelManager.GetTipCollectedCoins().ToString();
+                return;
+            }
+
+            int countFrom = 0;
+            int countTo = LevelManager.GetTipCollectedCoins();
+            m_TipCoinText.TextCounter(countFrom, countTo, m_CountDuration, CoroutineManager.Instance, false);
         }
 
         public override void ClosePopup(Action onComplete)
@@ -199,13 +266,12 @@ namespace Isometric.UI
             int countTo = LevelManager.GetCollectedCoins() + m_VideoCoins;
             m_CoinText.TextCounter(countFrom, countTo, 0.6f, CoroutineManager.Instance, false);
 
-            Vector3 position = m_ContinueButton.anchoredPosition;
-            position.x = 0;
-            m_ContinueButton.anchoredPosition = position;
+            m_VideoButton.gameObject.SetActive(false);
+            // Vector3 position = m_ContinueButton.anchoredPosition;
+            // position.x = 0;
+            // m_ContinueButton.anchoredPosition = position;
 
             SoundManager.PlaySound(SoundType.Reward);
-
-            m_VideoButton.gameObject.SetActive(false);
         }
 
         private void KeysHandling()
@@ -248,6 +314,9 @@ namespace Isometric.UI
             m_WonPanel.SetActive(false);
             m_CharacterPanel.SetActive(false);
             m_OuterParticles.SetActive(false);
+            float factor = (float)DataManager.KeyCurrency / m_RequiredKeysToOpenChestBoxReward;
+            float fillAmount = Mathf.Clamp(factor, 0f, 1f);
+            m_RequiredKeysFillImage.fillAmount = fillAmount;
         }
 
         private void SetForCollection()

@@ -48,20 +48,23 @@ namespace Isometric.Data
 
                     int numberOfUpgrades = data.PatienceUpgrade.Count;
 
-                    patienceUpgradePanelUI.StepFillBar.SetupBars(numberOfUpgrades);
+                    StepFillBarUI stepFillBarUI = patienceUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(numberOfUpgrades);
+                    stepFillBarUI.SetupBars(numberOfUpgrades);
 
                     if (data.IsUnlocked == true)
                     {
                         int index = data.CurrentUpgradeIndex;
                         if (index >= data.PatienceUpgrade.Count - 1)
                         {
-                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(numberOfUpgrades, true);
+                            stepFillBarUI.SetFillAmount(numberOfUpgrades, true);
+                            stepFillBarUI.SetAlphaAmount(numberOfUpgrades, true);
                             patienceUpgradePanelUI.Tick.SetActive(true);
                             patienceUpgradePanelUI.MaxButton.gameObject.SetActive(true);
                         }
                         else
                         {
-                            patienceUpgradePanelUI.StepFillBar.SetFillAmount(1 + index, true);
+                            stepFillBarUI.SetFillAmount(1 + index, true);
+                            stepFillBarUI.SetAlphaAmount(1 + index, true);
                             patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
 
@@ -140,7 +143,8 @@ namespace Isometric.Data
                     }
                     else
                     {
-                        patienceUpgradePanelUI.StepFillBar.SetFillAmount(0, true);
+                        stepFillBarUI.SetFillAmount(0, true);
+                        stepFillBarUI.SetAlphaAmount(0, true);
                         patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
                         if (patienceUpdateInfo.IsChairPatience)
@@ -238,20 +242,23 @@ namespace Isometric.Data
 
                 int numberOfUpgrades = data.PatienceUpgrade.Count;
 
-                patienceUpgradePanelUI.StepFillBar.SetupBars(numberOfUpgrades);
+                StepFillBarUI stepFillBarUI = patienceUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(numberOfUpgrades);
+                stepFillBarUI.SetupBars(numberOfUpgrades);
 
                 if (data.IsUnlocked == true)
                 {
                     int index = data.CurrentUpgradeIndex;
                     if (index >= data.PatienceUpgrade.Count - 1)
                     {
-                        patienceUpgradePanelUI.StepFillBar.SetFillAmount(numberOfUpgrades);
+                        stepFillBarUI.SetFillAmount(numberOfUpgrades);
+                        stepFillBarUI.SetAlphaAmount(numberOfUpgrades);
                         patienceUpgradePanelUI.Tick.SetActive(true);
                         patienceUpgradePanelUI.MaxButton.gameObject.SetActive(true);
                     }
                     else
                     {
-                        patienceUpgradePanelUI.StepFillBar.SetFillAmount(1 + index);
+                        stepFillBarUI.SetFillAmount(1 + index);
+                        stepFillBarUI.SetAlphaAmount(1 + index);
                         patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
                         if (patienceUpdateInfo.IsChairPatience)
@@ -329,7 +336,8 @@ namespace Isometric.Data
                 }
                 else
                 {
-                    patienceUpgradePanelUI.StepFillBar.SetFillAmount(0);
+                    stepFillBarUI.SetFillAmount(0);
+                    stepFillBarUI.SetAlphaAmount(0);
                     patienceUpgradePanelUI.UpgradeValueText.gameObject.SetActive(true);
 
                     if (patienceUpdateInfo.IsChairPatience)

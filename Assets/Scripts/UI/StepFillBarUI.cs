@@ -10,13 +10,21 @@ namespace Isometric.UI
 {
     public class StepFillBarUI : MonoBehaviour
     {
-        public GameObject SingleBar;
-        public List<GameObject> m_Bars;
+        [SerializeField] bool m_UseBarsPreset = true;
+        [HideIf(nameof(m_UseBarsPreset))] public GameObject SingleBar;
+        [HideIf(nameof(m_UseBarsPreset))] public List<GameObject> m_Bars;
         public List<StepFillBarInfo> BarsInfo;
+        [SerializeField] bool m_UseFillAmount = false, m_UseAlphaAmount = true;
         public float BarFillDuration = 0.25f;
+
 
         public void SetupBars(int numberOfBars)
         {
+            if (m_UseBarsPreset)
+            {
+                return;
+            }
+
             if (SingleBar != null)
             {
                 List<Transform> childrenToDestroy = new List<Transform>();
@@ -62,6 +70,11 @@ namespace Isometric.UI
 
         public void SetFillAmount(int fillAmount, bool doSetupOnly = false)
         {
+            if (!m_UseFillAmount)
+            {
+                return;
+            }
+
             for (int i = 0; i < BarsInfo.Count; i++)
             {
                 BarsInfo[i].Bar.SetActive(true);
@@ -96,6 +109,71 @@ namespace Isometric.UI
                 else
                 {
                     barImage.fillAmount = 0;
+                }
+            }
+            /*for (int i = 0; i < m_Bars.Count; i++)
+            {
+                m_Bars[i].SetActive(i < fillAmount);
+            }*/
+        }
+
+        public void SetAlphaAmount(int fillAmount, bool doSetupOnly = false)
+        {
+            if (!m_UseAlphaAmount)
+            {
+                return;
+            }
+            
+            for (int i = 0; i < BarsInfo.Count; i++)
+            {
+                StepFillBarInfo stepFillBarInfo = BarsInfo[i];
+
+                stepFillBarInfo.Bar.SetActive(true);
+                Image barImage = stepFillBarInfo.BarImage;
+                if(i < fillAmount)
+                {
+                    if (doSetupOnly)
+                    {
+                        Color color = barImage.color;
+                        color.a = 1f;
+                        barImage.color = color;
+                    }
+                    else
+                    {
+                        if(i == fillAmount - 1)
+                        {
+                            int targetIndex = i;
+                            Color color = barImage.color;
+                            color.a = 0f;
+                            barImage.color = color;
+                            barImage.DOFade(1f, BarFillDuration).OnComplete(() =>
+                            {
+                                PlayDoTweenSequence tween = BarsInfo[targetIndex].BarPostActivationTween;
+                                if(tween != null)
+                                {
+                                    tween.PlaySequence();
+                                } 
+                            });
+                        }
+                        else
+                        {
+                            Color color = barImage.color;
+                            color.a = 1f;
+                            barImage.color = color;
+                        }
+                    }
+                    stepFillBarInfo.OnUpgradeDone();
+                }
+                else
+                {
+                    Color color = barImage.color;
+                    color.a = 0f;
+                    barImage.color = color;
+
+                    if (doSetupOnly)
+                    {
+                        stepFillBarInfo.OnNoUpgrade();
+                    }
                 }
             }
             /*for (int i = 0; i < m_Bars.Count; i++)

@@ -81,8 +81,8 @@ namespace Isometric.UI
         [SerializeField] Ease m_ScrollEase;
         [SerializeField] float m_ContentAutoSelectOffset = 50f; // Offset to adjust selection trigger
         [SerializeField] TextMeshProUGUI m_LevelText;
-        [SerializeField] GameObject m_LevelDifficultyHolder;
-        [SerializeField] TextMeshProUGUI m_LevelDifficultyText;
+        /* [SerializeField] GameObject m_LevelDifficultyHolder;
+        [SerializeField] TextMeshProUGUI m_LevelDifficultyText; */
         [SerializeField] GameObject m_PlayButton;
         [SerializeField] GameObject m_PlayLockedButton;
         [SerializeField] List<SideButtonInfo> m_SideButtonsInfo;
@@ -101,7 +101,7 @@ namespace Isometric.UI
         [SerializeField] GameObject m_InfoPopup;
         [SerializeField] PlayDoTweenSequence m_InfoPopupOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_InfoPopupClosingSequence;
-        [SerializeField] TextMeshProUGUI m_InfoHeaderText;
+        // [SerializeField] TextMeshProUGUI m_InfoHeaderText;
         [SerializeField] TextMeshProUGUI m_InfoDiscriptionText;
         [SerializeField] Image m_InfoPreview;
 
@@ -110,13 +110,17 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_MapCompleteOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_MapCompleteClosingSequence;
 
+        [Header("---Worker Upgrade Empty Panel---")]
+        [SerializeField] GameObject m_LockedWorkerUpgradePanelUIPrefab;
+        private GameObject m_LevelDifficultyHolder;
+
         [Header("---Target Info---")]
         [SerializeField] GameObject m_TargetInfoPopup;
         [SerializeField] PlayDoTweenSequence m_TargetInfoPopupOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_TargetInfoPopupClosingSequence;
         [SerializeField] ChildResizer m_GoalChildResizer;
-        [SerializeField] GameObject m_GoalPlayButtonObj;
-        [SerializeField] GameObject m_GoalCrossButtonObj;
+        // [SerializeField] GameObject m_GoalPlayButtonObj;
+        // [SerializeField] GameObject m_GoalCrossButtonObj;
         [SerializeField] GameObject m_CoinTargetHolder;
         [SerializeField] TextMeshProUGUI m_CoinTargetText;
         [SerializeField] GameObject m_CustomerTargetHolder;
@@ -164,7 +168,7 @@ namespace Isometric.UI
             {
                 m_LevelText.text = "Level # " + (DataManager.CurrentMapLevelIndex + 1);
             }
-            m_LevelDifficultyText.text = DataManager.CurrentMapLevelDifficulty.ToString();
+            // m_LevelDifficultyText.text = DataManager.CurrentMapLevelDifficulty.ToString();
 
             m_PlayerUpgradePanelsUI = m_DataMapUpdate.GetAndSetPlayerUpgradePanels(m_PanelHolder);
             foreach (var panel in m_PlayerUpgradePanelsUI)
@@ -206,8 +210,15 @@ namespace Isometric.UI
             }
 
             m_WorkerUpgradePanelsUI = m_DataMapUpdate.GetAndSetWorkerUpgradePanels(m_PanelHolder);
+            int i = 0;
             foreach (var panel in m_WorkerUpgradePanelsUI)
             {
+                if(i == 0)
+                {
+                    panel.IsFirst = true;
+                    i++;
+                }
+
                 if(panel.ShinyEffects.Count > 0)
                 {
                     foreach(ShinyEffectForUGUI shineEffect in panel.ShinyEffects)
@@ -218,6 +229,7 @@ namespace Isometric.UI
                 panel.UpgradePopupUIManager = this;
                 panel.SetupNotification(m_NotificationStaff);
             }
+            SetupWorkerLockedPanel();
 
             m_StationUpgradePanelsUI = m_DataMapUpdate.GetAndSetStationUpgradePanels(m_PanelHolder, StationUpgradeType.StationUpgradeType1);
 
@@ -312,16 +324,40 @@ namespace Isometric.UI
                 m_PlayLockedButton.SetActive(true);
             }
 
+            SetupLevelDifficulty();
             SetupTargetGoal();
             ResetScroll();
+        }
+
+        private void SetupLevelDifficulty()
+        {
+            int numberOfChefsUnlocked = m_WorkerUpgradePanelsUI.Count;
+            int levelDifficulty = DataManager.CurrentMapLevelDifficulty;
+
+            if(m_WorkerUpgradePanelsUI.Count > 0)
+            {
+                WorkerUpgradePanelUI workerPanel = m_WorkerUpgradePanelsUI.Find((x) => x.IsFirst);
+                if(workerPanel  != null)
+                {
+                    m_LevelDifficultyHolder = workerPanel.SetupLevelDifficlty(numberOfChefsUnlocked, levelDifficulty);
+                }
+            }
+        }
+
+        private void SetupWorkerLockedPanel()
+        {
+            if(m_WorkerUpgradePanelsUI.Count < 5)
+            {
+                Instantiate(m_LockedWorkerUpgradePanelUIPrefab, m_PanelHolder);
+            }
         }
 
         private void SetupTargetGoal()
         {
             DataLevel dataLevel = DataManager.GetCurrentDataLevel();
 
-            m_GoalPlayButtonObj.SetActive(false);
-            m_GoalCrossButtonObj.SetActive(true);
+            // m_GoalPlayButtonObj.SetActive(false);
+            // m_GoalCrossButtonObj.SetActive(true);
             m_CoinTargetHolder.SetActive(false);
             m_CustomerTargetHolder.SetActive(false);
 
@@ -430,11 +466,11 @@ namespace Isometric.UI
             SoundManager.PlaySound(SoundType.PopupWhoosh);
             ResetScroll();
             m_Popup.SetActive(true);
+            SetupUpgradeRecommendation(true);
             m_OpeningSequence.PlaySequence(() =>
             {
                 callback?.Invoke();
                 OnUpgradePopupOpened?.Invoke();
-                SetupUpgradeRecommendation(true);
             });
         }
 
@@ -487,6 +523,7 @@ namespace Isometric.UI
             PlayerUpgradePanelUI newPlayerUpgradePanelUI = m_DataMapUpdate.UpgradePlayerProperty(PlayerUpgradeType, playerUpgradePanelUI);
             newPlayerUpgradePanelUI.UpgradePopupUIManager = this;
             m_PlayerUpgradePanelsUI[index] = newPlayerUpgradePanelUI;
+            newPlayerUpgradePanelUI.PlayUpgradeEffect();
             newPlayerUpgradePanelUI.SetupNotification(m_NotificationStaff);
 
             if(newPlayerUpgradePanelUI.ShinyEffects.Count > 0)
@@ -518,6 +555,7 @@ namespace Isometric.UI
             ChairCapacityUpgradePanelUI newChairCapacityUpgradePanelUI = m_DataMapUpdate.UpgradeChairCapacityProperty(chairCapacityUpgradePanelUI);
             newChairCapacityUpgradePanelUI.UpgradePopupUIManager = this;
             m_ChairCapacityUpgradePanelsUI.Add(newChairCapacityUpgradePanelUI);
+            newChairCapacityUpgradePanelUI.PlayUpgradeEffect();
             newChairCapacityUpgradePanelUI.SetupNotification(m_NotificationStaff);
 
             if (shouldRecommendNext)
@@ -535,18 +573,22 @@ namespace Isometric.UI
         }
 
 
-        public void UpgradeWorker(DataWorker dataWorker, WorkerUpgradePanelUI workerUpgradePanelUI, bool shouldRecommendNext)
+        public void UpgradeWorker(DataWorker dataWorker, WorkerUpgradePanelUI workerUpgradePanelUI, bool shouldRecommendNext, bool isFirst)
         {
             m_WorkerUpgradePanelsUI.Remove(workerUpgradePanelUI);
             WorkerUpgradePanelUI newWorkerUpgradePanelUI = m_DataMapUpdate.UpgradeWorkerServingDurationProperty(dataWorker, workerUpgradePanelUI);
             newWorkerUpgradePanelUI.UpgradePopupUIManager = this;
             m_WorkerUpgradePanelsUI.Add(newWorkerUpgradePanelUI);
+            newWorkerUpgradePanelUI.PlayUpgradeEffect();
             newWorkerUpgradePanelUI.SetupNotification(m_NotificationStaff);
+            newWorkerUpgradePanelUI.IsFirst = isFirst;
 
             if (shouldRecommendNext)
             {
                 SetupUpgradeRecommendation(true);
             }
+
+            SetupLevelDifficulty();
 
             if(newWorkerUpgradePanelUI.ShinyEffects.Count > 0)
             {
@@ -601,6 +643,8 @@ namespace Isometric.UI
                 }
             }
 
+            newStationUpgradePanelUI.PlayUpgradeEffect();
+
             if (shouldRecommendNext)
             {
                 SetupUpgradeRecommendation(true);
@@ -621,6 +665,7 @@ namespace Isometric.UI
             PatienceUpgradePanelUI newPatienceUpgradePanelUI = m_DataMapUpdate.UpgradePatienceUpgradePanel(dataPatience, patienceUpgradePanelUI);
             newPatienceUpgradePanelUI.UpgradePopupUIManager = this;
             m_PatienceUpgradePanelsUI.Add(newPatienceUpgradePanelUI);
+            newPatienceUpgradePanelUI.PlayUpgradeEffect();
             newPatienceUpgradePanelUI.SetupNotification(m_NotificationPatience);
 
             if (shouldRecommendNext)
@@ -651,20 +696,20 @@ namespace Isometric.UI
             {
                 if (sideButtonInfo.Type == SideButtonType.Staff)
                 {
-                    // sideButtonInfo.Selected.SetActive(true);
+                    sideButtonInfo.Selected.SetActive(true);    //mrcHefF
                     m_CurrentSelectedSideButton = sideButtonInfo;
                     // m_CurrentSelectedSideButton.UnselectedSequence?.Stop();
                     m_CurrentSelectedSideButton.SelectedSequence?.PlaySequence();
-                    // sideButtonInfo.UnselectedButton.gameObject.SetActive(false);
+                    sideButtonInfo.UnselectedButton.gameObject.SetActive(false);    //mrcHefF
                 }
                 else
                 {
-                    Image selectedBar = sideButtonInfo.Selected.GetComponent<Image>();
+                    /* Image selectedBar = sideButtonInfo.Selected.GetComponent<Image>();
                     selectedBar.color = new Color(selectedBar.color.r, selectedBar.color.g, selectedBar.color.b, 0f);
                     Image selectedBarIcon = sideButtonInfo.Selected.GetComponent<Image>();
-                    selectedBarIcon.color = new Color(selectedBarIcon.color.r, selectedBarIcon.color.g, selectedBarIcon.color.b, 0f);
-                    // sideButtonInfo.Selected.SetActive(false);
-                    // sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                    selectedBarIcon.color = new Color(selectedBarIcon.color.r, selectedBarIcon.color.g, selectedBarIcon.color.b, 0f); */
+                    sideButtonInfo.Selected.SetActive(false);   //mrcHefF
+                    sideButtonInfo.UnselectedButton.gameObject.SetActive(true); //mrcHefF
                     // sideButtonInfo.SelectedSequence?.Stop();
                     // sideButtonInfo.UnselectedSequence?.PlaySequence();
                 }
@@ -676,8 +721,8 @@ namespace Isometric.UI
             SideButtonInfo selectedSideButton = m_SideButtonsInfo[0];
             foreach (var sideButtonInfo in m_SideButtonsInfo)
             {
-                // sideButtonInfo.Selected.SetActive(false);
-                // sideButtonInfo.UnselectedButton.gameObject.SetActive(true);
+                sideButtonInfo.Selected.SetActive(false);   //mrcHefF
+                sideButtonInfo.UnselectedButton.gameObject.SetActive(true); //mrcHefF
                 // sideButtonInfo.UnselectedSequence?.PlaySequence();
                 if (sideButtonInfo.IsVisibleInViewport(m_ScrollRect, m_ContentAutoSelectOffset))
                 {
@@ -685,14 +730,14 @@ namespace Isometric.UI
                 }
             }
 
-            // selectedSideButton.Selected.SetActive(true);
+            selectedSideButton.Selected.SetActive(true);    //mrcHefF
             if(m_CurrentSelectedSideButton != selectedSideButton)
             {
                 m_CurrentSelectedSideButton.UnselectedSequence?.PlaySequence();
                 selectedSideButton.SelectedSequence?.PlaySequence();
                 m_CurrentSelectedSideButton = selectedSideButton;
             }
-            // selectedSideButton.UnselectedButton.gameObject.SetActive(false);
+            selectedSideButton.UnselectedButton.gameObject.SetActive(false);    //mrcHefF
         }
 
         public void ScrollTo(RectTransform target, float xOffset)
@@ -749,7 +794,7 @@ namespace Isometric.UI
         #region InfoPopup
         public void OpenInfoPopup(string headerText, string discriptionText, Sprite previewSprite)
         {
-            m_InfoHeaderText.text = headerText;
+            // m_InfoHeaderText.text = headerText;
             m_InfoDiscriptionText.text = discriptionText;
             m_InfoPreview.sprite = previewSprite;
 

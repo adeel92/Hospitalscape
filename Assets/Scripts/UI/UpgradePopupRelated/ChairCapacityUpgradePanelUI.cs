@@ -29,7 +29,8 @@ namespace Isometric.UI
         public Image PreviewImage;
         public TextMeshProUGUI UpgradeNameText;
         public TextMeshProUGUI UpgradeValueText;
-        public StepFillBarUI StepFillBar;
+        public StepFillBarUIHolder StepFillBarUIHolder;
+        // public StepFillBarUI StepFillBar;
         public Button UpgradeButton;
         public TextMeshProUGUI UpgradeButtonText;
         public GameObject UpgradeButtonCoin;
@@ -80,8 +81,8 @@ namespace Isometric.UI
                 if (DataManager.CoinCurrency >= UpgradeCost)
                 {
                     SoundManager.PlaySound(SoundType.Upgrade);
-                    UpgradeEffect.transform.parent = null;
-                    GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
+                    // UpgradeEffect.transform.parent = null;
+                    // GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
                     GlobalEventHolder.OnCoinCurrencySpendOnUpgrade?.Invoke(UpgradeCost);
                     DataManager.CoinCurrency -= UpgradeCost;
                     DataManager.SaveData();
@@ -97,9 +98,9 @@ namespace Isometric.UI
                 if (DataManager.GemCurrency >= UpgradeCost)
                 {
                     SoundManager.PlaySound(SoundType.Upgrade);
-                    UpgradeEffect.transform.parent = null;
-                    GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
-                    UpgradeEffect.Play();
+                    // UpgradeEffect.transform.parent = null;
+                    // GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
+                    // UpgradeEffect.Play();
                     DataManager.GemCurrency -= UpgradeCost;
                     DataManager.SaveData();
                     UpgradePopupUIManager.UpgradeChairCapacity(this, isRecommended);
@@ -109,6 +110,11 @@ namespace Isometric.UI
                     GeneralPopupUIManager.OpenNotEnoughGemShopPopup();
                 }
             }
+        }
+
+        public void PlayUpgradeEffect()
+        {
+            UpgradeEffect.Play();
         }
 
         public void OnInfoButton()

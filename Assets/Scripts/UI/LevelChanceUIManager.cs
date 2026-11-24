@@ -218,10 +218,10 @@ namespace Isometric.UI
                     m_MoreCustomerChancePopupInfo.CustomerRemaingTarget.text = (goalTargetValue - goalCurrentValue).ToString();
                 }
 
-                m_MoreCustomerChancePopupInfo.VideoChanceDetailText.text = "Add " + m_MoreCustomerChancePopupInfo.VideoAdditionalCustomers + " more Customers to keep playing!";
-                m_MoreCustomerChancePopupInfo.VideoButtonText.text = "+" + m_MoreCustomerChancePopupInfo.VideoAdditionalCustomers.ToString();
+                m_MoreCustomerChancePopupInfo.VideoChanceDetailText.text = "Get " + m_MoreCustomerChancePopupInfo.VideoAdditionalCustomers + " more Patient(s) to keep playing!";
+                // m_MoreCustomerChancePopupInfo.VideoButtonText.text = "+" + m_MoreCustomerChancePopupInfo.VideoAdditionalCustomers.ToString();
 
-                m_MoreCustomerChancePopupInfo.ChanceDetailText.text = "Add " + m_MoreCustomerChancePopupInfo.AdditionalCustomers + " more Customers to keep playing!";
+                m_MoreCustomerChancePopupInfo.ChanceDetailText.text = "Get " + m_MoreCustomerChancePopupInfo.AdditionalCustomers + " more Patient(s) to keep playing!";
                 m_MoreCustomerChancePopupInfo.GemCostText.text = m_MoreCustomerChancePopupInfo.GemCost.ToString();
 
                 m_MoreCustomerChancePopupInfo.Popup.SetActive(true);
@@ -393,7 +393,7 @@ namespace Isometric.UI
             {
                 GeneralPopupUIManager.OpenPurchaseSuccessPopup();
 
-                DataManager.GemCurrency += m_OfferInfo.TotalCoins;
+                DataManager.CoinCurrency += m_OfferInfo.TotalCoins;
                 DataManager.GemCurrency += m_OfferInfo.TotalGems;
                 DataManager.InstanceOrderFillBoosterCount += m_OfferInfo.TotalInstanceOrderFill;
                 DataManager.TimeFrozeBoosterCount += m_OfferInfo.TotalTimeFroze;

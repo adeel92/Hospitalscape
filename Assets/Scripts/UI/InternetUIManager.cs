@@ -1,5 +1,8 @@
 
+using System;
 using System.Collections;
+using Arc;
+using Isometric.Sound;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +17,11 @@ namespace Isometric.UI
         [SerializeField] float m_InternetCheckInterval = 2f;
 
         [Header("---UI---")]
+        [SerializeField] PlayDoTweenSequence m_OpeningSequence;
+        [SerializeField] PlayDoTweenSequence m_ClosingSequence;
         [SerializeField] GameObject m_InternetPopup;
 
+        private bool m_IsPopupOpened;
         private bool m_IsInternetAvailable;
         private Coroutine m_InternetCheckRoutine;
 
@@ -79,14 +85,38 @@ namespace Isometric.UI
 
             if (m_IsInternetAvailable)
             {
-                m_InternetPopup.SetActive(false);
+                ClosePopup(null);
                 Time.timeScale = 1f;
             }
             else
             {
-                m_InternetPopup.SetActive(true);
+                OpenPopup(null);
                 Time.timeScale = 0f;
             }
+        }
+
+        private void OpenPopup(Action onComplete)
+        {
+            m_IsPopupOpened = true;
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            m_InternetPopup.SetActive(true);
+            m_OpeningSequence.PlaySequence(() =>
+            {
+                onComplete?.Invoke();
+            });
+        }
+        private void ClosePopup(Action onComplete)
+        {
+            if(!m_IsPopupOpened)
+                return;
+
+            SoundManager.PlaySound(SoundType.PopupWhoosh);
+            m_ClosingSequence.PlaySequence(() =>
+            {
+                onComplete?.Invoke();
+                m_InternetPopup.SetActive(false);
+                m_IsPopupOpened = false;
+            });
         }
 
         private void OnDestroy()

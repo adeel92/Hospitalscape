@@ -244,6 +244,7 @@ namespace Isometric.Environment
                 }
 
                 GlobalEventHolder.OnCoinsCollected?.Invoke(tipVaue);
+                GlobalEventHolder.OnTipCoinsCollected?.Invoke(tipVaue);
 
 
                 OnCustomerSits?.Invoke();
@@ -316,8 +317,9 @@ namespace Isometric.Environment
 
             CustomerCommonSetting commonSettings = m_CustomerHandler.GetCurrentCustomer().GetCommonSetting();
 
-            m_TotalRevenue += commonSettings.GetBaseRevenue();
-            m_TotalRevenue += workerController.OrderCost;
+            int baseRevenue = commonSettings.GetBaseRevenue() + workerController.OrderCost;
+            m_TotalRevenue += baseRevenue;
+            GlobalEventHolder.OnServiceCoinsCollected?.Invoke(baseRevenue);
 
             // m_CustomerHandler.GetCurrentCustomer().SetMainServiceAnimationState();
             if (hasExtraOrder == false)
@@ -404,6 +406,7 @@ namespace Isometric.Environment
                                 currentOrder.HasBeenServed = true;
                                 hasBeenServedSomething = true;
                                 deliveredOrders.Add(currentOrder.Order);
+                                GlobalEventHolder.OnOrderCoinsCollected?.Invoke(items.Item2);
                             }
                             else
                             {
@@ -589,7 +592,9 @@ namespace Isometric.Environment
             }
 
             // Additional revenue brings revenue that customer has generated after having treatment somewhere else, like reception counter
-            m_TotalRevenue += m_CustomerHandler.GetCurrentCustomer().GetAdditionalRevenue();
+            int additionalRevenue = m_CustomerHandler.GetCurrentCustomer().GetAdditionalRevenue();
+            m_TotalRevenue += additionalRevenue;
+            GlobalEventHolder.OnOrderCoinsCollected?.Invoke(additionalRevenue);
 
             m_RevenuUIController.ShowReveneu(m_TotalRevenue);
 
@@ -690,6 +695,7 @@ namespace Isometric.Environment
         public void AddToRevenue(int revenue)
         {
             m_TotalRevenue += revenue;
+            GlobalEventHolder.OnOrderCoinsCollected?.Invoke(revenue);
         }
 
         //Send orders with costs
@@ -708,6 +714,7 @@ namespace Isometric.Environment
                         {
                             m_TotalRevenue += item.Item2;
                             currentOrder.HasBeenServed = true;
+                            GlobalEventHolder.OnOrderCoinsCollected?.Invoke(item.Item2);
                         }
                         else
                         {

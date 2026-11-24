@@ -8,6 +8,7 @@ using Isometric.Data;
 using Isometric.Sound;
 using Coffee.UIExtensions;
 using UnityEngine.Events;
+using System;
 
 namespace Isometric.UI
 {
@@ -28,6 +29,7 @@ namespace Isometric.UI
         [Space]
         public TextMeshProUGUI HeaderText;
         public Image PanelImage;
+        public Image StandingBaseImage;
         public Image PreviewImage1;
         public Image PreviewImage2;
 
@@ -66,6 +68,20 @@ namespace Isometric.UI
         [ReadOnly]
         public bool IsRecommended = false;
 
+        [ReadOnly]
+        public bool IsFirst = false;
+
+        [Serializable]
+        private class LevelDifficltyInfo
+        {
+            public int NumberOfWorkers;
+            public GameObject Holder;
+            public GameObject DifficltyHolder;
+            public TextMeshProUGUI DifficltyText;
+        }
+
+        [SerializeField] List<LevelDifficltyInfo> m_LevelDifficltyInfos;
+
 
         public DataWorker DataWorker => m_DataWorker;
 
@@ -97,12 +113,12 @@ namespace Isometric.UI
                 if (DataManager.CoinCurrency >= UpgradeCost)
                 {
                     SoundManager.PlaySound(SoundType.Upgrade);
-                    UpgradeEffect.transform.parent = null;
-                    GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
+                    // UpgradeEffect.transform.parent = null;
+                    // GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
                     GlobalEventHolder.OnCoinCurrencySpendOnUpgrade?.Invoke(UpgradeCost);
                     DataManager.CoinCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeWorker(m_DataWorker, this, isRecommended);
+                    UpgradePopupUIManager.UpgradeWorker(m_DataWorker, this, isRecommended, IsFirst);
                 }
                 else
                 {
@@ -114,17 +130,22 @@ namespace Isometric.UI
                 if (DataManager.GemCurrency >= UpgradeCost)
                 {
                     SoundManager.PlaySound(SoundType.Upgrade);
-                    UpgradeEffect.transform.parent = null;
-                    GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
+                    // UpgradeEffect.transform.parent = null;
+                    // GlobalFunctions.PlayParticleWithCallback(CoroutineManager.Instance, UpgradeEffect, () => Destroy(UpgradeEffect.gameObject));
                     DataManager.GemCurrency -= UpgradeCost;
                     DataManager.SaveData();
-                    UpgradePopupUIManager.UpgradeWorker(m_DataWorker, this, isRecommended);
+                    UpgradePopupUIManager.UpgradeWorker(m_DataWorker, this, isRecommended, IsFirst);
                 }
                 else
                 {
                     GeneralPopupUIManager.OpenNotEnoughGemShopPopup();
                 }
             }
+        }
+
+        public void PlayUpgradeEffect()
+        {
+            UpgradeEffect.Play();
         }
 
         public void OnInfoButton()
@@ -142,6 +163,22 @@ namespace Isometric.UI
         {
             OnRecommendationOff?.Invoke();
             IsRecommended = false;
+        }
+
+        public GameObject SetupLevelDifficlty(int numberOfWorkers, int levelDifficulty)
+        {
+            LevelDifficltyInfo levelDifficltyInfo = m_LevelDifficltyInfos.Find((x) => x.NumberOfWorkers == numberOfWorkers);
+            if(levelDifficltyInfo != null)
+            {
+                levelDifficltyInfo.Holder.SetActive(true);
+                levelDifficltyInfo.DifficltyText.text = levelDifficulty.ToString();
+                return levelDifficltyInfo.DifficltyHolder;
+            }
+            else
+            {
+                Debug.LogWarning(typeof(LevelDifficltyInfo) + " is null");
+                return null;
+            }
         }
     }
 }

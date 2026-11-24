@@ -19,6 +19,10 @@ namespace Isometric.UI
         [SerializeField] SlideButtonUI m_MusicSideButton;
         [SerializeField] SlideButtonUI m_VibrationSideButton;
 
+        [Header("---Links---")]
+        [SerializeField] string m_FeedbackEmail = "support@example.com"; // your email
+        [SerializeField] string m_PlayStoreURL = "https://play.google.com/store/apps/details?id=com.fizzyplay.my.happy.hospital.doctor.clinic.games.f2p"; // your Play Store link
+
         private bool m_IsSoundOn;
         private bool m_IsMusicOn;
         private bool m_IsVibrationOn;
@@ -145,6 +149,35 @@ namespace Isometric.UI
             DataManager.DeleteData();
             DataManager.Setup();
             UIManager.RestartGame();
+        }
+
+        public void OnFeedbackButton()
+        {
+            string subject = Uri.EscapeDataString("Game Feedback");
+
+            string deviceInfo = "\n\n___________________\n" +
+                                "Please Do Not Modify This\n\n" +
+                                $"Version: {Application.version}\n" +
+                                $"Device Name: {SystemInfo.deviceName}\n" +
+                                $"Model: {SystemInfo.deviceModel}\n" +
+                                $"OS: {SystemInfo.operatingSystem}\n" +
+                                $"Resolution: {Screen.width} x {Screen.height} @ {Screen.currentResolution.refreshRateRatio.value:F0}Hz\n" +
+                                $"RAM: {SystemInfo.systemMemorySize}\n" +
+                                $"Level: {DataManager.CurrentMapLevelIndex + 1}\n" +
+                                "_________________________\n";
+
+            string defaultUserMessage = "\n"; // Space left for user to type above the info
+            string fullBody = defaultUserMessage + deviceInfo;
+
+            string body = Uri.EscapeDataString(fullBody);
+            string mailto = $"mailto:{m_FeedbackEmail}?subject={subject}&body={body}";
+
+            Application.OpenURL(mailto);
+        }
+
+        public void OnRatingToGooglePlayButton()
+        {
+            Application.OpenURL(m_PlayStoreURL);
         }
 
         public void OnCloseButton()

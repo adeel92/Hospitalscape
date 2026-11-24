@@ -17,9 +17,9 @@ MonoBehaviour:
     PlayerUpgradesInfo:
     - UpgradeType: 0
       PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 4f816a4674e7fbf4cb5076e3bee7a628, type: 3}
-      HeaderText: Tray
-      UpgradeNameText: Tray Size
-      BasePreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+      HeaderText: Tray Slots
+      UpgradeNameText: Add a Slot
+      BasePreviewSprite: {fileID: 21300000, guid: 2265577b1ba7e8b48bdc39945b55c668, type: 3}
       InfoDiscriptionText: Upgrade your tray size to carry more items
       NotifationSeenKey: Notification_Upgrade_Player_0
       PropertyUpgradesInfo:
@@ -27,27 +27,27 @@ MonoBehaviour:
         RequiredCoins: 0
         RequiredGems: 0
         UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+        PreviewSprite: {fileID: 21300000, guid: 2265577b1ba7e8b48bdc39945b55c668, type: 3}
       - UpdateType: 2
         RequiredCoins: 0
         RequiredGems: 0
         UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+        PreviewSprite: {fileID: 21300000, guid: a0d359dadc7d8e1468a9bd9f696d46a0, type: 3}
       - UpdateType: 2
         RequiredCoins: 1600
         RequiredGems: 0
         UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+        PreviewSprite: {fileID: 21300000, guid: 234c3179f411d9c478e90258c0bb6854, type: 3}
       - UpdateType: 2
         RequiredCoins: 2500
         RequiredGems: 0
         UsePreviewSprite: 1
-        PreviewSprite: {fileID: 21300000, guid: ee2bdf12b790dd54db10710be3f76d17, type: 3}
+        PreviewSprite: {fileID: 21300000, guid: 927c86b3b6ca2214fa1826fca5637cd6, type: 3}
     - UpgradeType: 1
       PlayerUpgradePanelUIPrefab: {fileID: 6654541645336724631, guid: 4f816a4674e7fbf4cb5076e3bee7a628, type: 3}
-      HeaderText: Speed
-      UpgradeNameText: Walk Speed
-      BasePreviewSprite: {fileID: 21300000, guid: d7b198cff2d713c419a448debe683b9e, type: 3}
+      HeaderText: Walk Speed
+      UpgradeNameText: Increase Speed
+      BasePreviewSprite: {fileID: 21300000, guid: f336331c0bf15e24a868ab2d698517db, type: 3}
       InfoDiscriptionText: Train you nurse to move faster
       NotifationSeenKey: Notification_Upgrade_Player_1
       PropertyUpgradesInfo:
@@ -81,8 +81,8 @@ MonoBehaviour:
     ShowAfterAndAtLevel: 0
     ChairCapacityUpgradePanelUIPrefab: {fileID: 5545678417985155296, guid: db0144eb87671f54c9ae4e48f3894a75, type: 3}
     HeaderText: Bed
-    BasePreviewSprite: {fileID: 21300000, guid: 17e65c08927a4e94cab56ec4f9598ed2, type: 3}
-    UpgradeNameText: Capacity
+    BasePreviewSprite: {fileID: 21300000, guid: 0f964ba0d6aed3248a8b234194624af8, type: 3}
+    UpgradeNameText: Increase Capacity
     InfoDiscriptionText: Add more beds to serve more patients!
     NotifationSeenKey: Notification_Upgrade_Hospital_Bed_0
     ChairsCapacityUpgrade:
@@ -127,14 +127,16 @@ MonoBehaviour:
       WorkerTypeSprite: {fileID: 21300000, guid: 2e0937ae1a2ec664b91a893495e41275, type: 3}
       UpgradeServingTimeInfo:
         WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
-        HeaderText: Service Time
-        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        HeaderText: Healing Time
+        PanelSprite: {fileID: 21300000, guid: 4f822b78e33160c4694fcd342fd4d873, type: 3}
+        StandingBaseSprite: {fileID: 21300000, guid: 5cb9d30f864ac9043a759da5f472e4f2, type: 3}
         PreviewSprite1: {fileID: 21300000, guid: 520f4186d482c044ca53410f8e11803c, type: 3}
         PreviewSprite2: {fileID: 21300000, guid: d2fb78334d1397046b880f0f425d2562, type: 3}
-        InfoDiscriptionText: When the worker level is lower than the level difficulty,
-          the worker will spend more time serving!
-        WorkerOrderSymbolSprite: {fileID: 21300000, guid: ca5c70a29246b5b408620af4eaf82c20, type: 3}
-        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        LevelSprite: {fileID: 21300000, guid: 0ba9807f443da3e4d88b32ca0f3bb839, type: 3}
+        InfoDiscriptionText: Decrease the treatment duration of your doctor for rapid
+          healing!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: cfe1c9d4f0edd0a44a7359a33bf96c5a, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: dd50bef7897501e44b794389c5b63bbe, type: 3}
         NotifationSeenKey: Notification_Upgrade_Worker_1
         UpgradeServingTimeRangesInfo:
         - LevelDifficultyRangeMin: 1
@@ -482,14 +484,16 @@ MonoBehaviour:
       WorkerTypeSprite: {fileID: 21300000, guid: 2344d79dd6dc4ae459c1435a3ea42047, type: 3}
       UpgradeServingTimeInfo:
         WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
-        HeaderText: Service Time
-        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        HeaderText: Healing Time
+        PanelSprite: {fileID: 21300000, guid: 4f822b78e33160c4694fcd342fd4d873, type: 3}
+        StandingBaseSprite: {fileID: 21300000, guid: 3cb706d35879eee45852946515dda712, type: 3}
         PreviewSprite1: {fileID: 21300000, guid: 219478784fc2cea4f8ecb927130177a7, type: 3}
         PreviewSprite2: {fileID: 21300000, guid: 7701cce617307844591701264e9e6110, type: 3}
-        InfoDiscriptionText: When doctor level is lower than the level difficulty,
-          the doctor will spend more time in treating!
-        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 289a7f9a999f2da498f03117bb2575c3, type: 3}
-        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        LevelSprite: {fileID: 21300000, guid: 1d7bf8d7f5a1be94d89753670deafe5c, type: 3}
+        InfoDiscriptionText: Decrease the treatment duration of your doctor for rapid
+          healing!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: b18588dec6d1cec43adda7a21d1fd9ac, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: dd50bef7897501e44b794389c5b63bbe, type: 3}
         NotifationSeenKey: Notification_Upgrade_Worker_2
         UpgradeServingTimeRangesInfo:
         - LevelDifficultyRangeMin: 1
@@ -837,14 +841,16 @@ MonoBehaviour:
       WorkerTypeSprite: {fileID: 21300000, guid: 650627711d8a83748977f2a5e9006638, type: 3}
       UpgradeServingTimeInfo:
         WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
-        HeaderText: Service Time
-        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        HeaderText: Healing Time
+        PanelSprite: {fileID: 21300000, guid: 4f822b78e33160c4694fcd342fd4d873, type: 3}
+        StandingBaseSprite: {fileID: 21300000, guid: c8106ff16f222be459e6372adf5cffe7, type: 3}
         PreviewSprite1: {fileID: 21300000, guid: 537afb9fe1c849149b257092b3bf6150, type: 3}
         PreviewSprite2: {fileID: 21300000, guid: 111b2c08cd0588d45a21e84e053279cd, type: 3}
-        InfoDiscriptionText: When the worker level is lower than the level difficulty,
-          the worker will spend more time serving!
-        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 5180d80edab238d48b4962a7d4ae87f4, type: 3}
-        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        LevelSprite: {fileID: 21300000, guid: b306fa622af317741b1be92dadba5063, type: 3}
+        InfoDiscriptionText: Decrease the treatment duration of your doctor for rapid
+          healing!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 236109f9e19484249a937d21f00d6892, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: dd50bef7897501e44b794389c5b63bbe, type: 3}
         NotifationSeenKey: Notification_Upgrade_Worker_3
         UpgradeServingTimeRangesInfo:
         - LevelDifficultyRangeMin: 1
@@ -1192,14 +1198,16 @@ MonoBehaviour:
       WorkerTypeSprite: {fileID: 21300000, guid: 4747d1e3401b10341850e2bef2928b1b, type: 3}
       UpgradeServingTimeInfo:
         WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
-        HeaderText: Service Time
-        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        HeaderText: Healing Time
+        PanelSprite: {fileID: 21300000, guid: 4f822b78e33160c4694fcd342fd4d873, type: 3}
+        StandingBaseSprite: {fileID: 21300000, guid: 0501b671eba083d40af6a18908ff7af0, type: 3}
         PreviewSprite1: {fileID: 21300000, guid: ee09f5603b974da4e9a83f33b55cc042, type: 3}
         PreviewSprite2: {fileID: 21300000, guid: c9a01f05502b96245a80d19b7ea289f1, type: 3}
-        InfoDiscriptionText: When the worker level is lower than the level difficulty,
-          the worker will spend more time serving!
-        WorkerOrderSymbolSprite: {fileID: 21300000, guid: 627da12b726199348842d0fb8d95e4f7, type: 3}
-        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        LevelSprite: {fileID: 21300000, guid: 262789e948196d04493b2bad81f524bb, type: 3}
+        InfoDiscriptionText: Decrease the treatment duration of your doctor for rapid
+          healing!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: b8132dbe9218eb84c9bf716c3275cb94, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: dd50bef7897501e44b794389c5b63bbe, type: 3}
         NotifationSeenKey: Notification_Upgrade_Worker_4
         UpgradeServingTimeRangesInfo:
         - LevelDifficultyRangeMin: 1
@@ -1547,14 +1555,16 @@ MonoBehaviour:
       WorkerTypeSprite: {fileID: 21300000, guid: 8e294c840fc69204b804a18c211e1998, type: 3}
       UpgradeServingTimeInfo:
         WorkerUpgradePanelUIPrefab: {fileID: 4748875839853119653, guid: ebf7d64b4796c794995b9667f3198498, type: 3}
-        HeaderText: Service Time
-        PanelSprite: {fileID: 21300000, guid: e80986bd10fb76d46ae9057628325c67, type: 3}
+        HeaderText: Healing Time
+        PanelSprite: {fileID: 21300000, guid: 4f822b78e33160c4694fcd342fd4d873, type: 3}
+        StandingBaseSprite: {fileID: 21300000, guid: b7b114a1d5a060d4e94f95d2a327d4b8, type: 3}
         PreviewSprite1: {fileID: 21300000, guid: cd89809cdc5b8d14998c34170f980402, type: 3}
         PreviewSprite2: {fileID: 21300000, guid: 77c709241140e104eb888211aa7bbec0, type: 3}
-        InfoDiscriptionText: When the worker level is lower than the level difficulty,
-          the worker will spend more time serving!
-        WorkerOrderSymbolSprite: {fileID: 21300000, guid: b9154f035d3b2004fa30b78759775e73, type: 3}
-        UpgradeButtonSprite: {fileID: 21300000, guid: 327439c8f40604f48ad3059359834631, type: 3}
+        LevelSprite: {fileID: 21300000, guid: 2490a6ea9af2b894d9c87b2b2b57689b, type: 3}
+        InfoDiscriptionText: Decrease the treatment duration of your doctor for rapid
+          healing!
+        WorkerOrderSymbolSprite: {fileID: 21300000, guid: d8d6bc6c5e9ce5b40acfb180eac04d1c, type: 3}
+        UpgradeButtonSprite: {fileID: 21300000, guid: dd50bef7897501e44b794389c5b63bbe, type: 3}
         NotifationSeenKey: Notification_Upgrade_Worker_5
         UpgradeServingTimeRangesInfo:
         - LevelDifficultyRangeMin: 1
@@ -1913,8 +1923,8 @@ MonoBehaviour:
     IsUnlockUIRequired: 1
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
-    NameDiscption: Antiviral Injection
-    Discription: Antiviral Injection is available now!
+    NameDiscption: Injection
+    Discription: Injection is available now!
     UnlockingCoinReward: 0
     UnlockingGemReward: 0
     StationUpgradeInfo:
@@ -1922,7 +1932,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Tools Income
       BasePreviewSprite: {fileID: 21300000, guid: 96913bf626a25be468fd88f189f104b1, type: 3}
-      InfoDiscriptionText: Increase the revenue of Tool Machine to earn more coins!
+      InfoDiscriptionText: Increase the income of Medical Tools to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_NormalInjection_RawGauze_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -1985,7 +1995,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Pharmacy
       BasePreviewSprite: {fileID: 21300000, guid: b6bc0457d700cd440b94965b3de341a2, type: 3}
-      InfoDiscriptionText: Increase the capacity and refilling speed of the Pharmacy!
+      InfoDiscriptionText: Increase the capacity and production speed of Pharmacy!
       NotifationSeenKey: Notification_Upgrade_Station_Pharmacy_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2022,7 +2032,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Pharmacy Income
       BasePreviewSprite: {fileID: 21300000, guid: b6bc0457d700cd440b94965b3de341a2, type: 3}
-      InfoDiscriptionText: Increase the revenue of Pharmacy to earn more coins!
+      InfoDiscriptionText: Increase the income of Pharmacy to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_Pharmacy_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2095,7 +2105,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Therapeutic Injection
       BasePreviewSprite: {fileID: 21300000, guid: 10331c1e0ce7e1249a5746b059fc213d, type: 3}
-      InfoDiscriptionText: Decrease the process duration of Therapeutic Injection
+      InfoDiscriptionText: Decrease the production duration of Therapeutic Injection
         Machine!
       NotifationSeenKey: Notification_Upgrade_Station_SpecializedInjection_0
       PropertyUpgradesInfo:
@@ -2133,8 +2143,8 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Therapeutic Income
       BasePreviewSprite: {fileID: 21300000, guid: 10331c1e0ce7e1249a5746b059fc213d, type: 3}
-      InfoDiscriptionText: Increase the revenue of Therapeutic Injection Machine
-        to earn more coins!
+      InfoDiscriptionText: Increase the income of Therapeutic Injection Machine to
+        earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_SpecializedInjection_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2238,7 +2248,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: MRI Income
       BasePreviewSprite: {fileID: 21300000, guid: a93f4cbb78fee3340b67177f2f680432, type: 3}
-      InfoDiscriptionText: Increase the revenue of MRI Treatment to earn more coins!
+      InfoDiscriptionText: Increase the income of MRI Treatment to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_MRI_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2299,7 +2309,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Research Lab
       BasePreviewSprite: {fileID: 21300000, guid: 08aa008000161764ebdc29f9961b80c9, type: 3}
-      InfoDiscriptionText: Increase the research speed of Lab!
+      InfoDiscriptionText: Decrease the research duration of Lab!
       NotifationSeenKey: Notification_Upgrade_Station_BioLab_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2330,7 +2340,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Lab Income
       BasePreviewSprite: {fileID: 21300000, guid: 08aa008000161764ebdc29f9961b80c9, type: 3}
-      InfoDiscriptionText: Increase the revenue of Research Lab to earn more coins!
+      InfoDiscriptionText: Increase the income of Lab to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_BioLab_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2461,9 +2471,9 @@ MonoBehaviour:
     StationUpgradeInfo:
     - UpgradeType: 0
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Report
+      HeaderText: Report Generator
       BasePreviewSprite: {fileID: 21300000, guid: 00f02cd493c1f344395969718e61e583, type: 3}
-      InfoDiscriptionText: Increase the generation speed of Medical Report Machine!
+      InfoDiscriptionText: Decrease the generation duration of Medical Report!
       NotifationSeenKey: Notification_Upgrade_Station_Report_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2500,7 +2510,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Report Income
       BasePreviewSprite: {fileID: 21300000, guid: 00f02cd493c1f344395969718e61e583, type: 3}
-      InfoDiscriptionText: Increase the revenue of Medical Report Machine to earn
+      InfoDiscriptionText: Increase the income of Medical Report Machine to earn
         more coins!
       NotifationSeenKey: Notification_Upgrade_Station_Report_1
       PropertyUpgradesInfo:
@@ -2554,15 +2564,15 @@ MonoBehaviour:
     RequiredStars: 0
     Preview: {fileID: 21300000, guid: 6a8c8832dda0a224db63d092ad9d3d11, type: 3}
     NameDiscption: Diagnostician
-    Discription: Diagnostician Counter is unlocked!
+    Discription: Diagnosis Counter is unlocked!
     UnlockingCoinReward: 0
     UnlockingGemReward: 2
     StationUpgradeInfo:
     - UpgradeType: 0
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
-      HeaderText: Diagnostician
+      HeaderText: Diagnosis Counter
       BasePreviewSprite: {fileID: 21300000, guid: 6a8c8832dda0a224db63d092ad9d3d11, type: 3}
-      InfoDiscriptionText: Increase the diagnosis speed of Receptionist!
+      InfoDiscriptionText: Decrease the diagnosis duration of Diagnostician!
       NotifationSeenKey: Notification_Upgrade_Station_ReceptionArea_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2648,7 +2658,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: Dispenser Income
       BasePreviewSprite: {fileID: 21300000, guid: 8f86bb2f9972bee4c85a105d5982a9d6, type: 3}
-      InfoDiscriptionText: Increase the revenue of Water Dispenser to earn more coins!
+      InfoDiscriptionText: Increase the income of Water Dispenser to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_Water_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2752,7 +2762,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: X-Ray Income
       BasePreviewSprite: {fileID: 21300000, guid: 42e506ea84df7ab4b8ba207d63e8151e, type: 3}
-      InfoDiscriptionText: Increase the revenue of X-Ray Treatment to earn more coins!
+      InfoDiscriptionText: Increase the income of X-Ray Treatment to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_XRay_1
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2849,7 +2859,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: ECG
       BasePreviewSprite: {fileID: 21300000, guid: 4d6f6fa37a1d1e44b87a3330041812f2, type: 3}
-      InfoDiscriptionText: Decrease the treatment duration of Heart Monitoring Machine!
+      InfoDiscriptionText: Decrease the treatment duration of ECG Machine!
       NotifationSeenKey: Notification_Upgrade_Station_ECG_0
       PropertyUpgradesInfo:
       - UpdateType: 2
@@ -2892,8 +2902,7 @@ MonoBehaviour:
       StationUpgradePanelUIPrefab: {fileID: 5467310326686846344, guid: e58b274e70cf0ef4caf9afd070c35cd2, type: 3}
       HeaderText: ECG Income
       BasePreviewSprite: {fileID: 21300000, guid: 4d6f6fa37a1d1e44b87a3330041812f2, type: 3}
-      InfoDiscriptionText: Increase the revenue of Heart Monitoring Machine to earn
-        more coins!
+      InfoDiscriptionText: Increase the revenue of ECG Machine to earn more coins!
       NotifationSeenKey: Notification_Upgrade_Station_ECG_1
       PropertyUpgradesInfo:
       - UpdateType: 2

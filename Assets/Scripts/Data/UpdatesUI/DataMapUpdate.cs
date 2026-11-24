@@ -67,8 +67,10 @@ namespace Isometric.Data
                     currentIndex = playerData.CurrentWalkSpeedIndex + 1;
                 }
 
-                playerUpgradePanelUI.StepFillBar.SetupBars(playerUpgrade.PropertyUpgradesInfo.Count - 1);
-                playerUpgradePanelUI.StepFillBar.SetFillAmount(currentIndex - 1, true);
+                StepFillBarUI stepFillBarUI = playerUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(playerUpgrade.PropertyUpgradesInfo.Count - 1);
+                stepFillBarUI.SetupBars(playerUpgrade.PropertyUpgradesInfo.Count - 1);
+                stepFillBarUI.SetFillAmount(currentIndex - 1, true);
+                stepFillBarUI.SetAlphaAmount(currentIndex - 1, true);
 
                 if (currentIndex < playerUpgrade.PropertyUpgradesInfo.Count)
                 {
@@ -204,8 +206,10 @@ namespace Isometric.Data
                         currentIndex = playerData.CurrentWalkSpeedIndex + 1;
                     }
 
-                    playerUpgradePanelUI.StepFillBar.SetupBars(playerUpgrade.PropertyUpgradesInfo.Count - 1);
-                    playerUpgradePanelUI.StepFillBar.SetFillAmount(currentIndex - 1);
+                    StepFillBarUI stepFillBarUI = playerUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(playerUpgrade.PropertyUpgradesInfo.Count - 1);
+                    stepFillBarUI.SetupBars(playerUpgrade.PropertyUpgradesInfo.Count - 1);
+                    stepFillBarUI.SetFillAmount(currentIndex - 1);
+                    stepFillBarUI.SetAlphaAmount(currentIndex - 1);
 
                     if (currentIndex < playerUpgrade.PropertyUpgradesInfo.Count)
                     {
@@ -438,12 +442,14 @@ namespace Isometric.Data
                         currentUnlockedIndex++;
                     }
 
-                    chairCapacityUpgradePanelUI.StepFillBar.SetupBars(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
+                    StepFillBarUI stepFillBarUI = chairCapacityUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
 
+                    stepFillBarUI.SetupBars(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
 
                     if (currentUnlockedIndex <= chairUpdateInfotem.ChairsCapacityUpgrade.Count - 1)
                     {
-                        chairCapacityUpgradePanelUI.StepFillBar.SetFillAmount(currentUnlockedIndex - alreadyUnocked);
+                        stepFillBarUI.SetFillAmount(currentUnlockedIndex - alreadyUnocked);
+                        stepFillBarUI.SetAlphaAmount(currentUnlockedIndex - alreadyUnocked);
                         chairCapacityUpgradePanelUI.UpgradeButton.gameObject.SetActive(true);
                         chairCapacityUpgradePanelUI.UpgradeNameText.gameObject.SetActive(true);
 
@@ -477,7 +483,8 @@ namespace Isometric.Data
                     }
                     else
                     {
-                        chairCapacityUpgradePanelUI.StepFillBar.SetFillAmount(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
+                        stepFillBarUI.SetFillAmount(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
+                        stepFillBarUI.SetAlphaAmount(chairUpdateInfotem.ChairsCapacityUpgrade.Count - alreadyUnocked);
 
                         chairCapacityUpgradePanelUI.Tick.SetActive(true);
                         chairCapacityUpgradePanelUI.MaxButton.gameObject.SetActive(true);
@@ -798,6 +805,7 @@ namespace Isometric.Data
 
                     workerUpgradePanelUI.HeaderText.text = upgradeServingTimeInfo.HeaderText;
                     workerUpgradePanelUI.PanelImage.sprite = upgradeServingTimeInfo.PanelSprite;
+                    workerUpgradePanelUI.StandingBaseImage.sprite = upgradeServingTimeInfo.StandingBaseSprite;
 
                     workerUpgradePanelUI.PreviewImage1.sprite = upgradeServingTimeInfo.PreviewSprite1;
                     workerUpgradePanelUI.PreviewImage2.sprite = upgradeServingTimeInfo.PreviewSprite2;
@@ -813,7 +821,7 @@ namespace Isometric.Data
                         workerUpgradePanelUI.PreviewImage2.gameObject.SetActive(true);
                     }
 
-                    //workerUpgradePanelUI.LevelImage.sprite = upgradeServingTimeInfo.LevelSprite;
+                    workerUpgradePanelUI.LevelImage.sprite = upgradeServingTimeInfo.LevelSprite;
                     workerUpgradePanelUI.LevelText.text = workerOrderData.WorkerCurrentLevelDifficulty.ToString();
 
                     workerUpgradePanelUI.WorkerOrderSymbolImage.sprite = upgradeServingTimeInfo.WorkerOrderSymbolSprite;
@@ -947,6 +955,7 @@ namespace Isometric.Data
 
                         workerUpgradePanelUI.HeaderText.text = upgradeServingTimeInfo.HeaderText;
                         workerUpgradePanelUI.PanelImage.sprite = upgradeServingTimeInfo.PanelSprite;
+                        workerUpgradePanelUI.StandingBaseImage.sprite = upgradeServingTimeInfo.StandingBaseSprite;
 
                         workerUpgradePanelUI.PreviewImage1.sprite = upgradeServingTimeInfo.PreviewSprite1;
                         workerUpgradePanelUI.PreviewImage2.sprite = upgradeServingTimeInfo.PreviewSprite2;
@@ -962,7 +971,7 @@ namespace Isometric.Data
                             workerUpgradePanelUI.PreviewImage2.gameObject.SetActive(true);
                         }
 
-                        //workerUpgradePanelUI.LevelImage.sprite = upgradeServingTimeInfo.LevelSprite;
+                        workerUpgradePanelUI.LevelImage.sprite = upgradeServingTimeInfo.LevelSprite;
                         workerUpgradePanelUI.LevelText.text = workerOrderData.WorkerCurrentLevelDifficulty.ToString();
 
                         workerUpgradePanelUI.WorkerOrderSymbolImage.sprite = upgradeServingTimeInfo.WorkerOrderSymbolSprite;
@@ -1217,14 +1226,18 @@ namespace Isometric.Data
                                     hasUpgrade = false;
                                 }
 
-                                stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
+                                StepFillBarUI stepFillBarUI = stationUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(totalUpgrade - 1);
+
+                                stepFillBarUI.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(fill, true);
+                                    stepFillBarUI.SetFillAmount(fill, true);
+                                    stepFillBarUI.SetAlphaAmount(fill, true);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1, true);
+                                    stepFillBarUI.SetFillAmount(totalUpgrade - 1, true);
+                                    stepFillBarUI.SetAlphaAmount(totalUpgrade - 1, true);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
@@ -1314,14 +1327,18 @@ namespace Isometric.Data
                                     hasUpgrade = false;
                                 }
 
-                                stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
+                                StepFillBarUI stepFillBarUI = stationUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(totalUpgrade - 1);
+                                
+                                stepFillBarUI.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(upgradeIndex - 1, true);
+                                    stepFillBarUI.SetFillAmount(upgradeIndex - 1, true);
+                                    stepFillBarUI.SetAlphaAmount(upgradeIndex - 1, true);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1, true);
+                                    stepFillBarUI.SetFillAmount(totalUpgrade - 1, true);
+                                    stepFillBarUI.SetAlphaAmount(totalUpgrade - 1, true);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
@@ -1479,14 +1496,18 @@ namespace Isometric.Data
                                     hasUpgrade = false;
                                 }
 
-                                stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
+                                StepFillBarUI stepFillBarUI = stationUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(totalUpgrade - 1);
+
+                                stepFillBarUI.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(fill);
+                                    stepFillBarUI.SetFillAmount(fill);
+                                    stepFillBarUI.SetAlphaAmount(fill);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1);
+                                    stepFillBarUI.SetFillAmount(totalUpgrade - 1);
+                                    stepFillBarUI.SetAlphaAmount(totalUpgrade - 1);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
@@ -1575,14 +1596,18 @@ namespace Isometric.Data
                                     hasUpgrade = false;
                                 }
 
-                                stationUpgradePanelUI.StepFillBar.SetupBars(totalUpgrade - 1);
+                                StepFillBarUI stepFillBarUI = stationUpgradePanelUI.StepFillBarUIHolder.GetTargetFillBarUI(totalUpgrade - 1);
+
+                                stepFillBarUI.SetupBars(totalUpgrade - 1);
                                 if (hasUpgrade)
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(upgradeIndex - 1);
+                                    stepFillBarUI.SetFillAmount(upgradeIndex - 1);
+                                    stepFillBarUI.SetAlphaAmount(upgradeIndex - 1);
                                 }
                                 else
                                 {
-                                    stationUpgradePanelUI.StepFillBar.SetFillAmount(totalUpgrade - 1);
+                                    stepFillBarUI.SetFillAmount(totalUpgrade - 1);
+                                    stepFillBarUI.SetAlphaAmount(totalUpgrade - 1);
                                 }
 
                                 if (hasUpgrade && upgradeIndex < stationUpgradeInfo.PropertyUpgradesInfo.Count)
@@ -2038,8 +2063,10 @@ namespace Isometric.Data
         public WorkerUpgradePanelUI WorkerUpgradePanelUIPrefab;
         public string HeaderText;
         public Sprite PanelSprite;
+        public Sprite StandingBaseSprite;
         public Sprite PreviewSprite1;
         public Sprite PreviewSprite2;
+        public Sprite LevelSprite;
 
         [TextArea]
         public string InfoDiscriptionText;
