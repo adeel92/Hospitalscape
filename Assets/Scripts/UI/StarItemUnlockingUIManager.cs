@@ -22,6 +22,7 @@ namespace Isometric.UI
         [SerializeField] PlayDoTweenSequence m_ChoiceOpeningSequence;
         [SerializeField] PlayDoTweenSequence m_ChoiceClosingSequence;
         [SerializeField] GameObject m_AllItemsUnlockedMessage;
+        [SerializeField] GameObject m_CharacterPanel;
 
         [Header("---Star Use---")]
         [SerializeField] Transform m_StarUseHolder;
@@ -85,6 +86,11 @@ namespace Isometric.UI
                     m_LockButton.SetActive(false);
                     m_UnlockOnButton.gameObject.SetActive(true);
 
+                    if(m_CharacterPanel != null)
+                    {
+                        m_CharacterPanel.SetActive(true);
+                    }
+
                     SetupChoiceButtons(starItemInfo.EnvironmentDecorationData);
                     m_ChoiceApplyButton.onClick.RemoveAllListeners();
                     m_ChoiceApplyButton.onClick.AddListener(
@@ -147,6 +153,10 @@ namespace Isometric.UI
                     m_LockButton.SetActive(true);
                     m_UnlockOnButton.gameObject.SetActive(false);
 
+                    if(m_CharacterPanel != null)
+                    {
+                        m_CharacterPanel.SetActive(false);
+                    }
                     return false;
                 }
             }
@@ -155,6 +165,11 @@ namespace Isometric.UI
                 m_CloseButton.SetActive(true);
                 m_AllItemsUnlockedMessage.SetActive(true);
                 m_StarUnlockingPopup.SetActive(false);
+
+                if(m_CharacterPanel != null)
+                {
+                    m_CharacterPanel.SetActive(false);
+                }
                 return false;
             }
         }

@@ -1799,7 +1799,7 @@ namespace Isometric.Data
 
             foreach (var decorationsUpdateInfo in m_DecorationsUpdateInfo)
             {
-                if (decorationsUpdateInfo.UnlockingOrder < unlockingOrder && decorationsUpdateInfo.UnlockingAtLevelNumber == DataManager.CurrentMapLevelNumber && !decorationsUpdateInfo.Data.EnvironmentDecorationData.IsUnlocked)
+                if (decorationsUpdateInfo.UnlockingOrder < unlockingOrder && /* decorationsUpdateInfo.UnlockingAtLevelNumber == DataManager.CurrentMapLevelNumber && */ !decorationsUpdateInfo.Data.EnvironmentDecorationData.IsUnlocked)
                 {
                     unlockingOrder = decorationsUpdateInfo.UnlockingOrder;
                     toBeUnlockedDecoration = decorationsUpdateInfo;

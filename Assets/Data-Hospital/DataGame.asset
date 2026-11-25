@@ -20,7 +20,7 @@ MonoBehaviour:
     GemCurrency: 0
     StarCurrency: 0
     KeyCurrency: 0
-    HeartCurrency: 4
+    HeartCurrency: 5
     HeartTimeCurrency: 0
     HeartRefillTime: 1800
     CurrentMapType: 0
@@ -39,9 +39,11 @@ MonoBehaviour:
     GeneralData:
       GeneralInfo:
       - Key: HeartCurrency_LastTime
-        Value: 2026-11-20T11:52:50.7826930Z
+        Value: 2026-11-25T16:02:23.4899907Z
       - Key: HeartCurrency_ShouldBeMinusOne
         Value: False
+      - Key: NewCustomer1
+        Value: True
       - Key: Notification_Upgrade_Player_0
         Value: False
       - Key: Notification_Upgrade_Player_1
@@ -93,12 +95,6 @@ MonoBehaviour:
       - Key: Notification_Upgrade_Station_XRay_1
         Value: False
       - Key: Notification_Upgrade_Station_ECG_1
-        Value: False
-      - Key: Notification_Upgrade_Station_Chair_0
-        Value: False
-      - Key: Notification_Upgrade_Station_Television_0
-        Value: False
-      - Key: Notification_Upgrade_Station_BookShelf_0
         Value: False
       - Key: Sound
         Value: True

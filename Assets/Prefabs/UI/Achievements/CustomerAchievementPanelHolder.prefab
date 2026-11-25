@@ -628,6 +628,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 5200659846906158773}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: AtLevelUnlockText
     ComponentType: 4
     GameobjectHolding: {fileID: 0}
@@ -637,6 +638,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 4707016891239775942}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: CoinRewardHolder
     ComponentType: 0
     GameobjectHolding: {fileID: 3196854457538942846}
@@ -646,6 +648,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 0}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: CoinRewardText
     ComponentType: 4
     GameobjectHolding: {fileID: 0}
@@ -655,6 +658,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 4981240013524333494}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: GemRewardHolder
     ComponentType: 0
     GameobjectHolding: {fileID: 9150340242886534275}
@@ -664,6 +668,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 0}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: GemRewardText
     ComponentType: 4
     GameobjectHolding: {fileID: 0}
@@ -673,6 +678,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: LockedButton
     ComponentType: 0
     GameobjectHolding: {fileID: 7279967061947850270}
@@ -682,6 +688,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: ClaimButton
     ComponentType: 5
     GameobjectHolding: {fileID: 0}
@@ -691,6 +698,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 3328813059986519562}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: ClaimedButton
     ComponentType: 0
     GameobjectHolding: {fileID: 8179626221910316601}
@@ -700,6 +708,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: CoinTransform
     ComponentType: 1
     GameobjectHolding: {fileID: 0}
@@ -709,6 +718,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: GemTransfrom
     ComponentType: 1
     GameobjectHolding: {fileID: 0}
@@ -718,6 +728,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 0}
+    AnimatorStatePlayer: {fileID: 0}
   - HoldingType: NotificationMain
     ComponentType: 6
     GameobjectHolding: {fileID: 0}
@@ -727,6 +738,7 @@ MonoBehaviour:
     TextMeshProUGUIHolding: {fileID: 7196481250702696220}
     ButtonHolding: {fileID: 0}
     NotificationMain: {fileID: 7691311667644468924}
+    AnimatorStatePlayer: {fileID: 0}
 --- !u!1 &3196854457538942846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,6 +1940,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5867614293307992290, guid: a40bb41370084dd488c8ba0746ac4102, type: 3}
+      propertyPath: m_EffectMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d37c4afca8784ce9ab899810e29aa9c, type: 2}
+    - target: {fileID: 8454351918372748158, guid: a40bb41370084dd488c8ba0746ac4102, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d37c4afca8784ce9ab899810e29aa9c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1950,6 +1970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemBase
       objectReference: {fileID: 0}
+    - target: {fileID: 1060412621155245770, guid: e427cc03c430a1f4883c245ff8e83797, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d37c4afca8784ce9ab899810e29aa9c, type: 2}
     - target: {fileID: 2654292622821422377, guid: e427cc03c430a1f4883c245ff8e83797, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2030,6 +2054,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5568059408183337506, guid: e427cc03c430a1f4883c245ff8e83797, type: 3}
+      propertyPath: m_EffectMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d37c4afca8784ce9ab899810e29aa9c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -33,9 +33,10 @@ namespace Isometric.UI
         [SerializeField] int m_VideoReward;
         [SerializeField] RectTransform m_RewardButton;
         [SerializeField] TextMeshProUGUI m_RewardButtonText;
+        [SerializeField] float m_FinalCountDuration = 1f;
         [SerializeField] RectTransform m_ContinueButton;
-        [SerializeField] float m_ButtonsScaleDuration;
-        [SerializeField] Ease m_ButtonsScaleEase;
+        // [SerializeField] float m_ButtonsScaleDuration;
+        // [SerializeField] Ease m_ButtonsScaleEase;
 
         [Header("---Currency---")]
         [SerializeField] RectTransform m_CoinCurrency;
@@ -125,10 +126,17 @@ namespace Isometric.UI
 
             // m_RewardButton.gameObject.SetActive(true);
             m_ContinueButton.gameObject.SetActive(true);
-            m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
+            // m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
+            m_CoinText.text = "0";
             int coins = Mathf.RoundToInt(LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier);
             int rewardCoins = coins * m_VideoReward - coins;
-            m_RewardButtonText.text = "+" + rewardCoins;
+            m_RewardButtonText.text = "x3";
+            // m_RewardButtonText.text = "+" + rewardCoins;
+
+            if(coins == 0)
+            {
+                m_RewardButton.gameObject.SetActive(false);
+            }
             m_GameLostPopup.SetActive(true);
             m_OpeningSequence.PlaySequence(() =>
             {
@@ -182,12 +190,25 @@ namespace Isometric.UI
             });
         }
 
+        public void UpdateFinalCoinText(bool doCounting)
+        {
+            if (!doCounting)
+            {
+                m_CoinText.text = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)).ToString();
+                return;
+            }
+
+            int countFrom = 0;
+            int countTo = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier));
+            m_CoinText.TextCounter(countFrom, countTo, m_FinalCountDuration, CoroutineManager.Instance, false);
+        }
+
         public void OnRewardButton()
         {
             m_CoinText.text = (Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)) * m_VideoReward).ToString();
             int countFrom = Mathf.RoundToInt(LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier);
             int countTo = Mathf.RoundToInt((LevelManager.GetCollectedCoins() * m_FailedRewardMultiplier)) * m_VideoReward;
-            m_CoinText.TextCounter(countFrom, countTo, 0.6f, CoroutineManager.Instance, false);
+            m_CoinText.TextCounter(countFrom, countTo, m_FinalCountDuration, CoroutineManager.Instance, false);
             m_HasReward = true;
 
             Vector2 postion = m_ContinueButton.anchoredPosition;

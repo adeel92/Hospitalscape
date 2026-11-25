@@ -10,6 +10,7 @@ using Isometric.Data;
 using Isometric.Reward;
 using Isometric.Sound;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Isometric.UI
 {
@@ -27,6 +28,7 @@ namespace Isometric.UI
         [SerializeField] TextMeshProUGUI m_ServiceCoinText;
         [SerializeField] TextMeshProUGUI m_OrderCoinText;
         [SerializeField] TextMeshProUGUI m_TipCoinText;
+        [SerializeField] float m_FinalCountDuration = 1.25f;
         [SerializeField] float m_CountDuration = 0.6f;
         [SerializeField] GameObject m_Key1Holder;
         [SerializeField] GameObject m_Key1;
@@ -35,6 +37,7 @@ namespace Isometric.UI
         [SerializeField] RectTransform m_ContinueButton;
         [SerializeField] RectTransform m_VideoButton;
         [SerializeField] TextMeshProUGUI m_VideoRewardText;
+        [SerializeField] UnityEvent m_OnVideoRewardAvailed;
         [SerializeField] GameObject m_OuterParticles;
 
         [Header("---Currency---")]
@@ -150,7 +153,7 @@ namespace Isometric.UI
 
             int countFrom = 0;
             int countTo = LevelManager.GetCollectedCoins();
-            m_CoinText.TextCounter(countFrom, countTo, m_CountDuration, CoroutineManager.Instance, false);
+            m_CoinText.TextCounter(countFrom, countTo, m_FinalCountDuration, CoroutineManager.Instance, false);
         }
         public void UpdateServiceCoinText(bool doCounting)
         {
@@ -264,7 +267,8 @@ namespace Isometric.UI
             m_CoinText.text = (LevelManager.GetCollectedCoins() + m_VideoCoins).ToString();
             int countFrom = LevelManager.GetCollectedCoins();
             int countTo = LevelManager.GetCollectedCoins() + m_VideoCoins;
-            m_CoinText.TextCounter(countFrom, countTo, 0.6f, CoroutineManager.Instance, false);
+            m_CoinText.TextCounter(countFrom, countTo, m_FinalCountDuration, CoroutineManager.Instance, false);
+            m_OnVideoRewardAvailed?.Invoke();
 
             m_VideoButton.gameObject.SetActive(false);
             // Vector3 position = m_ContinueButton.anchoredPosition;
